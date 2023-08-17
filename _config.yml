@@ -103,5 +103,7 @@ theme: hexo-theme-matery
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
     type: git
-    repo: git@github.com:William3365/William3365.github.io.git
+    repo:
+        github: git@github.com:William3365/William3365.github.io.git
+        gitee: https://gitee.com/william3365/william3365.git
     branch: main

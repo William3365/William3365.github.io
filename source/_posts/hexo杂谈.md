@@ -33,5 +33,7 @@ tags:
   * 一般主题文件需要重新安装，因为主题文件也是一个git仓库
   * git clone https://github.com/blinkfox/hexo-theme-matery.git
   * 解决：删除主题文件夹中的.git文件夹，这样就可以将主题文件一起上传了
+
+* 多平台部署-国内外分流
   
   
