@@ -6,19 +6,19 @@
 title: Tangfengtao
 subtitle: 'williamm'
 description: '学习-工作'
-keywords: '自新自信自强'
+keywords: '学无止境'
 author: william
 language: zh-CN
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
-permalink: :year/:month/:day/:title/
-permalink_defaults:
-pretty_urls:
-    trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
-    trailing_html: true # Set to false to remove trailing '.html' from permalinks
+# url: http://example.com
+# permalink: :year/:month/:day/:title/
+# permalink_defaults:
+# pretty_urls:
+#     trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
+#     trailing_html: true # Set to false to remove trailing '.html' from permalinks
 
 # Directory
 source_dir: source
@@ -44,14 +44,14 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-    enable: true
+    enable: false
     line_number: true
     auto_detect: false
     tab_replace: ''
     wrap: true
     hljs: false
 prismjs:
-    enable: false
+    enable: true
     preprocess: true
     line_number: true
     tab_replace: ''
@@ -101,9 +101,17 @@ theme: hexo-theme-matery
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
+# 同步到git
 deploy:
     type: git
     repo:
         github: git@github.com:William3365/William3365.github.io.git
         gitee: https://gitee.com/william3365/william3365.git
     branch: main
+
+# hexo-generator-searchdb插件，添加搜索功能
+search:
+    path: search.xml
+    field: post
+    content: true
+    format: html
