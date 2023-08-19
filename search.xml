@@ -63,7 +63,7 @@ Command: <span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 <h3 id="多平台部署-国内外分流"><a href="#多平台部署-国内外分流" class="headerlink" title="多平台部署-国内外分流"></a>多平台部署-国内外分流</h3><ul>
 <li>采用github、gitee，流程差不多，需要注意的是，GitHub可以自动更新，gitee需手动</li>
 <li>书写格式，网上教程很多也很旧，自己多写试试</li>
-<li>协议最好一致，要么都是https，要么都是ssh</li>
+<li>协议问题，github采用ssh协议，gitee采用http协议，别问为什么，问就是踩坑大半天！<pre class="line-numbers language-none"><code class="language-none">    <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 <li>分支最好也一致<pre class="line-numbers language-none"><code class="language-none">deploy:
 type: git 
 repo:
