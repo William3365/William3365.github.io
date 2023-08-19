@@ -62,6 +62,67 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
   </entry>
   <entry>
+    <title>hexo杂谈</title>
+    <url>/2023/08/19/hexo%E6%9D%82%E8%B0%88-1/</url>
+    <content><![CDATA[<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ul>
+<li><p>技术栈 hexo+githubpages+vercel</p>
+</li>
+<li><p>说明</p>
+<ul>
+<li><p>一般hexo+githubpages+vercel搭建，网上有很多教程，本文不做具体描述</p>
+<ul>
+<li><p>搭建<code>http://t.csdn.cn/T7e5I</code></p>
+</li>
+<li><p>优化<code>https://wdstql.github.io/2021/08/03/matery/</code></p>
+</li>
+</ul>
+</li>
+<li><p>本文有以下个注意点：</p>
+<ul>
+<li>常规的hexo+githubpages搭建方法，只是将public下的文件，所以hexo生成的博客文件这只会造成在git托管了博客页面，没有托管源码，不便于我们管理</li>
+<li>本站采用git分支进行管理，利用hexo默认部署的方式，再将blog部署在main分支上然后创建分支，对源码（md文件和其他源文件）进行管理。</li>
+<li>将源码分支下载到本地，并清空分支中的东西，然后将.git文件复制到hexo根目录，即可还是原来的操作，只需再加入git的操作</li>
+</ul>
+</li>
+<li><p>使用</p>
+<blockquote>
+<p>hexo clean 清理<br>hexo new 文章名 新建<br>hexo g 生成页面<br>hexo s 运行<br>hexo d 上传部署  INFO  Deploy done: git 表示成功<br>然后git同步即可</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="杂谈"><a href="#杂谈" class="headerlink" title="杂谈"></a>杂谈</h2><ul>
+<li><p>重新安装hexo</p>
+<ul>
+<li>一般主题文件需要重新安装，因为主题文件也是一个git仓库</li>
+<li>git clone <a href="https://github.com/blinkfox/hexo-theme-matery.git">https://github.com/blinkfox/hexo-theme-matery.git</a></li>
+<li>解决：删除主题文件夹中的.git文件夹，这样就可以将主题文件一起上传了</li>
+</ul>
+</li>
+<li><p>多平台部署-国内外分流</p>
+<ul>
+<li>采用github、gitee，流程差不多，需要注意的是，GitHub可以自动更新，gitee需手动</li>
+<li>书写格式，网上教程很多也很旧，自己多写试试</li>
+<li>协议最好一致，要么都是https，要么都是ssh</li>
+<li>分支最好也一致  <pre class="line-numbers language-none"><code class="language-none">deploy:
+type: git 
+repo:
+    github: git@github.com
+    gitee: git@gitee.com
+branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li><p>本地运行预览正常，部署上线无效果</p>
+<ul>
+<li>可能是浏览器缓存问题，ctrl+F5，强制刷新</li>
+<li>可能是分支问题，尤其是的两个特殊点，1本案例采用的部署一个分支，源码一个分支的方式，2本案例双平台部署存在自动和手动问题。更要注意比如GitHub是main分支，gitee是master分支，这里提供思路就是去比较分支的提交和活跃，就知道代码被提交到哪里了，再看部署选择的是哪一个分支</li>
+</ul>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>github代理问题</title>
     <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</p>
