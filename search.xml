@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>github代理问题</title>
+    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</p>
+<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
+<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
+]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo杂谈</title>
     <url>/2023/08/19/hexo%E6%9D%82%E8%B0%88/</url>
     <content><![CDATA[<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ul>
@@ -25,48 +36,111 @@
 </li>
 <li><p>使用</p>
 <blockquote>
-<p>hexo clean 清理<br>hexo new 文章名 新建<br>hexo g 生成页面<br>hexo s 运行<br>hexo d 上传部署  INFO  Deploy done: git 表示成功<br>然后git同步即可</p>
+<p>hexo clean 清理<br>hexo new xxx 新建文章，hexo new page xxx  新建页面<br>hexo g 生成页面<br>hexo s 运行<br>hexo d 上传部署  INFO  Deploy done: git 表示成功<br>然后git同步即可</p>
 </blockquote>
 </li>
 </ul>
 </li>
 </ul>
-<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><ul>
-<li><p>重新安装hexo</p>
-<ul>
+<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><h3 id="配置admin后台管理系统"><a href="#配置admin后台管理系统" class="headerlink" title="配置admin后台管理系统"></a>配置admin后台管理系统</h3><pre><code>* 不用再md文件里直接写，可以避免很多语法、格式问题
+  <pre class="line-numbers language-none"><code class="language-none">安装：npm install --save hexo-admin
+运行：hexo server -d
+地址：http:&#x2F;&#x2F;localhost:4000&#x2F;admin&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+* 添加用户名密码
+  <pre class="line-numbers language-none"><code class="language-none">根目录_config.yml
+
+admin:
+username:&#x2F;&#x2F;用户名
+password_hash:&#x2F;&#x2F;用户名密码不喜欢的可以不设置，这里通过bcrypt hash
+secret: hey hexo deploy&#x2F;&#x2F;用以cookies安全；
+Command: <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
+<h3 id="重新安装hexo"><a href="#重新安装hexo" class="headerlink" title="重新安装hexo"></a>重新安装hexo</h3><ul>
 <li>一般主题文件需要重新安装，因为主题文件也是一个git仓库</li>
 <li>git clone <a href="https://github.com/blinkfox/hexo-theme-matery.git">https://github.com/blinkfox/hexo-theme-matery.git</a></li>
 <li>解决：删除主题文件夹中的.git文件夹，这样就可以将主题文件一起上传了</li>
 </ul>
-</li>
-<li><p>多平台部署-国内外分流</p>
-<ul>
+<h3 id="多平台部署-国内外分流"><a href="#多平台部署-国内外分流" class="headerlink" title="多平台部署-国内外分流"></a>多平台部署-国内外分流</h3><ul>
 <li>采用github、gitee，流程差不多，需要注意的是，GitHub可以自动更新，gitee需手动</li>
 <li>书写格式，网上教程很多也很旧，自己多写试试</li>
 <li>协议最好一致，要么都是https，要么都是ssh</li>
-<li>分支最好也一致  <pre class="line-numbers language-none"><code class="language-none">deploy:
+<li>分支最好也一致<pre class="line-numbers language-none"><code class="language-none">deploy:
 type: git 
 repo:
     github: git@github.com
     gitee: git@gitee.com
 branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
-</li>
-<li><p>本地运行预览正常，部署上线无效果</p>
-<ul>
+<h3 id="本地运行预览正常，部署上线无效果"><a href="#本地运行预览正常，部署上线无效果" class="headerlink" title="本地运行预览正常，部署上线无效果"></a>本地运行预览正常，部署上线无效果</h3><ul>
 <li>可能是浏览器缓存问题，ctrl+F5，强制刷新</li>
 <li>可能是分支问题，尤其是的两个特殊点，1本案例采用的部署一个分支，源码一个分支的方式，2本案例双平台部署存在自动和手动问题。更要注意比如GitHub是main分支，gitee是master分支，这里提供思路就是去比较分支的提交和活跃，就知道代码被提交到哪里了，再看部署选择的是哪一个分支</li>
 </ul>
-</li>
-</ul>
 ]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
   </entry>
   <entry>
-    <title>github代理问题</title>
-    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</p>
-<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
-<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
+    <title>test3</title>
+    <url>/2023/08/19/test3/</url>
+    <content><![CDATA[<p>333333333333</p>
 ]]></content>
+      <tags>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test1</title>
+    <url>/2023/08/19/test1/</url>
+    <content><![CDATA[<p>11111111111111111</p>
+]]></content>
+      <tags>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test2</title>
+    <url>/2023/08/19/test2/</url>
+    <content><![CDATA[<p>22222222222</p>
+]]></content>
+      <tags>
+        <tag>centos7</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test4</title>
+    <url>/2023/08/19/test4/</url>
+    <content><![CDATA[<p>444444444444</p>
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test5</title>
+    <url>/2023/08/19/test5/</url>
+    <content><![CDATA[<p>5555555555</p>
+]]></content>
+      <tags>
+        <tag>宝塔面板</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test6</title>
+    <url>/2023/08/19/test6/</url>
+    <content><![CDATA[<p>666666666666666</p>
+]]></content>
+      <tags>
+        <tag>复盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test7</title>
+    <url>/2023/08/19/test7/</url>
+    <content><![CDATA[<p>777777777777777777</p>
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
   </entry>
 </search>

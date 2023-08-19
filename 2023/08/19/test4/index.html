@@ -4,17 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="hexo杂谈, 学无止境">
-    <meta name="description" content="搭建
-技术栈 hexo+githubpages+vercel
-
-说明
-
-一般hexo+githubpages+vercel搭建，网上有很多教程，本文不做具体描述
-
-搭建http://t.csdn.cn/T7e5I
-
-优化https://wd">
+    <meta name="keywords" content="test4, 学无止境">
+    <meta name="description" content="444444444444
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -26,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>hexo杂谈 | 豆荚blog</title>
+    <title>test4 | 豆荚blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -231,12 +223,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">hexo杂谈</h1>
+                    <h1 class="description center-align post-title">test4</h1>
                 </div>
             </div>
         </div>
@@ -260,8 +252,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/hexo/">
-                                <span class="chip bg-color">hexo</span>
+                            <a href="/tags/linux/">
+                                <span class="chip bg-color">linux</span>
                             </a>
                         
                     </div>
@@ -290,14 +282,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    682
+                    1
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    1 分
                 </div>
                 
 
@@ -320,67 +312,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ul>
-<li><p>技术栈 hexo+githubpages+vercel</p>
-</li>
-<li><p>说明</p>
-<ul>
-<li><p>一般hexo+githubpages+vercel搭建，网上有很多教程，本文不做具体描述</p>
-<ul>
-<li><p>搭建<code>http://t.csdn.cn/T7e5I</code></p>
-</li>
-<li><p>优化<code>https://wdstql.github.io/2021/08/03/matery/</code></p>
-</li>
-</ul>
-</li>
-<li><p>本文有以下个注意点：</p>
-<ul>
-<li>常规的hexo+githubpages搭建方法，只是将public下的文件，所以hexo生成的博客文件这只会造成在git托管了博客页面，没有托管源码，不便于我们管理</li>
-<li>本站采用git分支进行管理，利用hexo默认部署的方式，再将blog部署在main分支上然后创建分支，对源码（md文件和其他源文件）进行管理。</li>
-<li>将源码分支下载到本地，并清空分支中的东西，然后将.git文件复制到hexo根目录，即可还是原来的操作，只需再加入git的操作</li>
-</ul>
-</li>
-<li><p>使用</p>
-<blockquote>
-<p>hexo clean 清理<br>hexo new xxx 新建文章，hexo new page xxx  新建页面<br>hexo g 生成页面<br>hexo s 运行<br>hexo d 上传部署  INFO  Deploy done: git 表示成功<br>然后git同步即可</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><h3 id="配置admin后台管理系统"><a href="#配置admin后台管理系统" class="headerlink" title="配置admin后台管理系统"></a>配置admin后台管理系统</h3><pre><code>* 不用再md文件里直接写，可以避免很多语法、格式问题
-  <pre class="line-numbers language-none"><code class="language-none">安装：npm install --save hexo-admin
-运行：hexo server -d
-地址：http:&#x2F;&#x2F;localhost:4000&#x2F;admin&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-* 添加用户名密码
-  <pre class="line-numbers language-none"><code class="language-none">根目录_config.yml
-
-admin:
-username:&#x2F;&#x2F;用户名
-password_hash:&#x2F;&#x2F;用户名密码不喜欢的可以不设置，这里通过bcrypt hash
-secret: hey hexo deploy&#x2F;&#x2F;用以cookies安全；
-Command: <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</code></pre>
-<h3 id="重新安装hexo"><a href="#重新安装hexo" class="headerlink" title="重新安装hexo"></a>重新安装hexo</h3><ul>
-<li>一般主题文件需要重新安装，因为主题文件也是一个git仓库</li>
-<li>git clone <a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery.git">https://github.com/blinkfox/hexo-theme-matery.git</a></li>
-<li>解决：删除主题文件夹中的.git文件夹，这样就可以将主题文件一起上传了</li>
-</ul>
-<h3 id="多平台部署-国内外分流"><a href="#多平台部署-国内外分流" class="headerlink" title="多平台部署-国内外分流"></a>多平台部署-国内外分流</h3><ul>
-<li>采用github、gitee，流程差不多，需要注意的是，GitHub可以自动更新，gitee需手动</li>
-<li>书写格式，网上教程很多也很旧，自己多写试试</li>
-<li>协议最好一致，要么都是https，要么都是ssh</li>
-<li>分支最好也一致<pre class="line-numbers language-none"><code class="language-none">deploy:
-type: git 
-repo:
-    github: git@github.com
-    gitee: git@gitee.com
-branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h3 id="本地运行预览正常，部署上线无效果"><a href="#本地运行预览正常，部署上线无效果" class="headerlink" title="本地运行预览正常，部署上线无效果"></a>本地运行预览正常，部署上线无效果</h3><ul>
-<li>可能是浏览器缓存问题，ctrl+F5，强制刷新</li>
-<li>可能是分支问题，尤其是的两个特殊点，1本案例采用的部署一个分支，源码一个分支的方式，2本案例双平台部署存在自动和手动问题。更要注意比如GitHub是main分支，gitee是master分支，这里提供思路就是去比较分支的提交和活跃，就知道代码被提交到哪里了，再看部署选择的是哪一个分支</li>
-</ul>
+                <p>444444444444</p>
 
                 
             </div>
@@ -407,7 +339,7 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/08/19/hexo%E6%9D%82%E8%B0%88/">http://example.com/2023/08/19/hexo%E6%9D%82%E8%B0%88/</a>
+                    <a href="http://example.com/2023/08/19/test4/">http://example.com/2023/08/19/test4/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -445,8 +377,8 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/hexo/">
-                                    <span class="chip bg-color">hexo</span>
+                                <a href="/tags/linux/">
+                                    <span class="chip bg-color">linux</span>
                                 </a>
                             
                         </div>
@@ -821,13 +753,13 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/08/19/test1/">
+                <a href="/2023/08/19/test5/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="test1">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="test5">
                         
-                        <span class="card-title">test1</span>
+                        <span class="card-title">test5</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -851,8 +783,8 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/cmd/">
-                        <span class="chip bg-color">cmd</span>
+                    <a href="/tags/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/">
+                        <span class="chip bg-color">宝塔面板</span>
                     </a>
                     
                 </div>
@@ -866,13 +798,13 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/">
+                <a href="/2023/08/19/test3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="github代理问题">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="test3">
                         
-                        <span class="card-title">github代理问题</span>
+                        <span class="card-title">test3</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -883,7 +815,7 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-19
                             </span>
                         <span class="publish-author">
                             
@@ -896,8 +828,8 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/git/">
-                        <span class="chip bg-color">git</span>
+                    <a href="/tags/windows/">
+                        <span class="chip bg-color">windows</span>
                     </a>
                     
                 </div>
