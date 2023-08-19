@@ -385,7 +385,7 @@ valine:
     visitor: true
     avatar: 'mm' # Gravatar style : mm/identicon/monsterid/wavatar/retro/hide
     pageSize: 10
-    placeholder: '554033828' # Comment Box placeholder
+    placeholder: 554033828 # Comment Box placeholder
     background: /medias/comment_bg.png
     coolpushkey:
 
