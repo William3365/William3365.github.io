@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>github代理问题</title>
-    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</p>
-<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
-<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
-]]></content>
-  </entry>
-  <entry>
     <title>hexo杂谈</title>
     <url>/2023/08/19/hexo%E6%9D%82%E8%B0%88/</url>
     <content><![CDATA[<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ul>
@@ -67,6 +59,14 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 </ul>
 </li>
 </ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>github代理问题</title>
+    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</p>
+<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
+<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
 ]]></content>
   </entry>
 </search>
