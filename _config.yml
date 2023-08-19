@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Tangfengtao
-subtitle: 'williamm'
-description: '学习-工作'
+title: 豆荚blog
+subtitle: '汤冯涛的blog'
+description: '豆荚blog,学习-工作'
 keywords: '学无止境'
 author: william
 language: zh-CN
-timezone: ''
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -62,7 +62,7 @@ prismjs:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
     path: ''
-    per_page: 10
+    per_page: 15
     order_by: -date
 
 # Category & Tag
@@ -105,9 +105,10 @@ theme: hexo-theme-matery
 deploy:
     type: git
     repo:
-        github: git@github.com:William3365/William3365.github.io.git
-        # gitee: https://gitee.com/william3365/william3365.git
-        gitee: git@gitee.com:william3365/william3365.git
+        # github: git@github.com:William3365/William3365.github.io.git
+        github: https://github.com/William3365/William3365.github.io.git
+        gitee: https://gitee.com/william3365/william3365.git
+        # gitee: git@gitee.com:william3365/william3365.git
     branch: master
 
 # hexo-generator-searchdb插件，添加搜索功能

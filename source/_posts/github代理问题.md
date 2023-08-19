@@ -1,7 +1,8 @@
 ---
 title: github代理问题
 date: 2023-08-10 13:22:49
-tags:
+tags:	git
+categories:	
 ---
 
 因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。
