@@ -106,7 +106,7 @@ deploy:
     type: git
     repo:
         github: git@github.com:William3365/William3365.github.io.git
-        gitee: https://gitee.com/william3365/william3365.git
+        # gitee: https://gitee.com/william3365/william3365.git
     branch: master
 
 # hexo-generator-searchdb插件，添加搜索功能
