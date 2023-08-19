@@ -286,14 +286,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    355
+                    565
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -353,10 +353,23 @@
 </ul>
 </li>
 <li><p>多平台部署-国内外分流</p>
+<ul>
+<li>采用github、gitee，流程差不多，需要注意的是，GitHub可以自动更新，gitee需手动</li>
+<li>书写格式，网上教程很多也很旧，自己多写试试</li>
+<li>协议最好一致，要么都是https，要么都是ssh</li>
+<li>分支最好也一致  <pre class="line-numbers language-none"><code class="language-none">deploy:
+type: git 
+repo:
+    github: git@github.com
+    gitee: git@gitee.com
+branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
 </li>
-<li><p>123</p>
-</li>
-<li><p>本地运行预览ok，推送之后，无效果，测试</p>
+<li><p>本地运行预览正常，部署上线无效果</p>
+<ul>
+<li>可能是浏览器缓存问题，ctrl+F5，强制刷新</li>
+<li>可能是分支问题，尤其是的两个特殊点，1本案例采用的部署一个分支，源码一个分支的方式，2本案例双平台部署存在自动和手动问题。更要注意比如GitHub是main分支，gitee是master分支，这里提供思路就是去比较分支的提交和活跃，就知道代码被提交到哪里了，再看部署选择的是哪一个分支</li>
+</ul>
 </li>
 </ul>
 
@@ -1091,7 +1104,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">443</span>
+                        class="white-color">653</span>
             
             
             

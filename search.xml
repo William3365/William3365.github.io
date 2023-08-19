@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>github代理问题</title>
-    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</p>
-<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
-<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
-]]></content>
-  </entry>
-  <entry>
     <title>hexo杂谈</title>
     <url>/2023/08/10/hexo%E6%9D%82%E8%B0%88/</url>
     <content><![CDATA[<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ul>
@@ -48,12 +40,33 @@
 </ul>
 </li>
 <li><p>多平台部署-国内外分流</p>
+<ul>
+<li>采用github、gitee，流程差不多，需要注意的是，GitHub可以自动更新，gitee需手动</li>
+<li>书写格式，网上教程很多也很旧，自己多写试试</li>
+<li>协议最好一致，要么都是https，要么都是ssh</li>
+<li>分支最好也一致  <pre class="line-numbers language-none"><code class="language-none">deploy:
+type: git 
+repo:
+    github: git@github.com
+    gitee: git@gitee.com
+branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
 </li>
-<li><p>123</p>
-</li>
-<li><p>本地运行预览ok，推送之后，无效果，测试</p>
+<li><p>本地运行预览正常，部署上线无效果</p>
+<ul>
+<li>可能是浏览器缓存问题，ctrl+F5，强制刷新</li>
+<li>可能是分支问题，尤其是的两个特殊点，1本案例采用的部署一个分支，源码一个分支的方式，2本案例双平台部署存在自动和手动问题。更要注意比如GitHub是main分支，gitee是master分支，这里提供思路就是去比较分支的提交和活跃，就知道代码被提交到哪里了，再看部署选择的是哪一个分支</li>
+</ul>
 </li>
 </ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>github代理问题</title>
+    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</p>
+<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
+<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
 ]]></content>
   </entry>
 </search>
