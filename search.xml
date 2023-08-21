@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>test2</title>
+    <url>/2023/08/19/centos7/</url>
+    <content><![CDATA[<p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
+<p>&#x3D;&#x3D;&#x3D;》<br>读不到磁盘<br>system steup，system biso，sata setting<br>1、embedded stata AHCI 兼容模式<br>2、write cache enabled 启用</p>
+<p>&#x3D;&#x3D;&#x3D;》<br>报错，Warning: &#x2F;dev&#x2F;root does not exist<br><a href="https://blog.csdn.net/qq_33427869/article/details/126668794">https://blog.csdn.net/qq_33427869/article/details/126668794</a></p>
+<p>分析<br>1.系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别</p>
+<p>解决<br>先查看自己的u盘设备名称，ls &#x2F;dev&#x2F;sd*,一般是sda4（建议blkid查看下类型）<br>选择test安装第二项，然后tab进入编辑，<br>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64”字样更改为“inst.stage2&#x3D;hd:&#x2F;dev&#x2F;sdb4，回车安装即可</p>
+<p>tips<br>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改<br>报错之后，ls查看，blkid查看，记住设备名称<br>reboot重启，<br>按下tab，修改hd：xxxx为设备名称，回车安装即可</p>
+<p>&#x3D;&#x3D;&#x3D;》<br>磁盘空间不足，自定义分区，用-号，删除即可</p>
+]]></content>
+      <tags>
+        <tag>centos7</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test1</title>
+    <url>/2023/08/19/cmd/</url>
+    <content><![CDATA[<p>【网络测试命令】<br>ping——测试网络是否通畅<br>tracert——追踪路由，也可以用来查看网络连通性<br>telnet——查看目的主机ip的端口号是否开放<br>ifconfig——查看本机网络</p>
+<p>【关于路由命令】<br>route print——显示路由，查看网关</p>
+<p>【操作文件命令】<br>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
+<p>【其他常用命令】<br>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
+]]></content>
+      <tags>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>github代理问题</title>
     <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<ul>
@@ -31,6 +58,20 @@ ssh -T git@github.com。还是报错
 ]]></content>
       <tags>
         <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>test4</title>
+    <url>/2023/08/19/linux/</url>
+    <content><![CDATA[<p>linux运维：</p>
+<ul>
+<li>网络配置，防火墙，管理远程主机</li>
+<li>用户、用户组配置</li>
+<li>软件安装部署，文件操作</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -104,35 +145,35 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
   </entry>
   <entry>
     <title>test3</title>
-    <url>/2023/08/19/test3/</url>
-    <content><![CDATA[<p>333333333333</p>
+    <url>/2023/08/19/windows%20server/</url>
+    <content><![CDATA[<p>工作流程<br>1、装设备、装系统<br>2、设置用户、配ip、配端口<br>3、服务器管理器，开启【远程桌面，远程管理】，设置防火墙<br>4、测试，ping通，远程通<br>5、交付</p>
+<p>&#x3D;&#x3D;&#x3D;》<br>1、tft电脑，test，远程桌面连接测试<br>2、测试机，登录把tft电脑顶掉，测试<br>3、测试通过<br>4、用一楼的电脑进行远程连接测试<br>tips：<br>1、服务器管理器，开启，远程桌面、远程管理</p>
+<p>&#x3D;&#x3D;&#x3D;》<br>1、测试配置新ip<br>    –配置成功、ping成功、远程桌面成功<br>tips：<br>1、windows防火墙，入站规则，<br>    开启：—否则无法远程连接<br>        远程桌面（tcp-in 用户模式）<br>        远程桌面（udp-in 用户模式）<br>              —否则无法ping通<br>        核心网络诊断-icmp 回显请求（icmpv4-in） &#x2F; 文件和打印机共享（回显请求-icmpv4-in）<br>        核心网络诊断-icmp 回显请求（icmpv4-in）<br>&#x3D;&#x3D;&#x3D;》<br>2、测试修改端口号，在注册表中修改的，改成22789。防火墙中配置，然后重启remot desktop service<br>    –配置成功、【telnet ip 端口（跳到空窗口）】成功、远程桌面成功<br>tips：<br>1、配置端口：<br>    注册表中，修改两处端口号PortNumber，<br>    （<br>        路径1：hkey_local_machine\system\currentcontrolset\control\terminal server\wds\rdpwd\tds\tcp<br>        路径2：hkey_local_machine\system\currentcontrolset\control\terminal server\winstations\rdp-tcp<br>     ）<br>    服务，remot desktop services 重启<br>    防火墙中新建入站规则–端口号</p>
 ]]></content>
       <tags>
         <tag>windows</tag>
       </tags>
   </entry>
   <entry>
-    <title>test1</title>
-    <url>/2023/08/19/test1/</url>
-    <content><![CDATA[<p>11111111111111111</p>
+    <title>test6</title>
+    <url>/2023/08/19/%E5%91%A8%E6%8A%A5/</url>
+    <content><![CDATA[<p>入职第一周<br>本人前端程序员一名，因故回到县城老家，找不到工作，改行做机房运维，记录0基础运维成长</p>
+<p>第一天，简单看了下培训文档和基本信息资料，然后领导交代制作pe系统盘，有一说一，这个东西是计算机人的基础，大学也都学过，但是我不会，我从来没用U盘装过系统。<br>使用大白菜一键制作U盘。不知道为什么，中间做一半电脑卡死了，弄坏了一个U盘，直接读不出来了。然后就是去网上找iso镜像，有一说一，国内的这些网站广告是真的多。需要的系统文件有windows server 2008、2021、2022、centos7.x。找到之后，就开始了漫长的下载，由于网络问题，10点开始下载，下午1点才下载好。<br>下载好之后，网上教程说用软碟通刻录、直接复制拷贝等等。我用软碟通但是安装的时候一直中文乱码，然后就用复制解压到U盘的方法,windows系统要求做在一个盘里，cent的做在另一个盘里。解压的过程中，要么是空间不够，要么电脑半路卡死。奇奇怪怪，我之前电脑从来没卡死过，8代i5，16+256+512，以前开机7s，现在都是20s。奇奇怪怪。<br>到了下班点，WindowsU盘还没弄好，回家接着弄。</p>
+<p>two<br>U盘弄好了，但是尝试在虚拟机中装系统，一直出错，win是卡死，centos是网卡配置出错。<br>然后跟着领导学习装系统，遇到的问题是，下载的镜像不全，不干净，导致缺少网卡驱动。初步认识了windows server 系统。<br>发现自己关于计算机网络、硬件知识认知不足，起码不全面，懂一点，但是不多，不深。有空给他系统学一学。<br>关于linux，之前学了基础的命令，但是也都忘得七七八八了，抽空给多练练，关于软件安装部署那块，抓紧学了，找到规律和共性</p>
+<p>three<br>装ws2008、2012、2022，并且配置ip、端口，尝试远程连接，ping，telnet</p>
+<p>foure<br>装centos7，配置网络，开关防火墙，学习防火墙相关知识，安装gui界面、对比使用cli和gui</p>
+<p>five<br>装宝塔面板并学习使用，了解网络相关知识，不同主板系统bios区别差异，学习cmd的其他常用知识</p>
 ]]></content>
       <tags>
-        <tag>cmd</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>test4</title>
-    <url>/2023/08/19/test4/</url>
-    <content><![CDATA[<p>444444444444</p>
-]]></content>
-      <tags>
-        <tag>linux</tag>
+        <tag>复盘</tag>
       </tags>
   </entry>
   <entry>
     <title>test5</title>
-    <url>/2023/08/19/test5/</url>
-    <content><![CDATA[<p>5555555555</p>
+    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
+    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
+<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
+<p>firewall-cmd –list-all</p>
 ]]></content>
       <tags>
         <tag>宝塔面板</tag>
@@ -140,29 +181,12 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
   </entry>
   <entry>
     <title>test7</title>
-    <url>/2023/08/19/test7/</url>
-    <content><![CDATA[<p>777777777777777777</p>
+    <url>/2023/08/19/%E5%B7%A5%E5%85%B7%E7%B1%BBQA/</url>
+    <content><![CDATA[<p>软碟通解决：控制面板\时钟和区域——更改日期、时间或数字格式——管理——更改系统区域设置——beat版，使用unicode utf-8  取消勾选</p>
+<p>pe启动U盘：大白菜做好，测试好之后，直接把iso文件复制粘贴进去就好</p>
 ]]></content>
       <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>test2</title>
-    <url>/2023/08/19/test2/</url>
-    <content><![CDATA[<p>22222222222</p>
-]]></content>
-      <tags>
-        <tag>centos7</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>test6</title>
-    <url>/2023/08/19/test6/</url>
-    <content><![CDATA[<p>666666666666666</p>
-]]></content>
-      <tags>
-        <tag>复盘</tag>
+        <tag>工具类</tag>
       </tags>
   </entry>
 </search>
