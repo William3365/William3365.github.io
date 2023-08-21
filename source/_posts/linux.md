@@ -1,5 +1,5 @@
 ---
-title: test4
+title: linux重点内容
 date: 2023-08-19 20:47:14
 tags:	linux
 categories:	

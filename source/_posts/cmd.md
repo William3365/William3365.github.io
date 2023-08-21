@@ -1,5 +1,5 @@
 ---
-title: test1
+title: cmd
 date: 2023-08-19 20:47:00
 tags:	cmd
 ---
