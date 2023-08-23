@@ -1,6 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Raid</title>
+    <url>/2023/08/23/Raid/</url>
+    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
+<li>QA<ul>
+<li>为什么要做raid？<ul>
+<li>花小钱办大事，提供容错机制</li>
+</ul>
+</li>
+<li>先做系统还是先做raid？<ul>
+<li>先做raid</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><ul>
+<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
+</li>
+<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
+</li>
+<li><p>技术架构：数据条带、镜像、数据校验技术</p>
+<ul>
+<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
+</li>
+<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
+<ul>
+<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
+</ul>
+</li>
+<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
+</li>
+<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
+</li>
+</ul>
+</li>
+<li><p>区分：</p>
+<ul>
+<li><p>软 RAID，</p>
+<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
+
+占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
+
+跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>硬 RAID </p>
+<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
+
+性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>软硬混合 RAID ，成本、性能居中</p>
+</li>
+</ul>
+</li>
+<li><p>热备盘</p>
+<ul>
+<li>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</li>
+</ul>
+</li>
+<li><p>raid0</p>
+<ul>
+<li>最少要用两个磁盘（偶数数量的磁盘），一般不单独使用</li>
+<li>读写性能最高，100%的磁盘空间利用率</li>
+<li>不提供数据冗余保护，一旦数据损坏，将无法恢复。</li>
+<li>视频、音频存储、打印等</li>
+</ul>
+</li>
+<li><p>raid1</p>
+<ul>
+<li>最少要用两个磁盘（偶数数量的磁盘）</li>
+<li>数据安全性最高，镜像储存（互为备份），无校验。</li>
+<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
+<li>邮件、数据库</li>
+</ul>
+</li>
+<li><p>raid3</p>
+<ul>
+<li>最少三块盘</li>
+<li>如影像处理、流媒体服务等</li>
+</ul>
+</li>
+<li><p>raid5</p>
+<ul>
+<li>最少3块</li>
+<li>读取性能相对高，磁盘空间利用率大于RAID 10，允许1个物理磁盘发生故障，而不丢失数据（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
+<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
+<li>适用于金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid6</p>
+<ul>
+<li>最少四块硬盘</li>
+<li>读取性能较高，磁盘空间利用率大于RAID 10，允许2个物理磁盘发生故障，而不丢失数据</li>
+<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
+<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid10</p>
+<ul>
+<li>最少四块硬盘</li>
+<li>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</li>
+<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
+<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
+<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
+</ul>
+</li>
+</ul>
+<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
+<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
+<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
+
+如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
+
+如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
+
+容量&gt;性能，raid50、raid10
+数据保护，raid6、raid60
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>1.组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
+<p>2.组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
+<p>3.已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
+<h2 id="配置Raid"><a href="#配置Raid" class="headerlink" title="配置Raid"></a>配置Raid</h2><p>1、检查硬件，可正常工作、安装连接无误</p>
+<p>2、system setting -》sata setting -》选择raid mode</p>
+<p>3、boot setting -》选择UEFI</p>
+<p>4、在F2 device settings配置也行，</p>
+<p>​	  F10生命周期控制器中配置也行（和F2一样，但是可选中文）</p>
+<p>​	  ctrl+R进入perc中配置也行</p>
+<p>5、进入了 device setting，选择 XXXX configuration utility</p>
+<p>6、进入了configuration options，选择controller management，选择rescan disks，进行读盘</p>
+<p>7、根据读盘结果，按需将磁盘转为raid或no-raid</p>
+<p>8、进入virtual disk management，进行虚拟磁盘查看、选择、配置，raid等级、盘数、read、write、cache按需配置</p>
+<p>9、查看虚拟磁盘配置结果，ready（可用配置raid），online（可用在线）</p>
+]]></content>
+      <tags>
+        <tag>Raid</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>centos7</title>
     <url>/2023/08/19/centos7/</url>
     <content><![CDATA[<p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
@@ -25,39 +163,6 @@
 ]]></content>
       <tags>
         <tag>cmd</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>github代理问题</title>
-    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<ul>
-<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
-</ul>
-<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
-<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
-<ul>
-<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
-fatal: Could not read from remote repository.
-
-这个错误提示的是连接github.com的22端口被拒绝了。
-
-解决办法：
-1、使用443
-ssh -T git@github.com。还是报错
-执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
-在git branch中进行
-     vim ~&#x2F;.ssh&#x2F;config
-     
-     Host github.com
-       Hostname ssh.github.com
-       Port 443
-
-     ssh -T git@github.com
-     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -130,6 +235,39 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
+    <title>github代理问题</title>
+    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<ul>
+<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
+</ul>
+<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
+<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
+<ul>
+<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
+fatal: Could not read from remote repository.
+
+这个错误提示的是连接github.com的22端口被拒绝了。
+
+解决办法：
+1、使用443
+ssh -T git@github.com。还是报错
+执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
+在git branch中进行
+     vim ~&#x2F;.ssh&#x2F;config
+     
+     Host github.com
+       Hostname ssh.github.com
+       Port 443
+
+     ssh -T git@github.com
+     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux重点内容</title>
     <url>/2023/08/19/linux/</url>
     <content><![CDATA[<p>linux运维：</p>
@@ -180,10 +318,64 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
+    <title>密码破解</title>
+    <url>/2023/08/23/%E5%AF%86%E7%A0%81%E7%A0%B4%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h1><h2 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h2><ul>
+<li><p>忘记密码，进不去系统</p>
+<ul>
+<li>大白菜抹除</li>
+</ul>
+</li>
+<li><p>忘记密码，能进系统，再操作</p>
+<ul>
+<li>pe启动修改osk和cmd</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">用net user 去修改账号和密码 思路是这样的：
+    修改登录界面其他功能的链接，使之成为CMD的链接，在CMD命令里面IIS7-VPS大全
+	系统盘，进入windows\system32目录，找到 osk.exe，将其重命名，
+    同样在此目录下找到 cmd.exe ，将其复制一份，并重命名为 osk.exe
+
+    cd &#x2F;
+    cd windows\system32   直接以管理员身份运行，直接定位到这
+    rename osk.exe osk.exe.bak  拒绝访问，因为这个文件的管理员权限没开
+    copy cmd.exe osk.exe  也可以接着直接修改
+
+	教程一般说到登录界面修改，登录界面右下角红框处，右键点选“屏幕键盘 ”，
+    此时会出现命令窗口,在命令窗口输入命令行，即可重设任何用户的密码，
+    比如要重设Administrator密码，则输入：“net user administrator 123456”，
+    到此密码重置完成，即可使用新密码登录系统
+	
+	正常登录，恢复原状，然后再把管理员权限也恢复
+	del osk.exe
+	rename osk.exe.bak osk.exe<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h2 id="centos7"><a href="#centos7" class="headerlink" title="centos7"></a>centos7</h2><p>详细：<code>https://blog.csdn.net/weixin_52269666/article/details/121577724</code></p>
+<p><img src="https://s1.ax1x.com/2023/08/23/pPJTYOH.png"></p>
+<p><img src="https://s1.ax1x.com/2023/08/23/pPJTNmd.png"></p>
+]]></content>
+      <tags>
+        <tag>工具类</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>工具类QA</title>
     <url>/2023/08/19/%E5%B7%A5%E5%85%B7%E7%B1%BBQA/</url>
-    <content><![CDATA[<p>软碟通解决：控制面板\时钟和区域——更改日期、时间或数字格式——管理——更改系统区域设置——beat版，使用unicode utf-8  取消勾选</p>
-<p>pe启动U盘：大白菜做好，测试好之后，直接把iso文件复制粘贴进去就好</p>
+    <content><![CDATA[<ul>
+<li><p>软碟通解决：</p>
+<ul>
+<li>控制面板\时钟和区域——更改日期、时间或数字格式——管理——更改系统区域设置——beat版，使用unicode utf-8  取消勾选</li>
+</ul>
+</li>
+<li><p>pe启动U盘：</p>
+<ul>
+<li>大白菜做好，测试好之后，直接把iso文件复制粘贴进去就好</li>
+</ul>
+</li>
+</ul>
+<h2 id="PE系统"><a href="#PE系统" class="headerlink" title="PE系统"></a>PE系统</h2><p>PE是指Windows 预安装环境 (Windows PE) 是在Windows内核上构建的具有有限服务的最小 Win32 子系统，说白了就是把系统写进U盘里；iso是一种光盘镜像文件格式，装系统的过程说简单点都是把系统原版ISO镜像里的系统文件或者GHO压缩镜像里的系统文件写入C盘并给C盘加上引导程序的过程，如果说两种安装方式有区别那就是有些第三方制作的PE里可以附加程序，比如可以加入一些万能的驱动程序，或者嵌入一些广告应用程序等等，而纯净的系统ISO安装是不夹带这些的。</p>
 ]]></content>
       <tags>
         <tag>工具类</tag>
