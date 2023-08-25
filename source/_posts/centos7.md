@@ -24,7 +24,7 @@ https://blog.csdn.net/qq_33427869/article/details/126668794
 解决
 先查看自己的u盘设备名称，ls /dev/sd*,一般是sda4（建议blkid查看下类型）
 选择test安装第二项，然后tab进入编辑，
-inst.stage2=hd:LABEL=CentOS\x207\x20x86_64”字样更改为“inst.stage2=hd:/dev/sdb4，回车安装即可
+inst.stage2=hd:LABEL=CentOS\x207\x20x86_64”字样更改为“inst.stage2=hd:/dev/sdb4，回车（或者ctrl+x）安装即可
 
 tips
 用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改

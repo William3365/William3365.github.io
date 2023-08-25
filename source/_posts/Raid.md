@@ -121,45 +121,20 @@ tags: Raid
 
 * 已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。
 
-* 先做raid，再做系统
-  
-* boot模式先选bios，改raid模式，再进perc配置raid，最后再改成uefi（最后可有可无）
-
-* 做好raid，重装系统之后，重启可能读不到hard-disk，去把sata模式调为ahci模式
+* 先配置raid，再按需分区，最后装系统
 
 * raid和non-raid
   * 不做raid的时候，改成non-raid，这样就可以被系统直接识别
   * non-raid非阵列模式（普通模式），即可独立识别每一块磁盘
 
 
-
-
-
-
-
-## 配置Raid
+## 配置Raid流程
+* 1、改sata模式为raid
+* 2、做raid
+* 3、boot mode模式按需选择
 
 1、检查硬件，可正常工作、安装连接无误
 
-2、system setting -》sata setting -》选择raid mode
+2、根据读盘结果，按需将磁盘转为raid或no-raid
 
-3、boot setting -》选择UEFI
-
-4、在F2 device settings配置也行，
-
-​	  F10生命周期控制器中配置也行（和F2一样，但是可选中文）
-
-​	  ctrl+R进入perc中配置也行
-
-5、进入了 device setting，选择 XXXX configuration utility
-
-6、进入了configuration options，选择controller management，选择rescan disks，进行读盘
-
-7、根据读盘结果，按需将磁盘转为raid或no-raid
-
-8、进入virtual disk management，进行虚拟磁盘查看、选择、配置，raid等级、盘数、read、write、cache按需配置
-
-9、查看虚拟磁盘配置结果，ready（可用配置raid），online（可用在线）
-
-
-
+3、查看虚拟磁盘配置结果，normal(正常)，ready（可用配置raid），online（可用在线）
