@@ -9,10 +9,6 @@
 <li>花小钱办大事，提供容错机制</li>
 </ul>
 </li>
-<li>先做系统还是先做raid？<ul>
-<li>先做raid</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -119,23 +115,66 @@
 数据保护，raid6、raid60
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>1.组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
-<p>2.组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
-<p>3.已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
-<h2 id="配置Raid"><a href="#配置Raid" class="headerlink" title="配置Raid"></a>配置Raid</h2><p>1、检查硬件，可正常工作、安装连接无误</p>
-<p>2、system setting -》sata setting -》选择raid mode</p>
-<p>3、boot setting -》选择UEFI</p>
-<p>4、在F2 device settings配置也行，</p>
-<p>​	  F10生命周期控制器中配置也行（和F2一样，但是可选中文）</p>
-<p>​	  ctrl+R进入perc中配置也行</p>
-<p>5、进入了 device setting，选择 XXXX configuration utility</p>
-<p>6、进入了configuration options，选择controller management，选择rescan disks，进行读盘</p>
-<p>7、根据读盘结果，按需将磁盘转为raid或no-raid</p>
-<p>8、进入virtual disk management，进行虚拟磁盘查看、选择、配置，raid等级、盘数、read、write、cache按需配置</p>
-<p>9、查看虚拟磁盘配置结果，ready（可用配置raid），online（可用在线）</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
+</li>
+<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
+</li>
+<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
+</li>
+<li><p>先配置raid，再按需分区，最后装系统</p>
+</li>
+<li><p>raid和non-raid</p>
+<ul>
+<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
+<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
+<li>1、改sata模式为raid</li>
+<li>2、做raid</li>
+<li>3、boot mode模式按需选择</li>
+</ul>
+<p>1、检查硬件，可正常工作、安装连接无误</p>
+<p>2、根据读盘结果，按需将磁盘转为raid或no-raid</p>
+<p>3、查看虚拟磁盘配置结果，normal(正常)，ready（可用配置raid），online（可用在线）</p>
 ]]></content>
       <tags>
         <tag>Raid</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>github代理问题</title>
+    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<ul>
+<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
+</ul>
+<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
+<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
+<ul>
+<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
+fatal: Could not read from remote repository.
+
+这个错误提示的是连接github.com的22端口被拒绝了。
+
+解决办法：
+1、使用443
+ssh -T git@github.com。还是报错
+执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
+在git branch中进行
+     vim ~&#x2F;.ssh&#x2F;config
+     
+     Host github.com
+       Hostname ssh.github.com
+       Port 443
+
+     ssh -T git@github.com
+     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -145,7 +184,7 @@
 <p>&#x3D;&#x3D;&#x3D;》<br>读不到磁盘<br>system steup，system biso，sata setting<br>1、embedded stata AHCI 兼容模式<br>2、write cache enabled 启用</p>
 <p>&#x3D;&#x3D;&#x3D;》<br>报错，Warning: &#x2F;dev&#x2F;root does not exist<br><a href="https://blog.csdn.net/qq_33427869/article/details/126668794">https://blog.csdn.net/qq_33427869/article/details/126668794</a></p>
 <p>分析<br>1.系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别</p>
-<p>解决<br>先查看自己的u盘设备名称，ls &#x2F;dev&#x2F;sd*,一般是sda4（建议blkid查看下类型）<br>选择test安装第二项，然后tab进入编辑，<br>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64”字样更改为“inst.stage2&#x3D;hd:&#x2F;dev&#x2F;sdb4，回车安装即可</p>
+<p>解决<br>先查看自己的u盘设备名称，ls &#x2F;dev&#x2F;sd*,一般是sda4（建议blkid查看下类型）<br>选择test安装第二项，然后tab进入编辑，<br>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64”字样更改为“inst.stage2&#x3D;hd:&#x2F;dev&#x2F;sdb4，回车（或者ctrl+x）安装即可</p>
 <p>tips<br>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改<br>报错之后，ls查看，blkid查看，记住设备名称<br>reboot重启，<br>按下tab，修改hd：xxxx为设备名称，回车安装即可</p>
 <p>&#x3D;&#x3D;&#x3D;》<br>磁盘空间不足，自定义分区，用-号，删除即可</p>
 ]]></content>
@@ -235,39 +274,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>github代理问题</title>
-    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<ul>
-<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
-</ul>
-<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
-<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
-<ul>
-<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
-fatal: Could not read from remote repository.
-
-这个错误提示的是连接github.com的22端口被拒绝了。
-
-解决办法：
-1、使用443
-ssh -T git@github.com。还是报错
-执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
-在git branch中进行
-     vim ~&#x2F;.ssh&#x2F;config
-     
-     Host github.com
-       Hostname ssh.github.com
-       Port 443
-
-     ssh -T git@github.com
-     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux重点内容</title>
     <url>/2023/08/19/linux/</url>
     <content><![CDATA[<p>linux运维：</p>
@@ -293,6 +299,17 @@ ssh -T git@github.com。还是报错
       </tags>
   </entry>
   <entry>
+    <title>宝塔面板</title>
+    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
+    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
+<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
+<p>firewall-cmd –list-all</p>
+]]></content>
+      <tags>
+        <tag>宝塔面板</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>周报</title>
     <url>/2023/08/19/%E5%91%A8%E6%8A%A5/</url>
     <content><![CDATA[<p>入职第一周<br>本人前端程序员一名，因故回到县城老家，找不到工作，改行做机房运维，记录0基础运维成长</p>
@@ -304,17 +321,6 @@ ssh -T git@github.com。还是报错
 ]]></content>
       <tags>
         <tag>复盘</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>宝塔面板</title>
-    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
-    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
-<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
-<p>firewall-cmd –list-all</p>
-]]></content>
-      <tags>
-        <tag>宝塔面板</tag>
       </tags>
   </entry>
   <entry>
@@ -361,6 +367,41 @@ ssh -T git@github.com。还是报错
       </tags>
   </entry>
   <entry>
+    <title>戴尔PowerEdgeR620</title>
+    <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
+    <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
+<li>PERC 是 PowerEdge Raid Controller 的缩写</li>
+<li>前缀S表示为Software软件阵列，H 表示为Hardware 硬件阵列 ,</li>
+<li>从入门到高端型号第一位数字分别用1 3 7 8 表示，</li>
+<li>第二三位数字位为产品代数，</li>
+<li>结尾P表示 Performance 高性能型。</li>
+</ul>
+<h2 id="PERC名词"><a href="#PERC名词" class="headerlink" title="PERC名词"></a>PERC名词</h2><ul>
+<li>Disk Group：磁盘组，这里相当于是阵列，例如配置了一个RAID5，就是一个磁盘组。</li>
+<li>VD：Virtual Disk， 虚拟磁盘，虚拟磁盘可以不使用阵列的全部容量，也就是说一个磁盘组可以分为多个VD。</li>
+<li>PD：Physical Disk，物理磁盘。</li>
+</ul>
+<h2 id="配置Raid方法"><a href="#配置Raid方法" class="headerlink" title="配置Raid方法"></a>配置Raid方法</h2><ul>
+<li>1、F10直接做在生命周期控制器中，F10可选中文，会重启很麻烦</li>
+<li>2、F2在系统设置中做  —-√   简单明了</li>
+<li>3、ctrl+R做，界面繁琐麻烦</li>
+<li>问题：同样的raid级别，在ctrl+R中配置和在F2中配置，容量会不一样，不知道为什么！</li>
+</ul>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
+<li>1、改sata模式为raid</li>
+<li>2、做raid</li>
+<li>3、boot mode模式按需选择</li>
+</ul>
+<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
+<li>在安装系统时，系统文件里，不带有RAID 1的驱动程序，导致安装系统无法识别到RAID 1 的硬盘。需要手动加载 RAID 卡驱动程序</li>
+<li>raid版本和主板版本可能存在版本问题，注意匹配</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>服务器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>工具类QA</title>
     <url>/2023/08/19/%E5%B7%A5%E5%85%B7%E7%B1%BBQA/</url>
     <content><![CDATA[<ul>
@@ -374,11 +415,110 @@ ssh -T git@github.com。还是报错
 <li>大白菜做好，测试好之后，直接把iso文件复制粘贴进去就好</li>
 </ul>
 </li>
+<li><p>PE系统<br>PE是指Windows 预安装环境 (Windows PE) 是在Windows内核上构建的具有有限服务的最小 Win32 子系统，说白了就是把系统写进U盘里；iso是一种光盘镜像文件格式，装系统的过程说简单点都是把系统原版ISO镜像里的系统文件或者GHO压缩镜像里的系统文件写入C盘并给C盘加上引导程序的过程，如果说两种安装方式有区别那就是有些第三方制作的PE里可以附加程序，比如可以加入一些万能的驱动程序，或者嵌入一些广告应用程序等等，而纯净的系统ISO安装是不夹带这些的。</p>
+</li>
 </ul>
-<h2 id="PE系统"><a href="#PE系统" class="headerlink" title="PE系统"></a>PE系统</h2><p>PE是指Windows 预安装环境 (Windows PE) 是在Windows内核上构建的具有有限服务的最小 Win32 子系统，说白了就是把系统写进U盘里；iso是一种光盘镜像文件格式，装系统的过程说简单点都是把系统原版ISO镜像里的系统文件或者GHO压缩镜像里的系统文件写入C盘并给C盘加上引导程序的过程，如果说两种安装方式有区别那就是有些第三方制作的PE里可以附加程序，比如可以加入一些万能的驱动程序，或者嵌入一些广告应用程序等等，而纯净的系统ISO安装是不夹带这些的。</p>
 ]]></content>
       <tags>
         <tag>工具类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>配置Raid和系统安装</title>
+    <url>/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h1><ul>
+<li>先配置raid，再按需分区，最后装系统<pre class="line-numbers language-none"><code class="language-none">* 先做raid准备好存储空间，然后按照需求进行分区和格式化，最后装系统
+  理解：就像先把房间分配好了才能进一步装修、入住
+
+* 必须选择分区模式，必须进行格式化
+
+* 如果系统是安装在raid盘上就必须先配置raid，再安装系统。
+  如果使用独立的系统盘，可以先安装系统，再配置raid（此时可以在系统下使用有GUI的raid管理程序已图形方式配置raid，但是影响效率，占内存），之后再使用系统磁盘管理分区、格式化。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区模式"><a href="#分区模式" class="headerlink" title="分区模式"></a>分区模式</h2><ul>
+<li><p>磁盘分区模式有mbr格式，guid格式（gpt格式）</p>
+</li>
+<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2.1TB 以下的硬盘，超过2.1TB的硬盘只能管理2.1TB，支持win7版本系统以下的32位和64位</p>
+</li>
+<li><p>guid分区：全局唯一标识分区表，支持2.2T容量以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持win7版本以上的64位系统（不支持32位系统）,比如win8、win10系统</p>
+</li>
+<li><p>区别：</p>
+<ul>
+<li>mbr分区，启动时，引导模式为 Legacy（bios）</li>
+<li>guid分区,启动时，引导模式为 uefi</li>
+</ul>
+</li>
+<li><p>注意：</p>
+<ul>
+<li>对应的分区模式要选择对应的引导模式</li>
+<li>根据自己的raid需求，再bios中选择对应的引导模式</li>
+<li>》2t只能选择guid模式，否则做raid没意义，读不到那么大的容量</li>
+</ul>
+</li>
+<li><p>如何判断硬盘格式是 guid 还是 mbr ？</p>
+<ul>
+<li><p>windows</p>
+<pre class="line-numbers language-none"><code class="language-none">&#39;以管理员身份运行&#39;cmd命令，输入&#39;diskpart&#39;命令
+输入&#39;list disk&#39;命令进行查看：如果&#39;Gpt&#39;中显示&#39;*&#39;，则为GPT格式，反之为MBR
+![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNFw40.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>linux</p>
+<pre class="line-numbers language-none"><code class="language-none">1、fdisk -l 命令，结果中的“Disk label type”的值为dos则分区是mbr，若该结果的值为gpt则分区是gpt；
+2、parted -l 命令，结果中的“Partition Table”的值为msdos则分区是mbr，若该结果的值为gpt则分区是gpt。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h2 id="引导模式"><a href="#引导模式" class="headerlink" title="引导模式"></a>引导模式</h2><ul>
+<li><p>在bios中配置，有Legacy（bios）和 uefi</p>
+</li>
+<li><p>区别</p>
+<ul>
+<li>UEFI是新式的BIOS，BIOS则是传统legacy。最明显的却别在于启动速度，UEFI明显更快，因为它支持硬件加速和并行处理。</li>
+<li><img src="https://pics4.baidu.com/feed/4afbfbedab64034f697236d3b44c713d08551dc6.jpeg@f_auto?token=5df15edbcaa420e4bbac299e2ffc3897" alt="img"></li>
+</ul>
+</li>
+</ul>
+<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
+<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
+</li>
+<li><p>流程</p>
+<ul>
+<li>配置raid</li>
+<li>配置引导模式</li>
+<li>配置磁盘的分区格式，格式化处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>有的统文件里，不带有raid驱动程序，导致安装系统无法识别到raid的硬盘。需要去官网下载，手动加载 raid 卡驱动程序</p>
+</li>
+<li><p>找不到适用的引导分区</p>
+<ul>
+<li>分区工具修复、重新分区</li>
+<li>可能是系统找不到raid驱动，导致找不到磁盘，去官网找对应主板的驱动，装上。</li>
+</ul>
+</li>
+</ul>
+<h1 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h1><ul>
+<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
+<ul>
+<li>linux默认mbr分区模式，所以配raid后，先改分区模式、配置分区，最后装系统 （否则易出现读不到盘，容量不对的情况）<ul>
+<li>一般直接在 控制台，改成guid分区，uefi引导</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>流程</p>
+<ul>
+<li>配置raid</li>
+<li>配置引导模式</li>
+<li>配置磁盘的分区格式，格式化处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2>]]></content>
+      <tags>
+        <tag>系统安装</tag>
       </tags>
   </entry>
 </search>
