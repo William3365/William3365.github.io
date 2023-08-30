@@ -17,7 +17,7 @@ tags: 系统安装
 
 # 分区模式和引导模式
 
-## 分区模式
+## 分区表
 * 磁盘分区模式有mbr格式，guid格式（gpt格式）
   
 * mbr分区：硬盘主引导记录分区表，只支持容量在 2.1TB 以下的硬盘，超过2.1TB的硬盘只能管理2.1TB，支持win7版本系统以下的32位和64位
@@ -25,14 +25,26 @@ tags: 系统安装
 * guid分区：全局唯一标识分区表，支持2.2T容量以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持win7版本以上的64位系统（不支持32位系统）,比如win8、win10系统
 
 * 区别：
-  * mbr分区，启动时，引导模式为 Legacy（bios）
-  * guid分区,启动时，引导模式为 uefi
+  
+  * mbr分区
 
+    * 启动时，引导模式为 Legacy（bios）
+  
+    * 最多只能描述 4 个分区，其中一个为主分区，其他为扩展分区，
+  
+  * guid分区
+  
+    * 启动时，引导模式为 uefi
+  
 * 注意：
   * 对应的分区模式要选择对应的引导模式
+  
   * 根据自己的raid需求，再bios中选择对应的引导模式
-  * 》2t只能选择guid模式，否则做raid没意义，读不到那么大的容量
 
+  * 》2t只能选择guid模式，否则做raid没意义，读不到那么大的容量
+  
+    
+  
 * 如何判断硬盘格式是 guid 还是 mbr ？
   * windows
   ```
@@ -43,8 +55,10 @@ tags: 系统安装
 
   * linux
   ```
-    1、fdisk -l 命令，结果中的“Disk label type”的值为dos则分区是mbr，若该结果的值为gpt则分区是gpt；
-    2、parted -l 命令，结果中的“Partition Table”的值为msdos则分区是mbr，若该结果的值为gpt则分区是gpt。
+    1、fdisk -l 命令，结果中的“Disk label type”的值为
+         dos则分区是mbr，若该结果的值为gpt则分区是gpt；
+    2、parted -l 命令，结果中的“Partition Table”的值为
+         msdos则分区是mbr，若该结果的值为gpt则分区是gpt。
   ```
 
 

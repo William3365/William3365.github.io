@@ -33,4 +33,6 @@ categories:
 
         ssh -T git@github.com
         Hi xxxxx! You've successfully authenticated, but GitHub does not provide shell access. 成功
+
+        ![](https://s1.ax1x.com/2023/08/25/pPNktxO.png)
   ```
