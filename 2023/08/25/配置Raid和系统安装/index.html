@@ -280,14 +280,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-25
+                    2023-08-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    872
+                    896
                 </div>
                 
 
@@ -326,7 +326,7 @@
 * 如果系统是安装在raid盘上就必须先配置raid，再安装系统。
   如果使用独立的系统盘，可以先安装系统，再配置raid（此时可以在系统下使用有GUI的raid管理程序已图形方式配置raid，但是影响效率，占内存），之后再使用系统磁盘管理分区、格式化。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
-<h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区模式"><a href="#分区模式" class="headerlink" title="分区模式"></a>分区模式</h2><ul>
+<h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
 <li><p>磁盘分区模式有mbr格式，guid格式（gpt格式）</p>
 </li>
 <li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2.1TB 以下的硬盘，超过2.1TB的硬盘只能管理2.1TB，支持win7版本系统以下的32位和64位</p>
@@ -335,15 +335,29 @@
 </li>
 <li><p>区别：</p>
 <ul>
-<li>mbr分区，启动时，引导模式为 Legacy（bios）</li>
-<li>guid分区,启动时，引导模式为 uefi</li>
+<li><p>mbr分区</p>
+<ul>
+<li><p>启动时，引导模式为 Legacy（bios）</p>
+</li>
+<li><p>最多只能描述 4 个分区，其中一个为主分区，其他为扩展分区，</p>
+</li>
+</ul>
+</li>
+<li><p>guid分区</p>
+<ul>
+<li>启动时，引导模式为 uefi</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>注意：</p>
 <ul>
-<li>对应的分区模式要选择对应的引导模式</li>
-<li>根据自己的raid需求，再bios中选择对应的引导模式</li>
-<li>》2t只能选择guid模式，否则做raid没意义，读不到那么大的容量</li>
+<li><p>对应的分区模式要选择对应的引导模式</p>
+</li>
+<li><p>根据自己的raid需求，再bios中选择对应的引导模式</p>
+</li>
+<li><p>》2t只能选择guid模式，否则做raid没意义，读不到那么大的容量</p>
+</li>
 </ul>
 </li>
 <li><p>如何判断硬盘格式是 guid 还是 mbr ？</p>
@@ -354,8 +368,10 @@
 ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNFw40.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>linux</p>
-<pre class="line-numbers language-none"><code class="language-none">1、fdisk -l 命令，结果中的“Disk label type”的值为dos则分区是mbr，若该结果的值为gpt则分区是gpt；
-2、parted -l 命令，结果中的“Partition Table”的值为msdos则分区是mbr，若该结果的值为gpt则分区是gpt。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<pre class="line-numbers language-none"><code class="language-none">1、fdisk -l 命令，结果中的“Disk label type”的值为
+     dos则分区是mbr，若该结果的值为gpt则分区是gpt；
+2、parted -l 命令，结果中的“Partition Table”的值为
+     msdos则分区是mbr，若该结果的值为gpt则分区是gpt。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 </ul>
@@ -1106,7 +1122,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">5.5k</span>
+                        class="white-color">5.7k</span>
             
             
             

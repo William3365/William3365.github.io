@@ -286,21 +286,21 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-25
+                    2023-08-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    5 分
                 </div>
                 
 
@@ -377,49 +377,61 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
 </li>
 <li><p>raid0</p>
 <ul>
-<li>最少要用两个磁盘（偶数数量的磁盘），一般不单独使用</li>
-<li>读写性能最高，100%的磁盘空间利用率</li>
-<li>不提供数据冗余保护，一旦数据损坏，将无法恢复。</li>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
+<li>例：2T + 2T &#x3D; 4T</li>
+<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
 <li>视频、音频存储、打印等</li>
 </ul>
 </li>
 <li><p>raid1</p>
 <ul>
-<li>最少要用两个磁盘（偶数数量的磁盘）</li>
-<li>数据安全性最高，镜像储存（互为备份），无校验。</li>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
+<li>例：2T + 2T &#x3D; 2T</li>
+<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
 <li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
 <li>邮件、数据库</li>
 </ul>
 </li>
-<li><p>raid3</p>
-<ul>
-<li>最少三块盘</li>
-<li>如影像处理、流媒体服务等</li>
-</ul>
-</li>
 <li><p>raid5</p>
 <ul>
-<li>最少3块</li>
-<li>读取性能相对高，磁盘空间利用率大于RAID 10，允许1个物理磁盘发生故障，而不丢失数据（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
+<li><strong>最少3块</strong></li>
+<li>例：2T + 2T+ 2T &#x3D; 4T</li>
+<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
 <li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
 <li>适用于金融、数据库等</li>
 </ul>
 </li>
 <li><p>raid6</p>
 <ul>
-<li>最少四块硬盘</li>
-<li>读取性能较高，磁盘空间利用率大于RAID 10，允许2个物理磁盘发生故障，而不丢失数据</li>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
 <li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
 <li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
 </ul>
 </li>
 <li><p>raid10</p>
 <ul>
-<li>最少四块硬盘</li>
-<li>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</li>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
 <li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
 <li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
 <li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
+</ul>
+</li>
+<li><p>raid50</p>
+<ul>
+<li><strong>至少需要六个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>RAID 5 + 0</li>
+</ul>
+</li>
+<li><p>raid60</p>
+<ul>
+<li><strong>最少需要八个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>比 RAID 50 阵列更可靠</li>
 </ul>
 </li>
 </ul>
@@ -1156,7 +1168,7 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">5.5k</span>
+                        class="white-color">5.7k</span>
             
             
             
