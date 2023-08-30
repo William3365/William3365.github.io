@@ -1,56 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>github代理问题</title>
-    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<ul>
-<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
-</ul>
-<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
-<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
-<ul>
-<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
-fatal: Could not read from remote repository.
-
-这个错误提示的是连接github.com的22端口被拒绝了。
-
-解决办法：
-1、使用443
-ssh -T git@github.com。还是报错
-执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
-在git branch中进行
-     vim ~&#x2F;.ssh&#x2F;config
-     
-     Host github.com
-       Hostname ssh.github.com
-       Port 443
-
-     ssh -T git@github.com
-     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功
-
-     ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNktxO.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7</title>
-    <url>/2023/08/19/centos7/</url>
-    <content><![CDATA[<p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
-<p>&#x3D;&#x3D;&#x3D;》<br>读不到磁盘<br>system steup，system biso，sata setting<br>1、embedded stata AHCI 兼容模式<br>2、write cache enabled 启用</p>
-<p>&#x3D;&#x3D;&#x3D;》<br>报错，Warning: &#x2F;dev&#x2F;root does not exist<br><a href="https://blog.csdn.net/qq_33427869/article/details/126668794">https://blog.csdn.net/qq_33427869/article/details/126668794</a></p>
-<p>分析<br>1.系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别</p>
-<p>解决<br>先查看自己的u盘设备名称，ls &#x2F;dev&#x2F;sd*,一般是sda4（建议blkid查看下类型）<br>选择test安装第二项，然后tab进入编辑，<br>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64”字样更改为“inst.stage2&#x3D;hd:&#x2F;dev&#x2F;sdb4，回车（或者ctrl+x）安装即可</p>
-<p>tips<br>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改<br>报错之后，ls查看，blkid查看，记住设备名称<br>reboot重启，<br>按下tab，修改hd：xxxx为设备名称，回车安装即可</p>
-<p>&#x3D;&#x3D;&#x3D;》<br>磁盘空间不足，自定义分区，用-号，删除即可</p>
-]]></content>
-      <tags>
-        <tag>centos7</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Raid</title>
     <url>/2023/08/23/Raid/</url>
     <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
@@ -219,6 +169,83 @@ ssh -T git@github.com。还是报错
       </tags>
   </entry>
   <entry>
+    <title>centos7</title>
+    <url>/2023/08/19/centos7/</url>
+    <content><![CDATA[<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li><p>安装完成，拔出U盘，重启进入bios将启动顺序恢复至原来的顺序，<strong>无论安装什么系统，都要这样!!!</strong></p>
+<p>其实大多数设备拔U盘之后，读不到U盘，就直接从系统盘读了，但是有时多系统，多硬盘的话，最好设置下启动项</p>
+</li>
+<li><blockquote>
+<ul>
+<li>sata模式： stata AHCI （一般选择它，兼容模式）    # 如果需要做Raid，选择raid模式</li>
+<li>write cache enabled 启用</li>
+<li>引导模式：UEFI（推荐）</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
+<h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
+<li><p>报错，<code>Warning: /dev/root does not exist</code></p>
+</li>
+<li><p>分析</p>
+<ul>
+<li>系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别<ul>
+<li>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解决</p>
+<ul>
+<li>先查看自己的u盘设备名称，<strong>ls &#x2F;dev&#x2F;sd</strong>*</li>
+<li>然后  <strong>blkid</strong> 查看类型，记住，然后重启<strong>reboot</strong></li>
+<li>选择安装项，然后<strong>e</strong>或者<strong>tab</strong>进入编辑，<br>在<strong>linux16</strong>那边，<strong>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64</strong>，更改为<strong>inst.stage2&#x3D;hd:&#x2F;dev&#x2F;U盘设备名</strong>，</li>
+<li><strong>回车</strong>或者<strong>ctrl+x</strong>，即可正常安装</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>centos7</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>github代理问题</title>
+    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<ul>
+<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
+</ul>
+<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
+<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
+<ul>
+<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
+fatal: Could not read from remote repository.
+
+这个错误提示的是连接github.com的22端口被拒绝了。
+
+解决办法：
+1、使用443
+ssh -T git@github.com。还是报错
+执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
+在git branch中进行
+     vim ~&#x2F;.ssh&#x2F;config
+     
+     Host github.com
+       Hostname ssh.github.com
+       Port 443
+
+     ssh -T git@github.com
+     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功
+
+     ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNktxO.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo杂谈</title>
     <url>/2023/08/19/hexo%E6%9D%82%E8%B0%88/</url>
     <content><![CDATA[<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ul>
@@ -288,17 +315,55 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>linux重点内容</title>
-    <url>/2023/08/19/linux/</url>
-    <content><![CDATA[<p>linux运维：</p>
-<ul>
-<li>网络配置，防火墙，管理远程主机</li>
-<li>用户、用户组配置</li>
-<li>软件安装部署，文件操作</li>
+    <title>Ubuntu</title>
+    <url>/2023/08/30/ubuntu/</url>
+    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
+<li><p>UEFI + GPT</p>
+</li>
+<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
+</li>
 </ul>
+<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
+<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
+<blockquote>
+<p>登录之后是普通用户，设置root密码</p>
+<p><code>sudo passwd root </code></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
+<li><code>apt</code></li>
+<li>centos  <code>yum</code></li>
+</ul>
+<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
+<ul>
+<li><p>ip a   # 查看 网卡</p>
+</li>
+<li><p>cd &#x2F;etc&#x2F;netplan </p>
+</li>
+<li><p>ls   # 查看.yaml文件</p>
+</li>
+<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
+</li>
+<li><p>编辑</p>
+<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
+
+网卡名
+   dhcp4: false    # 动态改成false
+      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
+      gateway4: 192.168.3.1    # 网关
+      nameservers:
+        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>退出vi文本编辑器</p>
+</li>
+<li><p>sudo netplan apply  # 保存</p>
+</li>
+</ul>
+</blockquote>
 ]]></content>
       <tags>
-        <tag>linux</tag>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -324,6 +389,20 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>复盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux重点内容</title>
+    <url>/2023/08/19/linux/</url>
+    <content><![CDATA[<p>linux运维：</p>
+<ul>
+<li>网络配置，防火墙，管理远程主机</li>
+<li>用户、用户组配置</li>
+<li>软件安装部署，文件操作</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -381,27 +460,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>工具类QA</title>
-    <url>/2023/08/19/%E5%B7%A5%E5%85%B7%E7%B1%BBQA/</url>
-    <content><![CDATA[<ul>
-<li>软碟通解决：<ul>
-<li>控制面板\时钟和区域——更改日期、时间或数字格式——管理——更改系统区域设置——beat版，使用unicode utf-8  取消勾选</li>
-</ul>
-</li>
-<li>pe启动U盘：<ul>
-<li>大白菜做好，测试好之后，直接把iso文件复制粘贴进去就好</li>
-<li>USB-HDD模式：硬盘仿真模式，兼容性很高，适用于新机型，但对于一些只支持USB-ZIP模式的电脑则无法启动，<strong>一般制作U盘启动盘选择该模式</strong>。</li>
-<li>USB-ZIP模式：大容量软盘仿真模式，在一些比较老的电脑上是唯一可选的模式，对新电脑来说兼容性不好，特别是2GB以上的大容量U盘。</li>
-</ul>
-</li>
-<li>PE系统<br>PE是指Windows 预安装环境 (Windows PE) 是在Windows内核上构建的具有有限服务的最小 Win32 子系统，说白了就是把系统写进U盘里；iso是一种光盘镜像文件格式，装系统的过程说简单点都是把系统原版ISO镜像里的系统文件或者GHO压缩镜像里的系统文件写入C盘并给C盘加上引导程序的过程，如果说两种安装方式有区别那就是有些第三方制作的PE里可以附加程序，比如可以加入一些万能的驱动程序，或者嵌入一些广告应用程序等等，而纯净的系统ISO安装是不夹带这些的。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>戴尔PowerEdgeR620</title>
     <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
     <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
@@ -437,6 +495,371 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
+    <title>磁盘</title>
+    <url>/2023/08/30/%E7%A3%81%E7%9B%98/</url>
+    <content><![CDATA[<h1 id="磁盘-Disk"><a href="#磁盘-Disk" class="headerlink" title="磁盘 Disk"></a>磁盘 Disk</h1><ul>
+<li><p>名词：DISK 磁盘、硬盘</p>
+</li>
+<li><p>磁盘作用：存储数据</p>
+</li>
+<li><p>种类：机械硬盘、固态硬盘</p>
+<ul>
+<li>根据接口分类：<ul>
+<li>SATA（支持热插拔和热交换）</li>
+<li>SAS（主要用于企业级服务器和存储系统。支持热插拔功能）</li>
+<li>SCSI</li>
+<li>NVMe（基于PCIe基于PCIe总线，主要用于ssd）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>文件格式：FAT32，NTFS，exFAT</p>
+</li>
+<li><p>分区格式：mbr，guid（gpt）</p>
+</li>
+<li><p>步骤：先分区，选择文件系统，格式化</p>
+</li>
+</ul>
+<h2 id="简而言之"><a href="#简而言之" class="headerlink" title="简而言之"></a>简而言之</h2><ul>
+<li><p>磁盘、分区、分区表、文件系统，格式化之间关系理解</p>
+<ul>
+<li>一个<strong>磁盘</strong>（好比一个衣柜ssd,hdd），要先<strong>分区</strong>（分成几个块，哪一块放什么mbr,gpt），然后<strong>格式化</strong>（清理干净）然后选择<strong>文件系统</strong>（衣服怎么放，叠起来还是卷起来ext4,ntfs），<strong>挂载</strong>目录（给对应区域写上标签），最后正常使用<strong>文件</strong>（放衣服）</li>
+<li>先fdisk&#x2F;parted分区，再针对分区mkfs格式化为某种文件系统，然后挂载</li>
+</ul>
+</li>
+<li><p>linux一切皆文件</p>
+<ul>
+<li>linux采用文件夹模式，在linux中，新的硬盘加入也是以文件夹的方式挂载到主分区</li>
+</ul>
+</li>
+</ul>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><ul>
+<li><p>定义并实现了数据在存储介质上的组织方式和结构，以及如何被访问，那组织的⽅式不同，就会形成不同的⽂件系统</p>
+<img src="https://s1.ax1x.com/2023/08/29/pPaW5En.png" style="zoom: 50%;" />
+</li>
+<li><p>一言以蔽之</p>
+<pre class="line-numbers language-none"><code class="language-none">* FAT32格式兼容性好，但不支持4GB以上的文件
+
+* NTFS格式支持大容量文件和超大分区，但对闪盘芯片有伤害(SSD和U盘同为闪存，但SSD还是用NTFS格式好)
+
+* exFAT格式是最适合windows U盘的
+
+* 如果你经常需要在Linux和Windows上用U盘互相传文件，而且Linux核心版本又比较低，推荐还是FAT32,不考虑兼容使用exFAT。(用FTP或者SCP不香吗？)
+
+
+* 在linux上，一般情况下最好使用ext4文件系统，因为其向后兼容性很好，你可以把ext2、ext3的文件系统按照ext4挂载。并且ext4可以有效减少碎片，对于SSD和HDD硬盘是很好的选择。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h3 id="FAT32"><a href="#FAT32" class="headerlink" title="FAT32"></a>FAT32</h3><ul>
+<li><p><strong>文件分配表</strong>，是采用<strong>32位二进制数</strong>记录管理的磁盘文件管理方式</p>
+</li>
+<li><p>优点：是稳定性和兼容性好，且维护方便</p>
+</li>
+<li><p>缺点：安全性差，且最大只能支持<strong>32GB</strong>分区，单个文件也只能支持最大<strong>4GB</strong>。</p>
+</li>
+<li><p>其他：fat、fat16</p>
+</li>
+</ul>
+<h3 id="NTFS"><a href="#NTFS" class="headerlink" title="NTFS"></a>NTFS</h3><ul>
+<li><strong>WINdowsNT</strong> 和高级服务器网络操作系统环境的文件系统，并且 <em>NTFS</em> 是一个<strong>日志文件系统</strong>，这意味着除了向磁盘中写入信息，该文件系统还会为所发生的所有改变保留一份日志。</li>
+<li><strong>NTFS</strong> 设计初衷是提供比 <em>FAT32</em> 更高的可靠性，并消除 <em>FAT32</em> 文件系统容量限制。它除了支持更大的分区和文件、更节约硬盘空间外，还提供了 <em>FAT32</em> 文件系统不能提供的<strong>长文件名、压缩分区、事件追踪、文件索引、高容错性、数据保护和恢复以及加密访问</strong>等功能</li>
+<li>在发生错误的时候很快恢复正常，而且不会丢失任何数据。</li>
+<li>针对传统机械硬盘而设计的。它采用了一种<strong>日志式</strong>的文件系统，需要频繁记录磁盘的详细读写操作，会给<strong>U盘</strong>或 <strong>SSD</strong> 这类储介质带来额外的负担。比如同样存取一个文件或目录，<em>NTFS</em> 分区格式的读写次数就比 <em>FAT32</em> 多得多，因此理论上<strong>使用NTFS格式分区的U盘寿命更短</strong>。</li>
+</ul>
+<h3 id="exFAT"><a href="#exFAT" class="headerlink" title="exFAT"></a>exFAT</h3><ul>
+<li><p>既弥补了 <em>FAT32</em> 的局限性和缺点，又没有 <em>NTFS</em> 那些会影响U盘寿命的功能</p>
+</li>
+<li><p>分区大小和支持的单个文件大小最大可达16EB，存储单位灵活最小为0.5KB，最高可达32MB，空间利用率更高</p>
+</li>
+</ul>
+<h3 id="ext4"><a href="#ext4" class="headerlink" title="ext4"></a>ext4</h3><ul>
+<li>日志文件系统、第四代扩展文件系统，表结构</li>
+<li>支持单个文件的大小高达16TB，支持不同分区上以不同方式存储数据的功能，支持文件虚拟化，空间回收</li>
+<li>其他：ext2、ext3</li>
+</ul>
+<h3 id="XFS"><a href="#XFS" class="headerlink" title="XFS"></a>XFS</h3><ul>
+<li>centos7默认</li>
+<li>64 位高性能日志文件系统，树结构</li>
+<li>单个、最大支持8EB，支持并行IO操作，RAID上的扩展性更好，多线程并行读写时比Ext4有优势</li>
+</ul>
+<h3 id="Btrfs"><a href="#Btrfs" class="headerlink" title="Btrfs"></a>Btrfs</h3><ul>
+<li>B-Tree File System的缩写，可以读作“butter fs”或“b-tree fs”</li>
+</ul>
+<h3 id="tmpfs"><a href="#tmpfs" class="headerlink" title="tmpfs"></a>tmpfs</h3><ul>
+<li>临时文件系统，是一种基于内存的文件系统</li>
+<li><strong>devtmps</strong>  <ul>
+<li>设备文件系统，它将其所有文件保存在虚拟内存中。所有内容都是临时的<ul>
+<li>根路径在&#x2F;dev</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="vfs"><a href="#vfs" class="headerlink" title="vfs"></a>vfs</h3><ul>
+<li><p>虚拟文件系统</p>
+</li>
+<li><p><strong>vfat</strong> 虚拟文件分配表，是作为FAT文件系统的一种扩展。</p>
+</li>
+</ul>
+<h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><ul>
+<li>分区（分盘），划分磁盘空间，对磁盘划分 逻辑边界，提升安全性和利用率<ul>
+<li>比一个衣柜，划分成多个分区，第一分区用来放内衣袜子，第二分区用来存放上衣，第三分区用来存放裤子，放袜子的区域乱了不影响其他区域</li>
+</ul>
+</li>
+</ul>
+<h3 id="分区表-1"><a href="#分区表-1" class="headerlink" title="分区表"></a>分区表</h3><ul>
+<li><p>记录了磁盘上每个分区的位置、大小和类型等信息，有 mbr格式，guid格式（gpt格式）</p>
+</li>
+<li><p>mbr分区</p>
+<ul>
+<li><p>启动时，引导模式为 Legacy（bios）</p>
+</li>
+<li><p>最大只能支持2 TB 的硬盘空间</p>
+</li>
+<li><p>最多支持 4 个主分区（如果想要更多分区，要创建<strong>扩展分区</strong>，并在其中创建<strong>逻辑分区</strong>），一般是<strong>主分区+扩展分区</strong></p>
+<ul>
+<li><p>主分区：</p>
+<blockquote>
+<p>不可以再进行二次分区。可以用来引导、启动操作系统 </p>
+</blockquote>
+<blockquote>
+<p>主分区可以直接建立文件系统，存储数据</p>
+</blockquote>
+</li>
+<li><p>扩展分区：</p>
+<blockquote>
+<p>本身不承载空间。主要就是增加分区数量</p>
+</blockquote>
+<blockquote>
+<p>不能创建文件系统，可以划分逻辑分区</p>
+</blockquote>
+<p>逻辑分区：可以创建文件系统，存放数据，逻辑分区的数量没有限制</p>
+</li>
+</ul>
+<img src="https://s1.ax1x.com/2023/08/28/pPaEUUJ.png" style="zoom: 50%;" /></li>
+</ul>
+</li>
+<li><p>guid分区</p>
+<ul>
+<li>启动时，引导模式为 uefi</li>
+<li>主备模式，主区Primary ，备区Secondary</li>
+<li>分区数量几乎没有限制，每一个分区都可以独立存在，没有扩展分区、逻辑分区的概念，即所有分区都是主分区。</li>
+<li></li>
+</ul>
+</li>
+</ul>
+<h2 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h2><ul>
+<li><p>对硬盘或存储设备进行初始化，清除存储设备上的所有数据</p>
+</li>
+<li><p>一般过程</p>
+<ul>
+<li><p>先格式化文件系统</p>
+<pre class="line-numbers language-none"><code class="language-none">mkfs.xfs &#x2F;dev&#x2F;sdXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>关闭文件自检系统</p>
+<pre class="line-numbers language-none"><code class="language-none">tune2fs
+
+
+[root@localhost tmp]# tune2fs -c -1 &#x2F;dev&#x2F;sda1
+tune2fs 1.42.9 (28-Dec-2013)
+Setting maximal mount count to -1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h2 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h2><ul>
+<li><p>linux中一切都是文件，<strong>挂载</strong>就是把目录和文件关联起来，访问此目录就等同于访问此文件，否则能看见文件，但是命令找不到文件</p>
+</li>
+<li><p>挂载操作会使得原有目录中文件被隐藏，因此根目录以及系统原有目录都不要作为挂载点，会造成系统异常甚至崩溃，挂载点最好是新建的空目录。（linux上的文件夹就是挂载点）</p>
+</li>
+<li><p>一个路径挂载一个物理磁盘，就不能在这个路径下挂载其他新的物理磁盘 ，路径与硬盘挂载1：1关系</p>
+</li>
+<li><p><img src="https://s1.ax1x.com/2023/08/28/pPaCZBd.png"></p>
+</li>
+<li><p>【 mount  要挂载的设备  挂载点】</p>
+<ul>
+<li><p>将指定的文件挂载到指定的目录</p>
+<pre class="line-numbers language-none"><code class="language-none">-l  显示系统的所有挂载信息
+-t  指定设备的文件系统类型，否则mount自动选择文件系统类型
+-o  添加挂载的功能选项
+-r  挂载后设备只读
+-w  允许读写操作，rw权限
+
+
+
+[root@localhost tmp]# mount &#x2F;dev&#x2F;sda1 &#x2F;tmp&#x2F;tftTest1
+[root@localhost tmp]# lsblk -f
+lsblk: dm-3：获取设备路径失败
+NAME      FSTYPE      LABEL UUID                                   MOUNTPOINT
+sda                                                                
+├─sda1    xfs               bb9996f9-83e5-491b-87d8-9cc5efe9c7b4   &#x2F;tmp&#x2F;tftTest1
+....
+[root@localhost tmp]# mount -l |grep sda1
+&#x2F;dev&#x2F;sda1 on &#x2F;tmp&#x2F;tftTest1 type xfs (rw,relatime,seclabel,attr2,inode64,noquota)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li><p>【 umount  挂载点 】</p>
+<ul>
+<li><p>取消挂载</p>
+<pre class="line-numbers language-none"><code class="language-none">[root@localhost tftTest1]# mount &#x2F;dev&#x2F;sda1 &#x2F;tmp&#x2F;tftTest1   # 挂载设备sda1到挂载点tftTest1
+[root@localhost tmp]# lsblk -f    # 查看
+lsblk: dm-3：获取设备路径失败
+NAME      FSTYPE      LABEL UUID                                   MOUNTPOINT
+sda                                                                
+├─sda1    xfs               bb9996f9-83e5-491b-87d8-9cc5efe9c7b4   &#x2F;tmp&#x2F;tftTest1
+
+[root@localhost tmp]# cd tftTest1 # 进入挂载点，查看磁盘设备内的文件
+[root@localhost tftTest1]# ls
+aoligei.txt
+[root@localhost tftTest1]# cd ..   # 退出目录
+[root@localhost tmp]# umount &#x2F;tmp&#x2F;tftTest1    # 取消挂载
+[root@localhost tmp]# cd tftTest1
+[root@localhost tftTest1]# ls    #看不到文件
+
+
+挂载点相当于给这个分区装了个门，让我们能够进出、访问<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h3 id="交换分区管理swap（windows称为虚拟内存）"><a href="#交换分区管理swap（windows称为虚拟内存）" class="headerlink" title="交换分区管理swap（windows称为虚拟内存）"></a>交换分区管理swap（windows称为虚拟内存）</h3><ol>
+<li>swap是硬盘的一个特殊分区，让读取快一点，一般存储热点数据</li>
+<li>当内存不够的时候，才申请swap空间，只要空间足够，就不需要swap空间</li>
+</ol>
+<h3 id="逻辑卷LVM"><a href="#逻辑卷LVM" class="headerlink" title="逻辑卷LVM"></a>逻辑卷LVM</h3><ol>
+<li>目的：管理磁盘的一种方式，性质与基本磁盘无异</li>
+<li>特点：随意扩张大小</li>
+<li>术语：PV&#x3D;物理卷（physical volume）；VG&#x3D;卷组（volume group）；LV&#x3D;逻辑卷（logical volume）</li>
+</ol>
+<p>* </p>
+<h2 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h2><ul>
+<li><p>【 fdisk 】</p>
+<ul>
+<li><p>分区命令，&lt;2T，不支持GPT</p>
+<pre class="line-numbers language-none"><code class="language-none">fdisk &#x2F;dev&#x2F;sdxxx
+
+m帮助参数：
+ n   add a new partition
+ p   print the partition table
+ q   quit without saving changes
+ w   write table to disk and exit
+ 
+n
+ Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+ 一直默认就行，选择大小   +200G
+ 
+w 保存退出
+
+[root@localhost tmp]# fdisk &#x2F;dev&#x2F;sda
+命令(输入 m 获取帮助)：p
+
+命令(输入 m 获取帮助)：n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+分区号 (1-4，默认 1)：
+起始 扇区 (2048-3907029167，默认为 2048)：
+将使用默认值 2048
+Last 扇区, +扇区 or +size&#123;K,M,G&#125; (2048-3907029167，默认为 3907029167)：+200G
+分区 1 已设置为 Linux 类型，大小设为 200 GiB
+
+命令(输入 m 获取帮助)：w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+正在同步磁盘。
+   
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li><p>【 parted 】</p>
+<ul>
+<li><p>分区命令，&gt;2T，支持MBR和GPT分区表</p>
+</li>
+<li><pre><code>p 分区
+q 退出
+
+
+parted /dev/sdXXXX
+mklabel gpt   # 改为gpt分区表   msdos代表mbr
+
+mkpart primary 0 480G 分一个sdxx1 从0到480G
+Ignore
+mkpart logic 480G 580G 分一个sdxx2 从480G到580G   注：这里的逻辑分区不需要建立在扩展分区上。
+<pre class="line-numbers language-none"><code class="language-none">
+* 【 lsblk 】
+
+  * 列出所有设备及文件系统信息 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+lsblk -f
+<pre class="line-numbers language-none"><code class="language-none">
+    
+
+* 【 mkfs 】
+
+  * 将分区格式化为某种文件系统。支持ext4、NTFS
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
+</li>
+</ul>
+<p>mkfs.ext4 &#x2F;dev&#x2F;sda1    mkfs+tab,查看支持类型	</p>
+<pre class="line-numbers language-none"><code class="language-none">
+  
+
+* 【 fsck 】
+
+  * 修复文件系统，默认读取 &#x2F;etc&#x2F;fstab 开机挂载文件
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>  修改&#x2F;etc&#x2F;fstab文件，<br>  例：<br>  &#x2F;dev&#x2F;mapper&#x2F;centos-root &#x2F;                       xfs     defaults        0 0    # 结尾0不检查，1检查</p>
+<p>  fsck -t 文件系统类型 设备名</p>
+<p>  fsck -t ext4 &#x2F;dev&#x2F;sda1<br>  &#x2F;dev&#x2F;sda1: clean</p>
+<pre><code>
+</code></pre>
+</li>
+<li><p>【xfs_info】</p>
+<ul>
+<li>查看文件系统属性， centos7默认xfs文件系统，</li>
+</ul>
+</li>
+<li><p>【 tune2fs 】</p>
+<ul>
+<li>设置linux开机是否自检文件系统是否正常</li>
+</ul>
+</li>
+<li><p>【 df -hT 】</p>
+<ul>
+<li>以磁盘分区为单位查看信息</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>计算机基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>工具类QA</title>
+    <url>/2023/08/19/%E5%B7%A5%E5%85%B7%E7%B1%BBQA/</url>
+    <content><![CDATA[<ul>
+<li>软碟通解决：<ul>
+<li>控制面板\时钟和区域——更改日期、时间或数字格式——管理——更改系统区域设置——beat版，使用unicode utf-8  取消勾选</li>
+</ul>
+</li>
+<li>pe启动U盘：<ul>
+<li>大白菜做好，测试好之后，直接把iso文件复制粘贴进去就好</li>
+<li>USB-HDD模式：硬盘仿真模式，兼容性很高，适用于新机型，但对于一些只支持USB-ZIP模式的电脑则无法启动，<strong>一般制作U盘启动盘选择该模式</strong>。</li>
+<li>USB-ZIP模式：大容量软盘仿真模式，在一些比较老的电脑上是唯一可选的模式，对新电脑来说兼容性不好，特别是2GB以上的大容量U盘。</li>
+</ul>
+</li>
+<li>PE系统<br>PE是指Windows 预安装环境 (Windows PE) 是在Windows内核上构建的具有有限服务的最小 Win32 子系统，说白了就是把系统写进U盘里；iso是一种光盘镜像文件格式，装系统的过程说简单点都是把系统原版ISO镜像里的系统文件或者GHO压缩镜像里的系统文件写入C盘并给C盘加上引导程序的过程，如果说两种安装方式有区别那就是有些第三方制作的PE里可以附加程序，比如可以加入一些万能的驱动程序，或者嵌入一些广告应用程序等等，而纯净的系统ISO安装是不夹带这些的。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>工具类</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>配置Raid和系统安装</title>
     <url>/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h1 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h1><ul>
@@ -451,14 +874,16 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
 <li><p>磁盘分区模式有mbr格式，guid格式（gpt格式）</p>
 </li>
-<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2.1TB 以下的硬盘，超过2.1TB的硬盘只能管理2.1TB，支持win7版本系统以下的32位和64位</p>
+<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2TB 以下的硬盘，支持win7版本系统以下的32位和64位</p>
 </li>
-<li><p>guid分区：全局唯一标识分区表，支持2.2T容量以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持win7版本以上的64位系统（不支持32位系统）,比如win8、win10系统</p>
+<li><p>guid分区：也叫gpt，全局唯一标识分区表，支持2T以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持win7版本以上的64位系统（不支持32位系统）,比如win8、win10系统</p>
 </li>
 <li><p>区别：</p>
 <ul>
 <li><p>mbr分区</p>
 <ul>
+<li><p>&lt; 2T,选择mbr分区表</p>
+</li>
 <li><p>启动时，引导模式为 Legacy（bios）</p>
 </li>
 <li><p>最多只能描述 4 个分区，其中一个为主分区，其他为扩展分区，</p>
@@ -467,7 +892,10 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 </li>
 <li><p>guid分区</p>
 <ul>
-<li>启动时，引导模式为 uefi</li>
+<li><p>大于2T,选择guid分区表</p>
+</li>
+<li><p>启动时，引导模式为 uefi</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -478,7 +906,7 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 </li>
 <li><p>根据自己的raid需求，再bios中选择对应的引导模式</p>
 </li>
-<li><p>》2t只能选择guid模式，否则做raid没意义，读不到那么大的容量</p>
+<li><p>大于2t只能选择guid引导，否则做raid没意义，读不到那么大的容量</p>
 </li>
 </ul>
 </li>
@@ -503,7 +931,7 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <li><p>区别</p>
 <ul>
 <li>UEFI是新式的BIOS，BIOS则是传统legacy。最明显的却别在于启动速度，UEFI明显更快，因为它支持硬件加速和并行处理。</li>
-<li><img src="https://pics4.baidu.com/feed/4afbfbedab64034f697236d3b44c713d08551dc6.jpeg@f_auto?token=5df15edbcaa420e4bbac299e2ffc3897" alt="img"></li>
+<li><img src="https://s1.ax1x.com/2023/08/30/pPd6L9S.png" alt="img"></li>
 </ul>
 </li>
 </ul>

@@ -5,8 +5,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="centos7, 学无止境">
-    <meta name="description" content="重启：reboot查看驱动器：ls &amp;#x2F;dev&amp;#x2F;sd*详细信息：blkid
-&amp;#x3D;&amp;#x3D;&amp;#x3D;》读不到磁盘system steup，system biso，sata setting1、embedded s">
+    <meta name="description" content="注意
+安装完成，拔出U盘，重启进入bios将启动顺序恢复至原来的顺序，无论安装什么系统，都要这样!!!
+其实大多数设备拔U盘之后，读不到U盘，就直接从系统盘读了，但是有时多系统，多硬盘的话，最好设置下启动项
+
+
+
+sata模式： stata">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -275,14 +280,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-24
+                    2023-08-30
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    277
+                    321
                 </div>
                 
 
@@ -312,13 +317,40 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
-<p>&#x3D;&#x3D;&#x3D;》<br>读不到磁盘<br>system steup，system biso，sata setting<br>1、embedded stata AHCI 兼容模式<br>2、write cache enabled 启用</p>
-<p>&#x3D;&#x3D;&#x3D;》<br>报错，Warning: &#x2F;dev&#x2F;root does not exist<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33427869/article/details/126668794">https://blog.csdn.net/qq_33427869/article/details/126668794</a></p>
-<p>分析<br>1.系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别</p>
-<p>解决<br>先查看自己的u盘设备名称，ls &#x2F;dev&#x2F;sd*,一般是sda4（建议blkid查看下类型）<br>选择test安装第二项，然后tab进入编辑，<br>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64”字样更改为“inst.stage2&#x3D;hd:&#x2F;dev&#x2F;sdb4，回车（或者ctrl+x）安装即可</p>
-<p>tips<br>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改<br>报错之后，ls查看，blkid查看，记住设备名称<br>reboot重启，<br>按下tab，修改hd：xxxx为设备名称，回车安装即可</p>
-<p>&#x3D;&#x3D;&#x3D;》<br>磁盘空间不足，自定义分区，用-号，删除即可</p>
+                <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li><p>安装完成，拔出U盘，重启进入bios将启动顺序恢复至原来的顺序，<strong>无论安装什么系统，都要这样!!!</strong></p>
+<p>其实大多数设备拔U盘之后，读不到U盘，就直接从系统盘读了，但是有时多系统，多硬盘的话，最好设置下启动项</p>
+</li>
+<li><blockquote>
+<ul>
+<li>sata模式： stata AHCI （一般选择它，兼容模式）    # 如果需要做Raid，选择raid模式</li>
+<li>write cache enabled 启用</li>
+<li>引导模式：UEFI（推荐）</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
+<h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
+<li><p>报错，<code>Warning: /dev/root does not exist</code></p>
+</li>
+<li><p>分析</p>
+<ul>
+<li>系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别<ul>
+<li>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解决</p>
+<ul>
+<li>先查看自己的u盘设备名称，<strong>ls &#x2F;dev&#x2F;sd</strong>*</li>
+<li>然后  <strong>blkid</strong> 查看类型，记住，然后重启<strong>reboot</strong></li>
+<li>选择安装项，然后<strong>e</strong>或者<strong>tab</strong>进入编辑，<br>在<strong>linux16</strong>那边，<strong>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64</strong>，更改为<strong>inst.stage2&#x3D;hd:&#x2F;dev&#x2F;U盘设备名</strong>，</li>
+<li><strong>回车</strong>或者<strong>ctrl+x</strong>，即可正常安装</li>
+</ul>
+</li>
+</ul>
 
                 
             </div>
@@ -1016,7 +1048,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">5.7k</span>
+                        class="white-color">8.6k</span>
             
             
             

@@ -280,14 +280,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-28
+                    2023-08-30
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    896
+                    902
                 </div>
                 
 
@@ -329,14 +329,16 @@
 <h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
 <li><p>磁盘分区模式有mbr格式，guid格式（gpt格式）</p>
 </li>
-<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2.1TB 以下的硬盘，超过2.1TB的硬盘只能管理2.1TB，支持win7版本系统以下的32位和64位</p>
+<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2TB 以下的硬盘，支持win7版本系统以下的32位和64位</p>
 </li>
-<li><p>guid分区：全局唯一标识分区表，支持2.2T容量以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持win7版本以上的64位系统（不支持32位系统）,比如win8、win10系统</p>
+<li><p>guid分区：也叫gpt，全局唯一标识分区表，支持2T以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持win7版本以上的64位系统（不支持32位系统）,比如win8、win10系统</p>
 </li>
 <li><p>区别：</p>
 <ul>
 <li><p>mbr分区</p>
 <ul>
+<li><p>&lt; 2T,选择mbr分区表</p>
+</li>
 <li><p>启动时，引导模式为 Legacy（bios）</p>
 </li>
 <li><p>最多只能描述 4 个分区，其中一个为主分区，其他为扩展分区，</p>
@@ -345,7 +347,10 @@
 </li>
 <li><p>guid分区</p>
 <ul>
-<li>启动时，引导模式为 uefi</li>
+<li><p>大于2T,选择guid分区表</p>
+</li>
+<li><p>启动时，引导模式为 uefi</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -356,7 +361,7 @@
 </li>
 <li><p>根据自己的raid需求，再bios中选择对应的引导模式</p>
 </li>
-<li><p>》2t只能选择guid模式，否则做raid没意义，读不到那么大的容量</p>
+<li><p>大于2t只能选择guid引导，否则做raid没意义，读不到那么大的容量</p>
 </li>
 </ul>
 </li>
@@ -381,7 +386,7 @@
 <li><p>区别</p>
 <ul>
 <li>UEFI是新式的BIOS，BIOS则是传统legacy。最明显的却别在于启动速度，UEFI明显更快，因为它支持硬件加速和并行处理。</li>
-<li><img src="https://pics4.baidu.com/feed/4afbfbedab64034f697236d3b44c713d08551dc6.jpeg@f_auto?token=5df15edbcaa420e4bbac299e2ffc3897" alt="img"></li>
+<li><img src="https://s1.ax1x.com/2023/08/30/pPd6L9S.png" alt="img"></li>
 </ul>
 </li>
 </ul>
@@ -859,18 +864,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/">
+                <a href="/2023/08/30/%E7%A3%81%E7%9B%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="配置Raid和系统安装">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="磁盘">
                         
-                        <span class="card-title">配置Raid和系统安装</span>
+                        <span class="card-title">磁盘</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -880,9 +884,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-25
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-08-30
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -891,12 +895,11 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/">
-                        <span class="chip bg-color">系统安装</span>
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">计算机基础</span>
                     </a>
                     
                 </div>
@@ -1122,7 +1125,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">5.7k</span>
+                        class="white-color">8.6k</span>
             
             
             

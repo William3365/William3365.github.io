@@ -4,20 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Raid, 学无止境">
-    <meta name="description" content="RAID
-QA
-为什么要做raid？
-花小钱办大事，提供容错机制
+    <meta name="keywords" content="Ubuntu, 学无止境">
+    <meta name="description" content="安装系统
+UEFI + GPT
+
+制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso
 
 
-
-
-
-基础概念
-RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术
-
-用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和">
+用户
+Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -29,7 +24,7 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Raid | 豆荚blog</title>
+    <title>Ubuntu | 豆荚blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -234,12 +229,12 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Raid</h1>
+                    <h1 class="description center-align post-title">Ubuntu</h1>
                 </div>
             </div>
         </div>
@@ -263,8 +258,8 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Raid/">
-                                <span class="chip bg-color">Raid</span>
+                            <a href="/tags/Ubuntu/">
+                                <span class="chip bg-color">Ubuntu</span>
                             </a>
                         
                     </div>
@@ -279,28 +274,28 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-08-23
+                    2023-08-30
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-29
+                    2023-08-30
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    208
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    1 分
                 </div>
                 
 
@@ -323,154 +318,50 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
-<li>QA<ul>
-<li>为什么要做raid？<ul>
-<li>花小钱办大事，提供容错机制</li>
-</ul>
+                <h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
+<li><p>UEFI + GPT</p>
+</li>
+<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
 </li>
 </ul>
+<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
+<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
+<blockquote>
+<p>登录之后是普通用户，设置root密码</p>
+<p><code>sudo passwd root </code></p>
+</blockquote>
 </li>
 </ul>
-<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><ul>
-<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
-</li>
-<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
-</li>
-<li><p>技术架构：数据条带、镜像、数据校验技术</p>
+<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
+<li><code>apt</code></li>
+<li>centos  <code>yum</code></li>
+</ul>
+<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
 <ul>
-<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
+<li><p>ip a   # 查看 网卡</p>
 </li>
-<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
-<ul>
-<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
-</ul>
+<li><p>cd &#x2F;etc&#x2F;netplan </p>
 </li>
-<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
+<li><p>ls   # 查看.yaml文件</p>
 </li>
-<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
+<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
 </li>
-</ul>
-</li>
-<li><p>区分：</p>
-<ul>
-<li><p>软 RAID，</p>
-<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
+<li><p>编辑</p>
+<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
 
-占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
-
-跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+网卡名
+   dhcp4: false    # 动态改成false
+      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
+      gateway4: 192.168.3.1    # 网关
+      nameservers:
+        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>硬 RAID </p>
-<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
-
-性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<li><p>退出vi文本编辑器</p>
 </li>
-<li><p>软硬混合 RAID ，成本、性能居中</p>
-</li>
-</ul>
-</li>
-<li><p>热备盘</p>
-<ul>
-<li>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</li>
-</ul>
-</li>
-<li><p>raid0</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
-<li>例：2T + 2T &#x3D; 4T</li>
-<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
-<li>视频、音频存储、打印等</li>
-</ul>
-</li>
-<li><p>raid1</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
-<li>例：2T + 2T &#x3D; 2T</li>
-<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
-<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
-<li>邮件、数据库</li>
-</ul>
-</li>
-<li><p>raid5</p>
-<ul>
-<li><strong>最少3块</strong></li>
-<li>例：2T + 2T+ 2T &#x3D; 4T</li>
-<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
-<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
-<li>适用于金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid6</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
-<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
-<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid10</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
-<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
-<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
-<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
-</ul>
-</li>
-<li><p>raid50</p>
-<ul>
-<li><strong>至少需要六个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>RAID 5 + 0</li>
-</ul>
-</li>
-<li><p>raid60</p>
-<ul>
-<li><strong>最少需要八个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>比 RAID 50 阵列更可靠</li>
-</ul>
+<li><p>sudo netplan apply  # 保存</p>
 </li>
 </ul>
-<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
-<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
-<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
-
-如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
-
-如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
-
-容量&gt;性能，raid50、raid10
-数据保护，raid6、raid60
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
-</li>
-<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
-</li>
-<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
-</li>
-<li><p>先配置raid，再按需分区，最后装系统</p>
-</li>
-<li><p>raid和non-raid</p>
-<ul>
-<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
-<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
-</ul>
-</li>
-</ul>
-<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
-</ul>
-<p>1、检查硬件，可正常工作、安装连接无误</p>
-<p>2、根据读盘结果，按需将磁盘转为raid或no-raid</p>
-<p>3、查看虚拟磁盘配置结果，normal(正常)，ready（可用配置raid），online（可用在线）</p>
+</blockquote>
 
                 
             </div>
@@ -497,7 +388,7 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/08/23/Raid/">http://example.com/2023/08/23/Raid/</a>
+                    <a href="http://example.com/2023/08/30/ubuntu/">http://example.com/2023/08/30/ubuntu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -535,8 +426,8 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Raid/">
-                                    <span class="chip bg-color">Raid</span>
+                                <a href="/tags/Ubuntu/">
+                                    <span class="chip bg-color">Ubuntu</span>
                                 </a>
                             
                         </div>
@@ -907,17 +798,18 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/">
+                <a href="/2023/08/30/ubuntu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="戴尔PowerEdgeR620">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Ubuntu">
                         
-                        <span class="card-title">戴尔PowerEdgeR620</span>
+                        <span class="card-title">Ubuntu</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -927,9 +819,9 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-08-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -938,11 +830,12 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
-                        <span class="chip bg-color">服务器</span>
+                    <a href="/tags/Ubuntu/">
+                        <span class="chip bg-color">Ubuntu</span>
                     </a>
                     
                 </div>
@@ -956,13 +849,13 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/08/23/%E5%AF%86%E7%A0%81%E7%A0%B4%E8%A7%A3/">
+                <a href="/2023/08/30/%E7%A3%81%E7%9B%98/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="密码破解">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="磁盘">
                         
-                        <span class="card-title">密码破解</span>
+                        <span class="card-title">磁盘</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -973,7 +866,7 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-30
                             </span>
                         <span class="publish-author">
                             
@@ -986,8 +879,8 @@ RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁�
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/">
-                        <span class="chip bg-color">工具类</span>
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">计算机基础</span>
                     </a>
                     
                 </div>
