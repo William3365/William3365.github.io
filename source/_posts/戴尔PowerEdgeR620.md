@@ -1,7 +1,7 @@
 ---
 title: 戴尔PowerEdgeR620
 date: 2023-08-25 22:14:50
-tags: 服务器
+tags:  戴尔PowerEdge
 ---
 ## PERC 阵列卡
 
