@@ -287,21 +287,21 @@ pe启动修改osk和cmd
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-23
+                    2023-08-31
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    319
+                    554
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -355,10 +355,46 @@ pe启动修改osk和cmd
 	del osk.exe
 	rename osk.exe.bak osk.exe<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
 <h2 id="centos7"><a href="#centos7" class="headerlink" title="centos7"></a>centos7</h2><p>详细：<code>https://blog.csdn.net/weixin_52269666/article/details/121577724</code></p>
 <p><img src="https://s1.ax1x.com/2023/08/23/pPJTYOH.png"></p>
 <p><img src="https://s1.ax1x.com/2023/08/23/pPJTNmd.png"></p>
+<h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><ul>
+<li><p>Ubuntu server 20.04</p>
+<blockquote>
+<ul>
+<li><p>开机进入grub界面，修改grub配置文件</p>
+</li>
+<li><p>在grub页面，选择【Advanced options for Ubuntu】  # Ubuntu高级选项</p>
+</li>
+<li><p>启动菜单选择【recovery mode】这个，按【e】</p>
+</li>
+<li><p>使用导航箭头找到包含以下字符串的行【ro recovery nomodeset】，<strong>删除</strong></p>
+</li>
+<li><p>同时在这一行的末尾，加上【quiet splash rw init&#x3D;&#x2F;bin&#x2F;bash】，按 <strong>ctrl+x</strong> 或者 <strong>F10</strong> 继续引导</p>
+</li>
+<li><p>成功启动后，直接就是root用户身份在执行命令，显示**root@(none):&#x2F;# **</p>
+</li>
+<li><p>重置密码，【passwd 用户名】（ passwd 不加用户名表示重置root密码 ）</p>
+</li>
+<li><p>完成后，重启 【exec &#x2F;sbin&#x2F;init】</p>
+</li>
+</ul>
+<p><strong>tips</strong>：</p>
+<p>  如何开机进入grub界面？</p>
+<ul>
+<li><p>sudo vi &#x2F;etc&#x2F;default&#x2F;grub              #  打开配置文件，</p>
+</li>
+<li><p>GRUB_TIMEOUT_STYLE&#x3D;menu          # 在最后一行增加，前边的注释掉，</p>
+<p>如果实在不行，grub一闪而过或者没有显示，加入GRUB_TIMEOUT&#x3D;10，同理前边的注释掉</p>
+</li>
+<li><p>sudo update-grub       # 更新文件</p>
+</li>
+<li><p>reboot  重启即可</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
 
                 
             </div>
@@ -1056,7 +1092,7 @@ pe启动修改osk和cmd
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">8.6k</span>
+                        class="white-color">10.2k</span>
             
             
             

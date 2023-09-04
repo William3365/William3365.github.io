@@ -285,21 +285,21 @@ NVMe（基于PCIe基于P">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-30
+                    2023-08-31
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    3.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    12 分
                 </div>
                 
 
@@ -426,14 +426,58 @@ NVMe（基于PCIe基于P">
 <li><p><strong>vfat</strong> 虚拟文件分配表，是作为FAT文件系统的一种扩展。</p>
 </li>
 </ul>
-<h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><ul>
-<li>分区（分盘），划分磁盘空间，对磁盘划分 逻辑边界，提升安全性和利用率<ul>
+<h2 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h2><ul>
+<li><p>分区（分盘），划分磁盘空间，对磁盘划分 逻辑边界，提升安全性和利用率</p>
+<ul>
 <li>比一个衣柜，划分成多个分区，第一分区用来放内衣袜子，第二分区用来存放上衣，第三分区用来存放裤子，放袜子的区域乱了不影响其他区域</li>
 </ul>
 </li>
+<li><p>分区建议：  新手直接默认分区，除了SWAP分区外，其他分区的文件系统一律选择ext4类型,设备类型默认选LVM</p>
+<ul>
+<li>一般至少三个分区：&#x2F;，&#x2F;boot，swap</li>
 </ul>
-<h3 id="分区表-1"><a href="#分区表-1" class="headerlink" title="分区表"></a>分区表</h3><ul>
+</li>
+<li><p>必须的分区</p>
+<blockquote>
+<ul>
+<li>boot分区：</li>
+</ul>
+<p>​        作用：引导分区，包含了系统启动的必要内核文件，即使根分区顺坏也能正常引导启动 一般这些文件所占空间在200M以下，</p>
+<p>​        分区建议：分区的时候可选100M-500M之间,如果空间足够用，建议分300-500M。避免由于长期使用的冗余文件塞满这个分区。</p>
+<p>​        分区格式：建议ext4，按需求更改</p>
+<ul>
+<li>&#x2F;分区（根分区）：</li>
+</ul>
+<p>​        作用：所有的文件都从这里开始，类似于Windows c盘，如果有大量的数据在根目录下（比如FTP等）可以划分大一点的空间</p>
+<p>​        分区建议：建议15G以上。看需求，根分区和home分区的大小，主要占空间在哪儿就在那里分大容量</p>
+<p>​        分区格式：建议ext4，按需求更改</p>
+<ul>
+<li>swap分区：</li>
+</ul>
+<p>​        作用：类似于Windows的虚拟内存，在内存不够用时占用硬盘的虚拟内存来进行临时数据的存放，而对于linux就是swap分区</p>
+<p>​        分区建议：建议是物理内存大小的2倍，比如你电脑是4G的物理内存，swap分区可以是8G</p>
+<p>　　 分区格式：swap格式</p>
+</blockquote>
+</li>
+<li><p>可选的分区</p>
+<blockquote>
+<ul>
+<li>home分区</li>
+</ul>
+<p>　　 作用：存放用户数据，HOME的结构一般是 HOME&#x2F;userName&#x2F;userFile，如果不分则默认在&#x2F;目录下<br>　　 分区建议：如果用户数据多可以将此分区适当增大，参考“根分区”；一般硬盘的主要容量几乎都在Home分区和根分区下<br>　　 分区格式：建议ext4，按需求更改</p>
+<ul>
+<li>var分区</li>
+</ul>
+<p>　　 作用：用于log日志的文件的存放，如果不分则默认在&#x2F;目录下</p>
+<p>　　 分区建议：如果linux用于服务器或者经常做日志分析，请划分var分区，避免日志文件不断膨胀塞满导致根分区而引发问题。</p>
+<p>　　 分区格式：建议ext4，按需求更改</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
 <li><p>记录了磁盘上每个分区的位置、大小和类型等信息，有 mbr格式，guid格式（gpt格式）</p>
+</li>
+<li><p><strong>对应的分区模式要选择对应的引导模式，根据自己需求，再bios中选择对应的引导模式，大于2t只能选择guid引导，读不到那么大的容量</strong></p>
 </li>
 <li><p>mbr分区</p>
 <ul>
@@ -469,7 +513,6 @@ NVMe（基于PCIe基于P">
 <li>启动时，引导模式为 uefi</li>
 <li>主备模式，主区Primary ，备区Secondary</li>
 <li>分区数量几乎没有限制，每一个分区都可以独立存在，没有扩展分区、逻辑分区的概念，即所有分区都是主分区。</li>
-<li></li>
 </ul>
 </li>
 </ul>
@@ -1355,7 +1398,7 @@ lsblk -f
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">8.6k</span>
+                        class="white-color">10.2k</span>
             
             
             

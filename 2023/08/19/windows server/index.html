@@ -5,8 +5,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="windows server, 学无止境">
-    <meta name="description" content="工作流程1、装设备、装系统2、设置用户、配ip、配端口3、服务器管理器，开启【远程桌面，远程管理】，设置防火墙4、测试，ping通，远程通5、交付
-&amp;#x3D;&amp;#x3D;&amp;#x3D;》1、tft电脑，test，远程桌面连接测试2、测试机，">
+    <meta name="description" content="windows server
+工作流程
+
+1、装设备、装系统2、设置用户、配ip、配端口3、服务器管理器，开启【远程桌面，远程管理】，设置防火墙4、测试，ping通，远程通5、交付
+业务操作配置远程桌面
+流程
+服务器管理器，开启，远程桌面、">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -275,21 +280,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-21
+                    2023-08-31
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    351
+                    557
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -312,9 +317,86 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>工作流程<br>1、装设备、装系统<br>2、设置用户、配ip、配端口<br>3、服务器管理器，开启【远程桌面，远程管理】，设置防火墙<br>4、测试，ping通，远程通<br>5、交付</p>
-<p>&#x3D;&#x3D;&#x3D;》<br>1、tft电脑，test，远程桌面连接测试<br>2、测试机，登录把tft电脑顶掉，测试<br>3、测试通过<br>4、用一楼的电脑进行远程连接测试<br>tips：<br>1、服务器管理器，开启，远程桌面、远程管理</p>
-<p>&#x3D;&#x3D;&#x3D;》<br>1、测试配置新ip<br>    –配置成功、ping成功、远程桌面成功<br>tips：<br>1、windows防火墙，入站规则，<br>    开启：—否则无法远程连接<br>        远程桌面（tcp-in 用户模式）<br>        远程桌面（udp-in 用户模式）<br>              —否则无法ping通<br>        核心网络诊断-icmp 回显请求（icmpv4-in） &#x2F; 文件和打印机共享（回显请求-icmpv4-in）<br>        核心网络诊断-icmp 回显请求（icmpv4-in）<br>&#x3D;&#x3D;&#x3D;》<br>2、测试修改端口号，在注册表中修改的，改成22789。防火墙中配置，然后重启remot desktop service<br>    –配置成功、【telnet ip 端口（跳到空窗口）】成功、远程桌面成功<br>tips：<br>1、配置端口：<br>    注册表中，修改两处端口号PortNumber，<br>    （<br>        路径1：hkey_local_machine\system\currentcontrolset\control\terminal server\wds\rdpwd\tds\tcp<br>        路径2：hkey_local_machine\system\currentcontrolset\control\terminal server\winstations\rdp-tcp<br>     ）<br>    服务，remot desktop services 重启<br>    防火墙中新建入站规则–端口号</p>
+                <h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
+<li>工作流程</li>
+</ul>
+<p>1、装设备、装系统<br>2、设置用户、配ip、配端口<br>3、服务器管理器，开启【远程桌面，远程管理】，设置防火墙<br>4、测试，ping通，远程通<br>5、交付</p>
+<h2 id="业务操作"><a href="#业务操作" class="headerlink" title="业务操作"></a>业务操作</h2><h3 id="配置远程桌面"><a href="#配置远程桌面" class="headerlink" title="配置远程桌面"></a>配置远程桌面</h3><ul>
+<li>流程<ul>
+<li><p>服务器管理器，开启，远程桌面、远程管理，需要进入 防火墙</p>
+</li>
+<li><p>windows防火墙，入站规则，开启服务：</p>
+<ul>
+<li>—否则无法远程连接<br>    远程桌面（tcp-in 用户模式）<br>远程桌面（udp-in 用户模式）</li>
+<li>—否则无法ping通<br>    核心网络诊断-icmp 回显请求（icmpv4-in） &#x2F; 文件和打印机共享（回显请求-icmpv4-in）<br>核心网络诊断-icmp 回显请求（icmpv4-in）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="配置新ip"><a href="#配置新ip" class="headerlink" title="配置新ip"></a>配置新ip</h3><ul>
+<li><p>流程</p>
+<ul>
+<li>配置ip，修改默认端口号</li>
+<li>配置成功、ping成功、telnet成功、远程桌面成功</li>
+</ul>
+</li>
+<li><p>修改默认端口号，</p>
+<ul>
+<li><p>改成5位，22xxx或者33xxx</p>
+<blockquote>
+<p>1、注册表中，修改两处端口号【 PortNumber 】</p>
+<ul>
+<li><p>路径1：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ wds \ rdpwd \ tds \ tcp</p>
+</li>
+<li><p>路径2：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ winstations \ rdp-tcp</p>
+</li>
+</ul>
+<p>2、防火墙中新建入站规则–端口号</p>
+<p>3、服务，重新启动服务 【remot desktop services】</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
+<li><p>同一时间，多个用户，用一个账号登录，比如A，B，C，D四台机器，同时使用administrator这个账户登录服务器</p>
+</li>
+<li><p>流程</p>
+<ul>
+<li><p>首先开启远程桌面、远程管理</p>
+</li>
+<li><p>服务器与管理器 》管理 》添加角色和功能向导 》基于角色或基于功能的安装</p>
+</li>
+<li><p>远程桌面服务 》远程桌面(会话)主机、远程桌面授权</p>
+</li>
+<li><p>确认安装所选内容，重启服务器</p>
+<p><img src="https://s1.ax1x.com/2023/08/31/pPw7KkF.png"></p>
+</li>
+<li><p><strong>直接执行以下操作也可以</strong></p>
+</li>
+<li><p>运行&#x2F;cmd，输入【gpedit.msc】打开策略组</p>
+</li>
+<li><p>计算机配置\管理模板\Windows 组件\远程桌面服务\远程桌面会话主机\连接</p>
+</li>
+<li><p>将远程桌面服务的用户限制到单独的远程桌面会话，禁用</p>
+</li>
+<li><p>限制连接的数量，启用，允许的RD最大连接数——修改</p>
+</li>
+<li><p>cmd，输入【gpupdate &#x2F;force】刷新策略，使策略生效</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
+<li><p>无法telnet</p>
+<blockquote>
+<p>一、打开控制面板</p>
+<p>二、点击打开启用或关闭Windows功能</p>
+<p>三、找到telnet客户端，勾选打开</p>
+</blockquote>
+</li>
+</ul>
 
                 
             </div>
@@ -1012,7 +1094,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">8.6k</span>
+                        class="white-color">10.2k</span>
             
             
             
