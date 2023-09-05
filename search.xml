@@ -45,50 +45,6 @@
       </tags>
   </entry>
   <entry>
-    <title>centos7</title>
-    <url>/2023/08/19/centos7/</url>
-    <content><![CDATA[<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
-<li><p>一般推荐<strong>uefi</strong>引导</p>
-</li>
-<li><p>安装完成，拔出U盘，重启进入bios将启动顺序恢复至原来的顺序，<strong>无论安装什么系统，都要这样!!!</strong></p>
-<p>其实大多数设备拔U盘之后，读不到U盘，就直接从系统盘读了，但是有时多系统，多硬盘的话，最好设置下启动项</p>
-</li>
-<li><blockquote>
-<ul>
-<li>sata模式： stata AHCI （一般选择它，兼容模式）    # 如果需要做Raid，选择raid模式</li>
-<li>write cache enabled 启用</li>
-<li>引导模式：UEFI（推荐）</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
-<h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
-<li><p>报错，<code>Warning: /dev/root does not exist</code></p>
-</li>
-<li><p>分析</p>
-<ul>
-<li>系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别<ul>
-<li>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>解决</p>
-<ul>
-<li>先查看自己的u盘设备名称，<strong>ls &#x2F;dev&#x2F;sd</strong>*</li>
-<li>然后  <strong>blkid</strong> 查看类型，记住，然后重启<strong>reboot</strong></li>
-<li>选择安装项，然后<strong>e</strong>或者<strong>tab</strong>进入编辑，<br>在<strong>linux16</strong>那边，<strong>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64</strong>，更改为<strong>inst.stage2&#x3D;hd:&#x2F;dev&#x2F;U盘设备名</strong>，</li>
-<li><strong>回车</strong>或者<strong>ctrl+x</strong>，即可正常安装</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>centos7</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Raid</title>
     <url>/2023/08/23/Raid/</url>
     <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
@@ -255,9 +211,56 @@
 <p>1、检查硬件，可正常工作、安装连接无误</p>
 <p>2、根据读盘结果，按需配置raid</p>
 <p>3、查看虚拟磁盘配置结果</p>
+<ul>
+<li>mdadm，建设，管理，监控raid</li>
+</ul>
 ]]></content>
       <tags>
         <tag>Raid</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos7</title>
+    <url>/2023/08/19/centos7/</url>
+    <content><![CDATA[<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li><p>一般推荐<strong>uefi</strong>引导</p>
+</li>
+<li><p>安装完成，拔出U盘，重启进入bios将启动顺序恢复至原来的顺序，<strong>无论安装什么系统，都要这样!!!</strong></p>
+<p>其实大多数设备拔U盘之后，读不到U盘，就直接从系统盘读了，但是有时多系统，多硬盘的话，最好设置下启动项</p>
+</li>
+<li><blockquote>
+<ul>
+<li>sata模式： stata AHCI （一般选择它，兼容模式）    # 如果需要做Raid，选择raid模式</li>
+<li>write cache enabled 启用</li>
+<li>引导模式：UEFI（推荐）</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
+<h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
+<li><p>报错，<code>Warning: /dev/root does not exist</code></p>
+</li>
+<li><p>分析</p>
+<ul>
+<li>系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别<ul>
+<li>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解决</p>
+<ul>
+<li>先查看自己的u盘设备名称，<strong>ls &#x2F;dev&#x2F;sd</strong>*</li>
+<li>然后  <strong>blkid</strong> 查看类型，记住，然后重启<strong>reboot</strong></li>
+<li>选择安装项，然后<strong>e</strong>或者<strong>tab</strong>进入编辑，<br>在<strong>linux16</strong>那边，<strong>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64</strong>，更改为<strong>inst.stage2&#x3D;hd:&#x2F;dev&#x2F;U盘设备名</strong>，</li>
+<li><strong>回车</strong>或者<strong>ctrl+x</strong>，即可正常安装</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>centos7</tag>
       </tags>
   </entry>
   <entry>
@@ -465,20 +468,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>周报</title>
-    <url>/2023/08/19/%E5%91%A8%E6%8A%A5/</url>
-    <content><![CDATA[<p>入职第一周<br>本人前端程序员一名，因故回到县城老家，找不到工作，改行做机房运维，记录0基础运维成长</p>
-<p>第一天，简单看了下培训文档和基本信息资料，然后领导交代制作pe系统盘，有一说一，这个东西是计算机人的基础，大学也都学过，但是我不会，我从来没用U盘装过系统。<br>使用大白菜一键制作U盘。不知道为什么，中间做一半电脑卡死了，弄坏了一个U盘，直接读不出来了。然后就是去网上找iso镜像，有一说一，国内的这些网站广告是真的多。需要的系统文件有windows server 2008、2021、2022、centos7.x。找到之后，就开始了漫长的下载，由于网络问题，10点开始下载，下午1点才下载好。<br>下载好之后，网上教程说用软碟通刻录、直接复制拷贝等等。我用软碟通但是安装的时候一直中文乱码，然后就用复制解压到U盘的方法,windows系统要求做在一个盘里，cent的做在另一个盘里。解压的过程中，要么是空间不够，要么电脑半路卡死。奇奇怪怪，我之前电脑从来没卡死过，8代i5，16+256+512，以前开机7s，现在都是20s。奇奇怪怪。<br>到了下班点，WindowsU盘还没弄好，回家接着弄。</p>
-<p>two<br>U盘弄好了，但是尝试在虚拟机中装系统，一直出错，win是卡死，centos是网卡配置出错。<br>然后跟着领导学习装系统，遇到的问题是，下载的镜像不全，不干净，导致缺少网卡驱动。初步认识了windows server 系统。<br>发现自己关于计算机网络、硬件知识认知不足，起码不全面，懂一点，但是不多，不深。有空给他系统学一学。<br>关于linux，之前学了基础的命令，但是也都忘得七七八八了，抽空给多练练，关于软件安装部署那块，抓紧学了，找到规律和共性</p>
-<p>three<br>装ws2008、2012、2022，并且配置ip、端口，尝试远程连接，ping，telnet</p>
-<p>foure<br>装centos7，配置网络，开关防火墙，学习防火墙相关知识，安装gui界面、对比使用cli和gui</p>
-<p>five<br>装宝塔面板并学习使用，了解网络相关知识，不同主板系统bios区别差异，学习cmd的其他常用知识</p>
-]]></content>
-      <tags>
-        <tag>复盘</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>windows server</title>
     <url>/2023/08/19/windows%20server/</url>
     <content><![CDATA[<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
@@ -564,6 +553,64 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>运维常见名词索引</title>
+    <url>/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/</url>
+    <content><![CDATA[<h1 id="名词中英文对照索引"><a href="#名词中英文对照索引" class="headerlink" title="名词中英文对照索引"></a>名词中英文对照索引</h1><h1 id="A"><a href="#A" class="headerlink" title="A"></a>A</h1><ul>
+<li>AOC，Active Optical Cables，有源光缆</li>
+</ul>
+<h1 id="B"><a href="#B" class="headerlink" title="B"></a>B</h1><h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="D"><a href="#D" class="headerlink" title="D"></a>D</h1><ul>
+<li>DNS，</li>
+</ul>
+<h1 id="E"><a href="#E" class="headerlink" title="E"></a>E</h1><h1 id="F"><a href="#F" class="headerlink" title="F"></a>F</h1><ul>
+<li>Firewall，防火墙</li>
+</ul>
+<h1 id="G"><a href="#G" class="headerlink" title="G"></a>G</h1><ul>
+<li>GATEWAY，网关</li>
+</ul>
+<h1 id="H"><a href="#H" class="headerlink" title="H"></a>H</h1><ul>
+<li>HUB，集线器</li>
+</ul>
+<h1 id="I"><a href="#I" class="headerlink" title="I"></a>I</h1><ul>
+<li>iDRAC，</li>
+<li>IPMI，</li>
+<li>ip &#x2F; ipaddr</li>
+</ul>
+<h1 id="J"><a href="#J" class="headerlink" title="J"></a>J</h1><h1 id="K"><a href="#K" class="headerlink" title="K"></a>K</h1><h1 id="L"><a href="#L" class="headerlink" title="L"></a>L</h1><h1 id="M"><a href="#M" class="headerlink" title="M"></a>M</h1><ul>
+<li>MAC，网卡的硬件地址</li>
+</ul>
+<h1 id="N"><a href="#N" class="headerlink" title="N"></a>N</h1><ul>
+<li>NIC，网卡</li>
+<li>NETMASK，子网掩码</li>
+</ul>
+<h1 id="O"><a href="#O" class="headerlink" title="O"></a>O</h1><ul>
+<li>OSI，</li>
+</ul>
+<h1 id="P"><a href="#P" class="headerlink" title="P"></a>P</h1><h1 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h1><h1 id="R"><a href="#R" class="headerlink" title="R"></a>R</h1><ul>
+<li>Router，路由器</li>
+</ul>
+<h1 id="S"><a href="#S" class="headerlink" title="S"></a>S</h1><ul>
+<li>switch，交换机（Ethernet switch）</li>
+</ul>
+<h1 id="T"><a href="#T" class="headerlink" title="T"></a>T</h1><h1 id="U"><a href="#U" class="headerlink" title="U"></a>U</h1><h1 id="V"><a href="#V" class="headerlink" title="V"></a>V</h1><h1 id="W"><a href="#W" class="headerlink" title="W"></a>W</h1><h1 id="X"><a href="#X" class="headerlink" title="X"></a>X</h1><h1 id="Y"><a href="#Y" class="headerlink" title="Y"></a>Y</h1><h1 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h1>]]></content>
+      <tags>
+        <tag>计算机基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>周报</title>
+    <url>/2023/08/19/%E5%91%A8%E6%8A%A5/</url>
+    <content><![CDATA[<p>入职第一周<br>本人前端程序员一名，因故回到县城老家，找不到工作，改行做机房运维，记录0基础运维成长</p>
+<p>第一天，简单看了下培训文档和基本信息资料，然后领导交代制作pe系统盘，有一说一，这个东西是计算机人的基础，大学也都学过，但是我不会，我从来没用U盘装过系统。<br>使用大白菜一键制作U盘。不知道为什么，中间做一半电脑卡死了，弄坏了一个U盘，直接读不出来了。然后就是去网上找iso镜像，有一说一，国内的这些网站广告是真的多。需要的系统文件有windows server 2008、2021、2022、centos7.x。找到之后，就开始了漫长的下载，由于网络问题，10点开始下载，下午1点才下载好。<br>下载好之后，网上教程说用软碟通刻录、直接复制拷贝等等。我用软碟通但是安装的时候一直中文乱码，然后就用复制解压到U盘的方法,windows系统要求做在一个盘里，cent的做在另一个盘里。解压的过程中，要么是空间不够，要么电脑半路卡死。奇奇怪怪，我之前电脑从来没卡死过，8代i5，16+256+512，以前开机7s，现在都是20s。奇奇怪怪。<br>到了下班点，WindowsU盘还没弄好，回家接着弄。</p>
+<p>two<br>U盘弄好了，但是尝试在虚拟机中装系统，一直出错，win是卡死，centos是网卡配置出错。<br>然后跟着领导学习装系统，遇到的问题是，下载的镜像不全，不干净，导致缺少网卡驱动。初步认识了windows server 系统。<br>发现自己关于计算机网络、硬件知识认知不足，起码不全面，懂一点，但是不多，不深。有空给他系统学一学。<br>关于linux，之前学了基础的命令，但是也都忘得七七八八了，抽空给多练练，关于软件安装部署那块，抓紧学了，找到规律和共性</p>
+<p>three<br>装ws2008、2012、2022，并且配置ip、端口，尝试远程连接，ping，telnet</p>
+<p>foure<br>装centos7，配置网络，开关防火墙，学习防火墙相关知识，安装gui界面、对比使用cli和gui</p>
+<p>five<br>装宝塔面板并学习使用，了解网络相关知识，不同主板系统bios区别差异，学习cmd的其他常用知识</p>
+]]></content>
+      <tags>
+        <tag>复盘</tag>
       </tags>
   </entry>
   <entry>
@@ -710,6 +757,86 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>戴尔PowerEdge</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>教程索引</title>
+    <url>/2023/09/05/%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="教程索引"><a href="#教程索引" class="headerlink" title="教程索引"></a>教程索引</h1><h2 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h2><ul>
+<li><a href="https://www.ngui.cc/el/1966116.html?action=onClick">https://www.ngui.cc/el/1966116.html?action=onClick</a></li>
+</ul>
+<h2 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h2><h3 id="远程桌面"><a href="#远程桌面" class="headerlink" title="远程桌面"></a>远程桌面</h3><ul>
+<li><a href="https://www.zuankewang.com/377113">https://www.zuankewang.com/377113</a></li>
+</ul>
+<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
+<li>&lt; <a href="https://zhuanlan.zhihu.com/p/617786559%3E">https://zhuanlan.zhihu.com/p/617786559&gt;</a></li>
+</ul>
+<h3 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
+<li><p><a href="https://www.somode.com/softjc/6849.html">https://www.somode.com/softjc/6849.html</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/hy19930118/article/details/108778158">https://blog.csdn.net/hy19930118/article/details/108778158</a></p>
+</li>
+<li><p><a href="https://www.bkqs.com.cn/content/qn02g0693.html">https://www.bkqs.com.cn/content/qn02g0693.html</a></p>
+</li>
+<li></li>
+</ul>
+<h2 id="Centos-7"><a href="#Centos-7" class="headerlink" title="Centos 7"></a>Centos 7</h2><h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/GZY0601/article/details/126946446">https://blog.csdn.net/GZY0601/article/details/126946446</a></li>
+<li><a href="https://blog.csdn.net/weixin_48609917/article/details/126152384">https://blog.csdn.net/weixin_48609917/article/details/126152384</a></li>
+<li><a href="http://www.taodudu.cc/news/show-5386755.html?action=onClick">http://www.taodudu.cc/news/show-5386755.html?action=onClick</a></li>
+<li><a href="https://blog.csdn.net/qq_33427869/article/details/126668794">https://blog.csdn.net/qq_33427869/article/details/126668794</a></li>
+<li><a href="https://juejin.cn/post/6844904101583519752">https://juejin.cn/post/6844904101583519752</a></li>
+</ul>
+<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><ul>
+<li><a href="https://www.cnblogs.com/huaiguang10/p/14980758.html">https://www.cnblogs.com/huaiguang10/p/14980758.html</a></li>
+</ul>
+<h3 id="密码破解-1"><a href="#密码破解-1" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
+<li><a href="https://blog.csdn.net/weixin_52269666/article/details/121577724">https://blog.csdn.net/weixin_52269666/article/details/121577724</a></li>
+<li></li>
+</ul>
+<h2 id="Ubuntu-server"><a href="#Ubuntu-server" class="headerlink" title="Ubuntu server"></a>Ubuntu server</h2><h3 id="安装配置-1"><a href="#安装配置-1" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><p><a href="https://blog.csdn.net/m0_58805648/article/details/131021118">https://blog.csdn.net/m0_58805648/article/details/131021118</a></p>
+</li>
+<li><p><a href="https://www.bilibili.com/read/cv25574905/">https://www.bilibili.com/read/cv25574905/</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3">https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1">https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1</a></p>
+</li>
+</ul>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="磁盘分区格式化"><a href="#磁盘分区格式化" class="headerlink" title="磁盘分区格式化"></a>磁盘分区格式化</h3><ul>
+<li><p><a href="https://blog.csdn.net/cailirong123/article/details/130015943">https://blog.csdn.net/cailirong123/article/details/130015943</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/weixin_39705794/article/details/116706177">https://blog.csdn.net/weixin_39705794/article/details/116706177</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/weixin_43704834/article/details/123839054">https://blog.csdn.net/weixin_43704834/article/details/123839054</a></p>
+</li>
+</ul>
+<h2 id="Raid"><a href="#Raid" class="headerlink" title="Raid"></a>Raid</h2><ul>
+<li><p><a href="https://www.cnblogs.com/linagcheng/p/15651591.html">https://www.cnblogs.com/linagcheng/p/15651591.html</a></p>
+</li>
+<li><p><a href="https://www.codenong.com/cs106881457/">https://www.codenong.com/cs106881457/</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/494925217">https://zhuanlan.zhihu.com/p/494925217</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/weixin_45027467/article/details/121671046">https://blog.csdn.net/weixin_45027467/article/details/121671046</a></p>
+</li>
+</ul>
+<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><h3 id="安装配置-2"><a href="#安装配置-2" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/qq_42006801/article/details/124830995">https://blog.csdn.net/qq_42006801/article/details/124830995</a></li>
+</ul>
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="安装配置-3"><a href="#安装配置-3" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/thefg/article/details/128601410">https://blog.csdn.net/thefg/article/details/128601410</a></li>
+</ul>
+<h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><h3 id="安装配置-4"><a href="#安装配置-4" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="http://e.betheme.net/article/show-1318951.html?action=onClick">http://e.betheme.net/article/show-1318951.html?action=onClick</a></li>
+</ul>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="安装配置-5"><a href="#安装配置-5" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/hellozhangxians/article/details/127169375">https://blog.csdn.net/hellozhangxians/article/details/127169375</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>教程</tag>
       </tags>
   </entry>
   <entry>
@@ -1097,6 +1224,127 @@ lsblk -f
 ]]></content>
       <tags>
         <tag>计算机基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络</title>
+    <url>/2023/09/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
+    <content><![CDATA[<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><ul>
+<li>知识体系庞大、复杂。详细知识有需要直接百度，本文仅作为重点内容总结，知识索引。目的在于快速搭建知识框架，了解重点内容。</li>
+</ul>
+<h2 id="光口模块"><a href="#光口模块" class="headerlink" title="光口模块"></a>光口模块</h2><ul>
+<li>光口就是光纤插口，，接光纤，传输光信号，交换机上的光口一般使用光模块</li>
+<li>光纤传输分为单模光纤和多模光纤，因此有了单模模块和多模模块。<ul>
+<li>多模光纤传输距离近，模块中一般标示SR（Short Range短距离），或者LRM（Long Reach Multimode长度延伸多点模式）；</li>
+<li>单模光纤传输距离远，常见标示LR（Long Range长距离）；ER（Extended Range超长距离）；ZR（Ze best Range最长距离）</li>
+</ul>
+</li>
+</ul>
+<h2 id="电口模块"><a href="#电口模块" class="headerlink" title="电口模块"></a>电口模块</h2><ul>
+<li>光转电模块，把光信号转化为电信号后接网线，传输电信号，接口类型为RJ45(网口)</li>
+<li>支持热插拔，常见类型有SFP、SFP+等，10G SFP+电口模块也被称为万兆电口模块，它的速率是10G</li>
+<li>电口模块通常和五类、六类、超六类或七类网线一起使用</li>
+</ul>
+<h2 id="网线"><a href="#网线" class="headerlink" title="网线"></a>网线</h2><ul>
+<li>最常用线序：568b，橙白、橙、绿白、蓝、蓝白、绿、棕白、棕</li>
+<li>分类：<ul>
+<li>五类：网线外侧标记 CAT.5</li>
+<li>超五类：网线外侧标记 CAT.5e </li>
+<li>六类：网线外侧标记 CAT.6 </li>
+<li>超六类：网线外侧标记 CAT.6a &#x2F; 6e </li>
+<li>七类：网线外侧标记 CAT.7</li>
+</ul>
+</li>
+</ul>
+<h2 id="路由器-Router"><a href="#路由器-Router" class="headerlink" title="路由器 Router"></a>路由器 Router</h2><ul>
+<li>计算机网络设备，它将所收到的数据包根据目的IP地址，选择合适的传输路径进行转发，直至转发到目的端，这个过程就叫做路由</li>
+<li>工作在OSI模型中的第三层网络层</li>
+<li></li>
+</ul>
+<h2 id="交换机-Switch"><a href="#交换机-Switch" class="headerlink" title="交换机 Switch"></a>交换机 Switch</h2><ul>
+<li>实现局域网内的通信，它通过“学习”，将每一端口相连设备的MAC地址与其自身相应的端口一一对应起来并且存放在交换机缓存中的MAC地址表中。通过这个MAC表来将数据帧发送到目的端</li>
+<li>工作在OSI模型的第二层数据链路层</li>
+<li>三层交换机，<ul>
+<li>本质上是“带有路由功能的（二层）交换机”。路由参照OSI模型中第三层网络层，因此带有第三层路由功能的交换机才被称为“三层交换机”</li>
+</ul>
+</li>
+</ul>
+<h2 id="防火墙-Firewall"><a href="#防火墙-Firewall" class="headerlink" title="防火墙 Firewall"></a>防火墙 Firewall</h2><ul>
+<li>建立在内部网络与外部公共网之间的一种安全隔离技术，为内外网的通信提供一个安全屏障</li>
+</ul>
+<h2 id="WAN"><a href="#WAN" class="headerlink" title="WAN"></a>WAN</h2><ul>
+<li>广域网(Wide Area Network)，通俗讲就是和猫外部网连接的网线口:对外的接口，和运营商、上级网络打交道。</li>
+</ul>
+<h2 id="LAN"><a href="#LAN" class="headerlink" title="LAN"></a>LAN</h2><ul>
+<li>局域网(Local Area Network)，通俗讲就是路由和用户之间网线口:对内的接口，设备通过网线与其直连</li>
+</ul>
+<h2 id="WLAN"><a href="#WLAN" class="headerlink" title="WLAN"></a>WLAN</h2><ul>
+<li>无线局域网(Wireless LAN)，数据通过电磁波传输，对内的接口，设备使用无线网，（如：wifi）</li>
+</ul>
+<h2 id="VLAN"><a href="#VLAN" class="headerlink" title="VLAN"></a>VLAN</h2><ul>
+<li>虚拟局域网，逻辑上的设备和用户，这些设备和用户互不受物理位置的限制，相互之间的通信就好像它们在同一个网段一样</li>
+<li>同一个vlan间，可以相互通信；不同vlan，若不做配置，不能相互通信。<ul>
+<li>VLAN划分和子网划分通常同时进行，一个VLAN对应一个子网，两者都是为了隔离通信,只不过VLAN在第二层隔离，子网是在第三层隔离</li>
+</ul>
+</li>
+</ul>
+<h2 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h2><ul>
+<li>虚拟专用网络，在公用网络上建立专用私有网络，VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问</li>
+</ul>
+<h2 id="IP-Internet-Protocol"><a href="#IP-Internet-Protocol" class="headerlink" title="IP Internet Protocol"></a>IP Internet Protocol</h2><ul>
+<li>IP负责在两个没有直连的两个网络之间进行通信，将数据包发送给最终目的的主机</li>
+<li>在 TCP&#x2F;IP 参考模型中处于第三层，也就是网络层</li>
+</ul>
+<h3 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h3><ul>
+<li>32位二进制数组成，以 . 划分8位一组共4组，用点分十进制的表示方式</li>
+<li>ip&#x3D;网络号+主机号<ul>
+<li>网络号表示其所属的网络段编号</li>
+<li>主机号则表示该网段中该主机的地址编号</li>
+</ul>
+</li>
+</ul>
+<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><ul>
+<li>128位十六进制数组成，以 : 划分16位一组共8组</li>
+<li>有更好的安全性和扩展性,  IPV4 和 IPV6不能兼容</li>
+</ul>
+<h3 id="静态ip、动态ip"><a href="#静态ip、动态ip" class="headerlink" title="静态ip、动态ip"></a>静态ip、动态ip</h3><ul>
+<li>静态ip，static，将固定IP地址持续分配给主机</li>
+<li>动态ip，DHCP协议，自动分配IP地址给用户</li>
+</ul>
+<h3 id="127-0-0-1"><a href="#127-0-0-1" class="headerlink" title="127.0.0.1"></a>127.0.0.1</h3><ul>
+<li>回环地址，用于测试时在本地运行并从本地访问服务</li>
+<li>localhost<ul>
+<li>IPv4指向  127.0.0.1</li>
+<li>IPv6指向  ::1</li>
+</ul>
+</li>
+</ul>
+<h2 id="子网掩码-NetMask"><a href="#子网掩码-NetMask" class="headerlink" title="子网掩码 NetMask"></a>子网掩码 NetMask</h2><ul>
+<li>形式上是网络号全为1，主机号全为0的IP地址<ul>
+<li>ip&#x3D;网络号+主机号，主机号&#x3D;子网网络号+子网主机号</li>
+</ul>
+</li>
+<li>必须结合IP地址一起使用，只有一个作用，将某个IP地址划分成网络地址和主机地址两部分，标志两个IP地址是否同属于一个子网<ul>
+<li>如果两个IP地址在子网掩码的按位与的计算下所得结果相同，即表明它们共属于同一子网中</li>
+</ul>
+</li>
+<li>IP默认分配的子网掩码每段只有 255 或 0。<ul>
+<li>常用：255.255.255.0   \   255.255.0.0</li>
+</ul>
+</li>
+</ul>
+<h2 id="网关-GateWay"><a href="#网关-GateWay" class="headerlink" title="网关 GateWay"></a>网关 GateWay</h2><ul>
+<li>工作在传输层，用于两个高层协议不同的网络互连，又称网间连接器、协议转换器，实质上是一个网络通向其他网络的IP地址</li>
+<li>一般指TCP&#x2F;IP协议中的网关，只有设置好网关的IP地址，TCP&#x2F;IP协议才能实现不同网络之间的相互通信</li>
+<li>默认网关的意思是一台主机如果找不到可用的网关，就把数据包发给默认指定的网关，由这个网关来处理数据包。</li>
+<li><strong>网关在网段内的可用ip中选一个，一般用的是第一个和最后一个</strong></li>
+</ul>
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
+<li>域名解析服务器（Domain Name System），把域名网址翻译成IP地址</li>
+</ul>
+<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h2 id="TCP-IP协议簇"><a href="#TCP-IP协议簇" class="headerlink" title="TCP&#x2F;IP协议簇"></a>TCP&#x2F;IP协议簇</h2><h2 id="OSI模型"><a href="#OSI模型" class="headerlink" title="OSI模型"></a>OSI模型</h2>]]></content>
+      <tags>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
   <entry>
