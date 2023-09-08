@@ -45,6 +45,25 @@
       </tags>
   </entry>
   <entry>
+    <title></title>
+    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
+    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
+<li><p>首先新建一个txt文件</p>
+<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+
+# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>保存文件，将txt文件改成后缀为bat</p>
+</li>
+<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
+</li>
+<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>Raid</title>
     <url>/2023/08/23/Raid/</url>
     <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
@@ -238,6 +257,32 @@
 </li>
 </ul>
 <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
+<h2 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h2><ul>
+<li><p>centos7</p>
+<blockquote>
+<ul>
+<li><p>vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）</p>
+<pre class="line-numbers language-none"><code class="language-none">tips：
+1、新装系统，没有vim，用vi（vim兼容vi）
+vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>修改</p>
+<pre class="line-numbers language-none"><code class="language-none">BOOTPROTO&#x3D;static   # 网卡的引导协议：DHCP动态、static或none静态
+ONBOOT&#x3D;yes #开机启动时是否激活网卡设备 #centos7装完网卡后默认no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>添加</p>
+<pre class="line-numbers language-none"><code class="language-none">IPADDR&#x3D;192.168.88.139  #ip地址
+NETMASK&#x3D;255.255.255.0  #子网掩码
+GATEWAY&#x3D;192.168.88.2	#网关
+DNS1&#x3D;192.169.88.2	#dns<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>重启网卡</p>
+<pre class="line-numbers language-none"><code class="language-none">systemctl  restart  network  
+或  service network restart    # 老版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ul>
+</blockquote>
+</li>
+</ul>
 <h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
 <li><p>报错，<code>Warning: /dev/root does not exist</code></p>
 </li>
@@ -268,6 +313,9 @@
     <url>/2023/08/19/cmd/</url>
     <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
 <li><p>ping——测试网络是否通畅</p>
+<ul>
+<li>使用icmp协议，网络连通性测试</li>
+</ul>
 </li>
 <li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
 </li>
@@ -416,58 +464,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu</title>
-    <url>/2023/08/30/ubuntu/</url>
-    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
-<li><p>UEFI + GPT</p>
-</li>
-<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
-</li>
-</ul>
-<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
-<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
-<blockquote>
-<p>登录之后是普通用户，设置root密码</p>
-<p><code>sudo passwd root </code></p>
-</blockquote>
-</li>
-</ul>
-<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
-<li><code>apt</code></li>
-<li>centos  <code>yum</code></li>
-</ul>
-<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
-<ul>
-<li><p>ip a   # 查看 网卡</p>
-</li>
-<li><p>cd &#x2F;etc&#x2F;netplan </p>
-</li>
-<li><p>ls   # 查看.yaml文件</p>
-</li>
-<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
-</li>
-<li><p>编辑</p>
-<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
-
-网卡名
-   dhcp4: false    # 动态改成false
-      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
-      gateway4: 192.168.3.1    # 网关
-      nameservers:
-        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>退出vi文本编辑器</p>
-</li>
-<li><p>sudo netplan apply  # 保存</p>
-</li>
-</ul>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>windows server</title>
     <url>/2023/08/19/windows%20server/</url>
     <content><![CDATA[<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
@@ -556,6 +552,58 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu</title>
+    <url>/2023/08/30/ubuntu/</url>
+    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
+<li><p>UEFI + GPT</p>
+</li>
+<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
+</li>
+</ul>
+<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
+<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
+<blockquote>
+<p>登录之后是普通用户，设置root密码</p>
+<p><code>sudo passwd root </code></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
+<li><code>apt</code></li>
+<li>centos  <code>yum</code></li>
+</ul>
+<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
+<ul>
+<li><p>ip a   # 查看 网卡</p>
+</li>
+<li><p>cd &#x2F;etc&#x2F;netplan </p>
+</li>
+<li><p>ls   # 查看.yaml文件</p>
+</li>
+<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
+</li>
+<li><p>编辑</p>
+<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
+
+网卡名
+   dhcp4: false    # 动态改成false
+      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
+      gateway4: 192.168.3.1    # 网关
+      nameservers:
+        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>退出vi文本编辑器</p>
+</li>
+<li><p>sudo netplan apply  # 保存</p>
+</li>
+</ul>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>运维常见名词索引</title>
     <url>/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/</url>
     <content><![CDATA[<h1 id="名词中英文对照索引"><a href="#名词中英文对照索引" class="headerlink" title="名词中英文对照索引"></a>名词中英文对照索引</h1><h1 id="A"><a href="#A" class="headerlink" title="A"></a>A</h1><ul>
@@ -564,7 +612,10 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <h1 id="B"><a href="#B" class="headerlink" title="B"></a>B</h1><h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="D"><a href="#D" class="headerlink" title="D"></a>D</h1><ul>
 <li>DNS，</li>
 </ul>
-<h1 id="E"><a href="#E" class="headerlink" title="E"></a>E</h1><h1 id="F"><a href="#F" class="headerlink" title="F"></a>F</h1><ul>
+<h1 id="E"><a href="#E" class="headerlink" title="E"></a>E</h1><ul>
+<li>embedded，嵌入……之中的</li>
+</ul>
+<h1 id="F"><a href="#F" class="headerlink" title="F"></a>F</h1><ul>
 <li>Firewall，防火墙</li>
 </ul>
 <h1 id="G"><a href="#G" class="headerlink" title="G"></a>G</h1><ul>
@@ -576,7 +627,7 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <h1 id="I"><a href="#I" class="headerlink" title="I"></a>I</h1><ul>
 <li>iDRAC，</li>
 <li>IPMI，</li>
-<li>ip &#x2F; ipaddr</li>
+<li>integrated，集成的</li>
 </ul>
 <h1 id="J"><a href="#J" class="headerlink" title="J"></a>J</h1><h1 id="K"><a href="#K" class="headerlink" title="K"></a>K</h1><h1 id="L"><a href="#L" class="headerlink" title="L"></a>L</h1><h1 id="M"><a href="#M" class="headerlink" title="M"></a>M</h1><ul>
 <li>MAC，网卡的硬件地址</li>
@@ -600,7 +651,7 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>周报</title>
+    <title>周报(1)</title>
     <url>/2023/08/19/%E5%91%A8%E6%8A%A5/</url>
     <content><![CDATA[<p>入职第一周<br>本人前端程序员一名，因故回到县城老家，找不到工作，改行做机房运维，记录0基础运维成长</p>
 <p>第一天，简单看了下培训文档和基本信息资料，然后领导交代制作pe系统盘，有一说一，这个东西是计算机人的基础，大学也都学过，但是我不会，我从来没用U盘装过系统。<br>使用大白菜一键制作U盘。不知道为什么，中间做一半电脑卡死了，弄坏了一个U盘，直接读不出来了。然后就是去网上找iso镜像，有一说一，国内的这些网站广告是真的多。需要的系统文件有windows server 2008、2021、2022、centos7.x。找到之后，就开始了漫长的下载，由于网络问题，10点开始下载，下午1点才下载好。<br>下载好之后，网上教程说用软碟通刻录、直接复制拷贝等等。我用软碟通但是安装的时候一直中文乱码，然后就用复制解压到U盘的方法,windows系统要求做在一个盘里，cent的做在另一个盘里。解压的过程中，要么是空间不够，要么电脑半路卡死。奇奇怪怪，我之前电脑从来没卡死过，8代i5，16+256+512，以前开机7s，现在都是20s。奇奇怪怪。<br>到了下班点，WindowsU盘还没弄好，回家接着弄。</p>

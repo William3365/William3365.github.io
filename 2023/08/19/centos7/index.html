@@ -282,14 +282,14 @@ s">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-31
+                    2023-09-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    328
+                    469
                 </div>
                 
 
@@ -335,6 +335,32 @@ s">
 </li>
 </ul>
 <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
+<h2 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h2><ul>
+<li><p>centos7</p>
+<blockquote>
+<ul>
+<li><p>vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）</p>
+<pre class="line-numbers language-none"><code class="language-none">tips：
+1、新装系统，没有vim，用vi（vim兼容vi）
+vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>修改</p>
+<pre class="line-numbers language-none"><code class="language-none">BOOTPROTO&#x3D;static   # 网卡的引导协议：DHCP动态、static或none静态
+ONBOOT&#x3D;yes #开机启动时是否激活网卡设备 #centos7装完网卡后默认no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>添加</p>
+<pre class="line-numbers language-none"><code class="language-none">IPADDR&#x3D;192.168.88.139  #ip地址
+NETMASK&#x3D;255.255.255.0  #子网掩码
+GATEWAY&#x3D;192.168.88.2	#网关
+DNS1&#x3D;192.169.88.2	#dns<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>重启网卡</p>
+<pre class="line-numbers language-none"><code class="language-none">systemctl  restart  network  
+或  service network restart    # 老版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ul>
+</blockquote>
+</li>
+</ul>
 <h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
 <li><p>报错，<code>Warning: /dev/root does not exist</code></p>
 </li>
@@ -1052,7 +1078,7 @@ s">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">12.1k</span>
+                        class="white-color">12.4k</span>
             
             
             

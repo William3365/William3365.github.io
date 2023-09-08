@@ -4,11 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="github代理问题, 学无止境">
-    <meta name="description" content="
-443问题因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。
-
-git报错：Failed to connect to github.com port 443 after 21084 m">
+    <meta name="keywords" content="学无止境">
+    <meta name="description" content="PC微信双开
+首先新建一个txt文件
+TASKKILL &amp;#x2F;F  &amp;#x2F;IM wechat.exe
+start &amp;quot;&amp;quot; &amp;quot;xxxx\WeChat.exe&amp;quot;
+start &amp;quot;&amp;quo">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +21,7 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>github代理问题 | 豆荚blog</title>
+    <title>豆荚blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -230,7 +231,7 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">github代理问题</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -252,13 +253,9 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/git/">
-                                <span class="chip bg-color">git</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -270,21 +267,21 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-08-10
+                    2023-09-07
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-25
+                    2023-09-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    221
+                    101
                 </div>
                 
 
@@ -314,32 +311,19 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <ul>
-<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
-</ul>
-<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
-<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
-<ul>
-<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
-fatal: Could not read from remote repository.
+                <h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
+<li><p>首先新建一个txt文件</p>
+<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
 
-这个错误提示的是连接github.com的22端口被拒绝了。
-
-解决办法：
-1、使用443
-ssh -T git@github.com。还是报错
-执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
-在git branch中进行
-     vim ~&#x2F;.ssh&#x2F;config
-     
-     Host github.com
-       Hostname ssh.github.com
-       Port 443
-
-     ssh -T git@github.com
-     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功
-
-     ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNktxO.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>保存文件，将txt文件改成后缀为bat</p>
+</li>
+<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
+</li>
+<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
+</li>
 </ul>
 
                 
@@ -367,7 +351,7 @@ ssh -T git@github.com。还是报错
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/">http://example.com/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</a>
+                    <a href="http://example.com/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/">http://example.com/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -404,11 +388,7 @@ ssh -T git@github.com。还是报错
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/git/">
-                                    <span class="chip bg-color">git</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -777,62 +757,18 @@ ssh -T git@github.com。还是报错
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/08/19/hexo%E6%9D%82%E8%B0%88/">
+                <a href="/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="hexo杂谈">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">hexo杂谈</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-08-19
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            william
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/hexo/">
-                        <span class="chip bg-color">hexo</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="github代理问题">
-                        
-                        <span class="card-title">github代理问题</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -843,7 +779,7 @@ ssh -T git@github.com。还是报错
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-07
                             </span>
                         <span class="publish-author">
                             
@@ -855,10 +791,47 @@ ssh -T git@github.com。还是报错
                 </div>
 
                 
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="运维常见名词索引">
+                        
+                        <span class="card-title">运维常见名词索引</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            william
+                            
+                        </span>
+                    </div>
+                </div>
+                
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/git/">
-                        <span class="chip bg-color">git</span>
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">计算机基础</span>
                     </a>
                     
                 </div>
