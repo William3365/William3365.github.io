@@ -24,7 +24,40 @@ categories:
 查看驱动器：ls /dev/sd*
 详细信息：blkid
 
+## 配置静态ip
 
+  * centos7
+  
+      > * vim /etc/sysconfig/network-scripts/ifcfg-XX（网卡名）
+      >
+      >   ```
+      >   tips：
+      >   1、新装系统，没有vim，用vi（vim兼容vi）
+      >   vi /etc/sysconfig/network-scripts/ifcfg-XX（网卡名）
+      >   ```
+      >
+      > * 修改
+      >   ```
+      >   BOOTPROTO=static   # 网卡的引导协议：DHCP动态、static或none静态
+      >   ONBOOT=yes #开机启动时是否激活网卡设备 #centos7装完网卡后默认no
+      >   ```
+      >
+      > * 添加
+      >   ```
+      >   IPADDR=192.168.88.139  #ip地址
+      >   NETMASK=255.255.255.0  #子网掩码
+      >   GATEWAY=192.168.88.2	#网关
+      >   DNS1=192.169.88.2	#dns
+      >   ```
+      >
+      > * 重启网卡
+      >
+      >   ```
+      >   systemctl  restart  network  
+      >   或  service network restart    # 老版本
+      >   ```
+      >
+      >   
 
 ## bug
 
