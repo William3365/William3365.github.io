@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>idrac-ipmi</title>
+    <url>/2023/09/04/IPMI/</url>
+    <content><![CDATA[<h1 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h1><ul>
+<li>Intelligent Platform Management Interface，是一种用于管理和监控服务器的标准接口</li>
+</ul>
+<h2 id="idrac"><a href="#idrac" class="headerlink" title="idrac"></a>idrac</h2><ul>
+<li>Integrated Dell Remote Access Controller，戴尔集成远程访问控制器。是一个远程管理系统，由一块集成电路板组成，内置了支持和管理硬件的固件。idrac提供了一个Web界面，用户可以通过这个界面对服务器进行监控、管理、远程重启、重新启动操作系统等各种操作。同时，idrac还支持命令行方式和SNMP协议，以便更加方便地远程管理服务器。</li>
+<li>默认登录凭据：用户名：root，密码：calvin</li>
+</ul>
+<h2 id="配置IPMI"><a href="#配置IPMI" class="headerlink" title="配置IPMI"></a>配置IPMI</h2><ul>
+<li><p>仅针对戴尔服务器</p>
+<ul>
+<li>其他操作教程: <code>https://www.ngui.cc/el/1966116.html?action=onClick</code></li>
+</ul>
+</li>
+<li><p>常规操作流程</p>
+<ul>
+<li><p>进入系统设置，选择 system BIOS</p>
+</li>
+<li><p>选择 iDRAC Settings</p>
+</li>
+<li><p>到最下边，选择 reset idrac configguration to defaults</p>
+</li>
+<li><p>选择yes，等待结束，选择continue</p>
+</li>
+<li><p>再次选择 iDRAC Settings，选择 network（使用专用网络接口）</p>
+</li>
+<li><p>NIC相关配置，Enabled启用nic，选择 dedicated</p>
+</li>
+<li><p>网络设置，IPv4 设置，ip，网关，掩码</p>
+</li>
+<li><p>IPMI Over LAN（通过局域网启用IPMI）选项，选择Enabled</p>
+</li>
+<li><p>配置好之后，能ping通，能登录访问即可</p>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>戴尔PowerEdge</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 操作系统的启动过程</title>
     <url>/2023/09/19/Linux%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="Linux-操作系统的启动过程"><a href="#Linux-操作系统的启动过程" class="headerlink" title="Linux 操作系统的启动过程"></a>Linux 操作系统的启动过程</h1><ul>
@@ -106,6 +150,185 @@ start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
 </li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Raid</title>
+    <url>/2023/08/23/Raid/</url>
+    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
+<li><p>为什么要做raid？</p>
+<ul>
+<li>花小钱办大事（降本增效），提供容错机制（数据安全）</li>
+</ul>
+</li>
+<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
+</li>
+<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
+</li>
+<li><p>技术架构：数据条带、镜像、数据校验技术</p>
+<ul>
+<li><p>stripe条带化阵列，没有冗余，但是可提供最佳性能和附加存储。</p>
+</li>
+<li><p>mirror镜像，阵列中的每个驱动器上镜像相同的数据</p>
+</li>
+<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
+</li>
+<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
+<ul>
+<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
+</ul>
+</li>
+<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
+</li>
+<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
+</li>
+</ul>
+</li>
+<li><p>热备盘</p>
+<ul>
+<li><p>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</p>
+</li>
+<li><p>软 RAID，</p>
+<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
+
+占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
+
+跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>硬 RAID </p>
+<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
+
+性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>软硬混合 RAID ，成本、性能居中</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Raid等级"><a href="#Raid等级" class="headerlink" title="Raid等级"></a>Raid等级</h2><ul>
+<li><p>raid0</p>
+<ul>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
+<li>例：2T + 2T &#x3D; 4T</li>
+<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
+<li>视频、音频存储、打印等</li>
+</ul>
+</li>
+<li><p>raid1</p>
+<ul>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
+<li>例：2T + 2T &#x3D; 2T</li>
+<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
+<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
+<li>邮件、数据库</li>
+</ul>
+</li>
+<li><p>raid5</p>
+<ul>
+<li><strong>最少3块</strong></li>
+<li>例：2T + 2T+ 2T &#x3D; 4T</li>
+<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
+<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
+<li>适用于金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid6</p>
+<ul>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
+<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
+<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid10</p>
+<ul>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
+<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
+<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
+<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
+</ul>
+</li>
+<li><p>raid50</p>
+<ul>
+<li><strong>至少需要六个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>RAID 5 + 0</li>
+</ul>
+</li>
+<li><p>raid60</p>
+<ul>
+<li><strong>最少需要八个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>比 RAID 50 阵列更可靠</li>
+</ul>
+</li>
+</ul>
+<h2 id="Raid状态"><a href="#Raid状态" class="headerlink" title="Raid状态"></a>Raid状态</h2><p>若不需配置阵列，则需要将硬盘转换为 non-RAID 直通模式</p>
+<ul>
+<li><p>物理磁盘 pd</p>
+<ul>
+<li><p>online，可正常使用，处于在线状态</p>
+</li>
+<li><p>ready，该磁盘预备好了，可以被设置为raid但未配置</p>
+</li>
+<li><p>rebuild，重建状态，表示raid组正在进行数据同步</p>
+</li>
+</ul>
+</li>
+<li><p>虚拟磁盘 vd</p>
+<ul>
+<li>Normal，状态正常，所有成员盘均在线</li>
+<li>Offline，表示raid组存在超过允许范围的故障或离线硬盘，raid组瘫痪，数据已无法读写</li>
+<li>Degraded，降级状态，表示raid组中有故障或离线的硬盘，但基于raid组的磁盘仍然可以正常读写</li>
+<li>Failed，虚拟磁盘故障</li>
+</ul>
+</li>
+</ul>
+<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
+<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
+<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
+
+如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
+
+如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
+
+容量&gt;性能，raid50、raid10
+数据保护，raid6、raid60
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
+</li>
+<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
+</li>
+<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
+</li>
+<li><p>先配置raid，再按需分区，最后装系统</p>
+</li>
+<li><p>raid和non-raid</p>
+<ul>
+<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
+<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
+<li>1、改sata模式为raid</li>
+<li>2、做raid</li>
+<li>3、boot mode模式按需选择</li>
+</ul>
+<p>1、检查硬件，可正常工作、安装连接无误</p>
+<p>2、根据读盘结果，按需配置raid</p>
+<p>3、查看虚拟磁盘配置结果</p>
+<ul>
+<li>mdadm，建设，管理，监控raid</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Raid</tag>
+      </tags>
   </entry>
   <entry>
     <title>Linux系统软件安装</title>
@@ -2189,47 +2412,40 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
       </tags>
   </entry>
   <entry>
-    <title>idrac-ipmi</title>
-    <url>/2023/09/04/IPMI/</url>
-    <content><![CDATA[<h1 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h1><ul>
-<li>Intelligent Platform Management Interface，是一种用于管理和监控服务器的标准接口</li>
-</ul>
-<h2 id="idrac"><a href="#idrac" class="headerlink" title="idrac"></a>idrac</h2><ul>
-<li>Integrated Dell Remote Access Controller，戴尔集成远程访问控制器。是一个远程管理系统，由一块集成电路板组成，内置了支持和管理硬件的固件。idrac提供了一个Web界面，用户可以通过这个界面对服务器进行监控、管理、远程重启、重新启动操作系统等各种操作。同时，idrac还支持命令行方式和SNMP协议，以便更加方便地远程管理服务器。</li>
-<li>默认登录凭据：用户名：root，密码：calvin</li>
-</ul>
-<h2 id="配置IPMI"><a href="#配置IPMI" class="headerlink" title="配置IPMI"></a>配置IPMI</h2><ul>
-<li><p>仅针对戴尔服务器</p>
+    <title>cmd</title>
+    <url>/2023/08/19/cmd/</url>
+    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
+<li><p>ping——测试网络是否通畅</p>
 <ul>
-<li>其他操作教程: <code>https://www.ngui.cc/el/1966116.html?action=onClick</code></li>
+<li>使用icmp协议，网络连通性测试</li>
 </ul>
 </li>
-<li><p>常规操作流程</p>
+<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
+</li>
+<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
 <ul>
-<li><p>进入系统设置，选择 system BIOS</p>
+<li><p>telnet ip 端口（跳到空窗口）</p>
 </li>
-<li><p>选择 iDRAC Settings</p>
-</li>
-<li><p>到最下边，选择 reset idrac configguration to defaults</p>
-</li>
-<li><p>选择yes，等待结束，选择continue</p>
-</li>
-<li><p>再次选择 iDRAC Settings，选择 network（使用专用网络接口）</p>
-</li>
-<li><p>NIC相关配置，Enabled启用nic，选择 dedicated</p>
-</li>
-<li><p>网络设置，IPv4 设置，ip，网关，掩码</p>
-</li>
-<li><p>IPMI Over LAN（通过局域网启用IPMI）选项，选择Enabled</p>
-</li>
-<li><p>配置好之后，能ping通，能登录访问即可</p>
+<li><p>无法telnet</p>
+<blockquote>
+<p>一、打开控制面板</p>
+<p>二、点击打开启用或关闭Windows功能</p>
+<ul>
+<li>三、找到telnet客户端，勾选打开</li>
+</ul>
+</blockquote>
 </li>
 </ul>
 </li>
+<li><p>ifconfig——查看本机网络</p>
+</li>
 </ul>
+<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
+<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
 ]]></content>
       <tags>
-        <tag>戴尔PowerEdge</tag>
+        <tag>cmd</tag>
       </tags>
   </entry>
   <entry>
@@ -2358,185 +2574,6 @@ tips：
       </tags>
   </entry>
   <entry>
-    <title>Raid</title>
-    <url>/2023/08/23/Raid/</url>
-    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
-<li><p>为什么要做raid？</p>
-<ul>
-<li>花小钱办大事（降本增效），提供容错机制（数据安全）</li>
-</ul>
-</li>
-<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
-</li>
-<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
-</li>
-<li><p>技术架构：数据条带、镜像、数据校验技术</p>
-<ul>
-<li><p>stripe条带化阵列，没有冗余，但是可提供最佳性能和附加存储。</p>
-</li>
-<li><p>mirror镜像，阵列中的每个驱动器上镜像相同的数据</p>
-</li>
-<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
-</li>
-<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
-<ul>
-<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
-</ul>
-</li>
-<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
-</li>
-<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
-</li>
-</ul>
-</li>
-<li><p>热备盘</p>
-<ul>
-<li><p>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</p>
-</li>
-<li><p>软 RAID，</p>
-<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
-
-占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
-
-跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>硬 RAID </p>
-<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
-
-性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>软硬混合 RAID ，成本、性能居中</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Raid等级"><a href="#Raid等级" class="headerlink" title="Raid等级"></a>Raid等级</h2><ul>
-<li><p>raid0</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
-<li>例：2T + 2T &#x3D; 4T</li>
-<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
-<li>视频、音频存储、打印等</li>
-</ul>
-</li>
-<li><p>raid1</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
-<li>例：2T + 2T &#x3D; 2T</li>
-<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
-<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
-<li>邮件、数据库</li>
-</ul>
-</li>
-<li><p>raid5</p>
-<ul>
-<li><strong>最少3块</strong></li>
-<li>例：2T + 2T+ 2T &#x3D; 4T</li>
-<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
-<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
-<li>适用于金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid6</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
-<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
-<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid10</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
-<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
-<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
-<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
-</ul>
-</li>
-<li><p>raid50</p>
-<ul>
-<li><strong>至少需要六个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>RAID 5 + 0</li>
-</ul>
-</li>
-<li><p>raid60</p>
-<ul>
-<li><strong>最少需要八个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>比 RAID 50 阵列更可靠</li>
-</ul>
-</li>
-</ul>
-<h2 id="Raid状态"><a href="#Raid状态" class="headerlink" title="Raid状态"></a>Raid状态</h2><p>若不需配置阵列，则需要将硬盘转换为 non-RAID 直通模式</p>
-<ul>
-<li><p>物理磁盘 pd</p>
-<ul>
-<li><p>online，可正常使用，处于在线状态</p>
-</li>
-<li><p>ready，该磁盘预备好了，可以被设置为raid但未配置</p>
-</li>
-<li><p>rebuild，重建状态，表示raid组正在进行数据同步</p>
-</li>
-</ul>
-</li>
-<li><p>虚拟磁盘 vd</p>
-<ul>
-<li>Normal，状态正常，所有成员盘均在线</li>
-<li>Offline，表示raid组存在超过允许范围的故障或离线硬盘，raid组瘫痪，数据已无法读写</li>
-<li>Degraded，降级状态，表示raid组中有故障或离线的硬盘，但基于raid组的磁盘仍然可以正常读写</li>
-<li>Failed，虚拟磁盘故障</li>
-</ul>
-</li>
-</ul>
-<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
-<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
-<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
-
-如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
-
-如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
-
-容量&gt;性能，raid50、raid10
-数据保护，raid6、raid60
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
-</li>
-<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
-</li>
-<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
-</li>
-<li><p>先配置raid，再按需分区，最后装系统</p>
-</li>
-<li><p>raid和non-raid</p>
-<ul>
-<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
-<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
-</ul>
-</li>
-</ul>
-<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
-</ul>
-<p>1、检查硬件，可正常工作、安装连接无误</p>
-<p>2、根据读盘结果，按需配置raid</p>
-<p>3、查看虚拟磁盘配置结果</p>
-<ul>
-<li>mdadm，建设，管理，监控raid</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Raid</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>github代理问题</title>
     <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<ul>
@@ -2572,40 +2609,17 @@ ssh -T git@github.com。还是报错
       </tags>
   </entry>
   <entry>
-    <title>cmd</title>
-    <url>/2023/08/19/cmd/</url>
-    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
-<li><p>ping——测试网络是否通畅</p>
+    <title>linux重点内容</title>
+    <url>/2023/08/19/linux/</url>
+    <content><![CDATA[<p>linux运维：</p>
 <ul>
-<li>使用icmp协议，网络连通性测试</li>
+<li>网络配置，防火墙，管理远程主机</li>
+<li>用户、用户组配置</li>
+<li>软件安装部署，文件操作</li>
 </ul>
-</li>
-<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
-</li>
-<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
-<ul>
-<li><p>telnet ip 端口（跳到空窗口）</p>
-</li>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<ul>
-<li>三、找到telnet客户端，勾选打开</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>ifconfig——查看本机网络</p>
-</li>
-</ul>
-<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
-<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
 ]]></content>
       <tags>
-        <tag>cmd</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -2730,20 +2744,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>linux重点内容</title>
-    <url>/2023/08/19/linux/</url>
-    <content><![CDATA[<p>linux运维：</p>
-<ul>
-<li>网络配置，防火墙，管理远程主机</li>
-<li>用户、用户组配置</li>
-<li>软件安装部署，文件操作</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>windows server</title>
     <url>/2023/08/19/windows%20server/</url>
     <content><![CDATA[<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
@@ -2832,46 +2832,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>常用软件</title>
-    <url>/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
-    <content><![CDATA[<h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
-<p>简单来说，Tomcat是一个WEB应用程序的托管平台，可以让用户编写的WEB应用程序，被Tomcat所托管，并提供网站服务。</p>
-<blockquote>
-<p>即让用户开发的WEB应用程序，变成可以被访问的网页。</p>
-</blockquote>
-<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p><em>Nginx</em> 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。</p>
-<p>同Tomcat一样，Nginx可以托管用户编写的WEB应用程序成为可访问的网页服务，同时也可以作为流量代理服务器，控制流量的中转。</p>
-<p>Nginx在WEB开发领域，也是必备组件之一。</p>
-<h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>RabbitMQ是一款开源消息队列系统，为企业提供消息的发布、订阅、点对点传输等消息服务。</p>
-<p>RabbitMQ在企业开发中十分常见</p>
-<p>你可以把它当做一个快递站点，当你要发送一个包裹时，你把你的包裹放到快递站，快递员最终会把你的快递送到收件人那里，按照这种逻辑RabbitMQ是一个快递站，一个快递员帮你传递快件。RabbitMQ与快递站的主要区别在于，它不处理快件而是接收，存储和转发消息数据。</p>
-<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>redis是一个开源的、使用C语言编写的、支持网络交互的、可基于内存也可持久化的Key-Value数据库。</p>
-<p>redis的特点就是：<code>快</code>，可以基于内存存储数据并提供超低延迟、超快的检索速度，一般用于在系统中提供快速缓存的能力。</p>
-<h2 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h2><p><a href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">全文搜索</a>属于最常见的需求，开源的 <a href="https://www.elastic.co/">Elasticsearch</a> （以下简称 es）是目前全文搜索引擎的首选。</p>
-<p>它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。</p>
-<p>Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索引擎服务。</p>
-<p>很多服务中的搜索功能，都是基于es来实现的。</p>
-<h2 id="ZooKeepe"><a href="#ZooKeepe" class="headerlink" title="ZooKeepe"></a>ZooKeepe</h2><p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
-<p>除了为Hadoop和HBase提供协调服务外，Zookeeper也被其它许多软件采用作为其分布式状态一致性的依赖，比如Kafka，又或者一些软件项目中，也经常能见到Zookeeper作为一致性协调服务存在。</p>
-<p>Zookeeper不论是大数据领域亦或是其它服务器开发领域，涉及到分布式状态一致性的场景，总有它的身影存在。</p>
-<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka是一款<code>分布式的、去中心化的、高吞吐低延迟、订阅模式</code>的消息队列系统。</p>
-<p>同RabbitMQ一样，Kafka也是消息队列。不过RabbitMQ多用于后端系统，因其更加专注于消息的延迟和容错。</p>
-<p>Kafka多用于大数据体系，因其更加专注于数据的吞吐能力。Kafka多数都是运行在分布式（集群化）模式下</p>
-<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>1、Hadoop是一个由Apache基金会所开发的分布式系统基础架构。<br>2、主要解决，海量数据的存储和海量数据的分析计算问题。</p>
-<ul>
-<li>Hadoop生态<ul>
-<li>Hadoop HDFS 提供分布式海量数据存储能力</li>
-<li>Hadoop YARN 提供分布式集群资源管理能力</li>
-<li>Hadoop MapReduce 提供分布式海量数据计算能力</li>
-</ul>
-</li>
-</ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2>]]></content>
-      <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>运维常见名词索引</title>
     <url>/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/</url>
     <content><![CDATA[<h1 id="名词中英文对照索引"><a href="#名词中英文对照索引" class="headerlink" title="名词中英文对照索引"></a>名词中英文对照索引</h1><h1 id="A"><a href="#A" class="headerlink" title="A"></a>A</h1><ul>
@@ -2927,6 +2887,46 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <h1 id="T"><a href="#T" class="headerlink" title="T"></a>T</h1><h1 id="U"><a href="#U" class="headerlink" title="U"></a>U</h1><h1 id="V"><a href="#V" class="headerlink" title="V"></a>V</h1><h1 id="W"><a href="#W" class="headerlink" title="W"></a>W</h1><h1 id="X"><a href="#X" class="headerlink" title="X"></a>X</h1><h1 id="Y"><a href="#Y" class="headerlink" title="Y"></a>Y</h1><h1 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h1>]]></content>
       <tags>
         <tag>计算机基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用软件</title>
+    <url>/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
+<p>简单来说，Tomcat是一个WEB应用程序的托管平台，可以让用户编写的WEB应用程序，被Tomcat所托管，并提供网站服务。</p>
+<blockquote>
+<p>即让用户开发的WEB应用程序，变成可以被访问的网页。</p>
+</blockquote>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p><em>Nginx</em> 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。</p>
+<p>同Tomcat一样，Nginx可以托管用户编写的WEB应用程序成为可访问的网页服务，同时也可以作为流量代理服务器，控制流量的中转。</p>
+<p>Nginx在WEB开发领域，也是必备组件之一。</p>
+<h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>RabbitMQ是一款开源消息队列系统，为企业提供消息的发布、订阅、点对点传输等消息服务。</p>
+<p>RabbitMQ在企业开发中十分常见</p>
+<p>你可以把它当做一个快递站点，当你要发送一个包裹时，你把你的包裹放到快递站，快递员最终会把你的快递送到收件人那里，按照这种逻辑RabbitMQ是一个快递站，一个快递员帮你传递快件。RabbitMQ与快递站的主要区别在于，它不处理快件而是接收，存储和转发消息数据。</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>redis是一个开源的、使用C语言编写的、支持网络交互的、可基于内存也可持久化的Key-Value数据库。</p>
+<p>redis的特点就是：<code>快</code>，可以基于内存存储数据并提供超低延迟、超快的检索速度，一般用于在系统中提供快速缓存的能力。</p>
+<h2 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h2><p><a href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">全文搜索</a>属于最常见的需求，开源的 <a href="https://www.elastic.co/">Elasticsearch</a> （以下简称 es）是目前全文搜索引擎的首选。</p>
+<p>它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。</p>
+<p>Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索引擎服务。</p>
+<p>很多服务中的搜索功能，都是基于es来实现的。</p>
+<h2 id="ZooKeepe"><a href="#ZooKeepe" class="headerlink" title="ZooKeepe"></a>ZooKeepe</h2><p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
+<p>除了为Hadoop和HBase提供协调服务外，Zookeeper也被其它许多软件采用作为其分布式状态一致性的依赖，比如Kafka，又或者一些软件项目中，也经常能见到Zookeeper作为一致性协调服务存在。</p>
+<p>Zookeeper不论是大数据领域亦或是其它服务器开发领域，涉及到分布式状态一致性的场景，总有它的身影存在。</p>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka是一款<code>分布式的、去中心化的、高吞吐低延迟、订阅模式</code>的消息队列系统。</p>
+<p>同RabbitMQ一样，Kafka也是消息队列。不过RabbitMQ多用于后端系统，因其更加专注于消息的延迟和容错。</p>
+<p>Kafka多用于大数据体系，因其更加专注于数据的吞吐能力。Kafka多数都是运行在分布式（集群化）模式下</p>
+<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>1、Hadoop是一个由Apache基金会所开发的分布式系统基础架构。<br>2、主要解决，海量数据的存储和海量数据的分析计算问题。</p>
+<ul>
+<li>Hadoop生态<ul>
+<li>Hadoop HDFS 提供分布式海量数据存储能力</li>
+<li>Hadoop YARN 提供分布式集群资源管理能力</li>
+<li>Hadoop MapReduce 提供分布式海量数据计算能力</li>
+</ul>
+</li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2>]]></content>
+      <tags>
+        <tag>工具类</tag>
       </tags>
   </entry>
   <entry>
@@ -3097,41 +3097,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>戴尔PowerEdgeR620</title>
-    <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
-    <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
-<li>PERC 是 PowerEdge Raid Controller 的缩写</li>
-<li>前缀S表示为Software软件阵列，H 表示为Hardware 硬件阵列 ,</li>
-<li>从入门到高端型号第一位数字分别用1 3 7 8 表示，</li>
-<li>第二三位数字位为产品代数，</li>
-<li>结尾P表示 Performance 高性能型。</li>
-</ul>
-<h2 id="PERC名词"><a href="#PERC名词" class="headerlink" title="PERC名词"></a>PERC名词</h2><ul>
-<li>Disk Group：磁盘组，这里相当于是阵列，例如配置了一个RAID5，就是一个磁盘组。</li>
-<li>VD：Virtual Disk， 虚拟磁盘，虚拟磁盘可以不使用阵列的全部容量，也就是说一个磁盘组可以分为多个VD。</li>
-<li>PD：Physical Disk，物理磁盘。</li>
-</ul>
-<h2 id="配置Raid方法"><a href="#配置Raid方法" class="headerlink" title="配置Raid方法"></a>配置Raid方法</h2><ul>
-<li>1、F10直接做在生命周期控制器中，F10可选中文，会重启很麻烦</li>
-<li>2、F2在系统设置中做  —-√   简单明了</li>
-<li>3、ctrl+R做，界面繁琐麻烦</li>
-<li>问题：同样的raid级别，在ctrl+R中配置和在F2中配置，容量会不一样，不知道为什么！</li>
-</ul>
-<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
-</ul>
-<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
-<li>在安装系统时，系统文件里，不带有RAID 1的驱动程序，导致安装系统无法识别到RAID 1 的硬盘。需要手动加载 RAID 卡驱动程序</li>
-<li>raid版本和主板版本可能存在版本问题，注意匹配</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>戴尔PowerEdge</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>教程索引</title>
     <url>/2023/09/05/%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="教程索引"><a href="#教程索引" class="headerlink" title="教程索引"></a>教程索引</h1><h2 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h2><ul>
@@ -3259,6 +3224,41 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>戴尔PowerEdgeR620</title>
+    <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
+    <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
+<li>PERC 是 PowerEdge Raid Controller 的缩写</li>
+<li>前缀S表示为Software软件阵列，H 表示为Hardware 硬件阵列 ,</li>
+<li>从入门到高端型号第一位数字分别用1 3 7 8 表示，</li>
+<li>第二三位数字位为产品代数，</li>
+<li>结尾P表示 Performance 高性能型。</li>
+</ul>
+<h2 id="PERC名词"><a href="#PERC名词" class="headerlink" title="PERC名词"></a>PERC名词</h2><ul>
+<li>Disk Group：磁盘组，这里相当于是阵列，例如配置了一个RAID5，就是一个磁盘组。</li>
+<li>VD：Virtual Disk， 虚拟磁盘，虚拟磁盘可以不使用阵列的全部容量，也就是说一个磁盘组可以分为多个VD。</li>
+<li>PD：Physical Disk，物理磁盘。</li>
+</ul>
+<h2 id="配置Raid方法"><a href="#配置Raid方法" class="headerlink" title="配置Raid方法"></a>配置Raid方法</h2><ul>
+<li>1、F10直接做在生命周期控制器中，F10可选中文，会重启很麻烦</li>
+<li>2、F2在系统设置中做  —-√   简单明了</li>
+<li>3、ctrl+R做，界面繁琐麻烦</li>
+<li>问题：同样的raid级别，在ctrl+R中配置和在F2中配置，容量会不一样，不知道为什么！</li>
+</ul>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
+<li>1、改sata模式为raid</li>
+<li>2、做raid</li>
+<li>3、boot mode模式按需选择</li>
+</ul>
+<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
+<li>在安装系统时，系统文件里，不带有RAID 1的驱动程序，导致安装系统无法识别到RAID 1 的硬盘。需要手动加载 RAID 卡驱动程序</li>
+<li>raid版本和主板版本可能存在版本问题，注意匹配</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>戴尔PowerEdge</tag>
       </tags>
   </entry>
   <entry>
