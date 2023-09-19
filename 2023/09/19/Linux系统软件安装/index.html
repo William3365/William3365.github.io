@@ -1,317 +1,313 @@
-<?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>idrac-ipmi</title>
-    <url>/2023/09/04/IPMI/</url>
-    <content><![CDATA[<h1 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h1><ul>
-<li>Intelligent Platform Management Interface，是一种用于管理和监控服务器的标准接口</li>
-</ul>
-<h2 id="idrac"><a href="#idrac" class="headerlink" title="idrac"></a>idrac</h2><ul>
-<li>Integrated Dell Remote Access Controller，戴尔集成远程访问控制器。是一个远程管理系统，由一块集成电路板组成，内置了支持和管理硬件的固件。idrac提供了一个Web界面，用户可以通过这个界面对服务器进行监控、管理、远程重启、重新启动操作系统等各种操作。同时，idrac还支持命令行方式和SNMP协议，以便更加方便地远程管理服务器。</li>
-<li>默认登录凭据：用户名：root，密码：calvin</li>
-</ul>
-<h2 id="配置IPMI"><a href="#配置IPMI" class="headerlink" title="配置IPMI"></a>配置IPMI</h2><ul>
-<li><p>仅针对戴尔服务器</p>
-<ul>
-<li>其他操作教程: <code>https://www.ngui.cc/el/1966116.html?action=onClick</code></li>
-</ul>
-</li>
-<li><p>常规操作流程</p>
-<ul>
-<li><p>进入系统设置，选择 system BIOS</p>
-</li>
-<li><p>选择 iDRAC Settings</p>
-</li>
-<li><p>到最下边，选择 reset idrac configguration to defaults</p>
-</li>
-<li><p>选择yes，等待结束，选择continue</p>
-</li>
-<li><p>再次选择 iDRAC Settings，选择 network（使用专用网络接口）</p>
-</li>
-<li><p>NIC相关配置，Enabled启用nic，选择 dedicated</p>
-</li>
-<li><p>网络设置，IPv4 设置，ip，网关，掩码</p>
-</li>
-<li><p>IPMI Over LAN（通过局域网启用IPMI）选项，选择Enabled</p>
-</li>
-<li><p>配置好之后，能ping通，能登录访问即可</p>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>戴尔PowerEdge</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/09/19/Linux%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="Linux-操作系统的启动过程"><a href="#Linux-操作系统的启动过程" class="headerlink" title="Linux 操作系统的启动过程"></a>Linux 操作系统的启动过程</h1><ul>
-<li>为什么需要知道开机启动流程，掌握的意义？<ul>
-<li>掌握让某个软件开机自动运行</li>
-<li>开机不能正常启动，是什么原因，或者那个环节出现了问题</li>
-<li>防止黑客植入木马，去查询黑客会把木马放到哪些地方</li>
-</ul>
-</li>
-</ul>
-<h2 id="1-开机自检"><a href="#1-开机自检" class="headerlink" title="1-开机自检"></a>1-开机自检</h2><ul>
-<li>通电后，加载主板上的BIOS程序，开始硬件自检<ul>
-<li>硬件自检，检测设备的状态、设置设备的工作模式<ul>
-<li>检测并初始化 CPU</li>
-<li>检测并初始化内存</li>
-<li>检测并初始化硬盘</li>
-<li>检测并初始化输入设备：键盘鼠标</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>BIOS</p>
-<p>​	是电脑启动时加载的第一个软件，它是一组固化到计算机内主板上一个ROM芯片上的程序，它可从CMOS中读写系统信息，包含了 CPU 的相关信息、设备启动顺序信息、硬盘信息、内存信息、时钟信息、PnP 特性等等，</p>
-</blockquote>
-<h2 id="2-Boot启动"><a href="#2-Boot启动" class="headerlink" title="2-Boot启动"></a>2-Boot启动</h2><ul>
-<li>boot启动<ul>
-<li>第1引导顺序：hard drive （硬盘）</li>
-<li>第2引导顺序：cdrom （光驱 ） </li>
-<li>第3引导顺序：removable device 可移动设备（u盘，移动硬盘）</li>
-<li>第4引导顺序：Network从网络启动（网络中安装服务器启动）</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-系统引导"><a href="#3-系统引导" class="headerlink" title="3-系统引导"></a>3-系统引导</h2><ul>
-<li>MBR载入到内存并开始执行<ul>
-<li>系统找到 BIOS 所指定的硬盘的 MBR 后，就会将其复制到 0x7c00 地址所在的物理内存中</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>MBR（Master Boot Record，主引导记录）</p>
-<p>​	在硬盘的第一个扇区，所以也把该扇区做主引导扇区，它在硬盘上的位置是（0柱面，0磁头，1扇区）独占一个扇区的空间</p>
-<p>​	MBR 包含了一个小型的引导加载程序，主要作用是检查预启动信息、分区表信</p>
-<p>息，并且将控制权交给硬盘主分区（活动分区）上的引导程序（Boot Loader，如 GRUB、LILO、spfdisk）</p>
-</blockquote>
-<ul>
-<li>启动GRUB引导程序，选择内核</li>
-</ul>
-<blockquote>
-<p>GRUB是许多 Linux 发行版默认的引导加载程序，并广泛用于管理和启动操作系统</p>
-</blockquote>
-<h2 id="2-内核启动"><a href="#2-内核启动" class="headerlink" title="2-内核启动"></a>2-内核启动</h2><ul>
-<li><p>根据grub 设定的内核映像路径，系统读取内核映像，进行解压缩操作，加载并启动内核</p>
-<ul>
-<li>从磁盘读取内核映像：磁盘上的文件系统中存有内核映像，包含了操作系统的所有代码和数据</li>
-<li>解压内核映像：内核映像通常以压缩的形式提供，需要解压后才能被内核读取。</li>
-<li>跳转到内核入口点：内核入口点是一个特殊的函数，它是内核运行的起始点。当内核启动时，它会跳转到这个入口点开始执行。</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-系统初始化"><a href="#3-系统初始化" class="headerlink" title="3-系统初始化"></a>3-系统初始化</h2><ul>
-<li><p>内核启动后，接下来会进行系统初始化</p>
-<ul>
-<li>创建进程0（即 init 进程）：init 进程是系统的主进程，它的任务是启动其他所有的进程。</li>
-<li>初始化各种系统设备和服务：这包括网络接口、文件系统、设备驱动等</li>
-</ul>
-</li>
-</ul>
-<h2 id="4-文件系统挂载"><a href="#4-文件系统挂载" class="headerlink" title="4-文件系统挂载"></a>4-文件系统挂载</h2><ul>
-<li><p>系统初始化完成后，接下来的工作就是挂载文件系统。文件系统挂载是将文件系统与计算机的文件系统中的某个目录关联起来，使用户可以访问到文件系统中的内容</p>
-<ul>
-<li>确定文件系统的类型，如ext4、xfs，需要根据文件系统的类型来确定如何挂载</li>
-<li>确定挂载点的设备和挂载选项，找到挂载目录对应的设备号和挂载选项</li>
-<li>挂载文件系统</li>
-</ul>
-</li>
-</ul>
-<h2 id="5-登录提示符"><a href="#5-登录提示符" class="headerlink" title="5-登录提示符"></a>5-登录提示符</h2><ul>
-<li>文件系统挂载完成后，计算机会显示一个登陆提示符，提示用户可以登录操作系统了。此时，用户可以输入用户名和密码来登录操作系统。</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>Raid</title>
-    <url>/2023/08/23/Raid/</url>
-    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
-<li><p>为什么要做raid？</p>
-<ul>
-<li>花小钱办大事（降本增效），提供容错机制（数据安全）</li>
-</ul>
-</li>
-<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
-</li>
-<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
-</li>
-<li><p>技术架构：数据条带、镜像、数据校验技术</p>
-<ul>
-<li><p>stripe条带化阵列，没有冗余，但是可提供最佳性能和附加存储。</p>
-</li>
-<li><p>mirror镜像，阵列中的每个驱动器上镜像相同的数据</p>
-</li>
-<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
-</li>
-<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
-<ul>
-<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
-</ul>
-</li>
-<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
-</li>
-<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
-</li>
-</ul>
-</li>
-<li><p>热备盘</p>
-<ul>
-<li><p>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</p>
-</li>
-<li><p>软 RAID，</p>
-<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
+<!DOCTYPE HTML>
+<html lang="zh-CN">
 
-占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
 
-跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>硬 RAID </p>
-<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="学无止境">
+    <meta name="description" content="实战章节：在Linux上部署各类软件前言为什么学习各类软件在Linux上的部署在前面，我们学习了许多的Linux命令和高级技巧，这些知识点比较零散，同学们跟随着课程的内容进行练习虽然可以基础掌握这些命令和技巧的使用，但是并没有一些具体的实操">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
 
-性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>软硬混合 RAID ，成本、性能居中</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Raid等级"><a href="#Raid等级" class="headerlink" title="Raid等级"></a>Raid等级</h2><ul>
-<li><p>raid0</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
-<li>例：2T + 2T &#x3D; 4T</li>
-<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
-<li>视频、音频存储、打印等</li>
-</ul>
-</li>
-<li><p>raid1</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
-<li>例：2T + 2T &#x3D; 2T</li>
-<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
-<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
-<li>邮件、数据库</li>
-</ul>
-</li>
-<li><p>raid5</p>
-<ul>
-<li><strong>最少3块</strong></li>
-<li>例：2T + 2T+ 2T &#x3D; 4T</li>
-<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
-<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
-<li>适用于金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid6</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
-<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
-<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid10</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
-<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
-<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
-<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
-</ul>
-</li>
-<li><p>raid50</p>
-<ul>
-<li><strong>至少需要六个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>RAID 5 + 0</li>
-</ul>
-</li>
-<li><p>raid60</p>
-<ul>
-<li><strong>最少需要八个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>比 RAID 50 阵列更可靠</li>
-</ul>
-</li>
-</ul>
-<h2 id="Raid状态"><a href="#Raid状态" class="headerlink" title="Raid状态"></a>Raid状态</h2><p>若不需配置阵列，则需要将硬盘转换为 non-RAID 直通模式</p>
-<ul>
-<li><p>物理磁盘 pd</p>
-<ul>
-<li><p>online，可正常使用，处于在线状态</p>
-</li>
-<li><p>ready，该磁盘预备好了，可以被设置为raid但未配置</p>
-</li>
-<li><p>rebuild，重建状态，表示raid组正在进行数据同步</p>
-</li>
-</ul>
-</li>
-<li><p>虚拟磁盘 vd</p>
-<ul>
-<li>Normal，状态正常，所有成员盘均在线</li>
-<li>Offline，表示raid组存在超过允许范围的故障或离线硬盘，raid组瘫痪，数据已无法读写</li>
-<li>Degraded，降级状态，表示raid组中有故障或离线的硬盘，但基于raid组的磁盘仍然可以正常读写</li>
-<li>Failed，虚拟磁盘故障</li>
-</ul>
-</li>
-</ul>
-<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
-<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
-<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
 
-如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
+    <title>豆荚blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
 
-如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
 
-容量&gt;性能，raid50、raid10
-数据保护，raid6、raid60
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">豆荚blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
 </ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
-</li>
-<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
-</li>
-<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
-</li>
-<li><p>先配置raid，再按需分区，最后装系统</p>
-</li>
-<li><p>raid和non-raid</p>
-<ul>
-<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
-<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
-</ul>
-</li>
-</ul>
-<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
-</ul>
-<p>1、检查硬件，可正常工作、安装连接无误</p>
-<p>2、根据读盘结果，按需配置raid</p>
-<p>3、查看虚拟磁盘配置结果</p>
-<ul>
-<li>mdadm，建设，管理，监控raid</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Raid</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/09/19/Linux%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="实战章节：在Linux上部署各类软件"><a href="#实战章节：在Linux上部署各类软件" class="headerlink" title="实战章节：在Linux上部署各类软件"></a>实战章节：在Linux上部署各类软件</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="为什么学习各类软件在Linux上的部署"><a href="#为什么学习各类软件在Linux上的部署" class="headerlink" title="为什么学习各类软件在Linux上的部署"></a>为什么学习各类软件在Linux上的部署</h2><p>在前面，我们学习了许多的Linux命令和高级技巧，这些知识点比较零散，同学们跟随着课程的内容进行练习虽然可以基础掌握这些命令和技巧的使用，但是并没有一些具体的实操能够串联起来这些知识点。</p>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">豆荚blog</div>
+        <div class="logo-desc">
+            
+            豆荚blog,学习-工作
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-09-19
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2023-09-19
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    16k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    68 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="实战章节：在Linux上部署各类软件"><a href="#实战章节：在Linux上部署各类软件" class="headerlink" title="实战章节：在Linux上部署各类软件"></a>实战章节：在Linux上部署各类软件</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="为什么学习各类软件在Linux上的部署"><a href="#为什么学习各类软件在Linux上的部署" class="headerlink" title="为什么学习各类软件在Linux上的部署"></a>为什么学习各类软件在Linux上的部署</h2><p>在前面，我们学习了许多的Linux命令和高级技巧，这些知识点比较零散，同学们跟随着课程的内容进行练习虽然可以基础掌握这些命令和技巧的使用，但是并没有一些具体的实操能够串联起来这些知识点。</p>
 <p>所以，现在我们设计了各类软件在Linux上部署安装的实战章节，可以让同学们：</p>
 <ul>
 <li>对前面学习的各类操作命令进行复习和练习，从而深度掌握它们</li>
@@ -373,7 +369,7 @@
 </blockquote>
 <h2 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h2><p>MySQL的安装过程中，除了会使用Linux命令外，还会使用到少量的数据库专用的：SQL语句</p>
 <p>对于SQL语句我们并未涉及，所以可以跟随教程的内容，复制粘贴即可</p>
-<p>如对MySQL感兴趣，可以学习BiliBili黑马程序员视频：<a href="https://www.bilibili.com/video/BV1iF411z7Pu">2022新版黑马程序员MySQL知识精讲+mysql实战案例_零基础mysql数据库入门到高级全套教程</a></p>
+<p>如对MySQL感兴趣，可以学习BiliBili黑马程序员视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1iF411z7Pu">2022新版黑马程序员MySQL知识精讲+mysql实战案例_零基础mysql数据库入门到高级全套教程</a></p>
 <blockquote>
 <p>如有时间，建议可以在学习完Linux系统之后，学习一下MySQL数据库</p>
 <p>无论从事什么方面的开发，Java后端、大数据、AI、前端、Linux运维等，都会要求掌握MySQL数据库的</p>
@@ -763,7 +759,7 @@ root@DESKTOP-Q89USRE:~<span class="token comment"># which mysql_secure_installat
 </blockquote>
 <h3 id="安装JDK环境"><a href="#安装JDK环境" class="headerlink" title="安装JDK环境"></a>安装JDK环境</h3><ol>
 <li><p>下载JDK软件</p>
-<p><a href="https://www.oracle.com/java/technologies/downloads">https://www.oracle.com/java/technologies/downloads</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads">https://www.oracle.com/java/technologies/downloads</a></p>
 <p>在页面下方找到：</p>
 <img src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/17/20221017163411.png" alt="image-20221017163411651" style="zoom: 67%;" />
 
@@ -941,13 +937,13 @@ firewall-cmd --add-port<span class="token operator">=</span><span class="token n
 firewall-cmd <span class="token parameter variable">--reload</span>							<span class="token comment"># 重新加载防火墙规则</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>启动后浏览器输入Linux服务器的IP地址或主机名即可访问</p>
-<p><a href="http://192.168.88.130/">http://192.168.88.130</a> 或 <a href="http://centos/">http://centos</a></p>
+<p><a target="_blank" rel="noopener" href="http://192.168.88.130/">http://192.168.88.130</a> 或 <a target="_blank" rel="noopener" href="http://centos/">http://centos</a></p>
 <blockquote>
 <p>ps：80端口是访问网站的默认端口，所以后面无需跟随端口号</p>
 <p>显示的指定端口也是可以的比如：</p>
 <ul>
-<li><a href="http://192.168.88.130/">http://192.168.88.130:80</a></li>
-<li><a href="http://centos/">http://centos:80</a></li>
+<li><a target="_blank" rel="noopener" href="http://192.168.88.130/">http://192.168.88.130:80</a></li>
+<li><a target="_blank" rel="noopener" href="http://centos/">http://centos:80</a></li>
 </ul>
 </blockquote>
 </li>
@@ -1066,7 +1062,7 @@ rabbitmqctl set_user_tags admin administrator<span aria-hidden="true" class="lin
 
 </li>
 <li><p>浏览器打开管理控制台</p>
-<p><a href="http://192.168.88.130:15672/">http://192.168.88.130:15672</a></p>
+<p><a target="_blank" rel="noopener" href="http://192.168.88.130:15672/">http://192.168.88.130:15672</a></p>
 <p><img src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/18/20221018154824.png" alt="image-20221018154823983"></p>
 </li>
 </ol>
@@ -1114,7 +1110,7 @@ OK
 <span class="token number">127.0</span>.0.1:637<span class="token operator"><span class="token file-descriptor important">9</span>></span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 <p>至此，redis安装完成。</p>
-<h1 id="ElasticSearch安装部署"><a href="#ElasticSearch安装部署" class="headerlink" title="ElasticSearch安装部署"></a>ElasticSearch安装部署</h1><h2 id="简介-5"><a href="#简介-5" class="headerlink" title="简介"></a>简介</h2><p><a href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">全文搜索</a>属于最常见的需求，开源的 <a href="https://www.elastic.co/">Elasticsearch</a> （以下简称 es）是目前全文搜索引擎的首选。</p>
+<h1 id="ElasticSearch安装部署"><a href="#ElasticSearch安装部署" class="headerlink" title="ElasticSearch安装部署"></a>ElasticSearch安装部署</h1><h2 id="简介-5"><a href="#简介-5" class="headerlink" title="简介"></a>简介</h2><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">全文搜索</a>属于最常见的需求，开源的 <a target="_blank" rel="noopener" href="https://www.elastic.co/">Elasticsearch</a> （以下简称 es）是目前全文搜索引擎的首选。</p>
 <p>它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。</p>
 <p>Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索引擎服务。</p>
 <p>很多服务中的搜索功能，都是基于es来实现的。</p>
@@ -1167,7 +1163,7 @@ cluster.initial_master_nodes: <span class="token punctuation">[</span><span clas
 systemctl disable firewalld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>测试</p>
-<p>浏览器打开：<a href="http://ip:9200/?pretty">http://ip:9200/?pretty</a></p>
+<p>浏览器打开：<a target="_blank" rel="noopener" href="http://ip:9200/?pretty">http://ip:9200/?pretty</a></p>
 <p><img src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/25/20221025085432.png" alt="image-20221025085432335"></p>
 </li>
 </ol>
@@ -1320,7 +1316,7 @@ systemctl disable firewalld<span aria-hidden="true" class="line-numbers-rows"><s
 
 
 
-<h1 id="Zookeeper集群安装部署"><a href="#Zookeeper集群安装部署" class="headerlink" title="Zookeeper集群安装部署"></a>Zookeeper集群安装部署</h1><h2 id="简介-7"><a href="#简介-7" class="headerlink" title="简介"></a>简介</h2><p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
+<h1 id="Zookeeper集群安装部署"><a href="#Zookeeper集群安装部署" class="headerlink" title="Zookeeper集群安装部署"></a>Zookeeper集群安装部署</h1><h2 id="简介-7"><a href="#简介-7" class="headerlink" title="简介"></a>简介</h2><p>ZooKeeper是一个<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
 <p>除了为Hadoop和HBase提供协调服务外，Zookeeper也被其它许多软件采用作为其分布式状态一致性的依赖，比如Kafka，又或者一些软件项目中，也经常能见到Zookeeper作为一致性协调服务存在。</p>
 <p>Zookeeper不论是大数据领域亦或是其它服务器开发领域，涉及到分布式状态一致性的场景，总有它的身影存在。</p>
 <h2 id="安装-9"><a href="#安装-9" class="headerlink" title="安装"></a>安装</h2><p>Zookeeper是一款分布式的集群化软件，可以在多台服务器上部署，并协同组成分布式集群一起工作。</p>
@@ -1930,13 +1926,13 @@ stop-yarn.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <h4 id="验证Hadoop集群运行情况"><a href="#验证Hadoop集群运行情况" class="headerlink" title="验证Hadoop集群运行情况"></a>验证Hadoop集群运行情况</h4><ol>
 <li><p>在node1、node2、node3上通过jps验证进程是否都启动成功</p>
 </li>
-<li><p>验证HDFS，浏览器打开：<a href="http://node1:9870/">http://node1:9870</a></p>
+<li><p>验证HDFS，浏览器打开：<a target="_blank" rel="noopener" href="http://node1:9870/">http://node1:9870</a></p>
 <p>创建文件test.txt，随意填入内容，并执行：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hadoop fs <span class="token parameter variable">-put</span> test.txt /test.txt
 
 hadoop fs <span class="token parameter variable">-cat</span> /test.txt<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>验证YARN，浏览器打开：<a href="http://node1:8088/">http://node1:8088</a></p>
+<li><p>验证YARN，浏览器打开：<a target="_blank" rel="noopener" href="http://node1:8088/">http://node1:8088</a></p>
 <p>执行：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建文件words.txt，填入如下内容</span>
 itheima itcast hadoop
@@ -1949,7 +1945,7 @@ hadoop fs <span class="token parameter variable">-put</span> words.txt /words.tx
 <span class="token comment"># 执行如下命令验证YARN是否正常</span>
 hadoop jar /export/server/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.0.jar wordcount <span class="token parameter variable">-Dmapred.job.queue.name</span><span class="token operator">=</span>root.root /words.txt /output<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
-<h1 id="大数据NoSQL数据库HBase集群部署"><a href="#大数据NoSQL数据库HBase集群部署" class="headerlink" title="大数据NoSQL数据库HBase集群部署"></a>大数据NoSQL数据库HBase集群部署</h1><h2 id="简介-10"><a href="#简介-10" class="headerlink" title="简介"></a>简介</h2><p>HBase 是一种<a href="https://so.csdn.net/so/search?q=%E5%88%86%E5%B8%83%E5%BC%8F&spm=1001.2101.3001.7020">分布式</a>、可扩展、支持海量数据存储的 NoSQL 数据库。</p>
+<h1 id="大数据NoSQL数据库HBase集群部署"><a href="#大数据NoSQL数据库HBase集群部署" class="headerlink" title="大数据NoSQL数据库HBase集群部署"></a>大数据NoSQL数据库HBase集群部署</h1><h2 id="简介-10"><a href="#简介-10" class="headerlink" title="简介"></a>简介</h2><p>HBase 是一种<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%88%86%E5%B8%83%E5%BC%8F&spm=1001.2101.3001.7020">分布式</a>、可扩展、支持海量数据存储的 NoSQL 数据库。</p>
 <p>和Redis一样，HBase是一款KeyValue型存储的数据库。</p>
 <p>不过和Redis设计方向不同</p>
 <ul>
@@ -2124,7 +2120,7 @@ node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></spa
 <span class="token comment"># 如需停止，可以</span>
 /export/server/spark/sbin/stop-all.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>打开Spark监控页面，浏览器打开：<a href="http://node1:8081/">http://node1:8081</a></p>
+<li><p>打开Spark监控页面，浏览器打开：<a target="_blank" rel="noopener" href="http://node1:8081/">http://node1:8081</a></p>
 </li>
 <li><p>【node1执行】提交测试任务</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/export/server/spark/bin/spark-submit <span class="token parameter variable">--master</span> spark://node1:7077 <span class="token parameter variable">--class</span> org.apache.spark.examples.SparkPi /export/server/spark/examples/jars/spark-examples_2.11-2.4.5.jar<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
@@ -2244,12 +2240,12 @@ mysql<span class="token operator">></span> grant all privileges on *.* to root@<
 <h3 id="安装Zabbix-Server-和-Zabbix-Agent"><a href="#安装Zabbix-Server-和-Zabbix-Agent" class="headerlink" title="安装Zabbix Server 和 Zabbix Agent"></a>安装Zabbix Server 和 Zabbix Agent</h3><blockquote>
 <p>初始安装，我们先安装ZabbixServer以及在Server本机安装Agent。</p>
 </blockquote>
-<p>打开官网下载页面：<a href="https://www.zabbix.com/download?zabbix=4.0&os_distribution=centos&os_version=7&db=mysql">https://www.zabbix.com/download?zabbix=4.0&amp;os_distribution=centos&amp;os_version=7&amp;db=mysql</a></p>
+<p>打开官网下载页面：<a target="_blank" rel="noopener" href="https://www.zabbix.com/download?zabbix=4.0&os_distribution=centos&os_version=7&db=mysql">https://www.zabbix.com/download?zabbix=4.0&amp;os_distribution=centos&amp;os_version=7&amp;db=mysql</a></p>
 <p><img src="https://image-set.oss-cn-zhangjiakou.aliyuncs.com/img-out/2022/10/26/20221026175330.png" alt="1571981197131"></p>
 <p>选择对应的版本，然后再下面官网给出了具体的安装命令，使用<code>rpm</code>和<code>yum</code>来进行安装。</p>
 <p>需要有网络。</p>
 <p><code>以下内容来自官方页面</code></p>
-<h4 id="a-安装Zabbix-yum库"><a href="#a-安装Zabbix-yum库" class="headerlink" title="a. 安装Zabbix yum库"></a>a. 安装Zabbix yum库</h4><p><a href="https://www.zabbix.com/documentation/4.0/manual/installation/install_from_packages">documentation</a></p>
+<h4 id="a-安装Zabbix-yum库"><a href="#a-安装Zabbix-yum库" class="headerlink" title="a. 安装Zabbix yum库"></a>a. 安装Zabbix yum库</h4><p><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/4.0/manual/installation/install_from_packages">documentation</a></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">rpm</span> <span class="token parameter variable">-Uvh</span> https://repo.zabbix.com/zabbix/4.0/rhel/7/x86_64/zabbix-release-4.0-2.el7.noarch.rpm
 yum clean all<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -2257,7 +2253,7 @@ yum clean all<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <span class="token comment"># 如果只需要安装Agent的话</span>
 yum <span class="token parameter variable">-y</span> <span class="token function">install</span> zabbix-agent<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="c-初始化Mysql数据库"><a href="#c-初始化Mysql数据库" class="headerlink" title="c. 初始化Mysql数据库"></a>c. 初始化Mysql数据库</h4><p><a href="https://www.zabbix.com/documentation/4.0/manual/appendix/install/db_scripts">documentation</a></p>
+<h4 id="c-初始化Mysql数据库"><a href="#c-初始化Mysql数据库" class="headerlink" title="c. 初始化Mysql数据库"></a>c. 初始化Mysql数据库</h4><p><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/4.0/manual/appendix/install/db_scripts">documentation</a></p>
 <blockquote>
 <p>在Mysql中操作</p>
 </blockquote>
@@ -2312,7 +2308,7 @@ systemctl <span class="token builtin class-name">enable</span> zabbix-server zab
 <p>我们课程选择方式1</p>
 <h3 id="安装-17"><a href="#安装-17" class="headerlink" title="安装"></a>安装</h3><p><code>Grafana</code>支持常见的绝大多数操作系统, 如<code>windows</code> <code>mac</code> <code>linux</code> 同时也支持部署在<code>docker</code>中.</p>
 <p>大多数情况下, <code>Grafana</code>都是部署在<code>linux</code>服务器之上. 所以本课程也是基于<code>Linux</code>系统来讲解.</p>
-<p>对<code>windows</code> <code>mac</code>系统 或 <code>docker</code>部署有兴趣的同学, 请参考:  <a href="https://grafana.com/grafana/download">https://grafana.com/grafana/download</a></p>
+<p>对<code>windows</code> <code>mac</code>系统 或 <code>docker</code>部署有兴趣的同学, 请参考:  <a target="_blank" rel="noopener" href="https://grafana.com/grafana/download">https://grafana.com/grafana/download</a></p>
 <p>我们部署<code>Grafana</code>可以使用<code>YUM</code>来进行部署.</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建一个文件</span>
 <span class="token function">vim</span> /etc/yum.repos.d/grafana.repo
@@ -2382,1595 +2378,962 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
 
 
 
-<p>浏览器打开：<a href="http://node1:3000/">http://node1:3000</a></p>
+<p>浏览器打开：<a target="_blank" rel="noopener" href="http://node1:3000/">http://node1:3000</a></p>
 <p>默认账户密码：admin&#x2F;admin</p>
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
-    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
-<li><p>首先新建一个txt文件</p>
-<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
 
-# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>保存文件，将txt文件改成后缀为bat</p>
-</li>
-<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
-</li>
-<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
-</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>centos7</title>
-    <url>/2023/08/19/centos7/</url>
-    <content><![CDATA[<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
-<li><p>一般推荐<strong>uefi</strong>引导</p>
-</li>
-<li><p>安装完成，拔出U盘，重启进入bios将启动顺序恢复至原来的顺序，<strong>无论安装什么系统，都要这样!!!</strong></p>
-<p>其实大多数设备拔U盘之后，读不到U盘，就直接从系统盘读了，但是有时多系统，多硬盘的话，最好设置下启动项</p>
-</li>
-<li><blockquote>
-<ul>
-<li>sata模式： stata AHCI （一般选择它，兼容模式）    # 如果需要做Raid，选择raid模式</li>
-<li>write cache enabled 启用</li>
-<li>引导模式：UEFI（推荐）</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
-<h2 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h2><ul>
-<li><p>centos7</p>
-<blockquote>
-<ul>
-<li><p>vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）</p>
-<pre class="line-numbers language-none"><code class="language-none">tips：
-1、新装系统，没有vim，用vi（vim兼容vi）
-vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>修改</p>
-<pre class="line-numbers language-none"><code class="language-none">BOOTPROTO&#x3D;static   # 网卡的引导协议：DHCP动态、static或none静态
-ONBOOT&#x3D;yes #开机启动时是否激活网卡设备 #centos7装完网卡后默认no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>添加</p>
-<pre class="line-numbers language-none"><code class="language-none">IPADDR&#x3D;192.168.88.139  #ip地址
-NETMASK&#x3D;255.255.255.0  #子网掩码
-GATEWAY&#x3D;192.168.88.2	#网关
-DNS1&#x3D;192.169.88.2	#dns<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>重启网卡</p>
-<pre class="line-numbers language-none"><code class="language-none">systemctl  restart  network  
-或  service network restart    # 老版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><ul>
-<li><p>1、更新yum资源包<br><code>sudo yum update</code></p>
-</li>
-<li><p>2、下载MySQL 8的仓库文件<br><code>sudo wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm</code></p>
-</li>
-<li><p>3、安装MySQL 8的仓库文件<br><code>sudo yum install mysql80-community-release-el7-3.noarch.rpm</code></p>
-</li>
-<li><p>4、导入MySQL GPG密钥<br><code>sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022</code></p>
-</li>
-<li><p>5、安装MySQL数据库服务器<br><code>sudo yum install mysql-community-server</code></p>
-</li>
-<li><p>6、安装完成后，启动MySQL并配置开机自启动</p>
-<pre class="line-numbers language-none"><code class="language-none">systemctl start mysqld # 启动
-systemctl enable mysqld # 开机自启
+                
+            </div>
+            <hr/>
 
-MySQL安装完成后，会自动配置为名称叫做：mysqld的服务，可以被systemctl所管理
-检查MySQL的运行状态：systemctl status mysqld
-查看是否开机自启动：systemctl is-enabled mysqld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>7、获取MySQL的初始密码</p>
-<pre class="line-numbers language-none"><code class="language-none">grep &#39;temporary password&#39; &#x2F;var&#x2F;log&#x2F;mysqld.log
-或者：cat &#x2F;var&#x2F;log&#x2F;mysqld.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+            
 
-</li>
-<li><p>8、登录MySQL<br>  <code>mysql -uroot -p</code></p>
-</li>
-<li><p>9、修改密码</p>
-  <pre class="line-numbers language-none"><code class="language-none">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码&#39;;
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">william</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2023/09/19/Linux%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/">http://example.com/2023/09/19/Linux%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">william</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
 
 
-tips：
-  **配置简单密码，必须先按照规则，修改一个密码，然后才可以配置简单密码，**
-  例：
-  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;ROOT_root_12&#39;;   # 符合要求的密码
 
-  # 修改密码校验规则
-  set global validate_password.policy&#x3D;0;  # 密码安全级别低
-  set global validate_password.length&#x3D;1;  # 密码长度最低1位
-  # 设置简单密码
-  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;000000&#39;;
-  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;admin@123&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
 
-</li>
-<li><p>10、允许root远程<br>  默认情况下，root用户是不运行远程登录的，只允许在MySQL所在的Linux服务器登陆MySQL系统</p>
-<p>  设置root远程登录，并配置远程密码使用如下SQL命令</p>
-<ul>
-<li><code>create user &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码!&#39;;</code></li>
-</ul>
-</li>
-<li><p>11、检查端口<br>  MySQL默认绑定了3306端口，可以通过端口占用检查MySQL的网络状态</p>
-<ul>
-<li><code>netstat -anp | grep 3306</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
-<li><p>报错，<code>Warning: /dev/root does not exist</code></p>
-</li>
-<li><p>分析</p>
-<ul>
-<li>系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别<ul>
-<li>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>解决</p>
-<ul>
-<li>先查看自己的u盘设备名称，<strong>ls &#x2F;dev&#x2F;sd</strong>*</li>
-<li>然后  <strong>blkid</strong> 查看类型，记住，然后重启<strong>reboot</strong></li>
-<li>选择安装项，然后<strong>e</strong>或者<strong>tab</strong>进入编辑，<br>在<strong>linux16</strong>那边，<strong>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64</strong>，更改为<strong>inst.stage2&#x3D;hd:&#x2F;dev&#x2F;U盘设备名</strong>，</li>
-<li><strong>回车</strong>或者<strong>ctrl+x</strong>，即可正常安装</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>centos7</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cmd</title>
-    <url>/2023/08/19/cmd/</url>
-    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
-<li><p>ping——测试网络是否通畅</p>
-<ul>
-<li>使用icmp协议，网络连通性测试</li>
-</ul>
-</li>
-<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
-</li>
-<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
-<ul>
-<li><p>telnet ip 端口（跳到空窗口）</p>
-</li>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<ul>
-<li>三、找到telnet客户端，勾选打开</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>ifconfig——查看本机网络</p>
-</li>
-</ul>
-<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
-<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
-]]></content>
-      <tags>
-        <tag>cmd</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>github代理问题</title>
-    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<ul>
-<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
-</ul>
-<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
-<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
-<ul>
-<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
-fatal: Could not read from remote repository.
+    
 
-这个错误提示的是连接github.com的22端口被拒绝了。
+    
 
-解决办法：
-1、使用443
-ssh -T git@github.com。还是报错
-执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
-在git branch中进行
-     vim ~&#x2F;.ssh&#x2F;config
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url('/medias/comment_bg.png') 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table,
+    th,
+    td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, 0.1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: 0.5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*='language-'] {
+        padding: 1.2em;
+        margin: 0.5em 0;
+    }
+
+    #vcomments code[class*='language-'],
+    pre[class*='language-'] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type='checkbox']:not(:checked),
+    [type='checkbox']:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: 0.2em;
+    }
+
+    #vcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type='checkbox']:not(:checked),
+    [type='checkbox']:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="https://unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'C2R9sEhwLp0hV6fa3riZtZ3Y-gzGzoHsz',
+        appKey: 'rPFTLjUS5fjblCN2gr0tekar',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: '554033828',
+        enableQQ: true,
+        requiredFields: ['追风浪子', '554033828@qq.com'], //设置必填项
+        emojiCDN: '//i0.hdslb.com/bfs/emote/', //设置哔站表情包地址
+        // 表情title和图片映射
+        emojiMaps: {
+            tv_doge: '6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png',
+            tv_亲亲: 'a8111ad55953ef5e3be3327ef94eb4a39d535d06.png',
+            tv_偷笑: 'bb690d4107620f1c15cff29509db529a73aee261.png',
+            tv_再见: '180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png',
+            tv_冷漠: 'b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png',
+            tv_发怒: '34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png',
+            tv_发财: '34db290afd2963723c6eb3c4560667db7253a21a.png',
+            tv_可爱: '9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png',
+            tv_吐血: '09dd16a7aa59b77baa1155d47484409624470c77.png',
+            tv_呆: 'fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png',
+            tv_呕吐: '9f996894a39e282ccf5e66856af49483f81870f3.png',
+            tv_困: '241ee304e44c0af029adceb294399391e4737ef2.png',
+            tv_坏笑: '1f0b87f731a671079842116e0991c91c2c88645a.png',
+            tv_大佬: '093c1e2c490161aca397afc45573c877cdead616.png',
+            tv_大哭: '23269aeb35f99daee28dda129676f6e9ea87934f.png',
+            tv_委屈: 'd04dba7b5465779e9755d2ab6f0a897b9b33bb77.png',
+            tv_害羞: 'a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png',
+            tv_尴尬: '7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png',
+            tv_微笑: '70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png',
+            tv_思考: '90cf159733e558137ed20aa04d09964436f618a1.png',
+            tv_惊吓: '0d15c7e2ee58e935adc6a7193ee042388adc22af.png',
+            tv_打脸: '56ab10b624063e966bfcb76ea5dc4794d87dfd47.png',
+            tv_抓狂: 'fe31c08edad661d63762b04e17b8d5ae3c71a757.png',
+            tv_抠鼻: 'c666f55e88d471e51bbd9fab9bb308110824a6eb.png',
+            tv_斜眼笑: '911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png',
+            tv_无奈: 'ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png',
+            tv_晕: '5443c22b4d07fb1907ccc610c8e6db254f2461b7.png',
+            tv_流汗: 'cead1c351ab8d79e9f369605beb90148db0fbed3.png',
+            tv_流泪: '7e71cde7858f0cd50d74b0264aa26db612a8a167.png',
+            tv_流鼻血: 'c32d39db2737f89b904ca32700d140a9241b0767.png',
+            tv_点赞: 'f85c354995bd99e28fc76c869bfe42ba6438eff4.png',
+            tv_生气: '26702dcafdab5e8225b43ffd23c94ac1ff932654.png',
+            tv_生病: '8b0ec90e6b86771092a498c54f09fc94621c1900.png',
+            tv_疑问: '0793d949b18d7be716078349c202c15ff166f314.png',
+            tv_白眼: 'c1d59f439e379ee50eef488bcb5e5378e5044ea4.png',
+            tv_皱眉: '72ccad6679fea0d14cce648b4d818e09b8ffea2d.png',
+            tv_目瞪口呆: '0b8cb81a68de5d5365212c99375e7ace3e7891b7.png',
+            tv_睡着: '8b196675b53af58264f383c50ad0945048290b33.png',
+            tv_笑哭: '1abc628f6d4f4caf9d0e7800878f4697abbc8273.png',
+            tv_腼腆: '89712c0d4af73e67f89e35cbc518420380a7f6f4.png',
+            tv_色: '61822c7e9aae5da76475e7892534545336b23a6f.png',
+            tv_调侃: '4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png',
+            tv_调皮: 'b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png',
+            tv_鄙视: '6e72339f346a692a495b123174b49e4e8e781303.png',
+            tv_闭嘴: 'c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png',
+            tv_难过: '87f46748d3f142ebc6586ff58860d0e2fc8263ba.png',
+            tv_馋: 'fc7e829b845c43c623c8b490ee3602b7f0e76a31.png',
+            tv_鬼脸: '0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png',
+            tv_黑人问号: '45821a01f51bc867da9edbaa2e070410819a95b2.png',
+            tv_鼓掌: '1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png',
+        },
+    });
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-09-19
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            william
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/09/15/%E5%B0%B1%E6%98%AF%E7%8E%A9/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            william
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 豆荚blog<br />'
+            + '文章作者: william<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <a href="/about" target="_blank">william</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">33.1k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+    <!--浏览器搞笑标题-->
+    <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
      
-     Host github.com
-       Hostname ssh.github.com
-       Port 443
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
 
-     ssh -T git@github.com
-     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
 
-     ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNktxO.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux重点内容</title>
-    <url>/2023/08/19/linux/</url>
-    <content><![CDATA[<p>linux运维：</p>
-<ul>
-<li>网络配置，防火墙，管理远程主机</li>
-<li>用户、用户组配置</li>
-<li>软件安装部署，文件操作</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo杂谈</title>
-    <url>/2023/08/19/hexo%E6%9D%82%E8%B0%88/</url>
-    <content><![CDATA[<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ul>
-<li><p>技术栈 hexo+githubpages+vercel</p>
-</li>
-<li><p>说明</p>
-<ul>
-<li><p>一般hexo+githubpages+vercel搭建，网上有很多教程，本文不做具体描述</p>
-<ul>
-<li><p>搭建<code>http://t.csdn.cn/T7e5I</code></p>
-</li>
-<li><p>优化<code>https://wdstql.github.io/2021/08/03/matery/</code></p>
-</li>
-</ul>
-</li>
-<li><p>本文有以下个注意点：</p>
-<ul>
-<li>常规的hexo+githubpages搭建方法，只是将public下的文件，所以hexo生成的博客文件这只会造成在git托管了博客页面，没有托管源码，不便于我们管理</li>
-<li>本站采用git分支进行管理，利用hexo默认部署的方式，再将blog部署在main分支上然后创建分支，对源码（md文件和其他源文件）进行管理。</li>
-<li>将源码分支下载到本地，并清空分支中的东西，然后将.git文件复制到hexo根目录，即可还是原来的操作，只需再加入git的操作</li>
-</ul>
-</li>
-<li><p>使用</p>
-<blockquote>
-<p>hexo clean 清理<br>hexo new xxx 新建文章，hexo new page xxx  新建页面<br>hexo g 生成页面<br>hexo s 运行<br>hexo d 上传部署  INFO  Deploy done: git 表示成功<br>然后git同步即可</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><h3 id="配置admin后台管理系统"><a href="#配置admin后台管理系统" class="headerlink" title="配置admin后台管理系统"></a>配置admin后台管理系统</h3><pre><code>* 不用再md文件里直接写，可以避免很多语法、格式问题
-  <pre class="line-numbers language-none"><code class="language-none">安装：npm install --save hexo-admin
-运行：hexo server -d
-地址：http:&#x2F;&#x2F;localhost:4000&#x2F;admin&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-* 添加用户名密码
-  <pre class="line-numbers language-none"><code class="language-none">根目录_config.yml
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
 
-admin:
-username:&#x2F;&#x2F;用户名
-password_hash:&#x2F;&#x2F;用户名密码不喜欢的可以不设置，这里通过bcrypt hash
-secret: hey hexo deploy&#x2F;&#x2F;用以cookies安全；
-Command: <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</code></pre>
-<h3 id="重新安装hexo"><a href="#重新安装hexo" class="headerlink" title="重新安装hexo"></a>重新安装hexo</h3><ul>
-<li>一般主题文件需要重新安装，因为主题文件也是一个git仓库</li>
-<li>git clone <a href="https://github.com/blinkfox/hexo-theme-matery.git">https://github.com/blinkfox/hexo-theme-matery.git</a></li>
-<li>解决：删除主题文件夹中的.git文件夹，这样就可以将主题文件一起上传了</li>
-</ul>
-<h3 id="多平台部署-国内外分流"><a href="#多平台部署-国内外分流" class="headerlink" title="多平台部署-国内外分流"></a>多平台部署-国内外分流</h3><ul>
-<li>采用github、gitee，流程差不多，需要注意的是，GitHub可以自动更新，gitee需手动</li>
-<li>书写格式，网上教程很多也很旧，自己多写试试</li>
-<li>协议问题，github采用ssh协议，gitee采用http协议，别问为什么，问就是踩坑大半天！当然这个也是因人而异，只是提供一种排查思路</li>
-<li>分支最好也一致<pre class="line-numbers language-none"><code class="language-none">deploy:
-type: git 
-repo:
-    github: git@github.com
-    gitee: git@gitee.com
-branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h3 id="本地运行预览正常，部署上线无效果"><a href="#本地运行预览正常，部署上线无效果" class="headerlink" title="本地运行预览正常，部署上线无效果"></a>本地运行预览正常，部署上线无效果</h3><ul>
-<li>可能是浏览器缓存问题，ctrl+F5，强制刷新</li>
-<li>可能是分支问题，尤其是的两个特殊点，1本案例采用的部署一个分支，源码一个分支的方式，2本案例双平台部署存在自动和手动问题。更要注意比如GitHub是main分支，gitee是master分支，这里提供思路就是去比较分支的提交和活跃，就知道代码被提交到哪里了，再看部署选择的是哪一个分支</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu</title>
-    <url>/2023/08/30/ubuntu/</url>
-    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
-<li><p>UEFI + GPT</p>
-</li>
-<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
-</li>
-</ul>
-<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
-<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
-<blockquote>
-<p>登录之后是普通用户，设置root密码</p>
-<p><code>sudo passwd root </code></p>
-</blockquote>
-</li>
-</ul>
-<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
-<li><code>apt</code></li>
-<li>centos  <code>yum</code></li>
-</ul>
-<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
-<ul>
-<li><p>ip a   # 查看 网卡</p>
-</li>
-<li><p>cd &#x2F;etc&#x2F;netplan </p>
-</li>
-<li><p>ls   # 查看.yaml文件</p>
-</li>
-<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
-</li>
-<li><p>编辑</p>
-<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
+    <!-- Baidu Analytics -->
 
-网卡名
-   dhcp4: false    # 动态改成false
-      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
-      gateway4: 192.168.3.1    # 网关
-      nameservers:
-        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>退出vi文本编辑器</p>
-</li>
-<li><p>sudo netplan apply  # 保存</p>
-</li>
-</ul>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>windows server</title>
-    <url>/2023/08/19/windows%20server/</url>
-    <content><![CDATA[<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
-<li>工作流程</li>
-</ul>
-<p>1、装设备、装系统<br>2、设置用户、配ip、配端口<br>3、服务器管理器，开启【远程桌面，远程管理】，设置防火墙<br>4、测试，ping通，远程通<br>5、交付</p>
-<h2 id="业务操作"><a href="#业务操作" class="headerlink" title="业务操作"></a>业务操作</h2><h3 id="配置远程桌面"><a href="#配置远程桌面" class="headerlink" title="配置远程桌面"></a>配置远程桌面</h3><ul>
-<li>流程<ul>
-<li><p>服务器管理器，开启，远程桌面、远程管理，需要进入 防火墙</p>
-</li>
-<li><p>windows防火墙，入站规则，开启服务：</p>
-<ul>
-<li>—否则无法远程连接<br>    远程桌面（tcp-in 用户模式）<br>远程桌面（udp-in 用户模式）</li>
-<li>—否则无法ping通<br>    核心网络诊断-icmp 回显请求（icmpv4-in） &#x2F; 文件和打印机共享（回显请求-icmpv4-in）<br>核心网络诊断-icmp 回显请求（icmpv4-in）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="配置新ip"><a href="#配置新ip" class="headerlink" title="配置新ip"></a>配置新ip</h3><ul>
-<li><p>流程</p>
-<ul>
-<li>配置ip，修改默认端口号</li>
-<li>配置成功、ping成功、telnet成功、远程桌面成功</li>
-</ul>
-</li>
-<li><p>修改默认端口号，</p>
-<ul>
-<li><p>改成5位，22xxx或者33xxx</p>
-<blockquote>
-<p>1、注册表中，修改两处端口号【 PortNumber 】</p>
-<ul>
-<li><p>路径1：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ wds \ rdpwd \ tds \ tcp</p>
-</li>
-<li><p>路径2：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ winstations \ rdp-tcp</p>
-</li>
-</ul>
-<p>2、防火墙中新建入站规则–端口号</p>
-<p>3、服务，重新启动服务 【remot desktop services】</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
-<li><p>同一时间，多个用户，用一个账号登录，比如A，B，C，D四台机器，同时使用administrator这个账户登录服务器</p>
-</li>
-<li><p>流程</p>
-<ul>
-<li><p>首先开启远程桌面、远程管理</p>
-</li>
-<li><p>服务器与管理器 》管理 》添加角色和功能向导 》基于角色或基于功能的安装</p>
-</li>
-<li><p>远程桌面服务 》远程桌面(会话)主机、远程桌面授权</p>
-</li>
-<li><p>确认安装所选内容，重启服务器</p>
-<p><img src="https://s1.ax1x.com/2023/08/31/pPw7KkF.png"></p>
-</li>
-<li><p><strong>直接执行以下操作也可以</strong></p>
-</li>
-<li><p>运行&#x2F;cmd，输入【gpedit.msc】打开策略组</p>
-</li>
-<li><p>计算机配置\管理模板\Windows 组件\远程桌面服务\远程桌面会话主机\连接</p>
-</li>
-<li><p>将远程桌面服务的用户限制到单独的远程桌面会话，禁用</p>
-</li>
-<li><p>限制连接的数量，启用，允许的RD最大连接数——修改</p>
-</li>
-<li><p>cmd，输入【gpupdate &#x2F;force】刷新策略，使策略生效</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<p>三、找到telnet客户端，勾选打开</p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
-    <content><![CDATA[<h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
-<p>简单来说，Tomcat是一个WEB应用程序的托管平台，可以让用户编写的WEB应用程序，被Tomcat所托管，并提供网站服务。</p>
-<blockquote>
-<p>即让用户开发的WEB应用程序，变成可以被访问的网页。</p>
-</blockquote>
-<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p><em>Nginx</em> 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。</p>
-<p>同Tomcat一样，Nginx可以托管用户编写的WEB应用程序成为可访问的网页服务，同时也可以作为流量代理服务器，控制流量的中转。</p>
-<p>Nginx在WEB开发领域，也是必备组件之一。</p>
-<h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>RabbitMQ是一款开源消息队列系统，为企业提供消息的发布、订阅、点对点传输等消息服务。</p>
-<p>RabbitMQ在企业开发中十分常见</p>
-<p>你可以把它当做一个快递站点，当你要发送一个包裹时，你把你的包裹放到快递站，快递员最终会把你的快递送到收件人那里，按照这种逻辑RabbitMQ是一个快递站，一个快递员帮你传递快件。RabbitMQ与快递站的主要区别在于，它不处理快件而是接收，存储和转发消息数据。</p>
-<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>redis是一个开源的、使用C语言编写的、支持网络交互的、可基于内存也可持久化的Key-Value数据库。</p>
-<p>redis的特点就是：<code>快</code>，可以基于内存存储数据并提供超低延迟、超快的检索速度，一般用于在系统中提供快速缓存的能力。</p>
-<h2 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h2><p><a href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">全文搜索</a>属于最常见的需求，开源的 <a href="https://www.elastic.co/">Elasticsearch</a> （以下简称 es）是目前全文搜索引擎的首选。</p>
-<p>它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。</p>
-<p>Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索引擎服务。</p>
-<p>很多服务中的搜索功能，都是基于es来实现的。</p>
-<h2 id="ZooKeepe"><a href="#ZooKeepe" class="headerlink" title="ZooKeepe"></a>ZooKeepe</h2><p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
-<p>除了为Hadoop和HBase提供协调服务外，Zookeeper也被其它许多软件采用作为其分布式状态一致性的依赖，比如Kafka，又或者一些软件项目中，也经常能见到Zookeeper作为一致性协调服务存在。</p>
-<p>Zookeeper不论是大数据领域亦或是其它服务器开发领域，涉及到分布式状态一致性的场景，总有它的身影存在。</p>
-<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka是一款<code>分布式的、去中心化的、高吞吐低延迟、订阅模式</code>的消息队列系统。</p>
-<p>同RabbitMQ一样，Kafka也是消息队列。不过RabbitMQ多用于后端系统，因其更加专注于消息的延迟和容错。</p>
-<p>Kafka多用于大数据体系，因其更加专注于数据的吞吐能力。Kafka多数都是运行在分布式（集群化）模式下</p>
-<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>1、Hadoop是一个由Apache基金会所开发的分布式系统基础架构。<br>2、主要解决，海量数据的存储和海量数据的分析计算问题。</p>
-<ul>
-<li>Hadoop生态<ul>
-<li>Hadoop HDFS 提供分布式海量数据存储能力</li>
-<li>Hadoop YARN 提供分布式集群资源管理能力</li>
-<li>Hadoop MapReduce 提供分布式海量数据计算能力</li>
-</ul>
-</li>
-</ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2>]]></content>
-  </entry>
-  <entry>
-    <title>运维常见名词索引</title>
-    <url>/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/</url>
-    <content><![CDATA[<h1 id="名词中英文对照索引"><a href="#名词中英文对照索引" class="headerlink" title="名词中英文对照索引"></a>名词中英文对照索引</h1><h1 id="A"><a href="#A" class="headerlink" title="A"></a>A</h1><ul>
-<li>AOC，Active Optical Cables，有源光缆</li>
-</ul>
-<h1 id="B"><a href="#B" class="headerlink" title="B"></a>B</h1><h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="D"><a href="#D" class="headerlink" title="D"></a>D</h1><ul>
-<li>DNS，</li>
-</ul>
-<h1 id="E"><a href="#E" class="headerlink" title="E"></a>E</h1><ul>
-<li>embedded，嵌入……之中的</li>
-</ul>
-<h1 id="F"><a href="#F" class="headerlink" title="F"></a>F</h1><ul>
-<li>Firewall，防火墙</li>
-</ul>
-<h1 id="G"><a href="#G" class="headerlink" title="G"></a>G</h1><ul>
-<li>GATEWAY，网关</li>
-</ul>
-<h1 id="H"><a href="#H" class="headerlink" title="H"></a>H</h1><ul>
-<li>HUB，集线器</li>
-<li>hd，ide接口的，读出来hda</li>
-<li></li>
-</ul>
-<h1 id="I"><a href="#I" class="headerlink" title="I"></a>I</h1><ul>
-<li>iDRAC，</li>
-<li>IPMI，</li>
-<li>integrated，集成的</li>
-</ul>
-<h1 id="J"><a href="#J" class="headerlink" title="J"></a>J</h1><h1 id="K"><a href="#K" class="headerlink" title="K"></a>K</h1><h1 id="L"><a href="#L" class="headerlink" title="L"></a>L</h1><ul>
-<li>LV&#x3D;，logical volume，逻辑卷</li>
-<li>LVM，Logical Volume Manager，逻辑卷管理</li>
-</ul>
-<h1 id="M"><a href="#M" class="headerlink" title="M"></a>M</h1><ul>
-<li>MAC，网卡的硬件地址</li>
-</ul>
-<h1 id="N"><a href="#N" class="headerlink" title="N"></a>N</h1><ul>
-<li>NIC，网卡</li>
-<li>NETMASK，子网掩码</li>
-</ul>
-<h1 id="O"><a href="#O" class="headerlink" title="O"></a>O</h1><ul>
-<li>OSI，</li>
-</ul>
-<h1 id="P"><a href="#P" class="headerlink" title="P"></a>P</h1><p>pd，物理磁盘</p>
-<p>pg，物理磁盘组</p>
-<p>pv，physical volume，物理卷</p>
-<h1 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h1><h1 id="R"><a href="#R" class="headerlink" title="R"></a>R</h1><ul>
-<li>Router，路由器</li>
-</ul>
-<h1 id="S"><a href="#S" class="headerlink" title="S"></a>S</h1><ul>
-<li>switch，交换机（Ethernet switch）</li>
-<li>vd，虚拟磁盘</li>
-<li>vg，volume group，卷组</li>
-</ul>
-<h1 id="T"><a href="#T" class="headerlink" title="T"></a>T</h1><h1 id="U"><a href="#U" class="headerlink" title="U"></a>U</h1><h1 id="V"><a href="#V" class="headerlink" title="V"></a>V</h1><h1 id="W"><a href="#W" class="headerlink" title="W"></a>W</h1><h1 id="X"><a href="#X" class="headerlink" title="X"></a>X</h1><h1 id="Y"><a href="#Y" class="headerlink" title="Y"></a>Y</h1><h1 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h1>]]></content>
-      <tags>
-        <tag>计算机基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>周报(1)</title>
-    <url>/2023/08/19/%E5%91%A8%E6%8A%A5/</url>
-    <content><![CDATA[<p>入职第一周<br>本人前端程序员一名，因故回到县城老家，找不到工作，改行做机房运维，记录0基础运维成长</p>
-<p>第一天，简单看了下培训文档和基本信息资料，然后领导交代制作pe系统盘，有一说一，这个东西是计算机人的基础，大学也都学过，但是我不会，我从来没用U盘装过系统。<br>使用大白菜一键制作U盘。不知道为什么，中间做一半电脑卡死了，弄坏了一个U盘，直接读不出来了。然后就是去网上找iso镜像，有一说一，国内的这些网站广告是真的多。需要的系统文件有windows server 2008、2021、2022、centos7.x。找到之后，就开始了漫长的下载，由于网络问题，10点开始下载，下午1点才下载好。<br>下载好之后，网上教程说用软碟通刻录、直接复制拷贝等等。我用软碟通但是安装的时候一直中文乱码，然后就用复制解压到U盘的方法,windows系统要求做在一个盘里，cent的做在另一个盘里。解压的过程中，要么是空间不够，要么电脑半路卡死。奇奇怪怪，我之前电脑从来没卡死过，8代i5，16+256+512，以前开机7s，现在都是20s。奇奇怪怪。<br>到了下班点，WindowsU盘还没弄好，回家接着弄。</p>
-<p>two<br>U盘弄好了，但是尝试在虚拟机中装系统，一直出错，win是卡死，centos是网卡配置出错。<br>然后跟着领导学习装系统，遇到的问题是，下载的镜像不全，不干净，导致缺少网卡驱动。初步认识了windows server 系统。<br>发现自己关于计算机网络、硬件知识认知不足，起码不全面，懂一点，但是不多，不深。有空给他系统学一学。<br>关于linux，之前学了基础的命令，但是也都忘得七七八八了，抽空给多练练，关于软件安装部署那块，抓紧学了，找到规律和共性</p>
-<p>three<br>装ws2008、2012、2022，并且配置ip、端口，尝试远程连接，ping，telnet</p>
-<p>foure<br>装centos7，配置网络，开关防火墙，学习防火墙相关知识，安装gui界面、对比使用cli和gui</p>
-<p>five<br>装宝塔面板并学习使用，了解网络相关知识，不同主板系统bios区别差异，学习cmd的其他常用知识</p>
-]]></content>
-      <tags>
-        <tag>复盘</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>宝塔面板</title>
-    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
-    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
-<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
-<p>firewall-cmd –list-all</p>
-]]></content>
-      <tags>
-        <tag>宝塔面板</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>密码破解</title>
-    <url>/2023/08/23/%E5%AF%86%E7%A0%81%E7%A0%B4%E8%A7%A3/</url>
-    <content><![CDATA[<h1 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h1><h2 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h2><ul>
-<li><p>忘记密码，进不去系统</p>
-<ul>
-<li>大白菜抹除</li>
-</ul>
-</li>
-<li><p>忘记密码，能进系统，再操作</p>
-<ul>
-<li>pe启动修改osk和cmd</li>
-</ul>
-</li>
-</ul>
-<pre class="line-numbers language-none"><code class="language-none">用net user 去修改账号和密码 思路是这样的：
-    修改登录界面其他功能的链接，使之成为CMD的链接，在CMD命令里面IIS7-VPS大全
-	系统盘，进入windows\system32目录，找到 osk.exe，将其重命名，
-    同样在此目录下找到 cmd.exe ，将其复制一份，并重命名为 osk.exe
+    <!-- Baidu Push -->
 
-    cd &#x2F;
-    cd windows\system32   直接以管理员身份运行，直接定位到这
-    rename osk.exe osk.exe.bak  拒绝访问，因为这个文件的管理员权限没开
-    copy cmd.exe osk.exe  也可以接着直接修改
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
 
-	教程一般说到登录界面修改，登录界面右下角红框处，右键点选“屏幕键盘 ”，
-    此时会出现命令窗口,在命令窗口输入命令行，即可重设任何用户的密码，
-    比如要重设Administrator密码，则输入：“net user administrator 123456”，
-    到此密码重置完成，即可使用新密码登录系统
-	
-	正常登录，恢复原状，然后再把管理员权限也恢复
-	del osk.exe
-	rename osk.exe.bak osk.exe<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
 
-<h2 id="centos7"><a href="#centos7" class="headerlink" title="centos7"></a>centos7</h2><p>详细：<code>https://blog.csdn.net/weixin_52269666/article/details/121577724</code></p>
-<p><img src="https://s1.ax1x.com/2023/08/23/pPJTYOH.png"></p>
-<p><img src="https://s1.ax1x.com/2023/08/23/pPJTNmd.png"></p>
-<h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><ul>
-<li><p>Ubuntu server 20.04</p>
-<blockquote>
-<ul>
-<li><p>开机进入grub界面，修改grub配置文件</p>
-</li>
-<li><p>在grub页面，选择【Advanced options for Ubuntu】  # Ubuntu高级选项</p>
-</li>
-<li><p>启动菜单选择【recovery mode】这个，按【e】</p>
-</li>
-<li><p>使用导航箭头找到包含以下字符串的行【ro recovery nomodeset】，<strong>删除</strong></p>
-</li>
-<li><p>同时在这一行的末尾，加上【quiet splash rw init&#x3D;&#x2F;bin&#x2F;bash】，按 <strong>ctrl+x</strong> 或者 <strong>F10</strong> 继续引导</p>
-</li>
-<li><p>成功启动后，直接就是root用户身份在执行命令，显示**root@(none):&#x2F;# **</p>
-</li>
-<li><p>重置密码，【passwd 用户名】（ passwd 不加用户名表示重置root密码 ）</p>
-</li>
-<li><p>完成后，重启 【exec &#x2F;sbin&#x2F;init】</p>
-</li>
-</ul>
-<p><strong>tips</strong>：</p>
-<p>  如何开机进入grub界面？</p>
-<ul>
-<li><p>sudo vi &#x2F;etc&#x2F;default&#x2F;grub              #  打开配置文件，</p>
-</li>
-<li><p>GRUB_TIMEOUT_STYLE&#x3D;menu          # 在最后一行增加，前边的注释掉，</p>
-<p>如果实在不行，grub一闪而过或者没有显示，加入GRUB_TIMEOUT&#x3D;10，同理前边的注释掉</p>
-</li>
-<li><p>sudo update-grub       # 更新文件</p>
-</li>
-<li><p>reboot  重启即可</p>
-</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/09/15/%E5%B0%B1%E6%98%AF%E7%8E%A9/</url>
-    <content><![CDATA[<p>.⠄⠄⣿⣿⣿⣿⠘⡿⢛⣿⣿⣿⣿⣿⣧⢻⣿⣿⠃⠸⣿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⣿⣿⣿⣿⢀⠼⣛⣛⣭⢭⣟⣛⣛⣛⠿⠿⢆⡠⢿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⠸⣿⣿⢣⢶⣟⣿⣖⣿⣷⣻⣮⡿⣽⣿⣻⣖⣶⣤⣭⡉⠄⠄⠄⠄⠄<br>⠄⠄⠄⢹⠣⣛⣣⣭⣭⣭⣁⡛⠻⢽⣿⣿⣿⣿⢻⣿⣿⣿⣽⡧⡄⠄⠄⠄<br>⠄⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣌⡛⢿⣽⢘⣿⣷⣿⡻⠏⣛⣀⠄⠄<br>⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠙⡅⣿⠚⣡⣴⣿⣿⣿⡆⠄<br>⠄⠄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠄⣱⣾⣿⣿⣿⣿⣿⣿⠄<br>⠄⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠣⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠑⣿⣮⣝⣛⠿⠿⣿⣿⣿⣿⠄<br>⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠄</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>工具类QA</title>
-    <url>/2023/08/19/%E5%B7%A5%E5%85%B7%E7%B1%BBQA/</url>
-    <content><![CDATA[<ul>
-<li>软碟通解决：<ul>
-<li>控制面板\时钟和区域——更改日期、时间或数字格式——管理——更改系统区域设置——beat版，使用unicode utf-8  取消勾选</li>
-</ul>
-</li>
-<li>pe启动U盘：<ul>
-<li>大白菜做好，测试好之后，直接把iso文件复制粘贴进去就好</li>
-<li>USB-HDD模式：硬盘仿真模式，兼容性很高，适用于新机型，但对于一些只支持USB-ZIP模式的电脑则无法启动，<strong>一般制作U盘启动盘选择该模式</strong>。</li>
-<li>USB-ZIP模式：大容量软盘仿真模式，在一些比较老的电脑上是唯一可选的模式，对新电脑来说兼容性不好，特别是2GB以上的大容量U盘。</li>
-</ul>
-</li>
-<li>PE系统<br>PE是指Windows 预安装环境 (Windows PE) 是在Windows内核上构建的具有有限服务的最小 Win32 子系统，说白了就是把系统写进U盘里；iso是一种光盘镜像文件格式，装系统的过程说简单点都是把系统原版ISO镜像里的系统文件或者GHO压缩镜像里的系统文件写入C盘并给C盘加上引导程序的过程，如果说两种安装方式有区别那就是有些第三方制作的PE里可以附加程序，比如可以加入一些万能的驱动程序，或者嵌入一些广告应用程序等等，而纯净的系统ISO安装是不夹带这些的。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Gen8</title>
-    <url>/2023/09/09/%E6%83%A0%E6%99%AEProLiantDL360pGen8/</url>
-    <content><![CDATA[<ul>
-<li>先下结论：垃圾客户的垃圾设备</li>
-<li>背景：<pre class="line-numbers language-none"><code class="language-none">客户发来的1U服务器，惠普ProLiant DL360p Gen8
-    CPU：intel Xeon E5 V2系列 * 2 
-    内存：16G*4
-    硬盘：无 
-    电源线 * 1
+    
 
-    客户自己刷了套biso，开机启动，64G内存只能读出来48G，但是bios显示64G，开机蓝屏，
-    推断：内存故障，查看报错，cpu1的1号插槽内存故障，由于这台洋垃圾没有标注，所以一根一根插、拔、擦测试
-    果然1号插槽内存有问题，由于时间紧，没有具体测试是内存问题还是插槽问题
-    ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;09&#x2F;09&#x2F;pP6g6TU.jpg)
+    
 
-    这台洋垃圾自带阵列卡，开机默认就启用，装系统之后发现启动项总是从NIC网卡启动，不走sata硬盘，也不走raid，从12点搞到3点，一直在和客户、客服、技术沟通。
-    ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;09&#x2F;09&#x2F;pP6g461.jpg)
-    到4点半，客户想起来，这个bios，需要设置两次boot启动项，一次在biso中将raid设置为第一启动项，然后再去raid中将raid设置为第一启动项，md，就是这台洋垃圾要设置两次boot，都要把raid设置为第一项（那我不用raid也要设置？）然后就整好了
-    ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;09&#x2F;09&#x2F;pP6g2Y4.jpg)
-    ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;09&#x2F;09&#x2F;pP6gRfJ.jpg)
-    ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;09&#x2F;09&#x2F;pP6gfp9.jpg)
-    ![]()
-    ![]()
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
 
-    第一次接触惠普机器，也不知道是这台机器特殊还是惠普的机器都这样
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>戴尔PowerEdgeR620</title>
-    <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
-    <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
-<li>PERC 是 PowerEdge Raid Controller 的缩写</li>
-<li>前缀S表示为Software软件阵列，H 表示为Hardware 硬件阵列 ,</li>
-<li>从入门到高端型号第一位数字分别用1 3 7 8 表示，</li>
-<li>第二三位数字位为产品代数，</li>
-<li>结尾P表示 Performance 高性能型。</li>
-</ul>
-<h2 id="PERC名词"><a href="#PERC名词" class="headerlink" title="PERC名词"></a>PERC名词</h2><ul>
-<li>Disk Group：磁盘组，这里相当于是阵列，例如配置了一个RAID5，就是一个磁盘组。</li>
-<li>VD：Virtual Disk， 虚拟磁盘，虚拟磁盘可以不使用阵列的全部容量，也就是说一个磁盘组可以分为多个VD。</li>
-<li>PD：Physical Disk，物理磁盘。</li>
-</ul>
-<h2 id="配置Raid方法"><a href="#配置Raid方法" class="headerlink" title="配置Raid方法"></a>配置Raid方法</h2><ul>
-<li>1、F10直接做在生命周期控制器中，F10可选中文，会重启很麻烦</li>
-<li>2、F2在系统设置中做  —-√   简单明了</li>
-<li>3、ctrl+R做，界面繁琐麻烦</li>
-<li>问题：同样的raid级别，在ctrl+R中配置和在F2中配置，容量会不一样，不知道为什么！</li>
-</ul>
-<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
-</ul>
-<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
-<li>在安装系统时，系统文件里，不带有RAID 1的驱动程序，导致安装系统无法识别到RAID 1 的硬盘。需要手动加载 RAID 卡驱动程序</li>
-<li>raid版本和主板版本可能存在版本问题，注意匹配</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>戴尔PowerEdge</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>教程索引</title>
-    <url>/2023/09/05/%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="教程索引"><a href="#教程索引" class="headerlink" title="教程索引"></a>教程索引</h1><h2 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h2><ul>
-<li><a href="https://www.ngui.cc/el/1966116.html?action=onClick">https://www.ngui.cc/el/1966116.html?action=onClick</a></li>
-</ul>
-<h2 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h2><h3 id="远程桌面"><a href="#远程桌面" class="headerlink" title="远程桌面"></a>远程桌面</h3><ul>
-<li><a href="https://www.zuankewang.com/377113">https://www.zuankewang.com/377113</a></li>
-</ul>
-<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
-<li>&lt; <a href="https://zhuanlan.zhihu.com/p/617786559%3E">https://zhuanlan.zhihu.com/p/617786559&gt;</a></li>
-</ul>
-<h3 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
-<li><p><a href="https://www.somode.com/softjc/6849.html">https://www.somode.com/softjc/6849.html</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/hy19930118/article/details/108778158">https://blog.csdn.net/hy19930118/article/details/108778158</a></p>
-</li>
-<li><p><a href="https://www.bkqs.com.cn/content/qn02g0693.html">https://www.bkqs.com.cn/content/qn02g0693.html</a></p>
-</li>
-<li></li>
-</ul>
-<h2 id="Centos-7"><a href="#Centos-7" class="headerlink" title="Centos 7"></a>Centos 7</h2><h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/GZY0601/article/details/126946446">https://blog.csdn.net/GZY0601/article/details/126946446</a></li>
-<li><a href="https://blog.csdn.net/weixin_48609917/article/details/126152384">https://blog.csdn.net/weixin_48609917/article/details/126152384</a></li>
-<li><a href="http://www.taodudu.cc/news/show-5386755.html?action=onClick">http://www.taodudu.cc/news/show-5386755.html?action=onClick</a></li>
-<li><a href="https://blog.csdn.net/qq_33427869/article/details/126668794">https://blog.csdn.net/qq_33427869/article/details/126668794</a></li>
-<li><a href="https://juejin.cn/post/6844904101583519752">https://juejin.cn/post/6844904101583519752</a></li>
-</ul>
-<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><ul>
-<li><a href="https://www.cnblogs.com/huaiguang10/p/14980758.html">https://www.cnblogs.com/huaiguang10/p/14980758.html</a></li>
-</ul>
-<h3 id="密码破解-1"><a href="#密码破解-1" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
-<li><a href="https://blog.csdn.net/weixin_52269666/article/details/121577724">https://blog.csdn.net/weixin_52269666/article/details/121577724</a></li>
-</ul>
-<h3 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h3><ul>
-<li><p><a href="http://192.168.3.85:8080/">http://192.168.3.85:8080/</a></p>
-<ul>
-<li><p>最好选择8.x版本，10老出错,jdk搭配1.8.x</p>
-</li>
-<li><p>测试地址：本机ip:8080</p>
-<pre class="line-numbers language-none"><code class="language-none">Tomcat建议使用非Root用户安装并启动
-可以创建一个用户：tomcat用以部署
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
 
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
 
-1. 首先，放行tomcat需要使用的8080端口的外部访问权限
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
-   &gt; CentOS系统默认开启了防火墙，阻止外部网络流量访问系统内部
-   &gt;
-   &gt; 所以，如果想要Tomcat可以正常使用，需要对Tomcat默认使用的8080端口进行放行
-   &gt;
-   &gt; 放行有2种操作方式：
-   &gt;
-   &gt; 1. 关闭防火墙
-   &gt; 2. 配置防火墙规则，放行端口
+</body>
 
-   &#96;&#96;&#96;shell
-   # 以下操作2选一即可
-   # 方式1：关闭防火墙
-   systemctl stop firewalld		# 关闭防火墙
-   systemctl disable firewalld		# 停止防火墙开机自启
-   
-   # 方式2：放行8080端口的外部访问
-   firewall-cmd --add-port&#x3D;8080&#x2F;tcp --permanent		# --add-port&#x3D;8080&#x2F;tcp表示放行8080端口的tcp访问，--permanent表示永久生效
-   firewall-cmd --reload								# 重新载入防火墙规则使其生效<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<blockquote>
-<p>方便起见，建议同学们选择方式1，直接关闭防火墙一劳永逸</p>
-<p>防火墙的配置非常复杂，后面会视情况独立出一集防火墙配置规则的章节。</p>
-</blockquote>
-<ol start="2">
-<li><p>以root用户操作，创建tomcat用户</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用root用户操作</span>
-<span class="token function">useradd</span> tomcat
-<span class="token comment"># 可选，为tomcat用户配置密码</span>
-<span class="token function">passwd</span> tomcat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ol>
-<p>bin目录下<br>.&#x2F;startup.sh启动</p>
-<p>查看<br>[root@localhost bin]# lsof -i:8080<br>COMMAND   PID USER   FD   TYPE DEVICE SIZE&#x2F;OFF NODE NAME<br>java    40774 root   55u  IPv6  84944      0t0  TCP <em>:webcache (LISTEN)<br>[root@localhost bin]# netstat -anp | grep 8080<br>tcp6       0      0 :::8080                 :::</em>                    LISTEN      40774&#x2F;java<br>&#96;&#96;&#96;</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Ubuntu-server"><a href="#Ubuntu-server" class="headerlink" title="Ubuntu server"></a>Ubuntu server</h2><h3 id="安装配置-1"><a href="#安装配置-1" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><p><a href="https://blog.csdn.net/m0_58805648/article/details/131021118">https://blog.csdn.net/m0_58805648/article/details/131021118</a></p>
-</li>
-<li><p><a href="https://www.bilibili.com/read/cv25574905/">https://www.bilibili.com/read/cv25574905/</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3">https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1">https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1</a></p>
-</li>
-</ul>
-<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="磁盘分区格式化"><a href="#磁盘分区格式化" class="headerlink" title="磁盘分区格式化"></a>磁盘分区格式化</h3><ul>
-<li><p><a href="https://blog.csdn.net/cailirong123/article/details/130015943">https://blog.csdn.net/cailirong123/article/details/130015943</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/weixin_39705794/article/details/116706177">https://blog.csdn.net/weixin_39705794/article/details/116706177</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/weixin_43704834/article/details/123839054">https://blog.csdn.net/weixin_43704834/article/details/123839054</a></p>
-</li>
-</ul>
-<h3 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h3><ul>
-<li><a href="https://blog.csdn.net/m0_57911290/article/details/123248428">https://blog.csdn.net/m0_57911290/article/details/123248428</a></li>
-</ul>
-<h2 id="Raid"><a href="#Raid" class="headerlink" title="Raid"></a>Raid</h2><ul>
-<li><p><a href="https://www.cnblogs.com/linagcheng/p/15651591.html">https://www.cnblogs.com/linagcheng/p/15651591.html</a></p>
-</li>
-<li><p><a href="https://www.codenong.com/cs106881457/">https://www.codenong.com/cs106881457/</a></p>
-</li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/494925217">https://zhuanlan.zhihu.com/p/494925217</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/weixin_45027467/article/details/121671046">https://blog.csdn.net/weixin_45027467/article/details/121671046</a></p>
-</li>
-</ul>
-<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><h3 id="安装配置-2"><a href="#安装配置-2" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/qq_42006801/article/details/124830995">https://blog.csdn.net/qq_42006801/article/details/124830995</a></li>
-</ul>
-<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="安装配置-3"><a href="#安装配置-3" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/thefg/article/details/128601410">https://blog.csdn.net/thefg/article/details/128601410</a></li>
-</ul>
-<h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><h3 id="安装配置-4"><a href="#安装配置-4" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="http://e.betheme.net/article/show-1318951.html?action=onClick">http://e.betheme.net/article/show-1318951.html?action=onClick</a></li>
-</ul>
-<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="安装配置-5"><a href="#安装配置-5" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/hellozhangxians/article/details/127169375">https://blog.csdn.net/hellozhangxians/article/details/127169375</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>教程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>磁盘</title>
-    <url>/2023/08/30/%E7%A3%81%E7%9B%98/</url>
-    <content><![CDATA[<h1 id="磁盘-Disk"><a href="#磁盘-Disk" class="headerlink" title="磁盘 Disk"></a>磁盘 Disk</h1><ul>
-<li><p>名词：</p>
-<ul>
-<li>DISK 磁盘、硬盘</li>
-<li>Platter 盘片</li>
-<li>Platter Surface 片面</li>
-<li>Sector 扇区</li>
-<li>Track 磁道</li>
-<li>Head 磁头</li>
-<li>Cylinder 柱面</li>
-</ul>
-</li>
-<li><p>磁盘作用：存储数据</p>
-</li>
-<li><p>种类：机械硬盘、固态硬盘</p>
-<ul>
-<li>根据接口分类：<ul>
-<li><p>SATA，串口ata硬盘（支持热插拔和热交换）</p>
-</li>
-<li><p>SAS，串行连接SCSI，是新一代的SCSI技术</p>
-<p>（主要用于企业级服务器和存储系统。支持热插拔功能）</p>
-</li>
-<li><p>SCSI，小型计算机系统专用接口</p>
-</li>
-<li><p>NVMe（基于PCIe基于PCIe总线，主要用于ssd）</p>
-</li>
-<li><p>pcie</p>
-</li>
-<li><p>M.2 是指一种固态硬盘的尺寸，包含 SATA 和 NVMe 两种类型</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>磁盘设备</p>
-<pre class="line-numbers language-none"><code class="language-none">hd[a-t] #IDE设备
-
-sd[a-z] #SCSI设备
-
-fd[0-7] #软盘驱动设备
-
-md[0-32] #软RAID设备
-
-loop[0-7] #本地回环设设备
-
-lp[0-3] #打印机设备
-
-mem #内存设备
-
-null #空设备，也称为黑洞，任何写入的数据都将被丢弃
-
-zero #零资源设备，任何写入的数据都将被丢弃
-
-full #满设备，任何写入的数据都将失败
-
-tty[0-63] #虚拟终端设备
-
-random #随机数设备
-
-urandom #随机数设备
-
-port #存取I&#x2F;O端口<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<ul>
-<li>GB，gigabyte，数据信息计量单位，十进制的容量单位，1000</li>
-<li>GiB，gibibyte，硬盘存储的一个单位，二进制的容量单位，1024</li>
-</ul>
-<ul>
-<li><p>分区格式：mbr，guid（gpt）</p>
-</li>
-<li><p>步骤：先分区，格式化选择文件系统，挂载</p>
-</li>
-</ul>
-<h2 id="简而言之"><a href="#简而言之" class="headerlink" title="简而言之"></a>简而言之</h2><ul>
-<li><p>磁盘、分区、分区表、文件系统，格式化之间关系理解</p>
-<ul>
-<li>一个<strong>磁盘</strong>（好比一个衣柜ssd,hdd），要先<strong>分区</strong>（分成几个块，哪一块放什么mbr,gpt），然后<strong>格式化</strong>（清理干净）然后选择<strong>文件系统</strong>（衣服怎么放，叠起来还是卷起来ext4,ntfs），<strong>挂载</strong>目录（给对应区域写上标签），最后正常使用<strong>文件</strong>（放衣服）</li>
-<li>先fdisk&#x2F;parted分区，再针对分区mkfs格式化为某种文件系统，然后挂载</li>
-</ul>
-</li>
-<li><p>linux一切皆文件</p>
-<ul>
-<li>linux采用文件夹模式，在linux中，新的硬盘加入也是以文件夹的方式挂载到主分区</li>
-</ul>
-</li>
-</ul>
-<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><ul>
-<li><p>定义并实现了数据在存储介质上的组织方式和结构，以及如何被访问，那组织的⽅式不同，就会形成不同的⽂件系统</p>
-<img src="https://s1.ax1x.com/2023/08/29/pPaW5En.png" style="zoom: 50%;" />
-</li>
-<li><p>一言以蔽之</p>
-<pre class="line-numbers language-none"><code class="language-none">* FAT32格式兼容性好，但不支持4GB以上的文件
-
-* NTFS格式支持大容量文件和超大分区，但对闪盘芯片有伤害(SSD和U盘同为闪存，但SSD还是用NTFS格式好)
-
-* exFAT格式是最适合windows U盘的
-
-* 如果你经常需要在Linux和Windows上用U盘互相传文件，而且Linux核心版本又比较低，推荐还是FAT32,不考虑兼容使用exFAT。(用FTP或者SCP不香吗？)
-
-
-* 在linux上，一般情况下最好使用ext4文件系统，因为其向后兼容性很好，你可以把ext2、ext3的文件系统按照ext4挂载。并且ext4可以有效减少碎片，对于SSD和HDD硬盘是很好的选择。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h3 id="FAT32"><a href="#FAT32" class="headerlink" title="FAT32"></a>FAT32</h3><ul>
-<li><p><strong>文件分配表</strong>，是采用<strong>32位二进制数</strong>记录管理的磁盘文件管理方式</p>
-</li>
-<li><p>优点：是稳定性和兼容性好，且维护方便</p>
-</li>
-<li><p>缺点：安全性差，且最大只能支持<strong>32GB</strong>分区，单个文件也只能支持最大<strong>4GB</strong>。</p>
-</li>
-<li><p>其他：fat、fat16</p>
-</li>
-</ul>
-<h3 id="NTFS"><a href="#NTFS" class="headerlink" title="NTFS"></a>NTFS</h3><ul>
-<li><strong>WINdowsNT</strong> 和高级服务器网络操作系统环境的文件系统，并且 <em>NTFS</em> 是一个<strong>日志文件系统</strong>，这意味着除了向磁盘中写入信息，该文件系统还会为所发生的所有改变保留一份日志。</li>
-<li><strong>NTFS</strong> 设计初衷是提供比 <em>FAT32</em> 更高的可靠性，并消除 <em>FAT32</em> 文件系统容量限制。它除了支持更大的分区和文件、更节约硬盘空间外，还提供了 <em>FAT32</em> 文件系统不能提供的<strong>长文件名、压缩分区、事件追踪、文件索引、高容错性、数据保护和恢复以及加密访问</strong>等功能</li>
-<li>在发生错误的时候很快恢复正常，而且不会丢失任何数据。</li>
-<li>针对传统机械硬盘而设计的。它采用了一种<strong>日志式</strong>的文件系统，需要频繁记录磁盘的详细读写操作，会给<strong>U盘</strong>或 <strong>SSD</strong> 这类储介质带来额外的负担。比如同样存取一个文件或目录，<em>NTFS</em> 分区格式的读写次数就比 <em>FAT32</em> 多得多，因此理论上<strong>使用NTFS格式分区的U盘寿命更短</strong>。</li>
-</ul>
-<h3 id="exFAT"><a href="#exFAT" class="headerlink" title="exFAT"></a>exFAT</h3><ul>
-<li><p>既弥补了 <em>FAT32</em> 的局限性和缺点，又没有 <em>NTFS</em> 那些会影响U盘寿命的功能</p>
-</li>
-<li><p>分区大小和支持的单个文件大小最大可达16EB，存储单位灵活最小为0.5KB，最高可达32MB，空间利用率更高</p>
-</li>
-</ul>
-<h3 id="ext4"><a href="#ext4" class="headerlink" title="ext4"></a>ext4</h3><ul>
-<li>日志文件系统、第四代扩展文件系统，表结构</li>
-<li>支持单个文件的大小高达16TB，支持不同分区上以不同方式存储数据的功能，支持文件虚拟化，空间回收</li>
-<li>其他：ext2、ext3</li>
-</ul>
-<h3 id="XFS"><a href="#XFS" class="headerlink" title="XFS"></a>XFS</h3><ul>
-<li>centos7默认</li>
-<li>64 位高性能日志文件系统，树结构</li>
-<li>单个、最大支持8EB，支持并行IO操作，RAID上的扩展性更好，多线程并行读写时比Ext4有优势</li>
-</ul>
-<h3 id="Btrfs"><a href="#Btrfs" class="headerlink" title="Btrfs"></a>Btrfs</h3><ul>
-<li>B-Tree File System的缩写，可以读作“butter fs”或“b-tree fs”</li>
-</ul>
-<h3 id="tmpfs"><a href="#tmpfs" class="headerlink" title="tmpfs"></a>tmpfs</h3><ul>
-<li>临时文件系统，是一种基于内存的文件系统</li>
-<li><strong>devtmps</strong>  <ul>
-<li>设备文件系统，它将其所有文件保存在虚拟内存中。所有内容都是临时的<ul>
-<li>根路径在&#x2F;dev</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="vfs"><a href="#vfs" class="headerlink" title="vfs"></a>vfs</h3><ul>
-<li><p>虚拟文件系统</p>
-</li>
-<li><p><strong>vfat</strong> 虚拟文件分配表，是作为FAT文件系统的一种扩展。</p>
-</li>
-</ul>
-<h2 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h2><ul>
-<li><p>分区（分盘），划分磁盘空间，对磁盘划分 逻辑边界，提升安全性和利用率</p>
-<ul>
-<li>比一个衣柜，划分成多个分区，第一分区用来放内衣袜子，第二分区用来存放上衣，第三分区用来存放裤子，放袜子的区域乱了不影响其他区域</li>
-</ul>
-</li>
-<li><p>分区建议：  新手直接默认分区，除了SWAP分区外，其他分区的文件系统一律选择ext4类型,设备类型默认选LVM</p>
-<ul>
-<li>一般至少三个分区：&#x2F;，&#x2F;boot，swap</li>
-</ul>
-</li>
-<li><p>必须的分区</p>
-<blockquote>
-<ul>
-<li>boot分区：</li>
-</ul>
-<p>​        作用：引导分区，包含了系统启动的必要内核文件，即使根分区顺坏也能正常引导启动 一般这些文件所占空间在200M以下，</p>
-<p>​        分区建议：分区的时候可选100M-500M之间,如果空间足够用，建议分300-500M。避免由于长期使用的冗余文件塞满这个分区。</p>
-<p>​        分区格式：建议ext4，按需求更改</p>
-<ul>
-<li>&#x2F;分区（根分区）：</li>
-</ul>
-<p>​        作用：所有的文件都从这里开始，类似于Windows c盘，如果有大量的数据在根目录下（比如FTP等）可以划分大一点的空间</p>
-<p>​        分区建议：建议15G以上。看需求，根分区和home分区的大小，主要占空间在哪儿就在那里分大容量</p>
-<p>​        分区格式：建议ext4，按需求更改</p>
-<ul>
-<li>swap分区：</li>
-</ul>
-<p>​        作用：类似于Windows的虚拟内存，在内存不够用时占用硬盘的虚拟内存来进行临时数据的存放，而对于linux就是swap分区</p>
-<p>​        分区建议：建议是物理内存大小的2倍，比如你电脑是4G的物理内存，swap分区可以是8G</p>
-<p>　　 分区格式：swap格式</p>
-</blockquote>
-</li>
-<li><p>可选的分区</p>
-<blockquote>
-<ul>
-<li>home分区</li>
-</ul>
-<p>　　 作用：存放用户数据，HOME的结构一般是 HOME&#x2F;userName&#x2F;userFile，如果不分则默认在&#x2F;目录下<br>　　 分区建议：如果用户数据多可以将此分区适当增大，参考“根分区”；一般硬盘的主要容量几乎都在Home分区和根分区下<br>　　 分区格式：建议ext4，按需求更改</p>
-<ul>
-<li>var分区</li>
-</ul>
-<p>　　 作用：用于log日志的文件的存放，如果不分则默认在&#x2F;目录下</p>
-<p>　　 分区建议：如果linux用于服务器或者经常做日志分析，请划分var分区，避免日志文件不断膨胀塞满导致根分区而引发问题。</p>
-<p>　　 分区格式：建议ext4，按需求更改</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="swap-交换分区管理"><a href="#swap-交换分区管理" class="headerlink" title="swap 交换分区管理"></a>swap 交换分区管理</h3><ol>
-<li>swap是硬盘的一个特殊分区，让读取快一点，一般存储热点数据，windows称为虚拟内存</li>
-<li>当内存不够的时候，才申请swap空间，只要空间足够，就不需要swap空间</li>
-</ol>
-<h3 id="LVM-逻辑卷"><a href="#LVM-逻辑卷" class="headerlink" title="LVM 逻辑卷"></a>LVM 逻辑卷</h3><ol>
-<li>LVM(Logical Volume Manager)逻辑卷管理，它是建立在物理存储设备之上的一个抽象层，允许你生成逻辑存储卷，将一个或多个硬盘的分区在逻辑上集合，相当于一个大硬盘来使用，当硬盘的空间不够使用的时候，可以继续将其它的硬盘的 分区加入其中，这样可以实现磁盘空间的动态管理，相对于普通的磁盘分区有很大的灵活性</li>
-</ol>
-<ul>
-<li><p>传统的文件系统是基于分区的，一个文件系统对应一个分区</p>
-<blockquote>
-<p>1.不同的分区相对独立，无相互联系，各分区空间很易利用不平衡，空间不能充分利用；</p>
-<p>2.当一个文件系统&#x2F;分区已满时，无法对其扩充，只能采用重新分区&#x2F;建立文件系统，非常麻烦；或把分区中的数据移到另一个更大的分区中；或采用符号连接的方式使用其它分区的空间。</p>
-<p>3.如果要把硬盘上的多个分区合并在一起使用，只能采用再分区的方式，这个过程需要数据的备份与恢复。</p>
-<p>传统文件系统：&#x2F;dev&#x2F;sda、&#x2F;dev&#x2F;sda1</p>
-<p>lvm：</p>
-<p>显示：&#x2F;dev&#x2F;mapper&#x2F;vg name - lv name，永久自动挂载的时候也要这样写</p>
-<p>表达：&#x2F;dev&#x2F;ikun&#x2F;ikunlv</p>
-</blockquote>
-</li>
-<li><p>PD按照一定大小格式化为多个PE，多个PE共同组成PV，PV管理着PE</p>
-<p>多个PV共同组成VG，实际上就是VG管理所有的PE，相当于一个池子</p>
-<p>LV就相当于分区，按需VG从中增删PE，达到扩容或缩减</p>
-<ul>
-<li><p>比如：</p>
-<p>新增磁盘sdc，格式为3个PE并加入VG，当LV需要扩容的时候，直接从VG中添加PE即可</p>
-</li>
-</ul>
-</li>
-</ul>
-<p><a href="https://imgse.com/i/pPWs81J"><img src="https://z1.ax1x.com/2023/09/15/pPWs81J.png" alt="pPWs81J.png"></a></p>
-<pre class="line-numbers language-none"><code class="language-none"># 创建LVM
-
-#例：
-	1# 在sdb和sdc上分别建立一个主分区作为pv
-		sdb1、sdc1
-		
-	2# 将之格式化为PV
-		输入： pvcreate &#x2F;dev&#x2F;sdb1 &#x2F;dev&#x2F;sdc1
-		显示： Physical volume &quot;&#x2F;xxx&quot; successfully created.
-		
-	3# 查看pv
-		输入： pvdisplay，显示详细信息
-		显示： &quot;&#x2F;xxx&quot; is a new physical volume of &quot;xxx.00 GiB&quot;
-
-		输入： pvs，显示信息
-		显示： PV  VG   Fmt  Attr   PSize   PFree 
-		
-	4# 创建VG，将pv加入其中
-		输入：vgcreate 卷名 pv
-			    vgcreate ikun &#x2F;dev&#x2F;sdb1 &#x2F;dev&#x2F;sdc1
-		显示：Volume group &quot;ikun&quot; successfully created
-		
-	5# 查看vg
-		输入：vgdisplay 或者 vgs 
-		显示：重点信息  
-			VG Name               ikun 
-			Format                lvm2
-			VG Size               1.95 TiB
-			Free  PE &#x2F; Size       511998 &#x2F; 1.95 TiB
-
-	6# 基于vg创建lv
-		输入：
-			# 指定大小
-			lvcreate -L 950G -n ikunlv ikun  &#x2F;&#x2F;从vg ikun中创建950G的lv ikunlv
-			
-			# 指定百分比，创建空闲空间百分之八十大小
-			lvcreate -L 80%Free -n ikunlv2 ikun
-			参数：
-				-L 后面是要分给LV的大小
-				-n 创建的LV名称
-		显示：
-			 Logical volume &quot;ikunlv&quot; created.
-			 
-	7# 查看
-		输入：lvdisplay 或 lvs
-		
-	8# 调整
-		修改大小，删除，必须先取消挂载
-		
-		扩容：
-			1、在现有的空间上增加指定的大小
-			lvextend -L +20G &#x2F;dev&#x2F;ikun&#x2F;ikunlv2
-			
-			2、将现有空间增加到多少
-			lvextend -L 700G &#x2F;dev&#x2F;ikun&#x2F;ikunlv2
-		
-		缩减：
-			减少lv空间的操作是有风险的，确认空间使用量、剩余空间量，操作之前一定要做好备份，以免数据丢失。
-			操作顺序是：检查文件系统，减少文件系统大小，减少lv大小。
-			命令依次为：
-				e2fsck -f &#x2F;dev&#x2F;ikun&#x2F;ikunlv2   强制检查文件系统总大小、已使用大小，必备！
-				resize2fs &#x2F;dev&#x2F;ikun&#x2F;ikunlv2 300G     减少到300G
-				lvreduce -L 300G &#x2F;dev&#x2F;ikun&#x2F;ikunlv2  减少到300G
-		删除：
-			lvremove 、vgremove 、pvremove
-		
-		tips：
-			查看：对应信息pvs、vgs、lvs，扫描scan、详细信息display
-			创建：create
-            移除：remove
-			扩展：extend（除pv）
-			减少：reduce（除pv）
-		
-	9# 正常格式化、挂载
-		blikd，可以查看UUID，文件系统类型
-		永久自动化挂载的时候建议使用 UUID，如果非要路径挂载
-注意：
-	显示：&#x2F;dev&#x2F;mapper&#x2F;vgName-lvName，永久自动挂载（&#x2F;dev&#x2F;mapper&#x2F;ikun-ikunlv）	
-	表达：&#x2F;dev&#x2F;ikun&#x2F;ikunlv   临时挂载
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
-<li><p>记录了磁盘上每个分区的位置、大小和类型等信息，有 mbr格式，guid格式（gpt格式）</p>
-</li>
-<li><p><strong>对应的分区模式要选择对应的引导模式，根据自己需求，再bios中选择对应的引导模式，大于2t只能选择guid引导，读不到那么大的容量</strong></p>
-</li>
-<li><p>mbr分区</p>
-<ul>
-<li><p>启动时，引导模式为 Legacy（bios）</p>
-</li>
-<li><p>最大只能支持2 TB 的硬盘空间，linux中显示 dos</p>
-</li>
-<li><p>主分区：最多划分4个，1-4，在其基础之上可以划分扩展分区，</p>
-</li>
-<li><p>扩展分区：5-16，共12个，</p>
-</li>
-<li><p>一共划分16个分区（4主12扩展），一般是<strong>主分区+扩展分区（扩展分区中创建逻辑分区）</strong></p>
-<ul>
-<li><p>主分区：</p>
-<blockquote>
-<p>不可以再进行二次分区。可以用来引导、启动操作系统 </p>
-</blockquote>
-<blockquote>
-<p>主分区可以直接建立文件系统，存储数据</p>
-</blockquote>
-</li>
-<li><p>扩展分区：</p>
-<blockquote>
-<p>不允许直接格式化，只能格式化主分区和逻辑分区</p>
-<p>本身不承载空间。主要就是增加分区数量<br>不能创建文件系统，可以划分逻辑分区</p>
-</blockquote>
-</li>
-<li><p>逻辑分区：可以创建文件系统，存放数据，逻辑分区的数量没有限制</p>
-</li>
-</ul>
-<img src="https://s1.ax1x.com/2023/08/28/pPaEUUJ.png" style="zoom: 50%;" /></li>
-</ul>
-</li>
-<li><p>guid分区</p>
-<ul>
-<li>启动时，引导模式为 uefi</li>
-<li>主备模式，主区Primary ，备区Secondary</li>
-<li>分区数量几乎没有限制，每一个分区都可以独立存在，没有扩展分区、逻辑分区的概念，即所有分区都是主分区。</li>
-</ul>
-</li>
-</ul>
-<h2 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h2><ul>
-<li><p>对硬盘或存储设备进行初始化，清除存储设备上的所有数据</p>
-</li>
-<li><p>一般过程</p>
-<ul>
-<li><p>先格式化文件系统</p>
-<pre class="line-numbers language-none"><code class="language-none">mkfs.xfs &#x2F;dev&#x2F;sdXXX
-
-参数：
-	-f，强制格式化
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>关闭文件自检系统</p>
-<pre class="line-numbers language-none"><code class="language-none">tune2fs
-
-
-[root@localhost tmp]# tune2fs -c -1 &#x2F;dev&#x2F;sda1
-tune2fs 1.42.9 (28-Dec-2013)
-Setting maximal mount count to -1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-</ul>
-<h2 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h2><ul>
-<li><p>linux中一切都是文件，<strong>挂载</strong>就是把目录和文件关联起来，访问此目录就等同于访问此文件，否则能看见文件，但是命令找不到文件</p>
-</li>
-<li><p>挂载操作会使得原有目录中文件被隐藏，因此根目录以及系统原有目录都不要作为挂载点，会造成系统异常甚至崩溃，挂载点最好是新建的空目录。（linux上的文件夹就是挂载点）</p>
-</li>
-<li><p>一个路径挂载一个物理磁盘，就不能在这个路径下挂载其他新的物理磁盘 ，路径与硬盘挂载1：1关系</p>
-</li>
-<li><p><img src="https://s1.ax1x.com/2023/08/28/pPaCZBd.png"></p>
-</li>
-<li><p>【 mount  要挂载的设备  挂载点】</p>
-<ul>
-<li><p>将指定的文件挂载到指定的目录</p>
-<pre class="line-numbers language-none"><code class="language-none">-l  显示系统的所有挂载信息
--t  指定设备的文件系统类型，否则mount自动选择文件系统类型
--o  添加挂载的功能选项
--r  挂载后设备只读
--w  允许读写操作，rw权限
-
-# 一般流程
-mkdir &#x2F;test # 新建空目录作为挂载点
-mount &#x2F;dev&#x2F;sda1 &#x2F;tmp&#x2F;test # 挂载
-df -h # 查看挂载
-
-手动挂载的分区，不具有永久性，系统重启后，挂载就会失效
-
-开机自动挂载
-编辑 &#x2F;etc&#x2F;fstab 文件
-一般先用blkid，看设备的UUID，然后用UUID挂载在新建空白目录下
-
-#&lt;file system&gt;  &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;  &lt;dump&gt;  &lt;pass&gt;
-                                         defaults   0       0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-<li><p>【 umount  挂载点 】</p>
-<ul>
-<li><p>取消挂载</p>
-<pre class="line-numbers language-none"><code class="language-none">[root@localhost tftTest1]# mount &#x2F;dev&#x2F;sda1 &#x2F;tmp&#x2F;tftTest1   # 挂载设备sda1到挂载点tftTest1
-[root@localhost tmp]# lsblk -f    # 查看
-lsblk: dm-3：获取设备路径失败
-NAME      FSTYPE      LABEL UUID                                   MOUNTPOINT
-sda                                                                
-├─sda1    xfs               bb9996f9-83e5-491b-87d8-9cc5efe9c7b4   &#x2F;tmp&#x2F;tftTest1
-
-[root@localhost tmp]# cd tftTest1 # 进入挂载点，查看磁盘设备内的文件
-[root@localhost tftTest1]# ls
-aoligei.txt
-[root@localhost tftTest1]# cd ..   # 退出目录
-[root@localhost tmp]# umount &#x2F;tmp&#x2F;tftTest1    # 取消挂载
-[root@localhost tmp]# cd tftTest1
-[root@localhost tftTest1]# ls    #看不到文件
-
-
-挂载点相当于给这个分区装了个门，让我们能够进出、访问<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-</ul>
-<h2 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h2><ul>
-<li><p>扩容、分区、格式化、挂载</p>
-<pre class="line-numbers language-none"><code class="language-none">分区：fdisk（一主一扩多逻辑），parted 
-	fidsk管理mbr分区，parted管理mbr和gpt分区
-	
-格式化：mkfs，选择文件系统，注意扩展分区不能格式化
-
-挂载：mount，按需设置开机自动挂载
-	
-查看：lsblk、df、du、blkid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>计算机基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络</title>
-    <url>/2023/09/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><ul>
-<li>知识体系庞大、复杂。详细知识有需要直接百度，本文仅作为重点内容总结，知识索引。目的在于快速搭建知识框架，了解重点内容。</li>
-</ul>
-<h2 id="光口模块"><a href="#光口模块" class="headerlink" title="光口模块"></a>光口模块</h2><ul>
-<li>光口就是光纤插口，，接光纤，传输光信号，交换机上的光口一般使用光模块</li>
-<li>光纤传输分为单模光纤和多模光纤，因此有了单模模块和多模模块。<ul>
-<li>多模光纤传输距离近，模块中一般标示SR（Short Range短距离），或者LRM（Long Reach Multimode长度延伸多点模式）；</li>
-<li>单模光纤传输距离远，常见标示LR（Long Range长距离）；ER（Extended Range超长距离）；ZR（Ze best Range最长距离）</li>
-</ul>
-</li>
-</ul>
-<h2 id="电口模块"><a href="#电口模块" class="headerlink" title="电口模块"></a>电口模块</h2><ul>
-<li>光转电模块，把光信号转化为电信号后接网线，传输电信号，接口类型为RJ45(网口)</li>
-<li>支持热插拔，常见类型有SFP、SFP+等，10G SFP+电口模块也被称为万兆电口模块，它的速率是10G</li>
-<li>电口模块通常和五类、六类、超六类或七类网线一起使用</li>
-</ul>
-<h2 id="网线"><a href="#网线" class="headerlink" title="网线"></a>网线</h2><ul>
-<li>最常用线序：568b，橙白、橙、绿白、蓝、蓝白、绿、棕白、棕</li>
-<li>分类：<ul>
-<li>五类：网线外侧标记 CAT.5</li>
-<li>超五类：网线外侧标记 CAT.5e </li>
-<li>六类：网线外侧标记 CAT.6 </li>
-<li>超六类：网线外侧标记 CAT.6a &#x2F; 6e </li>
-<li>七类：网线外侧标记 CAT.7</li>
-</ul>
-</li>
-</ul>
-<h2 id="路由器-Router"><a href="#路由器-Router" class="headerlink" title="路由器 Router"></a>路由器 Router</h2><ul>
-<li>计算机网络设备，它将所收到的数据包根据目的IP地址，选择合适的传输路径进行转发，直至转发到目的端，这个过程就叫做路由</li>
-<li>工作在OSI模型中的第三层网络层</li>
-<li></li>
-</ul>
-<h2 id="交换机-Switch"><a href="#交换机-Switch" class="headerlink" title="交换机 Switch"></a>交换机 Switch</h2><ul>
-<li>实现局域网内的通信，它通过“学习”，将每一端口相连设备的MAC地址与其自身相应的端口一一对应起来并且存放在交换机缓存中的MAC地址表中。通过这个MAC表来将数据帧发送到目的端</li>
-<li>工作在OSI模型的第二层数据链路层</li>
-<li>三层交换机，<ul>
-<li>本质上是“带有路由功能的（二层）交换机”。路由参照OSI模型中第三层网络层，因此带有第三层路由功能的交换机才被称为“三层交换机”</li>
-</ul>
-</li>
-</ul>
-<h2 id="防火墙-Firewall"><a href="#防火墙-Firewall" class="headerlink" title="防火墙 Firewall"></a>防火墙 Firewall</h2><ul>
-<li>建立在内部网络与外部公共网之间的一种安全隔离技术，为内外网的通信提供一个安全屏障</li>
-</ul>
-<h2 id="WAN"><a href="#WAN" class="headerlink" title="WAN"></a>WAN</h2><ul>
-<li>广域网(Wide Area Network)，通俗讲就是和猫外部网连接的网线口:对外的接口，和运营商、上级网络打交道。</li>
-</ul>
-<h2 id="LAN"><a href="#LAN" class="headerlink" title="LAN"></a>LAN</h2><ul>
-<li>局域网(Local Area Network)，通俗讲就是路由和用户之间网线口:对内的接口，设备通过网线与其直连</li>
-</ul>
-<h2 id="WLAN"><a href="#WLAN" class="headerlink" title="WLAN"></a>WLAN</h2><ul>
-<li>无线局域网(Wireless LAN)，数据通过电磁波传输，对内的接口，设备使用无线网，（如：wifi）</li>
-</ul>
-<h2 id="VLAN"><a href="#VLAN" class="headerlink" title="VLAN"></a>VLAN</h2><ul>
-<li>虚拟局域网，逻辑上的设备和用户，这些设备和用户互不受物理位置的限制，相互之间的通信就好像它们在同一个网段一样</li>
-<li>同一个vlan间，可以相互通信；不同vlan，若不做配置，不能相互通信。<ul>
-<li>VLAN划分和子网划分通常同时进行，一个VLAN对应一个子网，两者都是为了隔离通信,只不过VLAN在第二层隔离，子网是在第三层隔离</li>
-</ul>
-</li>
-</ul>
-<h2 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h2><ul>
-<li>虚拟专用网络，在公用网络上建立专用私有网络，VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问</li>
-</ul>
-<h2 id="IP-Internet-Protocol"><a href="#IP-Internet-Protocol" class="headerlink" title="IP Internet Protocol"></a>IP Internet Protocol</h2><ul>
-<li>IP负责在两个没有直连的两个网络之间进行通信，将数据包发送给最终目的的主机</li>
-<li>在 TCP&#x2F;IP 参考模型中处于第三层，也就是网络层</li>
-</ul>
-<h3 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h3><ul>
-<li>32位二进制数组成，以 . 划分8位一组共4组，用点分十进制的表示方式</li>
-<li>ip&#x3D;网络号+主机号<ul>
-<li>网络号表示其所属的网络段编号</li>
-<li>主机号则表示该网段中该主机的地址编号</li>
-</ul>
-</li>
-</ul>
-<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><ul>
-<li>128位十六进制数组成，以 : 划分16位一组共8组</li>
-<li>有更好的安全性和扩展性,  IPV4 和 IPV6不能兼容</li>
-</ul>
-<h3 id="静态ip、动态ip"><a href="#静态ip、动态ip" class="headerlink" title="静态ip、动态ip"></a>静态ip、动态ip</h3><ul>
-<li>静态ip，static，将固定IP地址持续分配给主机</li>
-<li>动态ip，DHCP协议，自动分配IP地址给用户</li>
-</ul>
-<h3 id="127-0-0-1"><a href="#127-0-0-1" class="headerlink" title="127.0.0.1"></a>127.0.0.1</h3><ul>
-<li>回环地址，用于测试时在本地运行并从本地访问服务</li>
-<li>localhost<ul>
-<li>IPv4指向  127.0.0.1</li>
-<li>IPv6指向  ::1</li>
-</ul>
-</li>
-</ul>
-<h2 id="子网掩码-NetMask"><a href="#子网掩码-NetMask" class="headerlink" title="子网掩码 NetMask"></a>子网掩码 NetMask</h2><ul>
-<li>形式上是网络号全为1，主机号全为0的IP地址<ul>
-<li>ip&#x3D;网络号+主机号，主机号&#x3D;子网网络号+子网主机号</li>
-</ul>
-</li>
-<li>必须结合IP地址一起使用，只有一个作用，将某个IP地址划分成网络地址和主机地址两部分，标志两个IP地址是否同属于一个子网<ul>
-<li>如果两个IP地址在子网掩码的按位与的计算下所得结果相同，即表明它们共属于同一子网中</li>
-</ul>
-</li>
-<li>IP默认分配的子网掩码每段只有 255 或 0。<ul>
-<li>常用：255.255.255.0   \   255.255.0.0</li>
-</ul>
-</li>
-</ul>
-<h2 id="网关-GateWay"><a href="#网关-GateWay" class="headerlink" title="网关 GateWay"></a>网关 GateWay</h2><ul>
-<li>工作在传输层，用于两个高层协议不同的网络互连，又称网间连接器、协议转换器，实质上是一个网络通向其他网络的IP地址</li>
-<li>一般指TCP&#x2F;IP协议中的网关，只有设置好网关的IP地址，TCP&#x2F;IP协议才能实现不同网络之间的相互通信</li>
-<li>默认网关的意思是一台主机如果找不到可用的网关，就把数据包发给默认指定的网关，由这个网关来处理数据包。</li>
-<li><strong>网关在网段内的可用ip中选一个，一般用的是第一个和最后一个</strong></li>
-</ul>
-<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
-<li>域名解析服务器（Domain Name System），把域名网址翻译成IP地址</li>
-</ul>
-<h2 id="端口-port"><a href="#端口-port" class="headerlink" title="端口 port"></a>端口 port</h2><ul>
-<li>IP 地址是用来发现和查找网络中的地址，但是不同程序如何互相通信呢？这就需要端口号来识别了。如果把 IP 地址比作一间房子，端口就是出入这间房子的门。</li>
-<li>服务器的默认程序一般都是通过端口号来识别的。<ul>
-<li>常用协议对应端口号：<pre class="line-numbers language-none"><code class="language-none">SSH 22
-FTP 20 和 21
-Telnet 23
-SMTP 25
-TFTP 69
-HTTP 80
-SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-</ul>
-<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h2 id="TCP-IP协议"><a href="#TCP-IP协议" class="headerlink" title="TCP&#x2F;IP协议"></a>TCP&#x2F;IP协议</h2><ul>
-<li>TCP(Transmission Control Protocol)&#x2F;IP(Internet Protocol)协议是现代互联网的基石，其实TCP&#x2F;IP代表一组协议，称为TCP&#x2F;IP协议簇，TCP和IP只是其中的两个最重要协议<br><a href="https://s2.51cto.com/oss/201906/17/f58f6ad856c6802b636d20d8f5ba2c3e.jpeg">https://s2.51cto.com/oss/201906/17/f58f6ad856c6802b636d20d8f5ba2c3e.jpeg</a></li>
-</ul>
-<h2 id="OSI模型"><a href="#OSI模型" class="headerlink" title="OSI模型"></a>OSI模型</h2><ul>
-<li>7层模型，高层(7、6、5、4)定义了应用程序的功能，下面3层(3、2、1)主要面向通过网络的端到端的数据流<ul>
-<li>7 应用层 </li>
-<li>6 表示层 </li>
-<li>5 会话层 </li>
-<li>4 传输层 </li>
-<li>3 网络层 </li>
-<li>2 数据链路层 </li>
-<li>1 物理层</li>
-</ul>
-</li>
-</ul>
-<h2 id="封装和分用"><a href="#封装和分用" class="headerlink" title="封装和分用"></a>封装和分用</h2><p>封装：当应用程序发送数据的时候，数据在协议层次当中自顶向下通过每一层，每一层都会对数据增加一些首部或尾部信息，这样的信息称之为协议数据单元（Protocol Data Unit，缩写为 PDU），在分层协议系统里，在指定的协议层上传送的数据单元，包含了该层的协议控制信息和用户信息。如下图所示：<br>物理层（一层）PDU 指数据位（Bit）<br>数据链路层（二层）PDU 指数据帧（Frame）<br>网络层（三层）PDU 指数据包（Packet）<br>传输层（四层）PDU 指数据段（Segment）<br>第五层以上为数据（data）<br>分用：当主机收到一个数据帧时，数据就从协议层底向上升，通过每一层时，检查并去掉对应层次的报文首部或尾部，与封装过程正好相反。</p>
-]]></content>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>配置Raid和系统安装</title>
-    <url>/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h1><ul>
-<li>先配置raid，再按需分区，最后装系统<pre class="line-numbers language-none"><code class="language-none">* 先做raid准备好存储空间，然后按照需求进行分区和格式化，最后装系统
-  理解：就像先把房间分配好了才能进一步装修、入住
-
-* 必须选择分区模式，必须进行格式化
-
-* 如果系统是安装在raid盘上就必须先配置raid，再安装系统。
-  如果使用独立的系统盘，可以先安装系统，再配置raid（此时可以在系统下使用有GUI的raid管理程序已图形方式配置raid，但是影响效率，占内存），之后再使用系统磁盘管理分区、格式化。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
-<li><p>磁盘分区模式有mbr格式，guid格式（gpt格式）</p>
-</li>
-<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2TB 以下的硬盘，支持win7版本系统以下的32位和64位</p>
-</li>
-<li><p>guid分区：也叫gpt，全局唯一标识分区表，支持2T以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持64位系统，不支持32位系统</p>
-</li>
-<li><p>区别：，</p>
-<ul>
-<li><p>mbr分区</p>
-<ul>
-<li><p>&lt; 2T,选择mbr分区表</p>
-</li>
-<li><p>启动时，引导模式为 Legacy（bios）</p>
-</li>
-<li><p>最多只能描述 4 个分区，其中一个为主分区，其他为扩展分区，</p>
-</li>
-</ul>
-</li>
-<li><p>guid分区</p>
-<ul>
-<li><p>大于2T,选择guid分区表</p>
-</li>
-<li><p>启动时，引导模式为 uefi</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>注意：</p>
-<ul>
-<li><p>对应的分区模式要选择对应的引导模式</p>
-</li>
-<li><p>根据自己的raid需求，再bios中选择对应的引导模式</p>
-</li>
-<li><p>大于2t只能选择guid引导，否则做raid没意义，读不到那么大的容量</p>
-</li>
-</ul>
-</li>
-<li><p>如何判断硬盘格式是 guid 还是 mbr ？</p>
-<ul>
-<li><p>windows</p>
-<pre class="line-numbers language-none"><code class="language-none">&#39;以管理员身份运行&#39;cmd命令，输入&#39;diskpart&#39;命令
-输入&#39;list disk&#39;命令进行查看：如果&#39;Gpt&#39;中显示&#39;*&#39;，则为GPT格式，反之为MBR
-![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNFw40.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>linux</p>
-<pre class="line-numbers language-none"><code class="language-none">1、fdisk -l 命令，结果中的“Disk label type”的值为
-     dos则分区是mbr，若该结果的值为gpt则分区是gpt；
-2、parted -l 命令，结果中的“Partition Table”的值为
-     msdos则分区是mbr，若该结果的值为gpt则分区是gpt。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-</ul>
-<h2 id="引导模式"><a href="#引导模式" class="headerlink" title="引导模式"></a>引导模式</h2><ul>
-<li><p>在bios中配置，有Legacy（bios）和 uefi</p>
-</li>
-<li><p>区别</p>
-<ul>
-<li>UEFI是新式的BIOS，BIOS则是传统legacy。最明显的却别在于启动速度，UEFI明显更快，因为它支持硬件加速和并行处理。</li>
-<li><img src="https://s1.ax1x.com/2023/08/30/pPd6L9S.png" alt="img"></li>
-</ul>
-</li>
-</ul>
-<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
-<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
-</li>
-<li><p>流程</p>
-<ul>
-<li>配置raid</li>
-<li>配置引导模式，bios还是uefi</li>
-<li>配置磁盘的分区格式，格式化处理</li>
-</ul>
-</li>
-</ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li><p>有的统文件里，不带有raid驱动程序，导致安装系统无法识别到raid的硬盘。需要去官网下载，手动加载 raid 卡驱动程序</p>
-</li>
-<li><p>找不到适用的引导分区</p>
-<ul>
-<li>分区工具修复、重新分区</li>
-<li>可能是系统找不到raid驱动，导致找不到磁盘，去官网找对应主板的驱动，装上。</li>
-</ul>
-</li>
-</ul>
-<h1 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h1><ul>
-<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
-<ul>
-<li>linux默认mbr分区模式，所以配raid后，先改分区模式、配置分区，最后装系统 （否则易出现读不到盘，容量不对的情况）<ul>
-<li>一般直接在 控制台，改成guid分区，uefi引导</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>流程</p>
-<ul>
-<li>配置raid</li>
-<li>配置引导模式</li>
-<li>配置磁盘的分区格式，格式化处理</li>
-</ul>
-</li>
-</ul>
-<h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2>]]></content>
-      <tags>
-        <tag>系统安装</tag>
-      </tags>
-  </entry>
-</search>
+</html>

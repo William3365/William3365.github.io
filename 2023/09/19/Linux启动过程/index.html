@@ -4,11 +4,17 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="github代理问题, 学无止境">
-    <meta name="description" content="
-443问题因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。
+    <meta name="keywords" content="学无止境">
+    <meta name="description" content="Linux 操作系统的启动过程
+为什么需要知道开机启动流程，掌握的意义？
+掌握让某个软件开机自动运行
+开机不能正常启动，是什么原因，或者那个环节出现了问题
+防止黑客植入木马，去查询黑客会把木马放到哪些地方
 
-git报错：Failed to connect to github.com port 443 after 21084 m">
+
+
+1-开机自检
+通电后，加载主">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +26,7 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>github代理问题 | 豆荚blog</title>
+    <title>豆荚blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -230,7 +236,7 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">github代理问题</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -252,13 +258,9 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/git/">
-                                <span class="chip bg-color">git</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -270,28 +272,28 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-08-10
+                    2023-09-19
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-25
+                    2023-09-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    221
+                    975
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -314,32 +316,85 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <ul>
-<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
+                <h1 id="Linux-操作系统的启动过程"><a href="#Linux-操作系统的启动过程" class="headerlink" title="Linux 操作系统的启动过程"></a>Linux 操作系统的启动过程</h1><ul>
+<li>为什么需要知道开机启动流程，掌握的意义？<ul>
+<li>掌握让某个软件开机自动运行</li>
+<li>开机不能正常启动，是什么原因，或者那个环节出现了问题</li>
+<li>防止黑客植入木马，去查询黑客会把木马放到哪些地方</li>
 </ul>
-<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
-<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
+</li>
+</ul>
+<h2 id="1-开机自检"><a href="#1-开机自检" class="headerlink" title="1-开机自检"></a>1-开机自检</h2><ul>
+<li>通电后，加载主板上的BIOS程序，开始硬件自检<ul>
+<li>硬件自检，检测设备的状态、设置设备的工作模式<ul>
+<li>检测并初始化 CPU</li>
+<li>检测并初始化内存</li>
+<li>检测并初始化硬盘</li>
+<li>检测并初始化输入设备：键盘鼠标</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>BIOS</p>
+<p>​	是电脑启动时加载的第一个软件，它是一组固化到计算机内主板上一个ROM芯片上的程序，它可从CMOS中读写系统信息，包含了 CPU 的相关信息、设备启动顺序信息、硬盘信息、内存信息、时钟信息、PnP 特性等等，</p>
+</blockquote>
+<h2 id="2-Boot启动"><a href="#2-Boot启动" class="headerlink" title="2-Boot启动"></a>2-Boot启动</h2><ul>
+<li>boot启动<ul>
+<li>第1引导顺序：hard drive （硬盘）</li>
+<li>第2引导顺序：cdrom （光驱 ） </li>
+<li>第3引导顺序：removable device 可移动设备（u盘，移动硬盘）</li>
+<li>第4引导顺序：Network从网络启动（网络中安装服务器启动）</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-系统引导"><a href="#3-系统引导" class="headerlink" title="3-系统引导"></a>3-系统引导</h2><ul>
+<li>MBR载入到内存并开始执行<ul>
+<li>系统找到 BIOS 所指定的硬盘的 MBR 后，就会将其复制到 0x7c00 地址所在的物理内存中</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>MBR（Master Boot Record，主引导记录）</p>
+<p>​	在硬盘的第一个扇区，所以也把该扇区做主引导扇区，它在硬盘上的位置是（0柱面，0磁头，1扇区）独占一个扇区的空间</p>
+<p>​	MBR 包含了一个小型的引导加载程序，主要作用是检查预启动信息、分区表信</p>
+<p>息，并且将控制权交给硬盘主分区（活动分区）上的引导程序（Boot Loader，如 GRUB、LILO、spfdisk）</p>
+</blockquote>
 <ul>
-<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
-fatal: Could not read from remote repository.
-
-这个错误提示的是连接github.com的22端口被拒绝了。
-
-解决办法：
-1、使用443
-ssh -T git@github.com。还是报错
-执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
-在git branch中进行
-     vim ~&#x2F;.ssh&#x2F;config
-     
-     Host github.com
-       Hostname ssh.github.com
-       Port 443
-
-     ssh -T git@github.com
-     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功
-
-     ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNktxO.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>启动GRUB引导程序，选择内核</li>
+</ul>
+<blockquote>
+<p>GRUB是许多 Linux 发行版默认的引导加载程序，并广泛用于管理和启动操作系统</p>
+</blockquote>
+<h2 id="2-内核启动"><a href="#2-内核启动" class="headerlink" title="2-内核启动"></a>2-内核启动</h2><ul>
+<li><p>根据grub 设定的内核映像路径，系统读取内核映像，进行解压缩操作，加载并启动内核</p>
+<ul>
+<li>从磁盘读取内核映像：磁盘上的文件系统中存有内核映像，包含了操作系统的所有代码和数据</li>
+<li>解压内核映像：内核映像通常以压缩的形式提供，需要解压后才能被内核读取。</li>
+<li>跳转到内核入口点：内核入口点是一个特殊的函数，它是内核运行的起始点。当内核启动时，它会跳转到这个入口点开始执行。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-系统初始化"><a href="#3-系统初始化" class="headerlink" title="3-系统初始化"></a>3-系统初始化</h2><ul>
+<li><p>内核启动后，接下来会进行系统初始化</p>
+<ul>
+<li>创建进程0（即 init 进程）：init 进程是系统的主进程，它的任务是启动其他所有的进程。</li>
+<li>初始化各种系统设备和服务：这包括网络接口、文件系统、设备驱动等</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-文件系统挂载"><a href="#4-文件系统挂载" class="headerlink" title="4-文件系统挂载"></a>4-文件系统挂载</h2><ul>
+<li><p>系统初始化完成后，接下来的工作就是挂载文件系统。文件系统挂载是将文件系统与计算机的文件系统中的某个目录关联起来，使用户可以访问到文件系统中的内容</p>
+<ul>
+<li>确定文件系统的类型，如ext4、xfs，需要根据文件系统的类型来确定如何挂载</li>
+<li>确定挂载点的设备和挂载选项，找到挂载目录对应的设备号和挂载选项</li>
+<li>挂载文件系统</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-登录提示符"><a href="#5-登录提示符" class="headerlink" title="5-登录提示符"></a>5-登录提示符</h2><ul>
+<li>文件系统挂载完成后，计算机会显示一个登陆提示符，提示用户可以登录操作系统了。此时，用户可以输入用户名和密码来登录操作系统。</li>
 </ul>
 
                 
@@ -367,7 +422,7 @@ ssh -T git@github.com。还是报错
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/">http://example.com/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</a>
+                    <a href="http://example.com/2023/09/19/Linux%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/">http://example.com/2023/09/19/Linux%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -404,11 +459,7 @@ ssh -T git@github.com。还是报错
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/git/">
-                                    <span class="chip bg-color">git</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -777,62 +828,18 @@ ssh -T git@github.com。还是报错
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/08/19/hexo%E6%9D%82%E8%B0%88/">
+                <a href="/2023/09/19/Linux%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="hexo杂谈">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">hexo杂谈</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-08-19
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            william
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/hexo/">
-                        <span class="chip bg-color">hexo</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="github代理问题">
-                        
-                        <span class="card-title">github代理问题</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -843,7 +850,7 @@ ssh -T git@github.com。还是报错
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-19
                             </span>
                         <span class="publish-author">
                             
@@ -855,12 +862,41 @@ ssh -T git@github.com。还是报错
                 </div>
 
                 
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/git/">
-                        <span class="chip bg-color">git</span>
-                    </a>
-                    
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            william
+                            
+                        </span>
+                    </div>
                 </div>
                 
             </div>

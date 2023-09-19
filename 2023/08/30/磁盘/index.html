@@ -6,17 +6,22 @@
     <meta charset="utf-8">
     <meta name="keywords" content="磁盘, 学无止境">
     <meta name="description" content="磁盘 Disk
-名词：DISK 磁盘、硬盘
+名词：
+
+DISK 磁盘、硬盘
+Platter 盘片
+Platter Surface 片面
+Sector 扇区
+Track 磁道
+Head 磁头
+Cylinder 柱面
+
 
 磁盘作用：存储数据
 
 种类：机械硬盘、固态硬盘
 
-根据接口分类：
-SATA（支持热插拔和热交换）
-SAS（主要用于企业级服务器和存储系统。支持热插拔功能）
-SCSI
-NVMe（基于PCIe基于P">
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -285,21 +290,21 @@ NVMe（基于PCIe基于P">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-31
+                    2023-09-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.3k
+                    4.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分
+                    15 分
                 </div>
                 
 
@@ -323,26 +328,76 @@ NVMe（基于PCIe基于P">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="磁盘-Disk"><a href="#磁盘-Disk" class="headerlink" title="磁盘 Disk"></a>磁盘 Disk</h1><ul>
-<li><p>名词：DISK 磁盘、硬盘</p>
+<li><p>名词：</p>
+<ul>
+<li>DISK 磁盘、硬盘</li>
+<li>Platter 盘片</li>
+<li>Platter Surface 片面</li>
+<li>Sector 扇区</li>
+<li>Track 磁道</li>
+<li>Head 磁头</li>
+<li>Cylinder 柱面</li>
+</ul>
 </li>
 <li><p>磁盘作用：存储数据</p>
 </li>
 <li><p>种类：机械硬盘、固态硬盘</p>
 <ul>
 <li>根据接口分类：<ul>
-<li>SATA（支持热插拔和热交换）</li>
-<li>SAS（主要用于企业级服务器和存储系统。支持热插拔功能）</li>
-<li>SCSI</li>
-<li>NVMe（基于PCIe基于PCIe总线，主要用于ssd）</li>
-</ul>
+<li><p>SATA，串口ata硬盘（支持热插拔和热交换）</p>
+</li>
+<li><p>SAS，串行连接SCSI，是新一代的SCSI技术</p>
+<p>（主要用于企业级服务器和存储系统。支持热插拔功能）</p>
+</li>
+<li><p>SCSI，小型计算机系统专用接口</p>
+</li>
+<li><p>NVMe（基于PCIe基于PCIe总线，主要用于ssd）</p>
+</li>
+<li><p>pcie</p>
+</li>
+<li><p>M.2 是指一种固态硬盘的尺寸，包含 SATA 和 NVMe 两种类型</p>
 </li>
 </ul>
 </li>
-<li><p>文件格式：FAT32，NTFS，exFAT</p>
+</ul>
 </li>
+<li><p>磁盘设备</p>
+<pre class="line-numbers language-none"><code class="language-none">hd[a-t] #IDE设备
+
+sd[a-z] #SCSI设备
+
+fd[0-7] #软盘驱动设备
+
+md[0-32] #软RAID设备
+
+loop[0-7] #本地回环设设备
+
+lp[0-3] #打印机设备
+
+mem #内存设备
+
+null #空设备，也称为黑洞，任何写入的数据都将被丢弃
+
+zero #零资源设备，任何写入的数据都将被丢弃
+
+full #满设备，任何写入的数据都将失败
+
+tty[0-63] #虚拟终端设备
+
+random #随机数设备
+
+urandom #随机数设备
+
+port #存取I&#x2F;O端口<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<ul>
+<li>GB，gigabyte，数据信息计量单位，十进制的容量单位，1000</li>
+<li>GiB，gibibyte，硬盘存储的一个单位，二进制的容量单位，1024</li>
+</ul>
+<ul>
 <li><p>分区格式：mbr，guid（gpt）</p>
 </li>
-<li><p>步骤：先分区，选择文件系统，格式化</p>
+<li><p>步骤：先分区，格式化选择文件系统，挂载</p>
 </li>
 </ul>
 <h2 id="简而言之"><a href="#简而言之" class="headerlink" title="简而言之"></a>简而言之</h2><ul>
@@ -474,6 +529,119 @@ NVMe（基于PCIe基于P">
 </blockquote>
 </li>
 </ul>
+<h3 id="swap-交换分区管理"><a href="#swap-交换分区管理" class="headerlink" title="swap 交换分区管理"></a>swap 交换分区管理</h3><ol>
+<li>swap是硬盘的一个特殊分区，让读取快一点，一般存储热点数据，windows称为虚拟内存</li>
+<li>当内存不够的时候，才申请swap空间，只要空间足够，就不需要swap空间</li>
+</ol>
+<h3 id="LVM-逻辑卷"><a href="#LVM-逻辑卷" class="headerlink" title="LVM 逻辑卷"></a>LVM 逻辑卷</h3><ol>
+<li>LVM(Logical Volume Manager)逻辑卷管理，它是建立在物理存储设备之上的一个抽象层，允许你生成逻辑存储卷，将一个或多个硬盘的分区在逻辑上集合，相当于一个大硬盘来使用，当硬盘的空间不够使用的时候，可以继续将其它的硬盘的 分区加入其中，这样可以实现磁盘空间的动态管理，相对于普通的磁盘分区有很大的灵活性</li>
+</ol>
+<ul>
+<li><p>传统的文件系统是基于分区的，一个文件系统对应一个分区</p>
+<blockquote>
+<p>1.不同的分区相对独立，无相互联系，各分区空间很易利用不平衡，空间不能充分利用；</p>
+<p>2.当一个文件系统&#x2F;分区已满时，无法对其扩充，只能采用重新分区&#x2F;建立文件系统，非常麻烦；或把分区中的数据移到另一个更大的分区中；或采用符号连接的方式使用其它分区的空间。</p>
+<p>3.如果要把硬盘上的多个分区合并在一起使用，只能采用再分区的方式，这个过程需要数据的备份与恢复。</p>
+<p>传统文件系统：&#x2F;dev&#x2F;sda、&#x2F;dev&#x2F;sda1</p>
+<p>lvm：</p>
+<p>显示：&#x2F;dev&#x2F;mapper&#x2F;vg name - lv name，永久自动挂载的时候也要这样写</p>
+<p>表达：&#x2F;dev&#x2F;ikun&#x2F;ikunlv</p>
+</blockquote>
+</li>
+<li><p>PD按照一定大小格式化为多个PE，多个PE共同组成PV，PV管理着PE</p>
+<p>多个PV共同组成VG，实际上就是VG管理所有的PE，相当于一个池子</p>
+<p>LV就相当于分区，按需VG从中增删PE，达到扩容或缩减</p>
+<ul>
+<li><p>比如：</p>
+<p>新增磁盘sdc，格式为3个PE并加入VG，当LV需要扩容的时候，直接从VG中添加PE即可</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pPWs81J"><img src="https://z1.ax1x.com/2023/09/15/pPWs81J.png" alt="pPWs81J.png"></a></p>
+<pre class="line-numbers language-none"><code class="language-none"># 创建LVM
+
+#例：
+	1# 在sdb和sdc上分别建立一个主分区作为pv
+		sdb1、sdc1
+		
+	2# 将之格式化为PV
+		输入： pvcreate &#x2F;dev&#x2F;sdb1 &#x2F;dev&#x2F;sdc1
+		显示： Physical volume &quot;&#x2F;xxx&quot; successfully created.
+		
+	3# 查看pv
+		输入： pvdisplay，显示详细信息
+		显示： &quot;&#x2F;xxx&quot; is a new physical volume of &quot;xxx.00 GiB&quot;
+
+		输入： pvs，显示信息
+		显示： PV  VG   Fmt  Attr   PSize   PFree 
+		
+	4# 创建VG，将pv加入其中
+		输入：vgcreate 卷名 pv
+			    vgcreate ikun &#x2F;dev&#x2F;sdb1 &#x2F;dev&#x2F;sdc1
+		显示：Volume group &quot;ikun&quot; successfully created
+		
+	5# 查看vg
+		输入：vgdisplay 或者 vgs 
+		显示：重点信息  
+			VG Name               ikun 
+			Format                lvm2
+			VG Size               1.95 TiB
+			Free  PE &#x2F; Size       511998 &#x2F; 1.95 TiB
+
+	6# 基于vg创建lv
+		输入：
+			# 指定大小
+			lvcreate -L 950G -n ikunlv ikun  &#x2F;&#x2F;从vg ikun中创建950G的lv ikunlv
+			
+			# 指定百分比，创建空闲空间百分之八十大小
+			lvcreate -L 80%Free -n ikunlv2 ikun
+			参数：
+				-L 后面是要分给LV的大小
+				-n 创建的LV名称
+		显示：
+			 Logical volume &quot;ikunlv&quot; created.
+			 
+	7# 查看
+		输入：lvdisplay 或 lvs
+		
+	8# 调整
+		修改大小，删除，必须先取消挂载
+		
+		扩容：
+			1、在现有的空间上增加指定的大小
+			lvextend -L +20G &#x2F;dev&#x2F;ikun&#x2F;ikunlv2
+			
+			2、将现有空间增加到多少
+			lvextend -L 700G &#x2F;dev&#x2F;ikun&#x2F;ikunlv2
+		
+		缩减：
+			减少lv空间的操作是有风险的，确认空间使用量、剩余空间量，操作之前一定要做好备份，以免数据丢失。
+			操作顺序是：检查文件系统，减少文件系统大小，减少lv大小。
+			命令依次为：
+				e2fsck -f &#x2F;dev&#x2F;ikun&#x2F;ikunlv2   强制检查文件系统总大小、已使用大小，必备！
+				resize2fs &#x2F;dev&#x2F;ikun&#x2F;ikunlv2 300G     减少到300G
+				lvreduce -L 300G &#x2F;dev&#x2F;ikun&#x2F;ikunlv2  减少到300G
+		删除：
+			lvremove 、vgremove 、pvremove
+		
+		tips：
+			查看：对应信息pvs、vgs、lvs，扫描scan、详细信息display
+			创建：create
+            移除：remove
+			扩展：extend（除pv）
+			减少：reduce（除pv）
+		
+	9# 正常格式化、挂载
+		blikd，可以查看UUID，文件系统类型
+		永久自动化挂载的时候建议使用 UUID，如果非要路径挂载
+注意：
+	显示：&#x2F;dev&#x2F;mapper&#x2F;vgName-lvName，永久自动挂载（&#x2F;dev&#x2F;mapper&#x2F;ikun-ikunlv）	
+	表达：&#x2F;dev&#x2F;ikun&#x2F;ikunlv   临时挂载
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
 <li><p>记录了磁盘上每个分区的位置、大小和类型等信息，有 mbr格式，guid格式（gpt格式）</p>
 </li>
@@ -483,9 +651,13 @@ NVMe（基于PCIe基于P">
 <ul>
 <li><p>启动时，引导模式为 Legacy（bios）</p>
 </li>
-<li><p>最大只能支持2 TB 的硬盘空间</p>
+<li><p>最大只能支持2 TB 的硬盘空间，linux中显示 dos</p>
 </li>
-<li><p>最多支持 4 个主分区（如果想要更多分区，要创建<strong>扩展分区</strong>，并在其中创建<strong>逻辑分区</strong>），一般是<strong>主分区+扩展分区</strong></p>
+<li><p>主分区：最多划分4个，1-4，在其基础之上可以划分扩展分区，</p>
+</li>
+<li><p>扩展分区：5-16，共12个，</p>
+</li>
+<li><p>一共划分16个分区（4主12扩展），一般是<strong>主分区+扩展分区（扩展分区中创建逻辑分区）</strong></p>
 <ul>
 <li><p>主分区：</p>
 <blockquote>
@@ -497,12 +669,11 @@ NVMe（基于PCIe基于P">
 </li>
 <li><p>扩展分区：</p>
 <blockquote>
-<p>本身不承载空间。主要就是增加分区数量</p>
+<p>不允许直接格式化，只能格式化主分区和逻辑分区</p>
+<p>本身不承载空间。主要就是增加分区数量<br>不能创建文件系统，可以划分逻辑分区</p>
 </blockquote>
-<blockquote>
-<p>不能创建文件系统，可以划分逻辑分区</p>
-</blockquote>
-<p>逻辑分区：可以创建文件系统，存放数据，逻辑分区的数量没有限制</p>
+</li>
+<li><p>逻辑分区：可以创建文件系统，存放数据，逻辑分区的数量没有限制</p>
 </li>
 </ul>
 <img src="https://s1.ax1x.com/2023/08/28/pPaEUUJ.png" style="zoom: 50%;" /></li>
@@ -522,7 +693,12 @@ NVMe（基于PCIe基于P">
 <li><p>一般过程</p>
 <ul>
 <li><p>先格式化文件系统</p>
-<pre class="line-numbers language-none"><code class="language-none">mkfs.xfs &#x2F;dev&#x2F;sdXXX<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">mkfs.xfs &#x2F;dev&#x2F;sdXXX
+
+参数：
+	-f，强制格式化
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>关闭文件自检系统</p>
 <pre class="line-numbers language-none"><code class="language-none">tune2fs
@@ -552,17 +728,19 @@ Setting maximal mount count to -1<span aria-hidden="true" class="line-numbers-ro
 -r  挂载后设备只读
 -w  允许读写操作，rw权限
 
+# 一般流程
+mkdir &#x2F;test # 新建空目录作为挂载点
+mount &#x2F;dev&#x2F;sda1 &#x2F;tmp&#x2F;test # 挂载
+df -h # 查看挂载
 
+手动挂载的分区，不具有永久性，系统重启后，挂载就会失效
 
-[root@localhost tmp]# mount &#x2F;dev&#x2F;sda1 &#x2F;tmp&#x2F;tftTest1
-[root@localhost tmp]# lsblk -f
-lsblk: dm-3：获取设备路径失败
-NAME      FSTYPE      LABEL UUID                                   MOUNTPOINT
-sda                                                                
-├─sda1    xfs               bb9996f9-83e5-491b-87d8-9cc5efe9c7b4   &#x2F;tmp&#x2F;tftTest1
-....
-[root@localhost tmp]# mount -l |grep sda1
-&#x2F;dev&#x2F;sda1 on &#x2F;tmp&#x2F;tftTest1 type xfs (rw,relatime,seclabel,attr2,inode64,noquota)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+开机自动挂载
+编辑 &#x2F;etc&#x2F;fstab 文件
+一般先用blkid，看设备的UUID，然后用UUID挂载在新建空白目录下
+
+#&lt;file system&gt;  &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;  &lt;dump&gt;  &lt;pass&gt;
+                                         defaults   0       0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><p>【 umount  挂载点 】</p>
@@ -588,118 +766,16 @@ aoligei.txt
 </ul>
 </li>
 </ul>
-<h3 id="交换分区管理swap（windows称为虚拟内存）"><a href="#交换分区管理swap（windows称为虚拟内存）" class="headerlink" title="交换分区管理swap（windows称为虚拟内存）"></a>交换分区管理swap（windows称为虚拟内存）</h3><ol>
-<li>swap是硬盘的一个特殊分区，让读取快一点，一般存储热点数据</li>
-<li>当内存不够的时候，才申请swap空间，只要空间足够，就不需要swap空间</li>
-</ol>
-<h3 id="逻辑卷LVM"><a href="#逻辑卷LVM" class="headerlink" title="逻辑卷LVM"></a>逻辑卷LVM</h3><ol>
-<li>目的：管理磁盘的一种方式，性质与基本磁盘无异</li>
-<li>特点：随意扩张大小</li>
-<li>术语：PV&#x3D;物理卷（physical volume）；VG&#x3D;卷组（volume group）；LV&#x3D;逻辑卷（logical volume）</li>
-</ol>
-<p>* </p>
 <h2 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h2><ul>
-<li><p>【 fdisk 】</p>
-<ul>
-<li><p>分区命令，&lt;2T，不支持GPT</p>
-<pre class="line-numbers language-none"><code class="language-none">fdisk &#x2F;dev&#x2F;sdxxx
+<li><p>扩容、分区、格式化、挂载</p>
+<pre class="line-numbers language-none"><code class="language-none">分区：fdisk（一主一扩多逻辑），parted 
+	fidsk管理mbr分区，parted管理mbr和gpt分区
+	
+格式化：mkfs，选择文件系统，注意扩展分区不能格式化
 
-m帮助参数：
- n   add a new partition
- p   print the partition table
- q   quit without saving changes
- w   write table to disk and exit
- 
-n
- Partition type:
-   p   primary (0 primary, 0 extended, 4 free)
-   e   extended
- 一直默认就行，选择大小   +200G
- 
-w 保存退出
-
-[root@localhost tmp]# fdisk &#x2F;dev&#x2F;sda
-命令(输入 m 获取帮助)：p
-
-命令(输入 m 获取帮助)：n
-Partition type:
-   p   primary (0 primary, 0 extended, 4 free)
-   e   extended
-Select (default p): p
-分区号 (1-4，默认 1)：
-起始 扇区 (2048-3907029167，默认为 2048)：
-将使用默认值 2048
-Last 扇区, +扇区 or +size&#123;K,M,G&#125; (2048-3907029167，默认为 3907029167)：+200G
-分区 1 已设置为 Linux 类型，大小设为 200 GiB
-
-命令(输入 m 获取帮助)：w
-The partition table has been altered!
-
-Calling ioctl() to re-read partition table.
-正在同步磁盘。
-   
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-<li><p>【 parted 】</p>
-<ul>
-<li><p>分区命令，&gt;2T，支持MBR和GPT分区表</p>
-</li>
-<li><pre><code>p 分区
-q 退出
-
-
-parted /dev/sdXXXX
-mklabel gpt   # 改为gpt分区表   msdos代表mbr
-
-mkpart primary 0 480G 分一个sdxx1 从0到480G
-Ignore
-mkpart logic 480G 580G 分一个sdxx2 从480G到580G   注：这里的逻辑分区不需要建立在扩展分区上。
-<pre class="line-numbers language-none"><code class="language-none">
-* 【 lsblk 】
-
-  * 列出所有设备及文件系统信息 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-lsblk -f
-<pre class="line-numbers language-none"><code class="language-none">
-    
-
-* 【 mkfs 】
-
-  * 将分区格式化为某种文件系统。支持ext4、NTFS
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</code></pre>
-</li>
-</ul>
-<p>mkfs.ext4 &#x2F;dev&#x2F;sda1    mkfs+tab,查看支持类型	</p>
-<pre class="line-numbers language-none"><code class="language-none">
-  
-
-* 【 fsck 】
-
-  * 修复文件系统，默认读取 &#x2F;etc&#x2F;fstab 开机挂载文件
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>  修改&#x2F;etc&#x2F;fstab文件，<br>  例：<br>  &#x2F;dev&#x2F;mapper&#x2F;centos-root &#x2F;                       xfs     defaults        0 0    # 结尾0不检查，1检查</p>
-<p>  fsck -t 文件系统类型 设备名</p>
-<p>  fsck -t ext4 &#x2F;dev&#x2F;sda1<br>  &#x2F;dev&#x2F;sda1: clean</p>
-<pre><code>
-</code></pre>
-</li>
-<li><p>【xfs_info】</p>
-<ul>
-<li>查看文件系统属性， centos7默认xfs文件系统，</li>
-</ul>
-</li>
-<li><p>【 tune2fs 】</p>
-<ul>
-<li>设置linux开机是否自检文件系统是否正常</li>
-</ul>
-</li>
-<li><p>【 df -hT 】</p>
-<ul>
-<li>以磁盘分区为单位查看信息</li>
-</ul>
-</li>
+挂载：mount，按需设置开机自动挂载
+	
+查看：lsblk、df、du、blkid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 
                 
@@ -1398,7 +1474,7 @@ lsblk -f
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">12.8k</span>
+                        class="white-color">33.1k</span>
             
             
             

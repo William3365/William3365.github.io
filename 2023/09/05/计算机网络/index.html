@@ -279,21 +279,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-09-05
+                    2023-09-11
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    7 分
                 </div>
                 
 
@@ -429,7 +429,36 @@
 <h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
 <li>域名解析服务器（Domain Name System），把域名网址翻译成IP地址</li>
 </ul>
-<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h2 id="TCP-IP协议簇"><a href="#TCP-IP协议簇" class="headerlink" title="TCP&#x2F;IP协议簇"></a>TCP&#x2F;IP协议簇</h2><h2 id="OSI模型"><a href="#OSI模型" class="headerlink" title="OSI模型"></a>OSI模型</h2>
+<h2 id="端口-port"><a href="#端口-port" class="headerlink" title="端口 port"></a>端口 port</h2><ul>
+<li>IP 地址是用来发现和查找网络中的地址，但是不同程序如何互相通信呢？这就需要端口号来识别了。如果把 IP 地址比作一间房子，端口就是出入这间房子的门。</li>
+<li>服务器的默认程序一般都是通过端口号来识别的。<ul>
+<li>常用协议对应端口号：<pre class="line-numbers language-none"><code class="language-none">SSH 22
+FTP 20 和 21
+Telnet 23
+SMTP 25
+TFTP 69
+HTTP 80
+SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h2 id="TCP-IP协议"><a href="#TCP-IP协议" class="headerlink" title="TCP&#x2F;IP协议"></a>TCP&#x2F;IP协议</h2><ul>
+<li>TCP(Transmission Control Protocol)&#x2F;IP(Internet Protocol)协议是现代互联网的基石，其实TCP&#x2F;IP代表一组协议，称为TCP&#x2F;IP协议簇，TCP和IP只是其中的两个最重要协议<br><a target="_blank" rel="noopener" href="https://s2.51cto.com/oss/201906/17/f58f6ad856c6802b636d20d8f5ba2c3e.jpeg">https://s2.51cto.com/oss/201906/17/f58f6ad856c6802b636d20d8f5ba2c3e.jpeg</a></li>
+</ul>
+<h2 id="OSI模型"><a href="#OSI模型" class="headerlink" title="OSI模型"></a>OSI模型</h2><ul>
+<li>7层模型，高层(7、6、5、4)定义了应用程序的功能，下面3层(3、2、1)主要面向通过网络的端到端的数据流<ul>
+<li>7 应用层 </li>
+<li>6 表示层 </li>
+<li>5 会话层 </li>
+<li>4 传输层 </li>
+<li>3 网络层 </li>
+<li>2 数据链路层 </li>
+<li>1 物理层</li>
+</ul>
+</li>
+</ul>
+<h2 id="封装和分用"><a href="#封装和分用" class="headerlink" title="封装和分用"></a>封装和分用</h2><p>封装：当应用程序发送数据的时候，数据在协议层次当中自顶向下通过每一层，每一层都会对数据增加一些首部或尾部信息，这样的信息称之为协议数据单元（Protocol Data Unit，缩写为 PDU），在分层协议系统里，在指定的协议层上传送的数据单元，包含了该层的协议控制信息和用户信息。如下图所示：<br>物理层（一层）PDU 指数据位（Bit）<br>数据链路层（二层）PDU 指数据帧（Frame）<br>网络层（三层）PDU 指数据包（Packet）<br>传输层（四层）PDU 指数据段（Segment）<br>第五层以上为数据（data）<br>分用：当主机收到一个数据帧时，数据就从协议层底向上升，通过每一层时，检查并去掉对应层次的报文首部或尾部，与封装过程正好相反。</p>
+
                 
             </div>
             <hr/>
@@ -1126,7 +1155,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">12.8k</span>
+                        class="white-color">33.1k</span>
             
             
             

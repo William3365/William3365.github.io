@@ -282,21 +282,21 @@ s">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-09-08
+                    2023-09-11
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    469
+                    922
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    4 分
                 </div>
                 
 
@@ -359,6 +359,61 @@ DNS1&#x3D;192.169.88.2	#dns<span aria-hidden="true" class="line-numbers-rows"><s
 或  service network restart    # 老版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 </ul>
 </blockquote>
+</li>
+</ul>
+<h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><ul>
+<li><p>1、更新yum资源包<br><code>sudo yum update</code></p>
+</li>
+<li><p>2、下载MySQL 8的仓库文件<br><code>sudo wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm</code></p>
+</li>
+<li><p>3、安装MySQL 8的仓库文件<br><code>sudo yum install mysql80-community-release-el7-3.noarch.rpm</code></p>
+</li>
+<li><p>4、导入MySQL GPG密钥<br><code>sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022</code></p>
+</li>
+<li><p>5、安装MySQL数据库服务器<br><code>sudo yum install mysql-community-server</code></p>
+</li>
+<li><p>6、安装完成后，启动MySQL并配置开机自启动</p>
+<pre class="line-numbers language-none"><code class="language-none">systemctl start mysqld # 启动
+systemctl enable mysqld # 开机自启
+
+MySQL安装完成后，会自动配置为名称叫做：mysqld的服务，可以被systemctl所管理
+检查MySQL的运行状态：systemctl status mysqld
+查看是否开机自启动：systemctl is-enabled mysqld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>7、获取MySQL的初始密码</p>
+<pre class="line-numbers language-none"><code class="language-none">grep &#39;temporary password&#39; &#x2F;var&#x2F;log&#x2F;mysqld.log
+或者：cat &#x2F;var&#x2F;log&#x2F;mysqld.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+</li>
+<li><p>8、登录MySQL<br>  <code>mysql -uroot -p</code></p>
+</li>
+<li><p>9、修改密码</p>
+  <pre class="line-numbers language-none"><code class="language-none">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码&#39;;
+
+
+tips：
+  **配置简单密码，必须先按照规则，修改一个密码，然后才可以配置简单密码，**
+  例：
+  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;ROOT_root_12&#39;;   # 符合要求的密码
+
+  # 修改密码校验规则
+  set global validate_password.policy&#x3D;0;  # 密码安全级别低
+  set global validate_password.length&#x3D;1;  # 密码长度最低1位
+  # 设置简单密码
+  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;000000&#39;;
+  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;admin@123&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+<li><p>10、允许root远程<br>  默认情况下，root用户是不运行远程登录的，只允许在MySQL所在的Linux服务器登陆MySQL系统</p>
+<p>  设置root远程登录，并配置远程密码使用如下SQL命令</p>
+<ul>
+<li><code>create user &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码!&#39;;</code></li>
+</ul>
+</li>
+<li><p>11、检查端口<br>  MySQL默认绑定了3306端口，可以通过端口占用检查MySQL的网络状态</p>
+<ul>
+<li><code>netstat -anp | grep 3306</code></li>
+</ul>
 </li>
 </ul>
 <h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
@@ -1078,7 +1133,7 @@ DNS1&#x3D;192.169.88.2	#dns<span aria-hidden="true" class="line-numbers-rows"><s
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">12.8k</span>
+                        class="white-color">33.1k</span>
             
             
             
