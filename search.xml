@@ -1,51 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>idrac-ipmi</title>
-    <url>/2023/09/04/IPMI/</url>
-    <content><![CDATA[<h1 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h1><ul>
-<li>Intelligent Platform Management Interface，是一种用于管理和监控服务器的标准接口</li>
-</ul>
-<h2 id="idrac"><a href="#idrac" class="headerlink" title="idrac"></a>idrac</h2><ul>
-<li>Integrated Dell Remote Access Controller，戴尔集成远程访问控制器。是一个远程管理系统，由一块集成电路板组成，内置了支持和管理硬件的固件。idrac提供了一个Web界面，用户可以通过这个界面对服务器进行监控、管理、远程重启、重新启动操作系统等各种操作。同时，idrac还支持命令行方式和SNMP协议，以便更加方便地远程管理服务器。</li>
-<li>默认登录凭据：用户名：root，密码：calvin</li>
-</ul>
-<h2 id="配置IPMI"><a href="#配置IPMI" class="headerlink" title="配置IPMI"></a>配置IPMI</h2><ul>
-<li><p>仅针对戴尔服务器</p>
-<ul>
-<li>其他操作教程: <code>https://www.ngui.cc/el/1966116.html?action=onClick</code></li>
-</ul>
-</li>
-<li><p>常规操作流程</p>
-<ul>
-<li><p>进入系统设置，选择 system BIOS</p>
-</li>
-<li><p>选择 iDRAC Settings</p>
-</li>
-<li><p>到最下边，选择 reset idrac configguration to defaults</p>
-</li>
-<li><p>选择yes，等待结束，选择continue</p>
-</li>
-<li><p>再次选择 iDRAC Settings，选择 network（使用专用网络接口）</p>
-</li>
-<li><p>NIC相关配置，Enabled启用nic，选择 dedicated</p>
-</li>
-<li><p>网络设置，IPv4 设置，ip，网关，掩码</p>
-</li>
-<li><p>IPMI Over LAN（通过局域网启用IPMI）选项，选择Enabled</p>
-</li>
-<li><p>配置好之后，能ping通，能登录访问即可</p>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>戴尔PowerEdge</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
+    <title>Linux 操作系统的启动过程</title>
     <url>/2023/09/19/Linux%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="Linux-操作系统的启动过程"><a href="#Linux-操作系统的启动过程" class="headerlink" title="Linux 操作系统的启动过程"></a>Linux 操作系统的启动过程</h1><ul>
 <li>为什么需要知道开机启动流程，掌握的意义？<ul>
@@ -128,190 +84,33 @@
 <li>文件系统挂载完成后，计算机会显示一个登陆提示符，提示用户可以登录操作系统了。此时，用户可以输入用户名和密码来登录操作系统。</li>
 </ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Raid</title>
-    <url>/2023/08/23/Raid/</url>
-    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
-<li><p>为什么要做raid？</p>
-<ul>
-<li>花小钱办大事（降本增效），提供容错机制（数据安全）</li>
-</ul>
-</li>
-<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
-</li>
-<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
-</li>
-<li><p>技术架构：数据条带、镜像、数据校验技术</p>
-<ul>
-<li><p>stripe条带化阵列，没有冗余，但是可提供最佳性能和附加存储。</p>
-</li>
-<li><p>mirror镜像，阵列中的每个驱动器上镜像相同的数据</p>
-</li>
-<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
-</li>
-<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
-<ul>
-<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
-</ul>
-</li>
-<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
-</li>
-<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
-</li>
-</ul>
-</li>
-<li><p>热备盘</p>
-<ul>
-<li><p>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</p>
-</li>
-<li><p>软 RAID，</p>
-<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
-
-占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
-
-跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>硬 RAID </p>
-<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
-
-性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>软硬混合 RAID ，成本、性能居中</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Raid等级"><a href="#Raid等级" class="headerlink" title="Raid等级"></a>Raid等级</h2><ul>
-<li><p>raid0</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
-<li>例：2T + 2T &#x3D; 4T</li>
-<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
-<li>视频、音频存储、打印等</li>
-</ul>
-</li>
-<li><p>raid1</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
-<li>例：2T + 2T &#x3D; 2T</li>
-<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
-<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
-<li>邮件、数据库</li>
-</ul>
-</li>
-<li><p>raid5</p>
-<ul>
-<li><strong>最少3块</strong></li>
-<li>例：2T + 2T+ 2T &#x3D; 4T</li>
-<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
-<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
-<li>适用于金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid6</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
-<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
-<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid10</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
-<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
-<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
-<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
-</ul>
-</li>
-<li><p>raid50</p>
-<ul>
-<li><strong>至少需要六个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>RAID 5 + 0</li>
-</ul>
-</li>
-<li><p>raid60</p>
-<ul>
-<li><strong>最少需要八个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>比 RAID 50 阵列更可靠</li>
-</ul>
-</li>
-</ul>
-<h2 id="Raid状态"><a href="#Raid状态" class="headerlink" title="Raid状态"></a>Raid状态</h2><p>若不需配置阵列，则需要将硬盘转换为 non-RAID 直通模式</p>
-<ul>
-<li><p>物理磁盘 pd</p>
-<ul>
-<li><p>online，可正常使用，处于在线状态</p>
-</li>
-<li><p>ready，该磁盘预备好了，可以被设置为raid但未配置</p>
-</li>
-<li><p>rebuild，重建状态，表示raid组正在进行数据同步</p>
-</li>
-</ul>
-</li>
-<li><p>虚拟磁盘 vd</p>
-<ul>
-<li>Normal，状态正常，所有成员盘均在线</li>
-<li>Offline，表示raid组存在超过允许范围的故障或离线硬盘，raid组瘫痪，数据已无法读写</li>
-<li>Degraded，降级状态，表示raid组中有故障或离线的硬盘，但基于raid组的磁盘仍然可以正常读写</li>
-<li>Failed，虚拟磁盘故障</li>
-</ul>
-</li>
-</ul>
-<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
-<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
-<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
-
-如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
-
-如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
-
-容量&gt;性能，raid50、raid10
-数据保护，raid6、raid60
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
-</li>
-<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
-</li>
-<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
-</li>
-<li><p>先配置raid，再按需分区，最后装系统</p>
-</li>
-<li><p>raid和non-raid</p>
-<ul>
-<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
-<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
-</ul>
-</li>
-</ul>
-<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
-</ul>
-<p>1、检查硬件，可正常工作、安装连接无误</p>
-<p>2、根据读盘结果，按需配置raid</p>
-<p>3、查看虚拟磁盘配置结果</p>
-<ul>
-<li>mdadm，建设，管理，监控raid</li>
-</ul>
-]]></content>
       <tags>
-        <tag>Raid</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
     <title></title>
+    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
+    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
+<li><p>首先新建一个txt文件</p>
+<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+
+# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>保存文件，将txt文件改成后缀为bat</p>
+</li>
+<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
+</li>
+<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>Linux系统软件安装</title>
     <url>/2023/09/19/Linux%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="实战章节：在Linux上部署各类软件"><a href="#实战章节：在Linux上部署各类软件" class="headerlink" title="实战章节：在Linux上部署各类软件"></a>实战章节：在Linux上部署各类软件</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="为什么学习各类软件在Linux上的部署"><a href="#为什么学习各类软件在Linux上的部署" class="headerlink" title="为什么学习各类软件在Linux上的部署"></a>为什么学习各类软件在Linux上的部署</h2><p>在前面，我们学习了许多的Linux命令和高级技巧，这些知识点比较零散，同学们跟随着课程的内容进行练习虽然可以基础掌握这些命令和技巧的使用，但是并没有一些具体的实操能够串联起来这些知识点。</p>
+    <content><![CDATA[<h1 id="Linux系统软件安装"><a href="#Linux系统软件安装" class="headerlink" title="Linux系统软件安装"></a>Linux系统软件安装</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="为什么学习各类软件在Linux上的部署"><a href="#为什么学习各类软件在Linux上的部署" class="headerlink" title="为什么学习各类软件在Linux上的部署"></a>为什么学习各类软件在Linux上的部署</h2><p>在前面，我们学习了许多的Linux命令和高级技巧，这些知识点比较零散，同学们跟随着课程的内容进行练习虽然可以基础掌握这些命令和技巧的使用，但是并没有一些具体的实操能够串联起来这些知识点。</p>
 <p>所以，现在我们设计了各类软件在Linux上部署安装的实战章节，可以让同学们：</p>
 <ul>
 <li>对前面学习的各类操作命令进行复习和练习，从而深度掌握它们</li>
@@ -2385,25 +2184,53 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
 <p>浏览器打开：<a href="http://node1:3000/">http://node1:3000</a></p>
 <p>默认账户密码：admin&#x2F;admin</p>
 ]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
-    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
-<li><p>首先新建一个txt文件</p>
-<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
-
-# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>保存文件，将txt文件改成后缀为bat</p>
+    <title>idrac-ipmi</title>
+    <url>/2023/09/04/IPMI/</url>
+    <content><![CDATA[<h1 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h1><ul>
+<li>Intelligent Platform Management Interface，是一种用于管理和监控服务器的标准接口</li>
+</ul>
+<h2 id="idrac"><a href="#idrac" class="headerlink" title="idrac"></a>idrac</h2><ul>
+<li>Integrated Dell Remote Access Controller，戴尔集成远程访问控制器。是一个远程管理系统，由一块集成电路板组成，内置了支持和管理硬件的固件。idrac提供了一个Web界面，用户可以通过这个界面对服务器进行监控、管理、远程重启、重新启动操作系统等各种操作。同时，idrac还支持命令行方式和SNMP协议，以便更加方便地远程管理服务器。</li>
+<li>默认登录凭据：用户名：root，密码：calvin</li>
+</ul>
+<h2 id="配置IPMI"><a href="#配置IPMI" class="headerlink" title="配置IPMI"></a>配置IPMI</h2><ul>
+<li><p>仅针对戴尔服务器</p>
+<ul>
+<li>其他操作教程: <code>https://www.ngui.cc/el/1966116.html?action=onClick</code></li>
+</ul>
 </li>
-<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
+<li><p>常规操作流程</p>
+<ul>
+<li><p>进入系统设置，选择 system BIOS</p>
 </li>
-<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
+<li><p>选择 iDRAC Settings</p>
+</li>
+<li><p>到最下边，选择 reset idrac configguration to defaults</p>
+</li>
+<li><p>选择yes，等待结束，选择continue</p>
+</li>
+<li><p>再次选择 iDRAC Settings，选择 network（使用专用网络接口）</p>
+</li>
+<li><p>NIC相关配置，Enabled启用nic，选择 dedicated</p>
+</li>
+<li><p>网络设置，IPv4 设置，ip，网关，掩码</p>
+</li>
+<li><p>IPMI Over LAN（通过局域网启用IPMI）选项，选择Enabled</p>
+</li>
+<li><p>配置好之后，能ping通，能登录访问即可</p>
+</li>
+</ul>
 </li>
 </ul>
 ]]></content>
+      <tags>
+        <tag>戴尔PowerEdge</tag>
+      </tags>
   </entry>
   <entry>
     <title>centos7</title>
@@ -2531,40 +2358,182 @@ tips：
       </tags>
   </entry>
   <entry>
-    <title>cmd</title>
-    <url>/2023/08/19/cmd/</url>
-    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
-<li><p>ping——测试网络是否通畅</p>
+    <title>Raid</title>
+    <url>/2023/08/23/Raid/</url>
+    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
+<li><p>为什么要做raid？</p>
 <ul>
-<li>使用icmp协议，网络连通性测试</li>
+<li>花小钱办大事（降本增效），提供容错机制（数据安全）</li>
 </ul>
 </li>
-<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
+<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
 </li>
-<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
+<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
+</li>
+<li><p>技术架构：数据条带、镜像、数据校验技术</p>
 <ul>
-<li><p>telnet ip 端口（跳到空窗口）</p>
+<li><p>stripe条带化阵列，没有冗余，但是可提供最佳性能和附加存储。</p>
 </li>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
+<li><p>mirror镜像，阵列中的每个驱动器上镜像相同的数据</p>
+</li>
+<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
+</li>
+<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
 <ul>
-<li>三、找到telnet客户端，勾选打开</li>
+<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
 </ul>
-</blockquote>
+</li>
+<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
+</li>
+<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
 </li>
 </ul>
 </li>
-<li><p>ifconfig——查看本机网络</p>
+<li><p>热备盘</p>
+<ul>
+<li><p>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</p>
+</li>
+<li><p>软 RAID，</p>
+<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
+
+占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
+
+跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>硬 RAID </p>
+<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
+
+性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>软硬混合 RAID ，成本、性能居中</p>
 </li>
 </ul>
-<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
-<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
+</li>
+</ul>
+<h2 id="Raid等级"><a href="#Raid等级" class="headerlink" title="Raid等级"></a>Raid等级</h2><ul>
+<li><p>raid0</p>
+<ul>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
+<li>例：2T + 2T &#x3D; 4T</li>
+<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
+<li>视频、音频存储、打印等</li>
+</ul>
+</li>
+<li><p>raid1</p>
+<ul>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
+<li>例：2T + 2T &#x3D; 2T</li>
+<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
+<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
+<li>邮件、数据库</li>
+</ul>
+</li>
+<li><p>raid5</p>
+<ul>
+<li><strong>最少3块</strong></li>
+<li>例：2T + 2T+ 2T &#x3D; 4T</li>
+<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
+<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
+<li>适用于金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid6</p>
+<ul>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
+<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
+<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid10</p>
+<ul>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
+<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
+<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
+<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
+</ul>
+</li>
+<li><p>raid50</p>
+<ul>
+<li><strong>至少需要六个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>RAID 5 + 0</li>
+</ul>
+</li>
+<li><p>raid60</p>
+<ul>
+<li><strong>最少需要八个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>比 RAID 50 阵列更可靠</li>
+</ul>
+</li>
+</ul>
+<h2 id="Raid状态"><a href="#Raid状态" class="headerlink" title="Raid状态"></a>Raid状态</h2><p>若不需配置阵列，则需要将硬盘转换为 non-RAID 直通模式</p>
+<ul>
+<li><p>物理磁盘 pd</p>
+<ul>
+<li><p>online，可正常使用，处于在线状态</p>
+</li>
+<li><p>ready，该磁盘预备好了，可以被设置为raid但未配置</p>
+</li>
+<li><p>rebuild，重建状态，表示raid组正在进行数据同步</p>
+</li>
+</ul>
+</li>
+<li><p>虚拟磁盘 vd</p>
+<ul>
+<li>Normal，状态正常，所有成员盘均在线</li>
+<li>Offline，表示raid组存在超过允许范围的故障或离线硬盘，raid组瘫痪，数据已无法读写</li>
+<li>Degraded，降级状态，表示raid组中有故障或离线的硬盘，但基于raid组的磁盘仍然可以正常读写</li>
+<li>Failed，虚拟磁盘故障</li>
+</ul>
+</li>
+</ul>
+<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
+<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
+<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
+
+如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
+
+如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
+
+容量&gt;性能，raid50、raid10
+数据保护，raid6、raid60
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
+</li>
+<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
+</li>
+<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
+</li>
+<li><p>先配置raid，再按需分区，最后装系统</p>
+</li>
+<li><p>raid和non-raid</p>
+<ul>
+<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
+<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
+<li>1、改sata模式为raid</li>
+<li>2、做raid</li>
+<li>3、boot mode模式按需选择</li>
+</ul>
+<p>1、检查硬件，可正常工作、安装连接无误</p>
+<p>2、根据读盘结果，按需配置raid</p>
+<p>3、查看虚拟磁盘配置结果</p>
+<ul>
+<li>mdadm，建设，管理，监控raid</li>
+</ul>
 ]]></content>
       <tags>
-        <tag>cmd</tag>
+        <tag>Raid</tag>
       </tags>
   </entry>
   <entry>
@@ -2603,17 +2572,40 @@ ssh -T git@github.com。还是报错
       </tags>
   </entry>
   <entry>
-    <title>linux重点内容</title>
-    <url>/2023/08/19/linux/</url>
-    <content><![CDATA[<p>linux运维：</p>
+    <title>cmd</title>
+    <url>/2023/08/19/cmd/</url>
+    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
+<li><p>ping——测试网络是否通畅</p>
 <ul>
-<li>网络配置，防火墙，管理远程主机</li>
-<li>用户、用户组配置</li>
-<li>软件安装部署，文件操作</li>
+<li>使用icmp协议，网络连通性测试</li>
 </ul>
+</li>
+<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
+</li>
+<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
+<ul>
+<li><p>telnet ip 端口（跳到空窗口）</p>
+</li>
+<li><p>无法telnet</p>
+<blockquote>
+<p>一、打开控制面板</p>
+<p>二、点击打开启用或关闭Windows功能</p>
+<ul>
+<li>三、找到telnet客户端，勾选打开</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>ifconfig——查看本机网络</p>
+</li>
+</ul>
+<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
+<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
 ]]></content>
       <tags>
-        <tag>linux</tag>
+        <tag>cmd</tag>
       </tags>
   </entry>
   <entry>
@@ -2738,6 +2730,20 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
+    <title>linux重点内容</title>
+    <url>/2023/08/19/linux/</url>
+    <content><![CDATA[<p>linux运维：</p>
+<ul>
+<li>网络配置，防火墙，管理远程主机</li>
+<li>用户、用户组配置</li>
+<li>软件安装部署，文件操作</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>windows server</title>
     <url>/2023/08/19/windows%20server/</url>
     <content><![CDATA[<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
@@ -2826,7 +2832,7 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>常用软件</title>
     <url>/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
     <content><![CDATA[<h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
 <p>简单来说，Tomcat是一个WEB应用程序的托管平台，可以让用户编写的WEB应用程序，被Tomcat所托管，并提供网站服务。</p>
@@ -2861,6 +2867,9 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 </li>
 </ul>
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2>]]></content>
+      <tags>
+        <tag>工具类</tag>
+      </tags>
   </entry>
   <entry>
     <title>运维常见名词索引</title>
@@ -3025,10 +3034,13 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>就是玩</title>
     <url>/2023/09/15/%E5%B0%B1%E6%98%AF%E7%8E%A9/</url>
     <content><![CDATA[<p>.⠄⠄⣿⣿⣿⣿⠘⡿⢛⣿⣿⣿⣿⣿⣧⢻⣿⣿⠃⠸⣿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⣿⣿⣿⣿⢀⠼⣛⣛⣭⢭⣟⣛⣛⣛⠿⠿⢆⡠⢿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⠸⣿⣿⢣⢶⣟⣿⣖⣿⣷⣻⣮⡿⣽⣿⣻⣖⣶⣤⣭⡉⠄⠄⠄⠄⠄<br>⠄⠄⠄⢹⠣⣛⣣⣭⣭⣭⣁⡛⠻⢽⣿⣿⣿⣿⢻⣿⣿⣿⣽⡧⡄⠄⠄⠄<br>⠄⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣌⡛⢿⣽⢘⣿⣷⣿⡻⠏⣛⣀⠄⠄<br>⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠙⡅⣿⠚⣡⣴⣿⣿⣿⡆⠄<br>⠄⠄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠄⣱⣾⣿⣿⣿⣿⣿⣿⠄<br>⠄⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠣⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠑⣿⣮⣝⣛⠿⠿⣿⣿⣿⣿⠄<br>⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠄</p>
 ]]></content>
+      <tags>
+        <tag>工具类</tag>
+      </tags>
   </entry>
   <entry>
     <title>工具类QA</title>
@@ -3052,7 +3064,7 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>Gen8</title>
+    <title>惠普ProLiant DL360p Gen8</title>
     <url>/2023/09/09/%E6%83%A0%E6%99%AEProLiantDL360pGen8/</url>
     <content><![CDATA[<ul>
 <li>先下结论：垃圾客户的垃圾设备</li>
@@ -3080,6 +3092,9 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 ]]></content>
+      <tags>
+        <tag>机器</tag>
+      </tags>
   </entry>
   <entry>
     <title>戴尔PowerEdgeR620</title>
