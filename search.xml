@@ -155,6 +155,717 @@ start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
       </tags>
   </entry>
   <entry>
+    <title>Raid</title>
+    <url>/2023/08/23/Raid/</url>
+    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
+<li><p>为什么要做raid？</p>
+<ul>
+<li>花小钱办大事（降本增效），提供容错机制（数据安全）</li>
+</ul>
+</li>
+<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
+</li>
+<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
+</li>
+<li><p>技术架构：数据条带、镜像、数据校验技术</p>
+<ul>
+<li><p>stripe条带化阵列，没有冗余，但是可提供最佳性能和附加存储。</p>
+</li>
+<li><p>mirror镜像，阵列中的每个驱动器上镜像相同的数据</p>
+</li>
+<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
+</li>
+<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
+<ul>
+<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
+</ul>
+</li>
+<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
+</li>
+<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
+</li>
+</ul>
+</li>
+<li><p>热备盘</p>
+<ul>
+<li><p>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</p>
+</li>
+<li><p>软 RAID，</p>
+<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
+
+占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
+
+跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>硬 RAID </p>
+<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
+
+性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>软硬混合 RAID ，成本、性能居中</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Raid等级"><a href="#Raid等级" class="headerlink" title="Raid等级"></a>Raid等级</h2><ul>
+<li><p>raid0</p>
+<ul>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
+<li>例：2T + 2T &#x3D; 4T</li>
+<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
+<li>视频、音频存储、打印等</li>
+</ul>
+</li>
+<li><p>raid1</p>
+<ul>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
+<li>例：2T + 2T &#x3D; 2T</li>
+<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
+<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
+<li>邮件、数据库</li>
+</ul>
+</li>
+<li><p>raid5</p>
+<ul>
+<li><strong>最少3块</strong></li>
+<li>例：2T + 2T+ 2T &#x3D; 4T</li>
+<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
+<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
+<li>适用于金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid6</p>
+<ul>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
+<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
+<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid10</p>
+<ul>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
+<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
+<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
+<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
+</ul>
+</li>
+<li><p>raid50</p>
+<ul>
+<li><strong>至少需要六个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>RAID 5 + 0</li>
+</ul>
+</li>
+<li><p>raid60</p>
+<ul>
+<li><strong>最少需要八个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>比 RAID 50 阵列更可靠</li>
+</ul>
+</li>
+</ul>
+<h2 id="Raid状态"><a href="#Raid状态" class="headerlink" title="Raid状态"></a>Raid状态</h2><p>若不需配置阵列，则需要将硬盘转换为 non-RAID 直通模式</p>
+<ul>
+<li><p>物理磁盘 pd</p>
+<ul>
+<li><p>online，可正常使用，处于在线状态</p>
+</li>
+<li><p>ready，该磁盘预备好了，可以被设置为raid但未配置</p>
+</li>
+<li><p>rebuild，重建状态，表示raid组正在进行数据同步</p>
+</li>
+</ul>
+</li>
+<li><p>虚拟磁盘 vd</p>
+<ul>
+<li>Normal，状态正常，所有成员盘均在线</li>
+<li>Offline，表示raid组存在超过允许范围的故障或离线硬盘，raid组瘫痪，数据已无法读写</li>
+<li>Degraded，降级状态，表示raid组中有故障或离线的硬盘，但基于raid组的磁盘仍然可以正常读写</li>
+<li>Failed，虚拟磁盘故障</li>
+</ul>
+</li>
+</ul>
+<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
+<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
+<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
+
+如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
+
+如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
+
+容量&gt;性能，raid50、raid10
+数据保护，raid6、raid60
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
+</li>
+<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
+</li>
+<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
+</li>
+<li><p>先配置raid，再按需分区，最后装系统</p>
+</li>
+<li><p>raid和non-raid</p>
+<ul>
+<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
+<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
+<li>1、改sata模式为raid</li>
+<li>2、做raid</li>
+<li>3、boot mode模式按需选择</li>
+</ul>
+<p>1、检查硬件，可正常工作、安装连接无误</p>
+<p>2、根据读盘结果，按需配置raid</p>
+<p>3、查看虚拟磁盘配置结果</p>
+<ul>
+<li>mdadm，建设，管理，监控raid</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Raid</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cmd</title>
+    <url>/2023/08/19/cmd/</url>
+    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
+<li><p>ping——测试网络是否通畅</p>
+<ul>
+<li>使用icmp协议，网络连通性测试</li>
+</ul>
+</li>
+<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
+</li>
+<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
+<ul>
+<li><p>telnet ip 端口（跳到空窗口）</p>
+</li>
+<li><p>无法telnet</p>
+<blockquote>
+<p>一、打开控制面板</p>
+<p>二、点击打开启用或关闭Windows功能</p>
+<ul>
+<li>三、找到telnet客户端，勾选打开</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>ifconfig——查看本机网络</p>
+</li>
+</ul>
+<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
+<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
+]]></content>
+      <tags>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos7</title>
+    <url>/2023/08/19/centos7/</url>
+    <content><![CDATA[<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li><p>一般推荐<strong>uefi</strong>引导</p>
+</li>
+<li><p>安装完成，拔出U盘，重启进入bios将启动顺序恢复至原来的顺序，<strong>无论安装什么系统，都要这样!!!</strong></p>
+<p>其实大多数设备拔U盘之后，读不到U盘，就直接从系统盘读了，但是有时多系统，多硬盘的话，最好设置下启动项</p>
+</li>
+<li><blockquote>
+<ul>
+<li>sata模式： stata AHCI （一般选择它，兼容模式）    # 如果需要做Raid，选择raid模式</li>
+<li>write cache enabled 启用</li>
+<li>引导模式：UEFI（推荐）</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
+<h2 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h2><ul>
+<li><p>centos7</p>
+<blockquote>
+<ul>
+<li><p>vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）</p>
+<pre class="line-numbers language-none"><code class="language-none">tips：
+1、新装系统，没有vim，用vi（vim兼容vi）
+vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>修改</p>
+<pre class="line-numbers language-none"><code class="language-none">BOOTPROTO&#x3D;static   # 网卡的引导协议：DHCP动态、static或none静态
+ONBOOT&#x3D;yes #开机启动时是否激活网卡设备 #centos7装完网卡后默认no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>添加</p>
+<pre class="line-numbers language-none"><code class="language-none">IPADDR&#x3D;192.168.88.139  #ip地址
+NETMASK&#x3D;255.255.255.0  #子网掩码
+GATEWAY&#x3D;192.168.88.2	#网关
+DNS1&#x3D;192.169.88.2	#dns<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>重启网卡</p>
+<pre class="line-numbers language-none"><code class="language-none">systemctl  restart  network  
+或  service network restart    # 老版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><ul>
+<li><p>1、更新yum资源包<br><code>sudo yum update</code></p>
+</li>
+<li><p>2、下载MySQL 8的仓库文件<br><code>sudo wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm</code></p>
+</li>
+<li><p>3、安装MySQL 8的仓库文件<br><code>sudo yum install mysql80-community-release-el7-3.noarch.rpm</code></p>
+</li>
+<li><p>4、导入MySQL GPG密钥<br><code>sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022</code></p>
+</li>
+<li><p>5、安装MySQL数据库服务器<br><code>sudo yum install mysql-community-server</code></p>
+</li>
+<li><p>6、安装完成后，启动MySQL并配置开机自启动</p>
+<pre class="line-numbers language-none"><code class="language-none">systemctl start mysqld # 启动
+systemctl enable mysqld # 开机自启
+
+MySQL安装完成后，会自动配置为名称叫做：mysqld的服务，可以被systemctl所管理
+检查MySQL的运行状态：systemctl status mysqld
+查看是否开机自启动：systemctl is-enabled mysqld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>7、获取MySQL的初始密码</p>
+<pre class="line-numbers language-none"><code class="language-none">grep &#39;temporary password&#39; &#x2F;var&#x2F;log&#x2F;mysqld.log
+或者：cat &#x2F;var&#x2F;log&#x2F;mysqld.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+</li>
+<li><p>8、登录MySQL<br>  <code>mysql -uroot -p</code></p>
+</li>
+<li><p>9、修改密码</p>
+  <pre class="line-numbers language-none"><code class="language-none">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码&#39;;
+
+
+tips：
+  **配置简单密码，必须先按照规则，修改一个密码，然后才可以配置简单密码，**
+  例：
+  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;ROOT_root_12&#39;;   # 符合要求的密码
+
+  # 修改密码校验规则
+  set global validate_password.policy&#x3D;0;  # 密码安全级别低
+  set global validate_password.length&#x3D;1;  # 密码长度最低1位
+  # 设置简单密码
+  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;000000&#39;;
+  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;admin@123&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+<li><p>10、允许root远程<br>  默认情况下，root用户是不运行远程登录的，只允许在MySQL所在的Linux服务器登陆MySQL系统</p>
+<p>  设置root远程登录，并配置远程密码使用如下SQL命令</p>
+<ul>
+<li><code>create user &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码!&#39;;</code></li>
+</ul>
+</li>
+<li><p>11、检查端口<br>  MySQL默认绑定了3306端口，可以通过端口占用检查MySQL的网络状态</p>
+<ul>
+<li><code>netstat -anp | grep 3306</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
+<li><p>报错，<code>Warning: /dev/root does not exist</code></p>
+</li>
+<li><p>分析</p>
+<ul>
+<li>系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别<ul>
+<li>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解决</p>
+<ul>
+<li>先查看自己的u盘设备名称，<strong>ls &#x2F;dev&#x2F;sd</strong>*</li>
+<li>然后  <strong>blkid</strong> 查看类型，记住，然后重启<strong>reboot</strong></li>
+<li>选择安装项，然后<strong>e</strong>或者<strong>tab</strong>进入编辑，<br>在<strong>linux16</strong>那边，<strong>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64</strong>，更改为<strong>inst.stage2&#x3D;hd:&#x2F;dev&#x2F;U盘设备名</strong>，</li>
+<li><strong>回车</strong>或者<strong>ctrl+x</strong>，即可正常安装</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>centos7</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>github代理问题</title>
+    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<ul>
+<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
+</ul>
+<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
+<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
+<ul>
+<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
+fatal: Could not read from remote repository.
+
+这个错误提示的是连接github.com的22端口被拒绝了。
+
+解决办法：
+1、使用443
+ssh -T git@github.com。还是报错
+执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
+在git branch中进行
+     vim ~&#x2F;.ssh&#x2F;config
+     
+     Host github.com
+       Hostname ssh.github.com
+       Port 443
+
+     ssh -T git@github.com
+     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功
+
+     ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNktxO.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux重点内容</title>
+    <url>/2023/08/19/linux/</url>
+    <content><![CDATA[<p>linux运维：</p>
+<ul>
+<li>网络配置，防火墙，管理远程主机</li>
+<li>用户、用户组配置</li>
+<li>软件安装部署，文件操作</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo杂谈</title>
+    <url>/2023/08/19/hexo%E6%9D%82%E8%B0%88/</url>
+    <content><![CDATA[<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ul>
+<li><p>技术栈 hexo+githubpages+vercel</p>
+</li>
+<li><p>说明</p>
+<ul>
+<li><p>一般hexo+githubpages+vercel搭建，网上有很多教程，本文不做具体描述</p>
+<ul>
+<li><p>搭建<code>http://t.csdn.cn/T7e5I</code></p>
+</li>
+<li><p>优化<code>https://wdstql.github.io/2021/08/03/matery/</code></p>
+</li>
+</ul>
+</li>
+<li><p>本文有以下个注意点：</p>
+<ul>
+<li>常规的hexo+githubpages搭建方法，只是将public下的文件，所以hexo生成的博客文件这只会造成在git托管了博客页面，没有托管源码，不便于我们管理</li>
+<li>本站采用git分支进行管理，利用hexo默认部署的方式，再将blog部署在main分支上然后创建分支，对源码（md文件和其他源文件）进行管理。</li>
+<li>将源码分支下载到本地，并清空分支中的东西，然后将.git文件复制到hexo根目录，即可还是原来的操作，只需再加入git的操作</li>
+</ul>
+</li>
+<li><p>使用</p>
+<blockquote>
+<p>hexo clean 清理<br>hexo new xxx 新建文章，hexo new page xxx  新建页面<br>hexo g 生成页面<br>hexo s 运行<br>hexo d 上传部署  INFO  Deploy done: git 表示成功<br>然后git同步即可</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><h3 id="配置admin后台管理系统"><a href="#配置admin后台管理系统" class="headerlink" title="配置admin后台管理系统"></a>配置admin后台管理系统</h3><pre><code>* 不用再md文件里直接写，可以避免很多语法、格式问题
+  <pre class="line-numbers language-none"><code class="language-none">安装：npm install --save hexo-admin
+运行：hexo server -d
+地址：http:&#x2F;&#x2F;localhost:4000&#x2F;admin&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+* 添加用户名密码
+  <pre class="line-numbers language-none"><code class="language-none">根目录_config.yml
+
+admin:
+username:&#x2F;&#x2F;用户名
+password_hash:&#x2F;&#x2F;用户名密码不喜欢的可以不设置，这里通过bcrypt hash
+secret: hey hexo deploy&#x2F;&#x2F;用以cookies安全；
+Command: <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
+<h3 id="重新安装hexo"><a href="#重新安装hexo" class="headerlink" title="重新安装hexo"></a>重新安装hexo</h3><ul>
+<li>一般主题文件需要重新安装，因为主题文件也是一个git仓库</li>
+<li>git clone <a href="https://github.com/blinkfox/hexo-theme-matery.git">https://github.com/blinkfox/hexo-theme-matery.git</a></li>
+<li>解决：删除主题文件夹中的.git文件夹，这样就可以将主题文件一起上传了</li>
+</ul>
+<h3 id="多平台部署-国内外分流"><a href="#多平台部署-国内外分流" class="headerlink" title="多平台部署-国内外分流"></a>多平台部署-国内外分流</h3><ul>
+<li>采用github、gitee，流程差不多，需要注意的是，GitHub可以自动更新，gitee需手动</li>
+<li>书写格式，网上教程很多也很旧，自己多写试试</li>
+<li>协议问题，github采用ssh协议，gitee采用http协议，别问为什么，问就是踩坑大半天！当然这个也是因人而异，只是提供一种排查思路</li>
+<li>分支最好也一致<pre class="line-numbers language-none"><code class="language-none">deploy:
+type: git 
+repo:
+    github: git@github.com
+    gitee: git@gitee.com
+branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h3 id="本地运行预览正常，部署上线无效果"><a href="#本地运行预览正常，部署上线无效果" class="headerlink" title="本地运行预览正常，部署上线无效果"></a>本地运行预览正常，部署上线无效果</h3><ul>
+<li>可能是浏览器缓存问题，ctrl+F5，强制刷新</li>
+<li>可能是分支问题，尤其是的两个特殊点，1本案例采用的部署一个分支，源码一个分支的方式，2本案例双平台部署存在自动和手动问题。更要注意比如GitHub是main分支，gitee是master分支，这里提供思路就是去比较分支的提交和活跃，就知道代码被提交到哪里了，再看部署选择的是哪一个分支</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu</title>
+    <url>/2023/08/30/ubuntu/</url>
+    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
+<li><p>UEFI + GPT</p>
+</li>
+<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
+</li>
+</ul>
+<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
+<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
+<blockquote>
+<p>登录之后是普通用户，设置root密码</p>
+<p><code>sudo passwd root </code></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
+<li><code>apt</code></li>
+<li>centos  <code>yum</code></li>
+</ul>
+<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
+<ul>
+<li><p>ip a   # 查看 网卡</p>
+</li>
+<li><p>cd &#x2F;etc&#x2F;netplan </p>
+</li>
+<li><p>ls   # 查看.yaml文件</p>
+</li>
+<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
+</li>
+<li><p>编辑</p>
+<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
+
+网卡名
+   dhcp4: false    # 动态改成false
+      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
+      gateway4: 192.168.3.1    # 网关
+      nameservers:
+        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>退出vi文本编辑器</p>
+</li>
+<li><p>sudo netplan apply  # 保存</p>
+</li>
+</ul>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows server</title>
+    <url>/2023/08/19/windows%20server/</url>
+    <content><![CDATA[<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
+<li>工作流程</li>
+</ul>
+<p>1、装设备、装系统<br>2、设置用户、配ip、配端口<br>3、服务器管理器，开启【远程桌面，远程管理】，设置防火墙<br>4、测试，ping通，远程通<br>5、交付</p>
+<h2 id="业务操作"><a href="#业务操作" class="headerlink" title="业务操作"></a>业务操作</h2><h3 id="配置远程桌面"><a href="#配置远程桌面" class="headerlink" title="配置远程桌面"></a>配置远程桌面</h3><ul>
+<li>流程<ul>
+<li><p>服务器管理器，开启，远程桌面、远程管理，需要进入 防火墙</p>
+</li>
+<li><p>windows防火墙，入站规则，开启服务：</p>
+<ul>
+<li>—否则无法远程连接<br>    远程桌面（tcp-in 用户模式）<br>远程桌面（udp-in 用户模式）</li>
+<li>—否则无法ping通<br>    核心网络诊断-icmp 回显请求（icmpv4-in） &#x2F; 文件和打印机共享（回显请求-icmpv4-in）<br>核心网络诊断-icmp 回显请求（icmpv4-in）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="配置新ip"><a href="#配置新ip" class="headerlink" title="配置新ip"></a>配置新ip</h3><ul>
+<li><p>流程</p>
+<ul>
+<li>配置ip，修改默认端口号</li>
+<li>配置成功、ping成功、telnet成功、远程桌面成功</li>
+</ul>
+</li>
+<li><p>修改默认端口号，</p>
+<ul>
+<li><p>改成5位，22xxx或者33xxx</p>
+<blockquote>
+<p>1、注册表中，修改两处端口号【 PortNumber 】</p>
+<ul>
+<li><p>路径1：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ wds \ rdpwd \ tds \ tcp</p>
+</li>
+<li><p>路径2：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ winstations \ rdp-tcp</p>
+</li>
+</ul>
+<p>2、防火墙中新建入站规则–端口号</p>
+<p>3、服务，重新启动服务 【remot desktop services】</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
+<li><p>同一时间，多个用户，用一个账号登录，比如A，B，C，D四台机器，同时使用administrator这个账户登录服务器</p>
+</li>
+<li><p>流程</p>
+<ul>
+<li><p>首先开启远程桌面、远程管理</p>
+</li>
+<li><p>服务器与管理器 》管理 》添加角色和功能向导 》基于角色或基于功能的安装</p>
+</li>
+<li><p>远程桌面服务 》远程桌面(会话)主机、远程桌面授权</p>
+</li>
+<li><p>确认安装所选内容，重启服务器</p>
+<p><img src="https://s1.ax1x.com/2023/08/31/pPw7KkF.png"></p>
+</li>
+<li><p><strong>直接执行以下操作也可以</strong></p>
+</li>
+<li><p>运行&#x2F;cmd，输入【gpedit.msc】打开策略组</p>
+</li>
+<li><p>计算机配置\管理模板\Windows 组件\远程桌面服务\远程桌面会话主机\连接</p>
+</li>
+<li><p>将远程桌面服务的用户限制到单独的远程桌面会话，禁用</p>
+</li>
+<li><p>限制连接的数量，启用，允许的RD最大连接数——修改</p>
+</li>
+<li><p>cmd，输入【gpupdate &#x2F;force】刷新策略，使策略生效</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
+<li><p>无法telnet</p>
+<blockquote>
+<p>一、打开控制面板</p>
+<p>二、点击打开启用或关闭Windows功能</p>
+<p>三、找到telnet客户端，勾选打开</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用软件</title>
+    <url>/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
+<p>简单来说，Tomcat是一个WEB应用程序的托管平台，可以让用户编写的WEB应用程序，被Tomcat所托管，并提供网站服务。</p>
+<blockquote>
+<p>即让用户开发的WEB应用程序，变成可以被访问的网页。</p>
+</blockquote>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p><em>Nginx</em> 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。</p>
+<p>同Tomcat一样，Nginx可以托管用户编写的WEB应用程序成为可访问的网页服务，同时也可以作为流量代理服务器，控制流量的中转。</p>
+<p>Nginx在WEB开发领域，也是必备组件之一。</p>
+<h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>RabbitMQ是一款开源消息队列系统，为企业提供消息的发布、订阅、点对点传输等消息服务。</p>
+<p>RabbitMQ在企业开发中十分常见</p>
+<p>你可以把它当做一个快递站点，当你要发送一个包裹时，你把你的包裹放到快递站，快递员最终会把你的快递送到收件人那里，按照这种逻辑RabbitMQ是一个快递站，一个快递员帮你传递快件。RabbitMQ与快递站的主要区别在于，它不处理快件而是接收，存储和转发消息数据。</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>redis是一个开源的、使用C语言编写的、支持网络交互的、可基于内存也可持久化的Key-Value数据库。</p>
+<p>redis的特点就是：<code>快</code>，可以基于内存存储数据并提供超低延迟、超快的检索速度，一般用于在系统中提供快速缓存的能力。</p>
+<h2 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h2><p><a href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">全文搜索</a>属于最常见的需求，开源的 <a href="https://www.elastic.co/">Elasticsearch</a> （以下简称 es）是目前全文搜索引擎的首选。</p>
+<p>它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。</p>
+<p>Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索引擎服务。</p>
+<p>很多服务中的搜索功能，都是基于es来实现的。</p>
+<h2 id="ZooKeepe"><a href="#ZooKeepe" class="headerlink" title="ZooKeepe"></a>ZooKeepe</h2><p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
+<p>除了为Hadoop和HBase提供协调服务外，Zookeeper也被其它许多软件采用作为其分布式状态一致性的依赖，比如Kafka，又或者一些软件项目中，也经常能见到Zookeeper作为一致性协调服务存在。</p>
+<p>Zookeeper不论是大数据领域亦或是其它服务器开发领域，涉及到分布式状态一致性的场景，总有它的身影存在。</p>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka是一款<code>分布式的、去中心化的、高吞吐低延迟、订阅模式</code>的消息队列系统。</p>
+<p>同RabbitMQ一样，Kafka也是消息队列。不过RabbitMQ多用于后端系统，因其更加专注于消息的延迟和容错。</p>
+<p>Kafka多用于大数据体系，因其更加专注于数据的吞吐能力。Kafka多数都是运行在分布式（集群化）模式下</p>
+<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>1、Hadoop是一个由Apache基金会所开发的分布式系统基础架构。<br>2、主要解决，海量数据的存储和海量数据的分析计算问题。</p>
+<ul>
+<li>Hadoop生态<ul>
+<li>Hadoop HDFS 提供分布式海量数据存储能力</li>
+<li>Hadoop YARN 提供分布式集群资源管理能力</li>
+<li>Hadoop MapReduce 提供分布式海量数据计算能力</li>
+</ul>
+</li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2>]]></content>
+      <tags>
+        <tag>工具类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>运维常见名词索引</title>
+    <url>/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/</url>
+    <content><![CDATA[<h1 id="名词中英文对照索引"><a href="#名词中英文对照索引" class="headerlink" title="名词中英文对照索引"></a>名词中英文对照索引</h1><h1 id="A"><a href="#A" class="headerlink" title="A"></a>A</h1><ul>
+<li>AOC，Active Optical Cables，有源光缆</li>
+</ul>
+<h1 id="B"><a href="#B" class="headerlink" title="B"></a>B</h1><h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="D"><a href="#D" class="headerlink" title="D"></a>D</h1><ul>
+<li>DNS，</li>
+</ul>
+<h1 id="E"><a href="#E" class="headerlink" title="E"></a>E</h1><ul>
+<li>embedded，嵌入……之中的</li>
+</ul>
+<h1 id="F"><a href="#F" class="headerlink" title="F"></a>F</h1><ul>
+<li>Firewall，防火墙</li>
+</ul>
+<h1 id="G"><a href="#G" class="headerlink" title="G"></a>G</h1><ul>
+<li>GATEWAY，网关</li>
+</ul>
+<h1 id="H"><a href="#H" class="headerlink" title="H"></a>H</h1><ul>
+<li>HUB，集线器</li>
+<li>hd，ide接口的，读出来hda</li>
+<li></li>
+</ul>
+<h1 id="I"><a href="#I" class="headerlink" title="I"></a>I</h1><ul>
+<li>iDRAC，</li>
+<li>IPMI，</li>
+<li>integrated，集成的</li>
+</ul>
+<h1 id="J"><a href="#J" class="headerlink" title="J"></a>J</h1><h1 id="K"><a href="#K" class="headerlink" title="K"></a>K</h1><h1 id="L"><a href="#L" class="headerlink" title="L"></a>L</h1><ul>
+<li>LV&#x3D;，logical volume，逻辑卷</li>
+<li>LVM，Logical Volume Manager，逻辑卷管理</li>
+</ul>
+<h1 id="M"><a href="#M" class="headerlink" title="M"></a>M</h1><ul>
+<li>MAC，网卡的硬件地址</li>
+</ul>
+<h1 id="N"><a href="#N" class="headerlink" title="N"></a>N</h1><ul>
+<li>NIC，网卡</li>
+<li>NETMASK，子网掩码</li>
+</ul>
+<h1 id="O"><a href="#O" class="headerlink" title="O"></a>O</h1><ul>
+<li>OSI，</li>
+</ul>
+<h1 id="P"><a href="#P" class="headerlink" title="P"></a>P</h1><p>pd，物理磁盘</p>
+<p>pg，物理磁盘组</p>
+<p>pv，physical volume，物理卷</p>
+<h1 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h1><h1 id="R"><a href="#R" class="headerlink" title="R"></a>R</h1><ul>
+<li>Router，路由器</li>
+</ul>
+<h1 id="S"><a href="#S" class="headerlink" title="S"></a>S</h1><ul>
+<li>switch，交换机（Ethernet switch）</li>
+<li>vd，虚拟磁盘</li>
+<li>vg，volume group，卷组</li>
+</ul>
+<h1 id="T"><a href="#T" class="headerlink" title="T"></a>T</h1><h1 id="U"><a href="#U" class="headerlink" title="U"></a>U</h1><h1 id="V"><a href="#V" class="headerlink" title="V"></a>V</h1><h1 id="W"><a href="#W" class="headerlink" title="W"></a>W</h1><h1 id="X"><a href="#X" class="headerlink" title="X"></a>X</h1><h1 id="Y"><a href="#Y" class="headerlink" title="Y"></a>Y</h1><h1 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h1>]]></content>
+      <tags>
+        <tag>计算机基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>周报(1)</title>
+    <url>/2023/08/19/%E5%91%A8%E6%8A%A5/</url>
+    <content><![CDATA[<p>入职第一周<br>本人前端程序员一名，因故回到县城老家，找不到工作，改行做机房运维，记录0基础运维成长</p>
+<p>第一天，简单看了下培训文档和基本信息资料，然后领导交代制作pe系统盘，有一说一，这个东西是计算机人的基础，大学也都学过，但是我不会，我从来没用U盘装过系统。<br>使用大白菜一键制作U盘。不知道为什么，中间做一半电脑卡死了，弄坏了一个U盘，直接读不出来了。然后就是去网上找iso镜像，有一说一，国内的这些网站广告是真的多。需要的系统文件有windows server 2008、2021、2022、centos7.x。找到之后，就开始了漫长的下载，由于网络问题，10点开始下载，下午1点才下载好。<br>下载好之后，网上教程说用软碟通刻录、直接复制拷贝等等。我用软碟通但是安装的时候一直中文乱码，然后就用复制解压到U盘的方法,windows系统要求做在一个盘里，cent的做在另一个盘里。解压的过程中，要么是空间不够，要么电脑半路卡死。奇奇怪怪，我之前电脑从来没卡死过，8代i5，16+256+512，以前开机7s，现在都是20s。奇奇怪怪。<br>到了下班点，WindowsU盘还没弄好，回家接着弄。</p>
+<p>two<br>U盘弄好了，但是尝试在虚拟机中装系统，一直出错，win是卡死，centos是网卡配置出错。<br>然后跟着领导学习装系统，遇到的问题是，下载的镜像不全，不干净，导致缺少网卡驱动。初步认识了windows server 系统。<br>发现自己关于计算机网络、硬件知识认知不足，起码不全面，懂一点，但是不多，不深。有空给他系统学一学。<br>关于linux，之前学了基础的命令，但是也都忘得七七八八了，抽空给多练练，关于软件安装部署那块，抓紧学了，找到规律和共性</p>
+<p>three<br>装ws2008、2012、2022，并且配置ip、端口，尝试远程连接，ping，telnet</p>
+<p>foure<br>装centos7，配置网络，开关防火墙，学习防火墙相关知识，安装gui界面、对比使用cli和gui</p>
+<p>five<br>装宝塔面板并学习使用，了解网络相关知识，不同主板系统bios区别差异，学习cmd的其他常用知识</p>
+]]></content>
+      <tags>
+        <tag>复盘</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux系统软件安装</title>
     <url>/2023/09/19/Linux%E7%B3%BB%E7%BB%9F%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h1 id="Linux系统软件安装"><a href="#Linux系统软件安装" class="headerlink" title="Linux系统软件安装"></a>Linux系统软件安装</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="为什么学习各类软件在Linux上的部署"><a href="#为什么学习各类软件在Linux上的部署" class="headerlink" title="为什么学习各类软件在Linux上的部署"></a>为什么学习各类软件在Linux上的部署</h2><p>在前面，我们学习了许多的Linux命令和高级技巧，这些知识点比较零散，同学们跟随着课程的内容进行练习虽然可以基础掌握这些命令和技巧的使用，但是并没有一些具体的实操能够串联起来这些知识点。</p>
@@ -2236,728 +2947,6 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
       </tags>
   </entry>
   <entry>
-    <title>Raid</title>
-    <url>/2023/08/23/Raid/</url>
-    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
-<li><p>为什么要做raid？</p>
-<ul>
-<li>花小钱办大事（降本增效），提供容错机制（数据安全）</li>
-</ul>
-</li>
-<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
-</li>
-<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
-</li>
-<li><p>技术架构：数据条带、镜像、数据校验技术</p>
-<ul>
-<li><p>stripe条带化阵列，没有冗余，但是可提供最佳性能和附加存储。</p>
-</li>
-<li><p>mirror镜像，阵列中的每个驱动器上镜像相同的数据</p>
-</li>
-<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
-</li>
-<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
-<ul>
-<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
-</ul>
-</li>
-<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
-</li>
-<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
-</li>
-</ul>
-</li>
-<li><p>热备盘</p>
-<ul>
-<li><p>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</p>
-</li>
-<li><p>软 RAID，</p>
-<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
-
-占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
-
-跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>硬 RAID </p>
-<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
-
-性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>软硬混合 RAID ，成本、性能居中</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Raid等级"><a href="#Raid等级" class="headerlink" title="Raid等级"></a>Raid等级</h2><ul>
-<li><p>raid0</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
-<li>例：2T + 2T &#x3D; 4T</li>
-<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
-<li>视频、音频存储、打印等</li>
-</ul>
-</li>
-<li><p>raid1</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
-<li>例：2T + 2T &#x3D; 2T</li>
-<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
-<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
-<li>邮件、数据库</li>
-</ul>
-</li>
-<li><p>raid5</p>
-<ul>
-<li><strong>最少3块</strong></li>
-<li>例：2T + 2T+ 2T &#x3D; 4T</li>
-<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
-<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
-<li>适用于金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid6</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
-<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
-<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid10</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
-<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
-<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
-<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
-</ul>
-</li>
-<li><p>raid50</p>
-<ul>
-<li><strong>至少需要六个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>RAID 5 + 0</li>
-</ul>
-</li>
-<li><p>raid60</p>
-<ul>
-<li><strong>最少需要八个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>比 RAID 50 阵列更可靠</li>
-</ul>
-</li>
-</ul>
-<h2 id="Raid状态"><a href="#Raid状态" class="headerlink" title="Raid状态"></a>Raid状态</h2><p>若不需配置阵列，则需要将硬盘转换为 non-RAID 直通模式</p>
-<ul>
-<li><p>物理磁盘 pd</p>
-<ul>
-<li><p>online，可正常使用，处于在线状态</p>
-</li>
-<li><p>ready，该磁盘预备好了，可以被设置为raid但未配置</p>
-</li>
-<li><p>rebuild，重建状态，表示raid组正在进行数据同步</p>
-</li>
-</ul>
-</li>
-<li><p>虚拟磁盘 vd</p>
-<ul>
-<li>Normal，状态正常，所有成员盘均在线</li>
-<li>Offline，表示raid组存在超过允许范围的故障或离线硬盘，raid组瘫痪，数据已无法读写</li>
-<li>Degraded，降级状态，表示raid组中有故障或离线的硬盘，但基于raid组的磁盘仍然可以正常读写</li>
-<li>Failed，虚拟磁盘故障</li>
-</ul>
-</li>
-</ul>
-<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
-<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
-<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
-
-如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
-
-如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
-
-容量&gt;性能，raid50、raid10
-数据保护，raid6、raid60
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
-</li>
-<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
-</li>
-<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
-</li>
-<li><p>先配置raid，再按需分区，最后装系统</p>
-</li>
-<li><p>raid和non-raid</p>
-<ul>
-<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
-<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
-</ul>
-</li>
-</ul>
-<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
-</ul>
-<p>1、检查硬件，可正常工作、安装连接无误</p>
-<p>2、根据读盘结果，按需配置raid</p>
-<p>3、查看虚拟磁盘配置结果</p>
-<ul>
-<li>mdadm，建设，管理，监控raid</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Raid</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7</title>
-    <url>/2023/08/19/centos7/</url>
-    <content><![CDATA[<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
-<li><p>一般推荐<strong>uefi</strong>引导</p>
-</li>
-<li><p>安装完成，拔出U盘，重启进入bios将启动顺序恢复至原来的顺序，<strong>无论安装什么系统，都要这样!!!</strong></p>
-<p>其实大多数设备拔U盘之后，读不到U盘，就直接从系统盘读了，但是有时多系统，多硬盘的话，最好设置下启动项</p>
-</li>
-<li><blockquote>
-<ul>
-<li>sata模式： stata AHCI （一般选择它，兼容模式）    # 如果需要做Raid，选择raid模式</li>
-<li>write cache enabled 启用</li>
-<li>引导模式：UEFI（推荐）</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
-<h2 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h2><ul>
-<li><p>centos7</p>
-<blockquote>
-<ul>
-<li><p>vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）</p>
-<pre class="line-numbers language-none"><code class="language-none">tips：
-1、新装系统，没有vim，用vi（vim兼容vi）
-vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>修改</p>
-<pre class="line-numbers language-none"><code class="language-none">BOOTPROTO&#x3D;static   # 网卡的引导协议：DHCP动态、static或none静态
-ONBOOT&#x3D;yes #开机启动时是否激活网卡设备 #centos7装完网卡后默认no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>添加</p>
-<pre class="line-numbers language-none"><code class="language-none">IPADDR&#x3D;192.168.88.139  #ip地址
-NETMASK&#x3D;255.255.255.0  #子网掩码
-GATEWAY&#x3D;192.168.88.2	#网关
-DNS1&#x3D;192.169.88.2	#dns<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>重启网卡</p>
-<pre class="line-numbers language-none"><code class="language-none">systemctl  restart  network  
-或  service network restart    # 老版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><ul>
-<li><p>1、更新yum资源包<br><code>sudo yum update</code></p>
-</li>
-<li><p>2、下载MySQL 8的仓库文件<br><code>sudo wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm</code></p>
-</li>
-<li><p>3、安装MySQL 8的仓库文件<br><code>sudo yum install mysql80-community-release-el7-3.noarch.rpm</code></p>
-</li>
-<li><p>4、导入MySQL GPG密钥<br><code>sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022</code></p>
-</li>
-<li><p>5、安装MySQL数据库服务器<br><code>sudo yum install mysql-community-server</code></p>
-</li>
-<li><p>6、安装完成后，启动MySQL并配置开机自启动</p>
-<pre class="line-numbers language-none"><code class="language-none">systemctl start mysqld # 启动
-systemctl enable mysqld # 开机自启
-
-MySQL安装完成后，会自动配置为名称叫做：mysqld的服务，可以被systemctl所管理
-检查MySQL的运行状态：systemctl status mysqld
-查看是否开机自启动：systemctl is-enabled mysqld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>7、获取MySQL的初始密码</p>
-<pre class="line-numbers language-none"><code class="language-none">grep &#39;temporary password&#39; &#x2F;var&#x2F;log&#x2F;mysqld.log
-或者：cat &#x2F;var&#x2F;log&#x2F;mysqld.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-</li>
-<li><p>8、登录MySQL<br>  <code>mysql -uroot -p</code></p>
-</li>
-<li><p>9、修改密码</p>
-  <pre class="line-numbers language-none"><code class="language-none">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码&#39;;
-
-
-tips：
-  **配置简单密码，必须先按照规则，修改一个密码，然后才可以配置简单密码，**
-  例：
-  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;ROOT_root_12&#39;;   # 符合要求的密码
-
-  # 修改密码校验规则
-  set global validate_password.policy&#x3D;0;  # 密码安全级别低
-  set global validate_password.length&#x3D;1;  # 密码长度最低1位
-  # 设置简单密码
-  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;000000&#39;;
-  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;admin@123&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-</li>
-<li><p>10、允许root远程<br>  默认情况下，root用户是不运行远程登录的，只允许在MySQL所在的Linux服务器登陆MySQL系统</p>
-<p>  设置root远程登录，并配置远程密码使用如下SQL命令</p>
-<ul>
-<li><code>create user &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码!&#39;;</code></li>
-</ul>
-</li>
-<li><p>11、检查端口<br>  MySQL默认绑定了3306端口，可以通过端口占用检查MySQL的网络状态</p>
-<ul>
-<li><code>netstat -anp | grep 3306</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
-<li><p>报错，<code>Warning: /dev/root does not exist</code></p>
-</li>
-<li><p>分析</p>
-<ul>
-<li>系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别<ul>
-<li>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>解决</p>
-<ul>
-<li>先查看自己的u盘设备名称，<strong>ls &#x2F;dev&#x2F;sd</strong>*</li>
-<li>然后  <strong>blkid</strong> 查看类型，记住，然后重启<strong>reboot</strong></li>
-<li>选择安装项，然后<strong>e</strong>或者<strong>tab</strong>进入编辑，<br>在<strong>linux16</strong>那边，<strong>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64</strong>，更改为<strong>inst.stage2&#x3D;hd:&#x2F;dev&#x2F;U盘设备名</strong>，</li>
-<li><strong>回车</strong>或者<strong>ctrl+x</strong>，即可正常安装</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>centos7</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cmd</title>
-    <url>/2023/08/19/cmd/</url>
-    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
-<li><p>ping——测试网络是否通畅</p>
-<ul>
-<li>使用icmp协议，网络连通性测试</li>
-</ul>
-</li>
-<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
-</li>
-<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
-<ul>
-<li><p>telnet ip 端口（跳到空窗口）</p>
-</li>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<ul>
-<li>三、找到telnet客户端，勾选打开</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>ifconfig——查看本机网络</p>
-</li>
-</ul>
-<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
-<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
-]]></content>
-      <tags>
-        <tag>cmd</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>github代理问题</title>
-    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<ul>
-<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
-</ul>
-<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
-<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
-<ul>
-<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
-fatal: Could not read from remote repository.
-
-这个错误提示的是连接github.com的22端口被拒绝了。
-
-解决办法：
-1、使用443
-ssh -T git@github.com。还是报错
-执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
-在git branch中进行
-     vim ~&#x2F;.ssh&#x2F;config
-     
-     Host github.com
-       Hostname ssh.github.com
-       Port 443
-
-     ssh -T git@github.com
-     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功
-
-     ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNktxO.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo杂谈</title>
-    <url>/2023/08/19/hexo%E6%9D%82%E8%B0%88/</url>
-    <content><![CDATA[<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ul>
-<li><p>技术栈 hexo+githubpages+vercel</p>
-</li>
-<li><p>说明</p>
-<ul>
-<li><p>一般hexo+githubpages+vercel搭建，网上有很多教程，本文不做具体描述</p>
-<ul>
-<li><p>搭建<code>http://t.csdn.cn/T7e5I</code></p>
-</li>
-<li><p>优化<code>https://wdstql.github.io/2021/08/03/matery/</code></p>
-</li>
-</ul>
-</li>
-<li><p>本文有以下个注意点：</p>
-<ul>
-<li>常规的hexo+githubpages搭建方法，只是将public下的文件，所以hexo生成的博客文件这只会造成在git托管了博客页面，没有托管源码，不便于我们管理</li>
-<li>本站采用git分支进行管理，利用hexo默认部署的方式，再将blog部署在main分支上然后创建分支，对源码（md文件和其他源文件）进行管理。</li>
-<li>将源码分支下载到本地，并清空分支中的东西，然后将.git文件复制到hexo根目录，即可还是原来的操作，只需再加入git的操作</li>
-</ul>
-</li>
-<li><p>使用</p>
-<blockquote>
-<p>hexo clean 清理<br>hexo new xxx 新建文章，hexo new page xxx  新建页面<br>hexo g 生成页面<br>hexo s 运行<br>hexo d 上传部署  INFO  Deploy done: git 表示成功<br>然后git同步即可</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><h3 id="配置admin后台管理系统"><a href="#配置admin后台管理系统" class="headerlink" title="配置admin后台管理系统"></a>配置admin后台管理系统</h3><pre><code>* 不用再md文件里直接写，可以避免很多语法、格式问题
-  <pre class="line-numbers language-none"><code class="language-none">安装：npm install --save hexo-admin
-运行：hexo server -d
-地址：http:&#x2F;&#x2F;localhost:4000&#x2F;admin&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-* 添加用户名密码
-  <pre class="line-numbers language-none"><code class="language-none">根目录_config.yml
-
-admin:
-username:&#x2F;&#x2F;用户名
-password_hash:&#x2F;&#x2F;用户名密码不喜欢的可以不设置，这里通过bcrypt hash
-secret: hey hexo deploy&#x2F;&#x2F;用以cookies安全；
-Command: <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</code></pre>
-<h3 id="重新安装hexo"><a href="#重新安装hexo" class="headerlink" title="重新安装hexo"></a>重新安装hexo</h3><ul>
-<li>一般主题文件需要重新安装，因为主题文件也是一个git仓库</li>
-<li>git clone <a href="https://github.com/blinkfox/hexo-theme-matery.git">https://github.com/blinkfox/hexo-theme-matery.git</a></li>
-<li>解决：删除主题文件夹中的.git文件夹，这样就可以将主题文件一起上传了</li>
-</ul>
-<h3 id="多平台部署-国内外分流"><a href="#多平台部署-国内外分流" class="headerlink" title="多平台部署-国内外分流"></a>多平台部署-国内外分流</h3><ul>
-<li>采用github、gitee，流程差不多，需要注意的是，GitHub可以自动更新，gitee需手动</li>
-<li>书写格式，网上教程很多也很旧，自己多写试试</li>
-<li>协议问题，github采用ssh协议，gitee采用http协议，别问为什么，问就是踩坑大半天！当然这个也是因人而异，只是提供一种排查思路</li>
-<li>分支最好也一致<pre class="line-numbers language-none"><code class="language-none">deploy:
-type: git 
-repo:
-    github: git@github.com
-    gitee: git@gitee.com
-branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h3 id="本地运行预览正常，部署上线无效果"><a href="#本地运行预览正常，部署上线无效果" class="headerlink" title="本地运行预览正常，部署上线无效果"></a>本地运行预览正常，部署上线无效果</h3><ul>
-<li>可能是浏览器缓存问题，ctrl+F5，强制刷新</li>
-<li>可能是分支问题，尤其是的两个特殊点，1本案例采用的部署一个分支，源码一个分支的方式，2本案例双平台部署存在自动和手动问题。更要注意比如GitHub是main分支，gitee是master分支，这里提供思路就是去比较分支的提交和活跃，就知道代码被提交到哪里了，再看部署选择的是哪一个分支</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux重点内容</title>
-    <url>/2023/08/19/linux/</url>
-    <content><![CDATA[<p>linux运维：</p>
-<ul>
-<li>网络配置，防火墙，管理远程主机</li>
-<li>用户、用户组配置</li>
-<li>软件安装部署，文件操作</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu</title>
-    <url>/2023/08/30/ubuntu/</url>
-    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
-<li><p>UEFI + GPT</p>
-</li>
-<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
-</li>
-</ul>
-<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
-<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
-<blockquote>
-<p>登录之后是普通用户，设置root密码</p>
-<p><code>sudo passwd root </code></p>
-</blockquote>
-</li>
-</ul>
-<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
-<li><code>apt</code></li>
-<li>centos  <code>yum</code></li>
-</ul>
-<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
-<ul>
-<li><p>ip a   # 查看 网卡</p>
-</li>
-<li><p>cd &#x2F;etc&#x2F;netplan </p>
-</li>
-<li><p>ls   # 查看.yaml文件</p>
-</li>
-<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
-</li>
-<li><p>编辑</p>
-<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
-
-网卡名
-   dhcp4: false    # 动态改成false
-      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
-      gateway4: 192.168.3.1    # 网关
-      nameservers:
-        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>退出vi文本编辑器</p>
-</li>
-<li><p>sudo netplan apply  # 保存</p>
-</li>
-</ul>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>Ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>windows server</title>
-    <url>/2023/08/19/windows%20server/</url>
-    <content><![CDATA[<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
-<li>工作流程</li>
-</ul>
-<p>1、装设备、装系统<br>2、设置用户、配ip、配端口<br>3、服务器管理器，开启【远程桌面，远程管理】，设置防火墙<br>4、测试，ping通，远程通<br>5、交付</p>
-<h2 id="业务操作"><a href="#业务操作" class="headerlink" title="业务操作"></a>业务操作</h2><h3 id="配置远程桌面"><a href="#配置远程桌面" class="headerlink" title="配置远程桌面"></a>配置远程桌面</h3><ul>
-<li>流程<ul>
-<li><p>服务器管理器，开启，远程桌面、远程管理，需要进入 防火墙</p>
-</li>
-<li><p>windows防火墙，入站规则，开启服务：</p>
-<ul>
-<li>—否则无法远程连接<br>    远程桌面（tcp-in 用户模式）<br>远程桌面（udp-in 用户模式）</li>
-<li>—否则无法ping通<br>    核心网络诊断-icmp 回显请求（icmpv4-in） &#x2F; 文件和打印机共享（回显请求-icmpv4-in）<br>核心网络诊断-icmp 回显请求（icmpv4-in）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="配置新ip"><a href="#配置新ip" class="headerlink" title="配置新ip"></a>配置新ip</h3><ul>
-<li><p>流程</p>
-<ul>
-<li>配置ip，修改默认端口号</li>
-<li>配置成功、ping成功、telnet成功、远程桌面成功</li>
-</ul>
-</li>
-<li><p>修改默认端口号，</p>
-<ul>
-<li><p>改成5位，22xxx或者33xxx</p>
-<blockquote>
-<p>1、注册表中，修改两处端口号【 PortNumber 】</p>
-<ul>
-<li><p>路径1：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ wds \ rdpwd \ tds \ tcp</p>
-</li>
-<li><p>路径2：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ winstations \ rdp-tcp</p>
-</li>
-</ul>
-<p>2、防火墙中新建入站规则–端口号</p>
-<p>3、服务，重新启动服务 【remot desktop services】</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
-<li><p>同一时间，多个用户，用一个账号登录，比如A，B，C，D四台机器，同时使用administrator这个账户登录服务器</p>
-</li>
-<li><p>流程</p>
-<ul>
-<li><p>首先开启远程桌面、远程管理</p>
-</li>
-<li><p>服务器与管理器 》管理 》添加角色和功能向导 》基于角色或基于功能的安装</p>
-</li>
-<li><p>远程桌面服务 》远程桌面(会话)主机、远程桌面授权</p>
-</li>
-<li><p>确认安装所选内容，重启服务器</p>
-<p><img src="https://s1.ax1x.com/2023/08/31/pPw7KkF.png"></p>
-</li>
-<li><p><strong>直接执行以下操作也可以</strong></p>
-</li>
-<li><p>运行&#x2F;cmd，输入【gpedit.msc】打开策略组</p>
-</li>
-<li><p>计算机配置\管理模板\Windows 组件\远程桌面服务\远程桌面会话主机\连接</p>
-</li>
-<li><p>将远程桌面服务的用户限制到单独的远程桌面会话，禁用</p>
-</li>
-<li><p>限制连接的数量，启用，允许的RD最大连接数——修改</p>
-</li>
-<li><p>cmd，输入【gpupdate &#x2F;force】刷新策略，使策略生效</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<p>三、找到telnet客户端，勾选打开</p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>常用软件</title>
-    <url>/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
-    <content><![CDATA[<h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
-<p>简单来说，Tomcat是一个WEB应用程序的托管平台，可以让用户编写的WEB应用程序，被Tomcat所托管，并提供网站服务。</p>
-<blockquote>
-<p>即让用户开发的WEB应用程序，变成可以被访问的网页。</p>
-</blockquote>
-<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p><em>Nginx</em> 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。</p>
-<p>同Tomcat一样，Nginx可以托管用户编写的WEB应用程序成为可访问的网页服务，同时也可以作为流量代理服务器，控制流量的中转。</p>
-<p>Nginx在WEB开发领域，也是必备组件之一。</p>
-<h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>RabbitMQ是一款开源消息队列系统，为企业提供消息的发布、订阅、点对点传输等消息服务。</p>
-<p>RabbitMQ在企业开发中十分常见</p>
-<p>你可以把它当做一个快递站点，当你要发送一个包裹时，你把你的包裹放到快递站，快递员最终会把你的快递送到收件人那里，按照这种逻辑RabbitMQ是一个快递站，一个快递员帮你传递快件。RabbitMQ与快递站的主要区别在于，它不处理快件而是接收，存储和转发消息数据。</p>
-<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>redis是一个开源的、使用C语言编写的、支持网络交互的、可基于内存也可持久化的Key-Value数据库。</p>
-<p>redis的特点就是：<code>快</code>，可以基于内存存储数据并提供超低延迟、超快的检索速度，一般用于在系统中提供快速缓存的能力。</p>
-<h2 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h2><p><a href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">全文搜索</a>属于最常见的需求，开源的 <a href="https://www.elastic.co/">Elasticsearch</a> （以下简称 es）是目前全文搜索引擎的首选。</p>
-<p>它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。</p>
-<p>Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索引擎服务。</p>
-<p>很多服务中的搜索功能，都是基于es来实现的。</p>
-<h2 id="ZooKeepe"><a href="#ZooKeepe" class="headerlink" title="ZooKeepe"></a>ZooKeepe</h2><p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
-<p>除了为Hadoop和HBase提供协调服务外，Zookeeper也被其它许多软件采用作为其分布式状态一致性的依赖，比如Kafka，又或者一些软件项目中，也经常能见到Zookeeper作为一致性协调服务存在。</p>
-<p>Zookeeper不论是大数据领域亦或是其它服务器开发领域，涉及到分布式状态一致性的场景，总有它的身影存在。</p>
-<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka是一款<code>分布式的、去中心化的、高吞吐低延迟、订阅模式</code>的消息队列系统。</p>
-<p>同RabbitMQ一样，Kafka也是消息队列。不过RabbitMQ多用于后端系统，因其更加专注于消息的延迟和容错。</p>
-<p>Kafka多用于大数据体系，因其更加专注于数据的吞吐能力。Kafka多数都是运行在分布式（集群化）模式下</p>
-<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>1、Hadoop是一个由Apache基金会所开发的分布式系统基础架构。<br>2、主要解决，海量数据的存储和海量数据的分析计算问题。</p>
-<ul>
-<li>Hadoop生态<ul>
-<li>Hadoop HDFS 提供分布式海量数据存储能力</li>
-<li>Hadoop YARN 提供分布式集群资源管理能力</li>
-<li>Hadoop MapReduce 提供分布式海量数据计算能力</li>
-</ul>
-</li>
-</ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2>]]></content>
-      <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>运维常见名词索引</title>
-    <url>/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/</url>
-    <content><![CDATA[<h1 id="名词中英文对照索引"><a href="#名词中英文对照索引" class="headerlink" title="名词中英文对照索引"></a>名词中英文对照索引</h1><h1 id="A"><a href="#A" class="headerlink" title="A"></a>A</h1><ul>
-<li>AOC，Active Optical Cables，有源光缆</li>
-</ul>
-<h1 id="B"><a href="#B" class="headerlink" title="B"></a>B</h1><h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="D"><a href="#D" class="headerlink" title="D"></a>D</h1><ul>
-<li>DNS，</li>
-</ul>
-<h1 id="E"><a href="#E" class="headerlink" title="E"></a>E</h1><ul>
-<li>embedded，嵌入……之中的</li>
-</ul>
-<h1 id="F"><a href="#F" class="headerlink" title="F"></a>F</h1><ul>
-<li>Firewall，防火墙</li>
-</ul>
-<h1 id="G"><a href="#G" class="headerlink" title="G"></a>G</h1><ul>
-<li>GATEWAY，网关</li>
-</ul>
-<h1 id="H"><a href="#H" class="headerlink" title="H"></a>H</h1><ul>
-<li>HUB，集线器</li>
-<li>hd，ide接口的，读出来hda</li>
-<li></li>
-</ul>
-<h1 id="I"><a href="#I" class="headerlink" title="I"></a>I</h1><ul>
-<li>iDRAC，</li>
-<li>IPMI，</li>
-<li>integrated，集成的</li>
-</ul>
-<h1 id="J"><a href="#J" class="headerlink" title="J"></a>J</h1><h1 id="K"><a href="#K" class="headerlink" title="K"></a>K</h1><h1 id="L"><a href="#L" class="headerlink" title="L"></a>L</h1><ul>
-<li>LV&#x3D;，logical volume，逻辑卷</li>
-<li>LVM，Logical Volume Manager，逻辑卷管理</li>
-</ul>
-<h1 id="M"><a href="#M" class="headerlink" title="M"></a>M</h1><ul>
-<li>MAC，网卡的硬件地址</li>
-</ul>
-<h1 id="N"><a href="#N" class="headerlink" title="N"></a>N</h1><ul>
-<li>NIC，网卡</li>
-<li>NETMASK，子网掩码</li>
-</ul>
-<h1 id="O"><a href="#O" class="headerlink" title="O"></a>O</h1><ul>
-<li>OSI，</li>
-</ul>
-<h1 id="P"><a href="#P" class="headerlink" title="P"></a>P</h1><p>pd，物理磁盘</p>
-<p>pg，物理磁盘组</p>
-<p>pv，physical volume，物理卷</p>
-<h1 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h1><h1 id="R"><a href="#R" class="headerlink" title="R"></a>R</h1><ul>
-<li>Router，路由器</li>
-</ul>
-<h1 id="S"><a href="#S" class="headerlink" title="S"></a>S</h1><ul>
-<li>switch，交换机（Ethernet switch）</li>
-<li>vd，虚拟磁盘</li>
-<li>vg，volume group，卷组</li>
-</ul>
-<h1 id="T"><a href="#T" class="headerlink" title="T"></a>T</h1><h1 id="U"><a href="#U" class="headerlink" title="U"></a>U</h1><h1 id="V"><a href="#V" class="headerlink" title="V"></a>V</h1><h1 id="W"><a href="#W" class="headerlink" title="W"></a>W</h1><h1 id="X"><a href="#X" class="headerlink" title="X"></a>X</h1><h1 id="Y"><a href="#Y" class="headerlink" title="Y"></a>Y</h1><h1 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h1>]]></content>
-      <tags>
-        <tag>计算机基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>宝塔面板</title>
-    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
-    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
-<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
-<p>firewall-cmd –list-all</p>
-]]></content>
-      <tags>
-        <tag>宝塔面板</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>周报(1)</title>
-    <url>/2023/08/19/%E5%91%A8%E6%8A%A5/</url>
-    <content><![CDATA[<p>入职第一周<br>本人前端程序员一名，因故回到县城老家，找不到工作，改行做机房运维，记录0基础运维成长</p>
-<p>第一天，简单看了下培训文档和基本信息资料，然后领导交代制作pe系统盘，有一说一，这个东西是计算机人的基础，大学也都学过，但是我不会，我从来没用U盘装过系统。<br>使用大白菜一键制作U盘。不知道为什么，中间做一半电脑卡死了，弄坏了一个U盘，直接读不出来了。然后就是去网上找iso镜像，有一说一，国内的这些网站广告是真的多。需要的系统文件有windows server 2008、2021、2022、centos7.x。找到之后，就开始了漫长的下载，由于网络问题，10点开始下载，下午1点才下载好。<br>下载好之后，网上教程说用软碟通刻录、直接复制拷贝等等。我用软碟通但是安装的时候一直中文乱码，然后就用复制解压到U盘的方法,windows系统要求做在一个盘里，cent的做在另一个盘里。解压的过程中，要么是空间不够，要么电脑半路卡死。奇奇怪怪，我之前电脑从来没卡死过，8代i5，16+256+512，以前开机7s，现在都是20s。奇奇怪怪。<br>到了下班点，WindowsU盘还没弄好，回家接着弄。</p>
-<p>two<br>U盘弄好了，但是尝试在虚拟机中装系统，一直出错，win是卡死，centos是网卡配置出错。<br>然后跟着领导学习装系统，遇到的问题是，下载的镜像不全，不干净，导致缺少网卡驱动。初步认识了windows server 系统。<br>发现自己关于计算机网络、硬件知识认知不足，起码不全面，懂一点，但是不多，不深。有空给他系统学一学。<br>关于linux，之前学了基础的命令，但是也都忘得七七八八了，抽空给多练练，关于软件安装部署那块，抓紧学了，找到规律和共性</p>
-<p>three<br>装ws2008、2012、2022，并且配置ip、端口，尝试远程连接，ping，telnet</p>
-<p>foure<br>装centos7，配置网络，开关防火墙，学习防火墙相关知识，安装gui界面、对比使用cli和gui</p>
-<p>five<br>装宝塔面板并学习使用，了解网络相关知识，不同主板系统bios区别差异，学习cmd的其他常用知识</p>
-]]></content>
-      <tags>
-        <tag>复盘</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>密码破解</title>
     <url>/2023/08/23/%E5%AF%86%E7%A0%81%E7%A0%B4%E8%A7%A3/</url>
     <content><![CDATA[<h1 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h1><h2 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h2><ul>
@@ -3034,6 +3023,17 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>工具类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>宝塔面板</title>
+    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
+    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
+<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
+<p>firewall-cmd –list-all</p>
+]]></content>
+      <tags>
+        <tag>宝塔面板</tag>
       </tags>
   </entry>
   <entry>
@@ -3132,6 +3132,255 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>戴尔PowerEdge</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>教程索引</title>
+    <url>/2023/09/05/%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="教程索引"><a href="#教程索引" class="headerlink" title="教程索引"></a>教程索引</h1><h2 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h2><ul>
+<li><a href="https://www.ngui.cc/el/1966116.html?action=onClick">https://www.ngui.cc/el/1966116.html?action=onClick</a></li>
+</ul>
+<h2 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h2><h3 id="远程桌面"><a href="#远程桌面" class="headerlink" title="远程桌面"></a>远程桌面</h3><ul>
+<li><a href="https://www.zuankewang.com/377113">https://www.zuankewang.com/377113</a></li>
+</ul>
+<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
+<li>&lt; <a href="https://zhuanlan.zhihu.com/p/617786559%3E">https://zhuanlan.zhihu.com/p/617786559&gt;</a></li>
+</ul>
+<h3 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
+<li><p><a href="https://www.somode.com/softjc/6849.html">https://www.somode.com/softjc/6849.html</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/hy19930118/article/details/108778158">https://blog.csdn.net/hy19930118/article/details/108778158</a></p>
+</li>
+<li><p><a href="https://www.bkqs.com.cn/content/qn02g0693.html">https://www.bkqs.com.cn/content/qn02g0693.html</a></p>
+</li>
+<li></li>
+</ul>
+<h2 id="Centos-7"><a href="#Centos-7" class="headerlink" title="Centos 7"></a>Centos 7</h2><h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/GZY0601/article/details/126946446">https://blog.csdn.net/GZY0601/article/details/126946446</a></li>
+<li><a href="https://blog.csdn.net/weixin_48609917/article/details/126152384">https://blog.csdn.net/weixin_48609917/article/details/126152384</a></li>
+<li><a href="http://www.taodudu.cc/news/show-5386755.html?action=onClick">http://www.taodudu.cc/news/show-5386755.html?action=onClick</a></li>
+<li><a href="https://blog.csdn.net/qq_33427869/article/details/126668794">https://blog.csdn.net/qq_33427869/article/details/126668794</a></li>
+<li><a href="https://juejin.cn/post/6844904101583519752">https://juejin.cn/post/6844904101583519752</a></li>
+</ul>
+<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><ul>
+<li><a href="https://www.cnblogs.com/huaiguang10/p/14980758.html">https://www.cnblogs.com/huaiguang10/p/14980758.html</a></li>
+</ul>
+<h3 id="密码破解-1"><a href="#密码破解-1" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
+<li><a href="https://blog.csdn.net/weixin_52269666/article/details/121577724">https://blog.csdn.net/weixin_52269666/article/details/121577724</a></li>
+</ul>
+<h3 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h3><ul>
+<li><p><a href="http://192.168.3.85:8080/">http://192.168.3.85:8080/</a></p>
+<ul>
+<li><p>最好选择8.x版本，10老出错,jdk搭配1.8.x</p>
+</li>
+<li><p>测试地址：本机ip:8080</p>
+<pre class="line-numbers language-none"><code class="language-none">Tomcat建议使用非Root用户安装并启动
+可以创建一个用户：tomcat用以部署
+
+
+1. 首先，放行tomcat需要使用的8080端口的外部访问权限
+
+   &gt; CentOS系统默认开启了防火墙，阻止外部网络流量访问系统内部
+   &gt;
+   &gt; 所以，如果想要Tomcat可以正常使用，需要对Tomcat默认使用的8080端口进行放行
+   &gt;
+   &gt; 放行有2种操作方式：
+   &gt;
+   &gt; 1. 关闭防火墙
+   &gt; 2. 配置防火墙规则，放行端口
+
+   &#96;&#96;&#96;shell
+   # 以下操作2选一即可
+   # 方式1：关闭防火墙
+   systemctl stop firewalld		# 关闭防火墙
+   systemctl disable firewalld		# 停止防火墙开机自启
+   
+   # 方式2：放行8080端口的外部访问
+   firewall-cmd --add-port&#x3D;8080&#x2F;tcp --permanent		# --add-port&#x3D;8080&#x2F;tcp表示放行8080端口的tcp访问，--permanent表示永久生效
+   firewall-cmd --reload								# 重新载入防火墙规则使其生效<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>方便起见，建议同学们选择方式1，直接关闭防火墙一劳永逸</p>
+<p>防火墙的配置非常复杂，后面会视情况独立出一集防火墙配置规则的章节。</p>
+</blockquote>
+<ol start="2">
+<li><p>以root用户操作，创建tomcat用户</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用root用户操作</span>
+<span class="token function">useradd</span> tomcat
+<span class="token comment"># 可选，为tomcat用户配置密码</span>
+<span class="token function">passwd</span> tomcat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<p>bin目录下<br>.&#x2F;startup.sh启动</p>
+<p>查看<br>[root@localhost bin]# lsof -i:8080<br>COMMAND   PID USER   FD   TYPE DEVICE SIZE&#x2F;OFF NODE NAME<br>java    40774 root   55u  IPv6  84944      0t0  TCP <em>:webcache (LISTEN)<br>[root@localhost bin]# netstat -anp | grep 8080<br>tcp6       0      0 :::8080                 :::</em>                    LISTEN      40774&#x2F;java<br>&#96;&#96;&#96;</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Ubuntu-server"><a href="#Ubuntu-server" class="headerlink" title="Ubuntu server"></a>Ubuntu server</h2><h3 id="安装配置-1"><a href="#安装配置-1" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><p><a href="https://blog.csdn.net/m0_58805648/article/details/131021118">https://blog.csdn.net/m0_58805648/article/details/131021118</a></p>
+</li>
+<li><p><a href="https://www.bilibili.com/read/cv25574905/">https://www.bilibili.com/read/cv25574905/</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3">https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1">https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1</a></p>
+</li>
+</ul>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="磁盘分区格式化"><a href="#磁盘分区格式化" class="headerlink" title="磁盘分区格式化"></a>磁盘分区格式化</h3><ul>
+<li><p><a href="https://blog.csdn.net/cailirong123/article/details/130015943">https://blog.csdn.net/cailirong123/article/details/130015943</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/weixin_39705794/article/details/116706177">https://blog.csdn.net/weixin_39705794/article/details/116706177</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/weixin_43704834/article/details/123839054">https://blog.csdn.net/weixin_43704834/article/details/123839054</a></p>
+</li>
+</ul>
+<h3 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h3><ul>
+<li><a href="https://blog.csdn.net/m0_57911290/article/details/123248428">https://blog.csdn.net/m0_57911290/article/details/123248428</a></li>
+</ul>
+<h2 id="Raid"><a href="#Raid" class="headerlink" title="Raid"></a>Raid</h2><ul>
+<li><p><a href="https://www.cnblogs.com/linagcheng/p/15651591.html">https://www.cnblogs.com/linagcheng/p/15651591.html</a></p>
+</li>
+<li><p><a href="https://www.codenong.com/cs106881457/">https://www.codenong.com/cs106881457/</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/494925217">https://zhuanlan.zhihu.com/p/494925217</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/weixin_45027467/article/details/121671046">https://blog.csdn.net/weixin_45027467/article/details/121671046</a></p>
+</li>
+</ul>
+<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><h3 id="安装配置-2"><a href="#安装配置-2" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/qq_42006801/article/details/124830995">https://blog.csdn.net/qq_42006801/article/details/124830995</a></li>
+</ul>
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="安装配置-3"><a href="#安装配置-3" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/thefg/article/details/128601410">https://blog.csdn.net/thefg/article/details/128601410</a></li>
+</ul>
+<h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><h3 id="安装配置-4"><a href="#安装配置-4" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="http://e.betheme.net/article/show-1318951.html?action=onClick">http://e.betheme.net/article/show-1318951.html?action=onClick</a></li>
+</ul>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="安装配置-5"><a href="#安装配置-5" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/hellozhangxians/article/details/127169375">https://blog.csdn.net/hellozhangxians/article/details/127169375</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>配置Raid和系统安装</title>
+    <url>/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h1><ul>
+<li>先配置raid，再按需分区，最后装系统<pre class="line-numbers language-none"><code class="language-none">* 先做raid准备好存储空间，然后按照需求进行分区和格式化，最后装系统
+  理解：就像先把房间分配好了才能进一步装修、入住
+
+* 必须选择分区模式，必须进行格式化
+
+* 如果系统是安装在raid盘上就必须先配置raid，再安装系统。
+  如果使用独立的系统盘，可以先安装系统，再配置raid（此时可以在系统下使用有GUI的raid管理程序已图形方式配置raid，但是影响效率，占内存），之后再使用系统磁盘管理分区、格式化。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
+<li><p>磁盘分区模式有mbr格式，guid格式（gpt格式）</p>
+</li>
+<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2TB 以下的硬盘，支持win7版本系统以下的32位和64位</p>
+</li>
+<li><p>guid分区：也叫gpt，全局唯一标识分区表，支持2T以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持64位系统，不支持32位系统</p>
+</li>
+<li><p>区别：，</p>
+<ul>
+<li><p>mbr分区</p>
+<ul>
+<li><p>&lt; 2T,选择mbr分区表</p>
+</li>
+<li><p>启动时，引导模式为 Legacy（bios）</p>
+</li>
+<li><p>最多只能描述 4 个分区，其中一个为主分区，其他为扩展分区，</p>
+</li>
+</ul>
+</li>
+<li><p>guid分区</p>
+<ul>
+<li><p>大于2T,选择guid分区表</p>
+</li>
+<li><p>启动时，引导模式为 uefi</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>注意：</p>
+<ul>
+<li><p>对应的分区模式要选择对应的引导模式</p>
+</li>
+<li><p>根据自己的raid需求，再bios中选择对应的引导模式</p>
+</li>
+<li><p>大于2t只能选择guid引导，否则做raid没意义，读不到那么大的容量</p>
+</li>
+</ul>
+</li>
+<li><p>如何判断硬盘格式是 guid 还是 mbr ？</p>
+<ul>
+<li><p>windows</p>
+<pre class="line-numbers language-none"><code class="language-none">&#39;以管理员身份运行&#39;cmd命令，输入&#39;diskpart&#39;命令
+输入&#39;list disk&#39;命令进行查看：如果&#39;Gpt&#39;中显示&#39;*&#39;，则为GPT格式，反之为MBR
+![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNFw40.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>linux</p>
+<pre class="line-numbers language-none"><code class="language-none">1、fdisk -l 命令，结果中的“Disk label type”的值为
+     dos则分区是mbr，若该结果的值为gpt则分区是gpt；
+2、parted -l 命令，结果中的“Partition Table”的值为
+     msdos则分区是mbr，若该结果的值为gpt则分区是gpt。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h2 id="引导模式"><a href="#引导模式" class="headerlink" title="引导模式"></a>引导模式</h2><ul>
+<li><p>在bios中配置，有Legacy（bios）和 uefi</p>
+</li>
+<li><p>区别</p>
+<ul>
+<li>UEFI是新式的BIOS，BIOS则是传统legacy。最明显的却别在于启动速度，UEFI明显更快，因为它支持硬件加速和并行处理。</li>
+<li><img src="https://s1.ax1x.com/2023/08/30/pPd6L9S.png" alt="img"></li>
+</ul>
+</li>
+</ul>
+<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
+<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
+</li>
+<li><p>流程</p>
+<ul>
+<li>配置raid</li>
+<li>配置引导模式，bios还是uefi</li>
+<li>配置磁盘的分区格式，格式化处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>有的统文件里，不带有raid驱动程序，导致安装系统无法识别到raid的硬盘。需要去官网下载，手动加载 raid 卡驱动程序</p>
+</li>
+<li><p>找不到适用的引导分区</p>
+<ul>
+<li>分区工具修复、重新分区</li>
+<li>可能是系统找不到raid驱动，导致找不到磁盘，去官网找对应主板的驱动，装上。</li>
+</ul>
+</li>
+</ul>
+<h1 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h1><ul>
+<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
+<ul>
+<li>linux默认mbr分区模式，所以配raid后，先改分区模式、配置分区，最后装系统 （否则易出现读不到盘，容量不对的情况）<ul>
+<li>一般直接在 控制台，改成guid分区，uefi引导</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>流程</p>
+<ul>
+<li>配置raid</li>
+<li>配置引导模式</li>
+<li>配置磁盘的分区格式，格式化处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2>]]></content>
+      <tags>
+        <tag>系统安装</tag>
       </tags>
   </entry>
   <entry>
@@ -3282,136 +3531,6 @@ SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 ]]></content>
       <tags>
         <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>教程索引</title>
-    <url>/2023/09/05/%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="教程索引"><a href="#教程索引" class="headerlink" title="教程索引"></a>教程索引</h1><h2 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h2><ul>
-<li><a href="https://www.ngui.cc/el/1966116.html?action=onClick">https://www.ngui.cc/el/1966116.html?action=onClick</a></li>
-</ul>
-<h2 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h2><h3 id="远程桌面"><a href="#远程桌面" class="headerlink" title="远程桌面"></a>远程桌面</h3><ul>
-<li><a href="https://www.zuankewang.com/377113">https://www.zuankewang.com/377113</a></li>
-</ul>
-<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
-<li>&lt; <a href="https://zhuanlan.zhihu.com/p/617786559%3E">https://zhuanlan.zhihu.com/p/617786559&gt;</a></li>
-</ul>
-<h3 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
-<li><p><a href="https://www.somode.com/softjc/6849.html">https://www.somode.com/softjc/6849.html</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/hy19930118/article/details/108778158">https://blog.csdn.net/hy19930118/article/details/108778158</a></p>
-</li>
-<li><p><a href="https://www.bkqs.com.cn/content/qn02g0693.html">https://www.bkqs.com.cn/content/qn02g0693.html</a></p>
-</li>
-<li></li>
-</ul>
-<h2 id="Centos-7"><a href="#Centos-7" class="headerlink" title="Centos 7"></a>Centos 7</h2><h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/GZY0601/article/details/126946446">https://blog.csdn.net/GZY0601/article/details/126946446</a></li>
-<li><a href="https://blog.csdn.net/weixin_48609917/article/details/126152384">https://blog.csdn.net/weixin_48609917/article/details/126152384</a></li>
-<li><a href="http://www.taodudu.cc/news/show-5386755.html?action=onClick">http://www.taodudu.cc/news/show-5386755.html?action=onClick</a></li>
-<li><a href="https://blog.csdn.net/qq_33427869/article/details/126668794">https://blog.csdn.net/qq_33427869/article/details/126668794</a></li>
-<li><a href="https://juejin.cn/post/6844904101583519752">https://juejin.cn/post/6844904101583519752</a></li>
-</ul>
-<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><ul>
-<li><a href="https://www.cnblogs.com/huaiguang10/p/14980758.html">https://www.cnblogs.com/huaiguang10/p/14980758.html</a></li>
-</ul>
-<h3 id="密码破解-1"><a href="#密码破解-1" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
-<li><a href="https://blog.csdn.net/weixin_52269666/article/details/121577724">https://blog.csdn.net/weixin_52269666/article/details/121577724</a></li>
-</ul>
-<h3 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h3><ul>
-<li><p><a href="http://192.168.3.85:8080/">http://192.168.3.85:8080/</a></p>
-<ul>
-<li><p>最好选择8.x版本，10老出错,jdk搭配1.8.x</p>
-</li>
-<li><p>测试地址：本机ip:8080</p>
-<pre class="line-numbers language-none"><code class="language-none">Tomcat建议使用非Root用户安装并启动
-可以创建一个用户：tomcat用以部署
-
-
-1. 首先，放行tomcat需要使用的8080端口的外部访问权限
-
-   &gt; CentOS系统默认开启了防火墙，阻止外部网络流量访问系统内部
-   &gt;
-   &gt; 所以，如果想要Tomcat可以正常使用，需要对Tomcat默认使用的8080端口进行放行
-   &gt;
-   &gt; 放行有2种操作方式：
-   &gt;
-   &gt; 1. 关闭防火墙
-   &gt; 2. 配置防火墙规则，放行端口
-
-   &#96;&#96;&#96;shell
-   # 以下操作2选一即可
-   # 方式1：关闭防火墙
-   systemctl stop firewalld		# 关闭防火墙
-   systemctl disable firewalld		# 停止防火墙开机自启
-   
-   # 方式2：放行8080端口的外部访问
-   firewall-cmd --add-port&#x3D;8080&#x2F;tcp --permanent		# --add-port&#x3D;8080&#x2F;tcp表示放行8080端口的tcp访问，--permanent表示永久生效
-   firewall-cmd --reload								# 重新载入防火墙规则使其生效<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<blockquote>
-<p>方便起见，建议同学们选择方式1，直接关闭防火墙一劳永逸</p>
-<p>防火墙的配置非常复杂，后面会视情况独立出一集防火墙配置规则的章节。</p>
-</blockquote>
-<ol start="2">
-<li><p>以root用户操作，创建tomcat用户</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用root用户操作</span>
-<span class="token function">useradd</span> tomcat
-<span class="token comment"># 可选，为tomcat用户配置密码</span>
-<span class="token function">passwd</span> tomcat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ol>
-<p>bin目录下<br>.&#x2F;startup.sh启动</p>
-<p>查看<br>[root@localhost bin]# lsof -i:8080<br>COMMAND   PID USER   FD   TYPE DEVICE SIZE&#x2F;OFF NODE NAME<br>java    40774 root   55u  IPv6  84944      0t0  TCP <em>:webcache (LISTEN)<br>[root@localhost bin]# netstat -anp | grep 8080<br>tcp6       0      0 :::8080                 :::</em>                    LISTEN      40774&#x2F;java<br>&#96;&#96;&#96;</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Ubuntu-server"><a href="#Ubuntu-server" class="headerlink" title="Ubuntu server"></a>Ubuntu server</h2><h3 id="安装配置-1"><a href="#安装配置-1" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><p><a href="https://blog.csdn.net/m0_58805648/article/details/131021118">https://blog.csdn.net/m0_58805648/article/details/131021118</a></p>
-</li>
-<li><p><a href="https://www.bilibili.com/read/cv25574905/">https://www.bilibili.com/read/cv25574905/</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3">https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1">https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1</a></p>
-</li>
-</ul>
-<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="磁盘分区格式化"><a href="#磁盘分区格式化" class="headerlink" title="磁盘分区格式化"></a>磁盘分区格式化</h3><ul>
-<li><p><a href="https://blog.csdn.net/cailirong123/article/details/130015943">https://blog.csdn.net/cailirong123/article/details/130015943</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/weixin_39705794/article/details/116706177">https://blog.csdn.net/weixin_39705794/article/details/116706177</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/weixin_43704834/article/details/123839054">https://blog.csdn.net/weixin_43704834/article/details/123839054</a></p>
-</li>
-</ul>
-<h3 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h3><ul>
-<li><a href="https://blog.csdn.net/m0_57911290/article/details/123248428">https://blog.csdn.net/m0_57911290/article/details/123248428</a></li>
-</ul>
-<h2 id="Raid"><a href="#Raid" class="headerlink" title="Raid"></a>Raid</h2><ul>
-<li><p><a href="https://www.cnblogs.com/linagcheng/p/15651591.html">https://www.cnblogs.com/linagcheng/p/15651591.html</a></p>
-</li>
-<li><p><a href="https://www.codenong.com/cs106881457/">https://www.codenong.com/cs106881457/</a></p>
-</li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/494925217">https://zhuanlan.zhihu.com/p/494925217</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/weixin_45027467/article/details/121671046">https://blog.csdn.net/weixin_45027467/article/details/121671046</a></p>
-</li>
-</ul>
-<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><h3 id="安装配置-2"><a href="#安装配置-2" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/qq_42006801/article/details/124830995">https://blog.csdn.net/qq_42006801/article/details/124830995</a></li>
-</ul>
-<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="安装配置-3"><a href="#安装配置-3" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/thefg/article/details/128601410">https://blog.csdn.net/thefg/article/details/128601410</a></li>
-</ul>
-<h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><h3 id="安装配置-4"><a href="#安装配置-4" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="http://e.betheme.net/article/show-1318951.html?action=onClick">http://e.betheme.net/article/show-1318951.html?action=onClick</a></li>
-</ul>
-<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="安装配置-5"><a href="#安装配置-5" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/hellozhangxians/article/details/127169375">https://blog.csdn.net/hellozhangxians/article/details/127169375</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>教程</tag>
       </tags>
   </entry>
   <entry>
@@ -3870,125 +3989,6 @@ aoligei.txt
 ]]></content>
       <tags>
         <tag>计算机基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>配置Raid和系统安装</title>
-    <url>/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h1><ul>
-<li>先配置raid，再按需分区，最后装系统<pre class="line-numbers language-none"><code class="language-none">* 先做raid准备好存储空间，然后按照需求进行分区和格式化，最后装系统
-  理解：就像先把房间分配好了才能进一步装修、入住
-
-* 必须选择分区模式，必须进行格式化
-
-* 如果系统是安装在raid盘上就必须先配置raid，再安装系统。
-  如果使用独立的系统盘，可以先安装系统，再配置raid（此时可以在系统下使用有GUI的raid管理程序已图形方式配置raid，但是影响效率，占内存），之后再使用系统磁盘管理分区、格式化。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
-<li><p>磁盘分区模式有mbr格式，guid格式（gpt格式）</p>
-</li>
-<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2TB 以下的硬盘，支持win7版本系统以下的32位和64位</p>
-</li>
-<li><p>guid分区：也叫gpt，全局唯一标识分区表，支持2T以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持64位系统，不支持32位系统</p>
-</li>
-<li><p>区别：，</p>
-<ul>
-<li><p>mbr分区</p>
-<ul>
-<li><p>&lt; 2T,选择mbr分区表</p>
-</li>
-<li><p>启动时，引导模式为 Legacy（bios）</p>
-</li>
-<li><p>最多只能描述 4 个分区，其中一个为主分区，其他为扩展分区，</p>
-</li>
-</ul>
-</li>
-<li><p>guid分区</p>
-<ul>
-<li><p>大于2T,选择guid分区表</p>
-</li>
-<li><p>启动时，引导模式为 uefi</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>注意：</p>
-<ul>
-<li><p>对应的分区模式要选择对应的引导模式</p>
-</li>
-<li><p>根据自己的raid需求，再bios中选择对应的引导模式</p>
-</li>
-<li><p>大于2t只能选择guid引导，否则做raid没意义，读不到那么大的容量</p>
-</li>
-</ul>
-</li>
-<li><p>如何判断硬盘格式是 guid 还是 mbr ？</p>
-<ul>
-<li><p>windows</p>
-<pre class="line-numbers language-none"><code class="language-none">&#39;以管理员身份运行&#39;cmd命令，输入&#39;diskpart&#39;命令
-输入&#39;list disk&#39;命令进行查看：如果&#39;Gpt&#39;中显示&#39;*&#39;，则为GPT格式，反之为MBR
-![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNFw40.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>linux</p>
-<pre class="line-numbers language-none"><code class="language-none">1、fdisk -l 命令，结果中的“Disk label type”的值为
-     dos则分区是mbr，若该结果的值为gpt则分区是gpt；
-2、parted -l 命令，结果中的“Partition Table”的值为
-     msdos则分区是mbr，若该结果的值为gpt则分区是gpt。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-</ul>
-<h2 id="引导模式"><a href="#引导模式" class="headerlink" title="引导模式"></a>引导模式</h2><ul>
-<li><p>在bios中配置，有Legacy（bios）和 uefi</p>
-</li>
-<li><p>区别</p>
-<ul>
-<li>UEFI是新式的BIOS，BIOS则是传统legacy。最明显的却别在于启动速度，UEFI明显更快，因为它支持硬件加速和并行处理。</li>
-<li><img src="https://s1.ax1x.com/2023/08/30/pPd6L9S.png" alt="img"></li>
-</ul>
-</li>
-</ul>
-<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
-<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
-</li>
-<li><p>流程</p>
-<ul>
-<li>配置raid</li>
-<li>配置引导模式，bios还是uefi</li>
-<li>配置磁盘的分区格式，格式化处理</li>
-</ul>
-</li>
-</ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li><p>有的统文件里，不带有raid驱动程序，导致安装系统无法识别到raid的硬盘。需要去官网下载，手动加载 raid 卡驱动程序</p>
-</li>
-<li><p>找不到适用的引导分区</p>
-<ul>
-<li>分区工具修复、重新分区</li>
-<li>可能是系统找不到raid驱动，导致找不到磁盘，去官网找对应主板的驱动，装上。</li>
-</ul>
-</li>
-</ul>
-<h1 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h1><ul>
-<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
-<ul>
-<li>linux默认mbr分区模式，所以配raid后，先改分区模式、配置分区，最后装系统 （否则易出现读不到盘，容量不对的情况）<ul>
-<li>一般直接在 控制台，改成guid分区，uefi引导</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>流程</p>
-<ul>
-<li>配置raid</li>
-<li>配置引导模式</li>
-<li>配置磁盘的分区格式，格式化处理</li>
-</ul>
-</li>
-</ul>
-<h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2>]]></content>
-      <tags>
-        <tag>系统安装</tag>
       </tags>
   </entry>
 </search>
