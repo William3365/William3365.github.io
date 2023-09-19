@@ -1,8 +1,7 @@
 ---
-layout: 惠普ProLiant DL360p Gen8
-title: Gen8
+title: 惠普ProLiant DL360p Gen8
 date: 2023-09-09 09:49:47
-tags:
+tags: 机器
 ---
 
 * 先下结论：垃圾客户的垃圾设备
