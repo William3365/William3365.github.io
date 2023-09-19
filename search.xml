@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>idrac-ipmi</title>
+    <url>/2023/09/04/IPMI/</url>
+    <content><![CDATA[<h1 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h1><ul>
+<li>Intelligent Platform Management Interface，是一种用于管理和监控服务器的标准接口</li>
+</ul>
+<h2 id="idrac"><a href="#idrac" class="headerlink" title="idrac"></a>idrac</h2><ul>
+<li>Integrated Dell Remote Access Controller，戴尔集成远程访问控制器。是一个远程管理系统，由一块集成电路板组成，内置了支持和管理硬件的固件。idrac提供了一个Web界面，用户可以通过这个界面对服务器进行监控、管理、远程重启、重新启动操作系统等各种操作。同时，idrac还支持命令行方式和SNMP协议，以便更加方便地远程管理服务器。</li>
+<li>默认登录凭据：用户名：root，密码：calvin</li>
+</ul>
+<h2 id="配置IPMI"><a href="#配置IPMI" class="headerlink" title="配置IPMI"></a>配置IPMI</h2><ul>
+<li><p>仅针对戴尔服务器</p>
+<ul>
+<li>其他操作教程: <code>https://www.ngui.cc/el/1966116.html?action=onClick</code></li>
+</ul>
+</li>
+<li><p>常规操作流程</p>
+<ul>
+<li><p>进入系统设置，选择 system BIOS</p>
+</li>
+<li><p>选择 iDRAC Settings</p>
+</li>
+<li><p>到最下边，选择 reset idrac configguration to defaults</p>
+</li>
+<li><p>选择yes，等待结束，选择continue</p>
+</li>
+<li><p>再次选择 iDRAC Settings，选择 network（使用专用网络接口）</p>
+</li>
+<li><p>NIC相关配置，Enabled启用nic，选择 dedicated</p>
+</li>
+<li><p>网络设置，IPv4 设置，ip，网关，掩码</p>
+</li>
+<li><p>IPMI Over LAN（通过局域网启用IPMI）选项，选择Enabled</p>
+</li>
+<li><p>配置好之后，能ping通，能登录访问即可</p>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>戴尔PowerEdge</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 操作系统的启动过程</title>
     <url>/2023/09/19/Linux%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="Linux-操作系统的启动过程"><a href="#Linux-操作系统的启动过程" class="headerlink" title="Linux 操作系统的启动过程"></a>Linux 操作系统的启动过程</h1><ul>
@@ -89,50 +133,6 @@
       </tags>
   </entry>
   <entry>
-    <title>idrac-ipmi</title>
-    <url>/2023/09/04/IPMI/</url>
-    <content><![CDATA[<h1 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h1><ul>
-<li>Intelligent Platform Management Interface，是一种用于管理和监控服务器的标准接口</li>
-</ul>
-<h2 id="idrac"><a href="#idrac" class="headerlink" title="idrac"></a>idrac</h2><ul>
-<li>Integrated Dell Remote Access Controller，戴尔集成远程访问控制器。是一个远程管理系统，由一块集成电路板组成，内置了支持和管理硬件的固件。idrac提供了一个Web界面，用户可以通过这个界面对服务器进行监控、管理、远程重启、重新启动操作系统等各种操作。同时，idrac还支持命令行方式和SNMP协议，以便更加方便地远程管理服务器。</li>
-<li>默认登录凭据：用户名：root，密码：calvin</li>
-</ul>
-<h2 id="配置IPMI"><a href="#配置IPMI" class="headerlink" title="配置IPMI"></a>配置IPMI</h2><ul>
-<li><p>仅针对戴尔服务器</p>
-<ul>
-<li>其他操作教程: <code>https://www.ngui.cc/el/1966116.html?action=onClick</code></li>
-</ul>
-</li>
-<li><p>常规操作流程</p>
-<ul>
-<li><p>进入系统设置，选择 system BIOS</p>
-</li>
-<li><p>选择 iDRAC Settings</p>
-</li>
-<li><p>到最下边，选择 reset idrac configguration to defaults</p>
-</li>
-<li><p>选择yes，等待结束，选择continue</p>
-</li>
-<li><p>再次选择 iDRAC Settings，选择 network（使用专用网络接口）</p>
-</li>
-<li><p>NIC相关配置，Enabled启用nic，选择 dedicated</p>
-</li>
-<li><p>网络设置，IPv4 设置，ip，网关，掩码</p>
-</li>
-<li><p>IPMI Over LAN（通过局域网启用IPMI）选项，选择Enabled</p>
-</li>
-<li><p>配置好之后，能ping通，能登录访问即可</p>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>戴尔PowerEdge</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PC微信双开</title>
     <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
     <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
@@ -152,347 +152,6 @@ start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
 ]]></content>
       <tags>
         <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Raid</title>
-    <url>/2023/08/23/Raid/</url>
-    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
-<li><p>为什么要做raid？</p>
-<ul>
-<li>花小钱办大事（降本增效），提供容错机制（数据安全）</li>
-</ul>
-</li>
-<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
-</li>
-<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
-</li>
-<li><p>技术架构：数据条带、镜像、数据校验技术</p>
-<ul>
-<li><p>stripe条带化阵列，没有冗余，但是可提供最佳性能和附加存储。</p>
-</li>
-<li><p>mirror镜像，阵列中的每个驱动器上镜像相同的数据</p>
-</li>
-<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
-</li>
-<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
-<ul>
-<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
-</ul>
-</li>
-<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
-</li>
-<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
-</li>
-</ul>
-</li>
-<li><p>热备盘</p>
-<ul>
-<li><p>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</p>
-</li>
-<li><p>软 RAID，</p>
-<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
-
-占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
-
-跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>硬 RAID </p>
-<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
-
-性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>软硬混合 RAID ，成本、性能居中</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Raid等级"><a href="#Raid等级" class="headerlink" title="Raid等级"></a>Raid等级</h2><ul>
-<li><p>raid0</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
-<li>例：2T + 2T &#x3D; 4T</li>
-<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
-<li>视频、音频存储、打印等</li>
-</ul>
-</li>
-<li><p>raid1</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
-<li>例：2T + 2T &#x3D; 2T</li>
-<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
-<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
-<li>邮件、数据库</li>
-</ul>
-</li>
-<li><p>raid5</p>
-<ul>
-<li><strong>最少3块</strong></li>
-<li>例：2T + 2T+ 2T &#x3D; 4T</li>
-<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
-<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
-<li>适用于金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid6</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
-<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
-<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid10</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
-<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
-<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
-<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
-</ul>
-</li>
-<li><p>raid50</p>
-<ul>
-<li><strong>至少需要六个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>RAID 5 + 0</li>
-</ul>
-</li>
-<li><p>raid60</p>
-<ul>
-<li><strong>最少需要八个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>比 RAID 50 阵列更可靠</li>
-</ul>
-</li>
-</ul>
-<h2 id="Raid状态"><a href="#Raid状态" class="headerlink" title="Raid状态"></a>Raid状态</h2><p>若不需配置阵列，则需要将硬盘转换为 non-RAID 直通模式</p>
-<ul>
-<li><p>物理磁盘 pd</p>
-<ul>
-<li><p>online，可正常使用，处于在线状态</p>
-</li>
-<li><p>ready，该磁盘预备好了，可以被设置为raid但未配置</p>
-</li>
-<li><p>rebuild，重建状态，表示raid组正在进行数据同步</p>
-</li>
-</ul>
-</li>
-<li><p>虚拟磁盘 vd</p>
-<ul>
-<li>Normal，状态正常，所有成员盘均在线</li>
-<li>Offline，表示raid组存在超过允许范围的故障或离线硬盘，raid组瘫痪，数据已无法读写</li>
-<li>Degraded，降级状态，表示raid组中有故障或离线的硬盘，但基于raid组的磁盘仍然可以正常读写</li>
-<li>Failed，虚拟磁盘故障</li>
-</ul>
-</li>
-</ul>
-<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
-<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
-<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
-
-如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
-
-如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
-
-容量&gt;性能，raid50、raid10
-数据保护，raid6、raid60
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
-</li>
-<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
-</li>
-<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
-</li>
-<li><p>先配置raid，再按需分区，最后装系统</p>
-</li>
-<li><p>raid和non-raid</p>
-<ul>
-<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
-<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
-</ul>
-</li>
-</ul>
-<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
-</ul>
-<p>1、检查硬件，可正常工作、安装连接无误</p>
-<p>2、根据读盘结果，按需配置raid</p>
-<p>3、查看虚拟磁盘配置结果</p>
-<ul>
-<li>mdadm，建设，管理，监控raid</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Raid</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>centos7</title>
-    <url>/2023/08/19/centos7/</url>
-    <content><![CDATA[<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
-<li><p>一般推荐<strong>uefi</strong>引导</p>
-</li>
-<li><p>安装完成，拔出U盘，重启进入bios将启动顺序恢复至原来的顺序，<strong>无论安装什么系统，都要这样!!!</strong></p>
-<p>其实大多数设备拔U盘之后，读不到U盘，就直接从系统盘读了，但是有时多系统，多硬盘的话，最好设置下启动项</p>
-</li>
-<li><blockquote>
-<ul>
-<li>sata模式： stata AHCI （一般选择它，兼容模式）    # 如果需要做Raid，选择raid模式</li>
-<li>write cache enabled 启用</li>
-<li>引导模式：UEFI（推荐）</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
-<h2 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h2><ul>
-<li><p>centos7</p>
-<blockquote>
-<ul>
-<li><p>vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）</p>
-<pre class="line-numbers language-none"><code class="language-none">tips：
-1、新装系统，没有vim，用vi（vim兼容vi）
-vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>修改</p>
-<pre class="line-numbers language-none"><code class="language-none">BOOTPROTO&#x3D;static   # 网卡的引导协议：DHCP动态、static或none静态
-ONBOOT&#x3D;yes #开机启动时是否激活网卡设备 #centos7装完网卡后默认no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>添加</p>
-<pre class="line-numbers language-none"><code class="language-none">IPADDR&#x3D;192.168.88.139  #ip地址
-NETMASK&#x3D;255.255.255.0  #子网掩码
-GATEWAY&#x3D;192.168.88.2	#网关
-DNS1&#x3D;192.169.88.2	#dns<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>重启网卡</p>
-<pre class="line-numbers language-none"><code class="language-none">systemctl  restart  network  
-或  service network restart    # 老版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><ul>
-<li><p>1、更新yum资源包<br><code>sudo yum update</code></p>
-</li>
-<li><p>2、下载MySQL 8的仓库文件<br><code>sudo wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm</code></p>
-</li>
-<li><p>3、安装MySQL 8的仓库文件<br><code>sudo yum install mysql80-community-release-el7-3.noarch.rpm</code></p>
-</li>
-<li><p>4、导入MySQL GPG密钥<br><code>sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022</code></p>
-</li>
-<li><p>5、安装MySQL数据库服务器<br><code>sudo yum install mysql-community-server</code></p>
-</li>
-<li><p>6、安装完成后，启动MySQL并配置开机自启动</p>
-<pre class="line-numbers language-none"><code class="language-none">systemctl start mysqld # 启动
-systemctl enable mysqld # 开机自启
-
-MySQL安装完成后，会自动配置为名称叫做：mysqld的服务，可以被systemctl所管理
-检查MySQL的运行状态：systemctl status mysqld
-查看是否开机自启动：systemctl is-enabled mysqld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>7、获取MySQL的初始密码</p>
-<pre class="line-numbers language-none"><code class="language-none">grep &#39;temporary password&#39; &#x2F;var&#x2F;log&#x2F;mysqld.log
-或者：cat &#x2F;var&#x2F;log&#x2F;mysqld.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-</li>
-<li><p>8、登录MySQL<br>  <code>mysql -uroot -p</code></p>
-</li>
-<li><p>9、修改密码</p>
-  <pre class="line-numbers language-none"><code class="language-none">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码&#39;;
-
-
-tips：
-  **配置简单密码，必须先按照规则，修改一个密码，然后才可以配置简单密码，**
-  例：
-  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;ROOT_root_12&#39;;   # 符合要求的密码
-
-  # 修改密码校验规则
-  set global validate_password.policy&#x3D;0;  # 密码安全级别低
-  set global validate_password.length&#x3D;1;  # 密码长度最低1位
-  # 设置简单密码
-  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;000000&#39;;
-  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;admin@123&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-</li>
-<li><p>10、允许root远程<br>  默认情况下，root用户是不运行远程登录的，只允许在MySQL所在的Linux服务器登陆MySQL系统</p>
-<p>  设置root远程登录，并配置远程密码使用如下SQL命令</p>
-<ul>
-<li><code>create user &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码!&#39;;</code></li>
-</ul>
-</li>
-<li><p>11、检查端口<br>  MySQL默认绑定了3306端口，可以通过端口占用检查MySQL的网络状态</p>
-<ul>
-<li><code>netstat -anp | grep 3306</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
-<li><p>报错，<code>Warning: /dev/root does not exist</code></p>
-</li>
-<li><p>分析</p>
-<ul>
-<li>系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别<ul>
-<li>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>解决</p>
-<ul>
-<li>先查看自己的u盘设备名称，<strong>ls &#x2F;dev&#x2F;sd</strong>*</li>
-<li>然后  <strong>blkid</strong> 查看类型，记住，然后重启<strong>reboot</strong></li>
-<li>选择安装项，然后<strong>e</strong>或者<strong>tab</strong>进入编辑，<br>在<strong>linux16</strong>那边，<strong>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64</strong>，更改为<strong>inst.stage2&#x3D;hd:&#x2F;dev&#x2F;U盘设备名</strong>，</li>
-<li><strong>回车</strong>或者<strong>ctrl+x</strong>，即可正常安装</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>centos7</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cmd</title>
-    <url>/2023/08/19/cmd/</url>
-    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
-<li><p>ping——测试网络是否通畅</p>
-<ul>
-<li>使用icmp协议，网络连通性测试</li>
-</ul>
-</li>
-<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
-</li>
-<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
-<ul>
-<li><p>telnet ip 端口（跳到空窗口）</p>
-</li>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<ul>
-<li>三、找到telnet客户端，勾选打开</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>ifconfig——查看本机网络</p>
-</li>
-</ul>
-<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
-<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
-]]></content>
-      <tags>
-        <tag>cmd</tag>
       </tags>
   </entry>
   <entry>
@@ -2577,6 +2236,347 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
       </tags>
   </entry>
   <entry>
+    <title>Raid</title>
+    <url>/2023/08/23/Raid/</url>
+    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
+<li><p>为什么要做raid？</p>
+<ul>
+<li>花小钱办大事（降本增效），提供容错机制（数据安全）</li>
+</ul>
+</li>
+<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
+</li>
+<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
+</li>
+<li><p>技术架构：数据条带、镜像、数据校验技术</p>
+<ul>
+<li><p>stripe条带化阵列，没有冗余，但是可提供最佳性能和附加存储。</p>
+</li>
+<li><p>mirror镜像，阵列中的每个驱动器上镜像相同的数据</p>
+</li>
+<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
+</li>
+<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
+<ul>
+<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
+</ul>
+</li>
+<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
+</li>
+<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
+</li>
+</ul>
+</li>
+<li><p>热备盘</p>
+<ul>
+<li><p>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</p>
+</li>
+<li><p>软 RAID，</p>
+<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
+
+占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
+
+跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>硬 RAID </p>
+<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
+
+性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>软硬混合 RAID ，成本、性能居中</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Raid等级"><a href="#Raid等级" class="headerlink" title="Raid等级"></a>Raid等级</h2><ul>
+<li><p>raid0</p>
+<ul>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
+<li>例：2T + 2T &#x3D; 4T</li>
+<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
+<li>视频、音频存储、打印等</li>
+</ul>
+</li>
+<li><p>raid1</p>
+<ul>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
+<li>例：2T + 2T &#x3D; 2T</li>
+<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
+<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
+<li>邮件、数据库</li>
+</ul>
+</li>
+<li><p>raid5</p>
+<ul>
+<li><strong>最少3块</strong></li>
+<li>例：2T + 2T+ 2T &#x3D; 4T</li>
+<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
+<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
+<li>适用于金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid6</p>
+<ul>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
+<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
+<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid10</p>
+<ul>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
+<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
+<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
+<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
+</ul>
+</li>
+<li><p>raid50</p>
+<ul>
+<li><strong>至少需要六个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>RAID 5 + 0</li>
+</ul>
+</li>
+<li><p>raid60</p>
+<ul>
+<li><strong>最少需要八个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>比 RAID 50 阵列更可靠</li>
+</ul>
+</li>
+</ul>
+<h2 id="Raid状态"><a href="#Raid状态" class="headerlink" title="Raid状态"></a>Raid状态</h2><p>若不需配置阵列，则需要将硬盘转换为 non-RAID 直通模式</p>
+<ul>
+<li><p>物理磁盘 pd</p>
+<ul>
+<li><p>online，可正常使用，处于在线状态</p>
+</li>
+<li><p>ready，该磁盘预备好了，可以被设置为raid但未配置</p>
+</li>
+<li><p>rebuild，重建状态，表示raid组正在进行数据同步</p>
+</li>
+</ul>
+</li>
+<li><p>虚拟磁盘 vd</p>
+<ul>
+<li>Normal，状态正常，所有成员盘均在线</li>
+<li>Offline，表示raid组存在超过允许范围的故障或离线硬盘，raid组瘫痪，数据已无法读写</li>
+<li>Degraded，降级状态，表示raid组中有故障或离线的硬盘，但基于raid组的磁盘仍然可以正常读写</li>
+<li>Failed，虚拟磁盘故障</li>
+</ul>
+</li>
+</ul>
+<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
+<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
+<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
+
+如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
+
+如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
+
+容量&gt;性能，raid50、raid10
+数据保护，raid6、raid60
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
+</li>
+<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
+</li>
+<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
+</li>
+<li><p>先配置raid，再按需分区，最后装系统</p>
+</li>
+<li><p>raid和non-raid</p>
+<ul>
+<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
+<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
+<li>1、改sata模式为raid</li>
+<li>2、做raid</li>
+<li>3、boot mode模式按需选择</li>
+</ul>
+<p>1、检查硬件，可正常工作、安装连接无误</p>
+<p>2、根据读盘结果，按需配置raid</p>
+<p>3、查看虚拟磁盘配置结果</p>
+<ul>
+<li>mdadm，建设，管理，监控raid</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Raid</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos7</title>
+    <url>/2023/08/19/centos7/</url>
+    <content><![CDATA[<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
+<li><p>一般推荐<strong>uefi</strong>引导</p>
+</li>
+<li><p>安装完成，拔出U盘，重启进入bios将启动顺序恢复至原来的顺序，<strong>无论安装什么系统，都要这样!!!</strong></p>
+<p>其实大多数设备拔U盘之后，读不到U盘，就直接从系统盘读了，但是有时多系统，多硬盘的话，最好设置下启动项</p>
+</li>
+<li><blockquote>
+<ul>
+<li>sata模式： stata AHCI （一般选择它，兼容模式）    # 如果需要做Raid，选择raid模式</li>
+<li>write cache enabled 启用</li>
+<li>引导模式：UEFI（推荐）</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>重启：reboot<br>查看驱动器：ls &#x2F;dev&#x2F;sd*<br>详细信息：blkid</p>
+<h2 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h2><ul>
+<li><p>centos7</p>
+<blockquote>
+<ul>
+<li><p>vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）</p>
+<pre class="line-numbers language-none"><code class="language-none">tips：
+1、新装系统，没有vim，用vi（vim兼容vi）
+vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-XX（网卡名）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>修改</p>
+<pre class="line-numbers language-none"><code class="language-none">BOOTPROTO&#x3D;static   # 网卡的引导协议：DHCP动态、static或none静态
+ONBOOT&#x3D;yes #开机启动时是否激活网卡设备 #centos7装完网卡后默认no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>添加</p>
+<pre class="line-numbers language-none"><code class="language-none">IPADDR&#x3D;192.168.88.139  #ip地址
+NETMASK&#x3D;255.255.255.0  #子网掩码
+GATEWAY&#x3D;192.168.88.2	#网关
+DNS1&#x3D;192.169.88.2	#dns<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>重启网卡</p>
+<pre class="line-numbers language-none"><code class="language-none">systemctl  restart  network  
+或  service network restart    # 老版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><ul>
+<li><p>1、更新yum资源包<br><code>sudo yum update</code></p>
+</li>
+<li><p>2、下载MySQL 8的仓库文件<br><code>sudo wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm</code></p>
+</li>
+<li><p>3、安装MySQL 8的仓库文件<br><code>sudo yum install mysql80-community-release-el7-3.noarch.rpm</code></p>
+</li>
+<li><p>4、导入MySQL GPG密钥<br><code>sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022</code></p>
+</li>
+<li><p>5、安装MySQL数据库服务器<br><code>sudo yum install mysql-community-server</code></p>
+</li>
+<li><p>6、安装完成后，启动MySQL并配置开机自启动</p>
+<pre class="line-numbers language-none"><code class="language-none">systemctl start mysqld # 启动
+systemctl enable mysqld # 开机自启
+
+MySQL安装完成后，会自动配置为名称叫做：mysqld的服务，可以被systemctl所管理
+检查MySQL的运行状态：systemctl status mysqld
+查看是否开机自启动：systemctl is-enabled mysqld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>7、获取MySQL的初始密码</p>
+<pre class="line-numbers language-none"><code class="language-none">grep &#39;temporary password&#39; &#x2F;var&#x2F;log&#x2F;mysqld.log
+或者：cat &#x2F;var&#x2F;log&#x2F;mysqld.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+</li>
+<li><p>8、登录MySQL<br>  <code>mysql -uroot -p</code></p>
+</li>
+<li><p>9、修改密码</p>
+  <pre class="line-numbers language-none"><code class="language-none">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码&#39;;
+
+
+tips：
+  **配置简单密码，必须先按照规则，修改一个密码，然后才可以配置简单密码，**
+  例：
+  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;ROOT_root_12&#39;;   # 符合要求的密码
+
+  # 修改密码校验规则
+  set global validate_password.policy&#x3D;0;  # 密码安全级别低
+  set global validate_password.length&#x3D;1;  # 密码长度最低1位
+  # 设置简单密码
+  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;000000&#39;;
+  ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;admin@123&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</li>
+<li><p>10、允许root远程<br>  默认情况下，root用户是不运行远程登录的，只允许在MySQL所在的Linux服务器登陆MySQL系统</p>
+<p>  设置root远程登录，并配置远程密码使用如下SQL命令</p>
+<ul>
+<li><code>create user &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;密码!&#39;;</code></li>
+</ul>
+</li>
+<li><p>11、检查端口<br>  MySQL默认绑定了3306端口，可以通过端口占用检查MySQL的网络状态</p>
+<ul>
+<li><code>netstat -anp | grep 3306</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h2><h3 id="读不到U盘"><a href="#读不到U盘" class="headerlink" title="读不到U盘"></a>读不到U盘</h3><ul>
+<li><p>报错，<code>Warning: /dev/root does not exist</code></p>
+</li>
+<li><p>分析</p>
+<ul>
+<li>系统识别的U盘名和开机启动时设置的命名不一致，造成无法识别<ul>
+<li>用UltraISO刻录镜像装机时会出现 Warning：dracut-initqueue timeout - starting timeout scripts 报错，原因在于系统找不到该镜像所在的正确位置，需要手动更改</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解决</p>
+<ul>
+<li>先查看自己的u盘设备名称，<strong>ls &#x2F;dev&#x2F;sd</strong>*</li>
+<li>然后  <strong>blkid</strong> 查看类型，记住，然后重启<strong>reboot</strong></li>
+<li>选择安装项，然后<strong>e</strong>或者<strong>tab</strong>进入编辑，<br>在<strong>linux16</strong>那边，<strong>inst.stage2&#x3D;hd:LABEL&#x3D;CentOS\x207\x20x86_64</strong>，更改为<strong>inst.stage2&#x3D;hd:&#x2F;dev&#x2F;U盘设备名</strong>，</li>
+<li><strong>回车</strong>或者<strong>ctrl+x</strong>，即可正常安装</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>centos7</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cmd</title>
+    <url>/2023/08/19/cmd/</url>
+    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
+<li><p>ping——测试网络是否通畅</p>
+<ul>
+<li>使用icmp协议，网络连通性测试</li>
+</ul>
+</li>
+<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
+</li>
+<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
+<ul>
+<li><p>telnet ip 端口（跳到空窗口）</p>
+</li>
+<li><p>无法telnet</p>
+<blockquote>
+<p>一、打开控制面板</p>
+<p>二、点击打开启用或关闭Windows功能</p>
+<ul>
+<li>三、找到telnet客户端，勾选打开</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>ifconfig——查看本机网络</p>
+</li>
+</ul>
+<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
+<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
+]]></content>
+      <tags>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>github代理问题</title>
     <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<ul>
@@ -2609,20 +2609,6 @@ ssh -T git@github.com。还是报错
 ]]></content>
       <tags>
         <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux重点内容</title>
-    <url>/2023/08/19/linux/</url>
-    <content><![CDATA[<p>linux运维：</p>
-<ul>
-<li>网络配置，防火墙，管理远程主机</li>
-<li>用户、用户组配置</li>
-<li>软件安装部署，文件操作</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -2692,6 +2678,72 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux重点内容</title>
+    <url>/2023/08/19/linux/</url>
+    <content><![CDATA[<p>linux运维：</p>
+<ul>
+<li>网络配置，防火墙，管理远程主机</li>
+<li>用户、用户组配置</li>
+<li>软件安装部署，文件操作</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu</title>
+    <url>/2023/08/30/ubuntu/</url>
+    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
+<li><p>UEFI + GPT</p>
+</li>
+<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
+</li>
+</ul>
+<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
+<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
+<blockquote>
+<p>登录之后是普通用户，设置root密码</p>
+<p><code>sudo passwd root </code></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
+<li><code>apt</code></li>
+<li>centos  <code>yum</code></li>
+</ul>
+<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
+<ul>
+<li><p>ip a   # 查看 网卡</p>
+</li>
+<li><p>cd &#x2F;etc&#x2F;netplan </p>
+</li>
+<li><p>ls   # 查看.yaml文件</p>
+</li>
+<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
+</li>
+<li><p>编辑</p>
+<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
+
+网卡名
+   dhcp4: false    # 动态改成false
+      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
+      gateway4: 192.168.3.1    # 网关
+      nameservers:
+        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>退出vi文本编辑器</p>
+</li>
+<li><p>sudo netplan apply  # 保存</p>
+</li>
+</ul>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -2783,55 +2835,43 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu</title>
-    <url>/2023/08/30/ubuntu/</url>
-    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
-<li><p>UEFI + GPT</p>
-</li>
-<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
-</li>
-</ul>
-<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
-<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
+    <title>常用软件</title>
+    <url>/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
+<p>简单来说，Tomcat是一个WEB应用程序的托管平台，可以让用户编写的WEB应用程序，被Tomcat所托管，并提供网站服务。</p>
 <blockquote>
-<p>登录之后是普通用户，设置root密码</p>
-<p><code>sudo passwd root </code></p>
+<p>即让用户开发的WEB应用程序，变成可以被访问的网页。</p>
 </blockquote>
-</li>
-</ul>
-<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
-<li><code>apt</code></li>
-<li>centos  <code>yum</code></li>
-</ul>
-<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p><em>Nginx</em> 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。</p>
+<p>同Tomcat一样，Nginx可以托管用户编写的WEB应用程序成为可访问的网页服务，同时也可以作为流量代理服务器，控制流量的中转。</p>
+<p>Nginx在WEB开发领域，也是必备组件之一。</p>
+<h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>RabbitMQ是一款开源消息队列系统，为企业提供消息的发布、订阅、点对点传输等消息服务。</p>
+<p>RabbitMQ在企业开发中十分常见</p>
+<p>你可以把它当做一个快递站点，当你要发送一个包裹时，你把你的包裹放到快递站，快递员最终会把你的快递送到收件人那里，按照这种逻辑RabbitMQ是一个快递站，一个快递员帮你传递快件。RabbitMQ与快递站的主要区别在于，它不处理快件而是接收，存储和转发消息数据。</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>redis是一个开源的、使用C语言编写的、支持网络交互的、可基于内存也可持久化的Key-Value数据库。</p>
+<p>redis的特点就是：<code>快</code>，可以基于内存存储数据并提供超低延迟、超快的检索速度，一般用于在系统中提供快速缓存的能力。</p>
+<h2 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h2><p><a href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">全文搜索</a>属于最常见的需求，开源的 <a href="https://www.elastic.co/">Elasticsearch</a> （以下简称 es）是目前全文搜索引擎的首选。</p>
+<p>它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。</p>
+<p>Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索引擎服务。</p>
+<p>很多服务中的搜索功能，都是基于es来实现的。</p>
+<h2 id="ZooKeepe"><a href="#ZooKeepe" class="headerlink" title="ZooKeepe"></a>ZooKeepe</h2><p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
+<p>除了为Hadoop和HBase提供协调服务外，Zookeeper也被其它许多软件采用作为其分布式状态一致性的依赖，比如Kafka，又或者一些软件项目中，也经常能见到Zookeeper作为一致性协调服务存在。</p>
+<p>Zookeeper不论是大数据领域亦或是其它服务器开发领域，涉及到分布式状态一致性的场景，总有它的身影存在。</p>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka是一款<code>分布式的、去中心化的、高吞吐低延迟、订阅模式</code>的消息队列系统。</p>
+<p>同RabbitMQ一样，Kafka也是消息队列。不过RabbitMQ多用于后端系统，因其更加专注于消息的延迟和容错。</p>
+<p>Kafka多用于大数据体系，因其更加专注于数据的吞吐能力。Kafka多数都是运行在分布式（集群化）模式下</p>
+<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>1、Hadoop是一个由Apache基金会所开发的分布式系统基础架构。<br>2、主要解决，海量数据的存储和海量数据的分析计算问题。</p>
 <ul>
-<li><p>ip a   # 查看 网卡</p>
-</li>
-<li><p>cd &#x2F;etc&#x2F;netplan </p>
-</li>
-<li><p>ls   # 查看.yaml文件</p>
-</li>
-<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
-</li>
-<li><p>编辑</p>
-<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
-
-网卡名
-   dhcp4: false    # 动态改成false
-      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
-      gateway4: 192.168.3.1    # 网关
-      nameservers:
-        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>退出vi文本编辑器</p>
-</li>
-<li><p>sudo netplan apply  # 保存</p>
+<li>Hadoop生态<ul>
+<li>Hadoop HDFS 提供分布式海量数据存储能力</li>
+<li>Hadoop YARN 提供分布式集群资源管理能力</li>
+<li>Hadoop MapReduce 提供分布式海量数据计算能力</li>
+</ul>
 </li>
 </ul>
-</blockquote>
-]]></content>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2>]]></content>
       <tags>
-        <tag>Ubuntu</tag>
+        <tag>工具类</tag>
       </tags>
   </entry>
   <entry>
@@ -2893,43 +2933,14 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>常用软件</title>
-    <url>/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
-    <content><![CDATA[<h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
-<p>简单来说，Tomcat是一个WEB应用程序的托管平台，可以让用户编写的WEB应用程序，被Tomcat所托管，并提供网站服务。</p>
-<blockquote>
-<p>即让用户开发的WEB应用程序，变成可以被访问的网页。</p>
-</blockquote>
-<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p><em>Nginx</em> 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。</p>
-<p>同Tomcat一样，Nginx可以托管用户编写的WEB应用程序成为可访问的网页服务，同时也可以作为流量代理服务器，控制流量的中转。</p>
-<p>Nginx在WEB开发领域，也是必备组件之一。</p>
-<h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>RabbitMQ是一款开源消息队列系统，为企业提供消息的发布、订阅、点对点传输等消息服务。</p>
-<p>RabbitMQ在企业开发中十分常见</p>
-<p>你可以把它当做一个快递站点，当你要发送一个包裹时，你把你的包裹放到快递站，快递员最终会把你的快递送到收件人那里，按照这种逻辑RabbitMQ是一个快递站，一个快递员帮你传递快件。RabbitMQ与快递站的主要区别在于，它不处理快件而是接收，存储和转发消息数据。</p>
-<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>redis是一个开源的、使用C语言编写的、支持网络交互的、可基于内存也可持久化的Key-Value数据库。</p>
-<p>redis的特点就是：<code>快</code>，可以基于内存存储数据并提供超低延迟、超快的检索速度，一般用于在系统中提供快速缓存的能力。</p>
-<h2 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h2><p><a href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">全文搜索</a>属于最常见的需求，开源的 <a href="https://www.elastic.co/">Elasticsearch</a> （以下简称 es）是目前全文搜索引擎的首选。</p>
-<p>它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。</p>
-<p>Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索引擎服务。</p>
-<p>很多服务中的搜索功能，都是基于es来实现的。</p>
-<h2 id="ZooKeepe"><a href="#ZooKeepe" class="headerlink" title="ZooKeepe"></a>ZooKeepe</h2><p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
-<p>除了为Hadoop和HBase提供协调服务外，Zookeeper也被其它许多软件采用作为其分布式状态一致性的依赖，比如Kafka，又或者一些软件项目中，也经常能见到Zookeeper作为一致性协调服务存在。</p>
-<p>Zookeeper不论是大数据领域亦或是其它服务器开发领域，涉及到分布式状态一致性的场景，总有它的身影存在。</p>
-<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka是一款<code>分布式的、去中心化的、高吞吐低延迟、订阅模式</code>的消息队列系统。</p>
-<p>同RabbitMQ一样，Kafka也是消息队列。不过RabbitMQ多用于后端系统，因其更加专注于消息的延迟和容错。</p>
-<p>Kafka多用于大数据体系，因其更加专注于数据的吞吐能力。Kafka多数都是运行在分布式（集群化）模式下</p>
-<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>1、Hadoop是一个由Apache基金会所开发的分布式系统基础架构。<br>2、主要解决，海量数据的存储和海量数据的分析计算问题。</p>
-<ul>
-<li>Hadoop生态<ul>
-<li>Hadoop HDFS 提供分布式海量数据存储能力</li>
-<li>Hadoop YARN 提供分布式集群资源管理能力</li>
-<li>Hadoop MapReduce 提供分布式海量数据计算能力</li>
-</ul>
-</li>
-</ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2>]]></content>
+    <title>宝塔面板</title>
+    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
+    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
+<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
+<p>firewall-cmd –list-all</p>
+]]></content>
       <tags>
-        <tag>工具类</tag>
+        <tag>宝塔面板</tag>
       </tags>
   </entry>
   <entry>
@@ -2944,17 +2955,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>复盘</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>宝塔面板</title>
-    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
-    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
-<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
-<p>firewall-cmd –list-all</p>
-]]></content>
-      <tags>
-        <tag>宝塔面板</tag>
       </tags>
   </entry>
   <entry>
@@ -3132,6 +3132,156 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>戴尔PowerEdge</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络</title>
+    <url>/2023/09/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
+    <content><![CDATA[<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><ul>
+<li>知识体系庞大、复杂。详细知识有需要直接百度，本文仅作为重点内容总结，知识索引。目的在于快速搭建知识框架，了解重点内容。</li>
+</ul>
+<h2 id="光口模块"><a href="#光口模块" class="headerlink" title="光口模块"></a>光口模块</h2><ul>
+<li>光口就是光纤插口，，接光纤，传输光信号，交换机上的光口一般使用光模块</li>
+<li>光纤传输分为单模光纤和多模光纤，因此有了单模模块和多模模块。<ul>
+<li>多模光纤传输距离近，模块中一般标示SR（Short Range短距离），或者LRM（Long Reach Multimode长度延伸多点模式）；</li>
+<li>单模光纤传输距离远，常见标示LR（Long Range长距离）；ER（Extended Range超长距离）；ZR（Ze best Range最长距离）</li>
+</ul>
+</li>
+</ul>
+<h2 id="电口模块"><a href="#电口模块" class="headerlink" title="电口模块"></a>电口模块</h2><ul>
+<li>光转电模块，把光信号转化为电信号后接网线，传输电信号，接口类型为RJ45(网口)</li>
+<li>支持热插拔，常见类型有SFP、SFP+等，10G SFP+电口模块也被称为万兆电口模块，它的速率是10G</li>
+<li>电口模块通常和五类、六类、超六类或七类网线一起使用</li>
+</ul>
+<h2 id="网线"><a href="#网线" class="headerlink" title="网线"></a>网线</h2><ul>
+<li>最常用线序：568b，橙白、橙、绿白、蓝、蓝白、绿、棕白、棕</li>
+<li>分类：<ul>
+<li>五类：网线外侧标记 CAT.5</li>
+<li>超五类：网线外侧标记 CAT.5e </li>
+<li>六类：网线外侧标记 CAT.6 </li>
+<li>超六类：网线外侧标记 CAT.6a &#x2F; 6e </li>
+<li>七类：网线外侧标记 CAT.7</li>
+</ul>
+</li>
+</ul>
+<h2 id="路由器-Router"><a href="#路由器-Router" class="headerlink" title="路由器 Router"></a>路由器 Router</h2><ul>
+<li>计算机网络设备，它将所收到的数据包根据目的IP地址，选择合适的传输路径进行转发，直至转发到目的端，这个过程就叫做路由</li>
+<li>工作在OSI模型中的第三层网络层</li>
+<li></li>
+</ul>
+<h2 id="交换机-Switch"><a href="#交换机-Switch" class="headerlink" title="交换机 Switch"></a>交换机 Switch</h2><ul>
+<li>实现局域网内的通信，它通过“学习”，将每一端口相连设备的MAC地址与其自身相应的端口一一对应起来并且存放在交换机缓存中的MAC地址表中。通过这个MAC表来将数据帧发送到目的端</li>
+<li>工作在OSI模型的第二层数据链路层</li>
+<li>三层交换机，<ul>
+<li>本质上是“带有路由功能的（二层）交换机”。路由参照OSI模型中第三层网络层，因此带有第三层路由功能的交换机才被称为“三层交换机”</li>
+</ul>
+</li>
+</ul>
+<h2 id="防火墙-Firewall"><a href="#防火墙-Firewall" class="headerlink" title="防火墙 Firewall"></a>防火墙 Firewall</h2><ul>
+<li>建立在内部网络与外部公共网之间的一种安全隔离技术，为内外网的通信提供一个安全屏障</li>
+</ul>
+<h2 id="WAN"><a href="#WAN" class="headerlink" title="WAN"></a>WAN</h2><ul>
+<li>广域网(Wide Area Network)，通俗讲就是和猫外部网连接的网线口:对外的接口，和运营商、上级网络打交道。</li>
+</ul>
+<h2 id="LAN"><a href="#LAN" class="headerlink" title="LAN"></a>LAN</h2><ul>
+<li>局域网(Local Area Network)，通俗讲就是路由和用户之间网线口:对内的接口，设备通过网线与其直连</li>
+</ul>
+<h2 id="WLAN"><a href="#WLAN" class="headerlink" title="WLAN"></a>WLAN</h2><ul>
+<li>无线局域网(Wireless LAN)，数据通过电磁波传输，对内的接口，设备使用无线网，（如：wifi）</li>
+</ul>
+<h2 id="VLAN"><a href="#VLAN" class="headerlink" title="VLAN"></a>VLAN</h2><ul>
+<li>虚拟局域网，逻辑上的设备和用户，这些设备和用户互不受物理位置的限制，相互之间的通信就好像它们在同一个网段一样</li>
+<li>同一个vlan间，可以相互通信；不同vlan，若不做配置，不能相互通信。<ul>
+<li>VLAN划分和子网划分通常同时进行，一个VLAN对应一个子网，两者都是为了隔离通信,只不过VLAN在第二层隔离，子网是在第三层隔离</li>
+</ul>
+</li>
+</ul>
+<h2 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h2><ul>
+<li>虚拟专用网络，在公用网络上建立专用私有网络，VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问</li>
+</ul>
+<h2 id="IP-Internet-Protocol"><a href="#IP-Internet-Protocol" class="headerlink" title="IP Internet Protocol"></a>IP Internet Protocol</h2><ul>
+<li>IP负责在两个没有直连的两个网络之间进行通信，将数据包发送给最终目的的主机</li>
+<li>在 TCP&#x2F;IP 参考模型中处于第三层，也就是网络层</li>
+</ul>
+<h3 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h3><ul>
+<li>32位二进制数组成，以 . 划分8位一组共4组，用点分十进制的表示方式</li>
+<li>ip&#x3D;网络号+主机号<ul>
+<li>网络号表示其所属的网络段编号</li>
+<li>主机号则表示该网段中该主机的地址编号</li>
+</ul>
+</li>
+</ul>
+<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><ul>
+<li>128位十六进制数组成，以 : 划分16位一组共8组</li>
+<li>有更好的安全性和扩展性,  IPV4 和 IPV6不能兼容</li>
+</ul>
+<h3 id="静态ip、动态ip"><a href="#静态ip、动态ip" class="headerlink" title="静态ip、动态ip"></a>静态ip、动态ip</h3><ul>
+<li>静态ip，static，将固定IP地址持续分配给主机</li>
+<li>动态ip，DHCP协议，自动分配IP地址给用户</li>
+</ul>
+<h3 id="127-0-0-1"><a href="#127-0-0-1" class="headerlink" title="127.0.0.1"></a>127.0.0.1</h3><ul>
+<li>回环地址，用于测试时在本地运行并从本地访问服务</li>
+<li>localhost<ul>
+<li>IPv4指向  127.0.0.1</li>
+<li>IPv6指向  ::1</li>
+</ul>
+</li>
+</ul>
+<h2 id="子网掩码-NetMask"><a href="#子网掩码-NetMask" class="headerlink" title="子网掩码 NetMask"></a>子网掩码 NetMask</h2><ul>
+<li>形式上是网络号全为1，主机号全为0的IP地址<ul>
+<li>ip&#x3D;网络号+主机号，主机号&#x3D;子网网络号+子网主机号</li>
+</ul>
+</li>
+<li>必须结合IP地址一起使用，只有一个作用，将某个IP地址划分成网络地址和主机地址两部分，标志两个IP地址是否同属于一个子网<ul>
+<li>如果两个IP地址在子网掩码的按位与的计算下所得结果相同，即表明它们共属于同一子网中</li>
+</ul>
+</li>
+<li>IP默认分配的子网掩码每段只有 255 或 0。<ul>
+<li>常用：255.255.255.0   \   255.255.0.0</li>
+</ul>
+</li>
+</ul>
+<h2 id="网关-GateWay"><a href="#网关-GateWay" class="headerlink" title="网关 GateWay"></a>网关 GateWay</h2><ul>
+<li>工作在传输层，用于两个高层协议不同的网络互连，又称网间连接器、协议转换器，实质上是一个网络通向其他网络的IP地址</li>
+<li>一般指TCP&#x2F;IP协议中的网关，只有设置好网关的IP地址，TCP&#x2F;IP协议才能实现不同网络之间的相互通信</li>
+<li>默认网关的意思是一台主机如果找不到可用的网关，就把数据包发给默认指定的网关，由这个网关来处理数据包。</li>
+<li><strong>网关在网段内的可用ip中选一个，一般用的是第一个和最后一个</strong></li>
+</ul>
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
+<li>域名解析服务器（Domain Name System），把域名网址翻译成IP地址</li>
+</ul>
+<h2 id="端口-port"><a href="#端口-port" class="headerlink" title="端口 port"></a>端口 port</h2><ul>
+<li>IP 地址是用来发现和查找网络中的地址，但是不同程序如何互相通信呢？这就需要端口号来识别了。如果把 IP 地址比作一间房子，端口就是出入这间房子的门。</li>
+<li>服务器的默认程序一般都是通过端口号来识别的。<ul>
+<li>常用协议对应端口号：<pre class="line-numbers language-none"><code class="language-none">SSH 22
+FTP 20 和 21
+Telnet 23
+SMTP 25
+TFTP 69
+HTTP 80
+SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h2 id="TCP-IP协议"><a href="#TCP-IP协议" class="headerlink" title="TCP&#x2F;IP协议"></a>TCP&#x2F;IP协议</h2><ul>
+<li>TCP(Transmission Control Protocol)&#x2F;IP(Internet Protocol)协议是现代互联网的基石，其实TCP&#x2F;IP代表一组协议，称为TCP&#x2F;IP协议簇，TCP和IP只是其中的两个最重要协议<br><a href="https://s2.51cto.com/oss/201906/17/f58f6ad856c6802b636d20d8f5ba2c3e.jpeg">https://s2.51cto.com/oss/201906/17/f58f6ad856c6802b636d20d8f5ba2c3e.jpeg</a></li>
+</ul>
+<h2 id="OSI模型"><a href="#OSI模型" class="headerlink" title="OSI模型"></a>OSI模型</h2><ul>
+<li>7层模型，高层(7、6、5、4)定义了应用程序的功能，下面3层(3、2、1)主要面向通过网络的端到端的数据流<ul>
+<li>7 应用层 </li>
+<li>6 表示层 </li>
+<li>5 会话层 </li>
+<li>4 传输层 </li>
+<li>3 网络层 </li>
+<li>2 数据链路层 </li>
+<li>1 物理层</li>
+</ul>
+</li>
+</ul>
+<h2 id="封装和分用"><a href="#封装和分用" class="headerlink" title="封装和分用"></a>封装和分用</h2><p>封装：当应用程序发送数据的时候，数据在协议层次当中自顶向下通过每一层，每一层都会对数据增加一些首部或尾部信息，这样的信息称之为协议数据单元（Protocol Data Unit，缩写为 PDU），在分层协议系统里，在指定的协议层上传送的数据单元，包含了该层的协议控制信息和用户信息。如下图所示：<br>物理层（一层）PDU 指数据位（Bit）<br>数据链路层（二层）PDU 指数据帧（Frame）<br>网络层（三层）PDU 指数据包（Packet）<br>传输层（四层）PDU 指数据段（Segment）<br>第五层以上为数据（data）<br>分用：当主机收到一个数据帧时，数据就从协议层底向上升，通过每一层时，检查并去掉对应层次的报文首部或尾部，与封装过程正好相反。</p>
+]]></content>
+      <tags>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
   <entry>
@@ -3720,156 +3870,6 @@ aoligei.txt
 ]]></content>
       <tags>
         <tag>计算机基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络</title>
-    <url>/2023/09/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><ul>
-<li>知识体系庞大、复杂。详细知识有需要直接百度，本文仅作为重点内容总结，知识索引。目的在于快速搭建知识框架，了解重点内容。</li>
-</ul>
-<h2 id="光口模块"><a href="#光口模块" class="headerlink" title="光口模块"></a>光口模块</h2><ul>
-<li>光口就是光纤插口，，接光纤，传输光信号，交换机上的光口一般使用光模块</li>
-<li>光纤传输分为单模光纤和多模光纤，因此有了单模模块和多模模块。<ul>
-<li>多模光纤传输距离近，模块中一般标示SR（Short Range短距离），或者LRM（Long Reach Multimode长度延伸多点模式）；</li>
-<li>单模光纤传输距离远，常见标示LR（Long Range长距离）；ER（Extended Range超长距离）；ZR（Ze best Range最长距离）</li>
-</ul>
-</li>
-</ul>
-<h2 id="电口模块"><a href="#电口模块" class="headerlink" title="电口模块"></a>电口模块</h2><ul>
-<li>光转电模块，把光信号转化为电信号后接网线，传输电信号，接口类型为RJ45(网口)</li>
-<li>支持热插拔，常见类型有SFP、SFP+等，10G SFP+电口模块也被称为万兆电口模块，它的速率是10G</li>
-<li>电口模块通常和五类、六类、超六类或七类网线一起使用</li>
-</ul>
-<h2 id="网线"><a href="#网线" class="headerlink" title="网线"></a>网线</h2><ul>
-<li>最常用线序：568b，橙白、橙、绿白、蓝、蓝白、绿、棕白、棕</li>
-<li>分类：<ul>
-<li>五类：网线外侧标记 CAT.5</li>
-<li>超五类：网线外侧标记 CAT.5e </li>
-<li>六类：网线外侧标记 CAT.6 </li>
-<li>超六类：网线外侧标记 CAT.6a &#x2F; 6e </li>
-<li>七类：网线外侧标记 CAT.7</li>
-</ul>
-</li>
-</ul>
-<h2 id="路由器-Router"><a href="#路由器-Router" class="headerlink" title="路由器 Router"></a>路由器 Router</h2><ul>
-<li>计算机网络设备，它将所收到的数据包根据目的IP地址，选择合适的传输路径进行转发，直至转发到目的端，这个过程就叫做路由</li>
-<li>工作在OSI模型中的第三层网络层</li>
-<li></li>
-</ul>
-<h2 id="交换机-Switch"><a href="#交换机-Switch" class="headerlink" title="交换机 Switch"></a>交换机 Switch</h2><ul>
-<li>实现局域网内的通信，它通过“学习”，将每一端口相连设备的MAC地址与其自身相应的端口一一对应起来并且存放在交换机缓存中的MAC地址表中。通过这个MAC表来将数据帧发送到目的端</li>
-<li>工作在OSI模型的第二层数据链路层</li>
-<li>三层交换机，<ul>
-<li>本质上是“带有路由功能的（二层）交换机”。路由参照OSI模型中第三层网络层，因此带有第三层路由功能的交换机才被称为“三层交换机”</li>
-</ul>
-</li>
-</ul>
-<h2 id="防火墙-Firewall"><a href="#防火墙-Firewall" class="headerlink" title="防火墙 Firewall"></a>防火墙 Firewall</h2><ul>
-<li>建立在内部网络与外部公共网之间的一种安全隔离技术，为内外网的通信提供一个安全屏障</li>
-</ul>
-<h2 id="WAN"><a href="#WAN" class="headerlink" title="WAN"></a>WAN</h2><ul>
-<li>广域网(Wide Area Network)，通俗讲就是和猫外部网连接的网线口:对外的接口，和运营商、上级网络打交道。</li>
-</ul>
-<h2 id="LAN"><a href="#LAN" class="headerlink" title="LAN"></a>LAN</h2><ul>
-<li>局域网(Local Area Network)，通俗讲就是路由和用户之间网线口:对内的接口，设备通过网线与其直连</li>
-</ul>
-<h2 id="WLAN"><a href="#WLAN" class="headerlink" title="WLAN"></a>WLAN</h2><ul>
-<li>无线局域网(Wireless LAN)，数据通过电磁波传输，对内的接口，设备使用无线网，（如：wifi）</li>
-</ul>
-<h2 id="VLAN"><a href="#VLAN" class="headerlink" title="VLAN"></a>VLAN</h2><ul>
-<li>虚拟局域网，逻辑上的设备和用户，这些设备和用户互不受物理位置的限制，相互之间的通信就好像它们在同一个网段一样</li>
-<li>同一个vlan间，可以相互通信；不同vlan，若不做配置，不能相互通信。<ul>
-<li>VLAN划分和子网划分通常同时进行，一个VLAN对应一个子网，两者都是为了隔离通信,只不过VLAN在第二层隔离，子网是在第三层隔离</li>
-</ul>
-</li>
-</ul>
-<h2 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h2><ul>
-<li>虚拟专用网络，在公用网络上建立专用私有网络，VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问</li>
-</ul>
-<h2 id="IP-Internet-Protocol"><a href="#IP-Internet-Protocol" class="headerlink" title="IP Internet Protocol"></a>IP Internet Protocol</h2><ul>
-<li>IP负责在两个没有直连的两个网络之间进行通信，将数据包发送给最终目的的主机</li>
-<li>在 TCP&#x2F;IP 参考模型中处于第三层，也就是网络层</li>
-</ul>
-<h3 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h3><ul>
-<li>32位二进制数组成，以 . 划分8位一组共4组，用点分十进制的表示方式</li>
-<li>ip&#x3D;网络号+主机号<ul>
-<li>网络号表示其所属的网络段编号</li>
-<li>主机号则表示该网段中该主机的地址编号</li>
-</ul>
-</li>
-</ul>
-<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><ul>
-<li>128位十六进制数组成，以 : 划分16位一组共8组</li>
-<li>有更好的安全性和扩展性,  IPV4 和 IPV6不能兼容</li>
-</ul>
-<h3 id="静态ip、动态ip"><a href="#静态ip、动态ip" class="headerlink" title="静态ip、动态ip"></a>静态ip、动态ip</h3><ul>
-<li>静态ip，static，将固定IP地址持续分配给主机</li>
-<li>动态ip，DHCP协议，自动分配IP地址给用户</li>
-</ul>
-<h3 id="127-0-0-1"><a href="#127-0-0-1" class="headerlink" title="127.0.0.1"></a>127.0.0.1</h3><ul>
-<li>回环地址，用于测试时在本地运行并从本地访问服务</li>
-<li>localhost<ul>
-<li>IPv4指向  127.0.0.1</li>
-<li>IPv6指向  ::1</li>
-</ul>
-</li>
-</ul>
-<h2 id="子网掩码-NetMask"><a href="#子网掩码-NetMask" class="headerlink" title="子网掩码 NetMask"></a>子网掩码 NetMask</h2><ul>
-<li>形式上是网络号全为1，主机号全为0的IP地址<ul>
-<li>ip&#x3D;网络号+主机号，主机号&#x3D;子网网络号+子网主机号</li>
-</ul>
-</li>
-<li>必须结合IP地址一起使用，只有一个作用，将某个IP地址划分成网络地址和主机地址两部分，标志两个IP地址是否同属于一个子网<ul>
-<li>如果两个IP地址在子网掩码的按位与的计算下所得结果相同，即表明它们共属于同一子网中</li>
-</ul>
-</li>
-<li>IP默认分配的子网掩码每段只有 255 或 0。<ul>
-<li>常用：255.255.255.0   \   255.255.0.0</li>
-</ul>
-</li>
-</ul>
-<h2 id="网关-GateWay"><a href="#网关-GateWay" class="headerlink" title="网关 GateWay"></a>网关 GateWay</h2><ul>
-<li>工作在传输层，用于两个高层协议不同的网络互连，又称网间连接器、协议转换器，实质上是一个网络通向其他网络的IP地址</li>
-<li>一般指TCP&#x2F;IP协议中的网关，只有设置好网关的IP地址，TCP&#x2F;IP协议才能实现不同网络之间的相互通信</li>
-<li>默认网关的意思是一台主机如果找不到可用的网关，就把数据包发给默认指定的网关，由这个网关来处理数据包。</li>
-<li><strong>网关在网段内的可用ip中选一个，一般用的是第一个和最后一个</strong></li>
-</ul>
-<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
-<li>域名解析服务器（Domain Name System），把域名网址翻译成IP地址</li>
-</ul>
-<h2 id="端口-port"><a href="#端口-port" class="headerlink" title="端口 port"></a>端口 port</h2><ul>
-<li>IP 地址是用来发现和查找网络中的地址，但是不同程序如何互相通信呢？这就需要端口号来识别了。如果把 IP 地址比作一间房子，端口就是出入这间房子的门。</li>
-<li>服务器的默认程序一般都是通过端口号来识别的。<ul>
-<li>常用协议对应端口号：<pre class="line-numbers language-none"><code class="language-none">SSH 22
-FTP 20 和 21
-Telnet 23
-SMTP 25
-TFTP 69
-HTTP 80
-SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-</ul>
-<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h2 id="TCP-IP协议"><a href="#TCP-IP协议" class="headerlink" title="TCP&#x2F;IP协议"></a>TCP&#x2F;IP协议</h2><ul>
-<li>TCP(Transmission Control Protocol)&#x2F;IP(Internet Protocol)协议是现代互联网的基石，其实TCP&#x2F;IP代表一组协议，称为TCP&#x2F;IP协议簇，TCP和IP只是其中的两个最重要协议<br><a href="https://s2.51cto.com/oss/201906/17/f58f6ad856c6802b636d20d8f5ba2c3e.jpeg">https://s2.51cto.com/oss/201906/17/f58f6ad856c6802b636d20d8f5ba2c3e.jpeg</a></li>
-</ul>
-<h2 id="OSI模型"><a href="#OSI模型" class="headerlink" title="OSI模型"></a>OSI模型</h2><ul>
-<li>7层模型，高层(7、6、5、4)定义了应用程序的功能，下面3层(3、2、1)主要面向通过网络的端到端的数据流<ul>
-<li>7 应用层 </li>
-<li>6 表示层 </li>
-<li>5 会话层 </li>
-<li>4 传输层 </li>
-<li>3 网络层 </li>
-<li>2 数据链路层 </li>
-<li>1 物理层</li>
-</ul>
-</li>
-</ul>
-<h2 id="封装和分用"><a href="#封装和分用" class="headerlink" title="封装和分用"></a>封装和分用</h2><p>封装：当应用程序发送数据的时候，数据在协议层次当中自顶向下通过每一层，每一层都会对数据增加一些首部或尾部信息，这样的信息称之为协议数据单元（Protocol Data Unit，缩写为 PDU），在分层协议系统里，在指定的协议层上传送的数据单元，包含了该层的协议控制信息和用户信息。如下图所示：<br>物理层（一层）PDU 指数据位（Bit）<br>数据链路层（二层）PDU 指数据帧（Frame）<br>网络层（三层）PDU 指数据包（Packet）<br>传输层（四层）PDU 指数据段（Segment）<br>第五层以上为数据（data）<br>分用：当主机收到一个数据帧时，数据就从协议层底向上升，通过每一层时，检查并去掉对应层次的报文首部或尾部，与封装过程正好相反。</p>
-]]></content>
-      <tags>
-        <tag>计算机网络</tag>
       </tags>
   </entry>
   <entry>
