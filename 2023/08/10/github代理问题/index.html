@@ -4,11 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="github代理问题, 学无止境">
-    <meta name="description" content="
-443问题因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。
+    <meta name="keywords" content="github问题, 学无止境">
+    <meta name="description" content="问题：    * 在拉取、推送、克隆的时候常报错经常出现 Connection refused 的错误，大致有443错误、22错误    常见git报错：
 
-git报错：Failed to connect to github.com port 443 after 21084 m">
+1、Failed to connect to github.com port 44">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +19,7 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>github代理问题 | 豆荚blog</title>
+    <title>github问题 | 豆荚blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -225,12 +224,12 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">github代理问题</h1>
+                    <h1 class="description center-align post-title">github问题</h1>
                 </div>
             </div>
         </div>
@@ -277,14 +276,14 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-08-25
+                    2023-09-20
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    221
+                    424
                 </div>
                 
 
@@ -314,33 +313,49 @@ git报错：Failed to connect to github.com port 443 after 21084 m">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <ul>
-<li>443问题<br>因为使用clash进行互联网活动，所以有时打开github会有报错，比如在拉取、推送、克隆的时候常报错。</li>
-</ul>
-<p><code>git报错：Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve</code></p>
-<p>解决办法：<br>直接关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br><code>ipconfig/flushdns</code></p>
-<ul>
-<li>22问题<pre class="line-numbers language-none"><code class="language-none">ssh: connect to host github.com port 22: Connection timed out
-fatal: Could not read from remote repository.
+                <p>问题：<br>    * 在拉取、推送、克隆的时候常报错经常出现 Connection refused 的错误，大致有443错误、22错误<br>    <pre class="line-numbers language-none"><code class="language-none">常见git报错：
 
-这个错误提示的是连接github.com的22端口被拒绝了。
+1、Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve
 
-解决办法：
-1、使用443
-ssh -T git@github.com。还是报错
-执行命令ssh -T -p 443 git@ssh.github.com 后不再提示connection refused
-在git branch中进行
-     vim ~&#x2F;.ssh&#x2F;config
-     
-     Host github.com
-       Hostname ssh.github.com
-       Port 443
+2、ssh: connect to host github.com port 22: Connection timed out  （或者port 443）
+fatal: Could not read from remote repository.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>分析：<br>    * 由于GitHub经常被墙，访问不方便。</p>
+<pre><code>* 浏览器访问GitHub.com 网站是正常的，估计是域名解析被污染了
 
-     ssh -T git@github.com
-     Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 成功
+* 这两个问题主要是因为连接github.com的22/443端口被拒绝了。
+  ssh连接默认使用22端口，22不能用可以调整为443端口
+</code></pre>
+<p>解决：<br>    * 1、如使用的代理，则关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br>      <code>ipconfig/flushdns</code></p>
+<pre><code>* 2、改22端口为443端口
+  * Git Bash窗口，`ssh -T git@github.com` 查看是否仍然报错
+  * 若执行命令 `ssh -T -p 443 git@ssh.github.com` 后不再提示connection refused
+  * 则说明改用443端口可行，输入 `vim ~/.ssh/config`
+    <pre class="line-numbers language-none"><code class="language-none">Host github.com
+  Hostname ssh.github.com
+  Port 443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+  * 重新执行 `ssh -T git@github.com` 
+    显示 `Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.`
+    说明成功
+  * ![](https://s1.ax1x.com/2023/08/25/pPNktxO.png)
 
-     ![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNktxO.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
+* 3、22、443端口都不能用了，但是网页访问github正常
+  * 先刷新DNS，若是无效再进行下一步
+  * 查看ssh.github.com这个域名对应的ip
+    `https://ipaddress.com/website/ssh.github.com`
+  * 查出ip后，测试ssh连接
+    `ssh -T -p 443 git@140.82.114.36`
+  *  显示 `Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.`即成功
+  *  输入 `vim ~/.ssh/config`
+     <pre class="line-numbers language-none"><code class="language-none">只要将Hostname ssh.github.com换成ip地址140.82.114.36即可
+
+ Host github.com
+  Hostname 40.82.114.36
+  Port 443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  *  大功告成  
+
+
+    
+</code></pre>
 
                 
             </div>
@@ -830,9 +845,9 @@ ssh -T git@github.com。还是报错
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="github代理问题">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="github问题">
                         
-                        <span class="card-title">github代理问题</span>
+                        <span class="card-title">github问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1039,7 +1054,7 @@ ssh -T git@github.com。还是报错
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">33.1k</span>
+                        class="white-color">33.3k</span>
             
             
             
