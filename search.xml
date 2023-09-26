@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>idrac-ipmi</title>
+    <url>/2023/09/04/IPMI/</url>
+    <content><![CDATA[<h1 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h1><ul>
+<li>Intelligent Platform Management Interface，是一种用于管理和监控服务器的标准接口</li>
+</ul>
+<h2 id="idrac"><a href="#idrac" class="headerlink" title="idrac"></a>idrac</h2><ul>
+<li>Integrated Dell Remote Access Controller，戴尔集成远程访问控制器。是一个远程管理系统，由一块集成电路板组成，内置了支持和管理硬件的固件。idrac提供了一个Web界面，用户可以通过这个界面对服务器进行监控、管理、远程重启、重新启动操作系统等各种操作。同时，idrac还支持命令行方式和SNMP协议，以便更加方便地远程管理服务器。</li>
+<li>默认登录凭据：用户名：root，密码：calvin</li>
+</ul>
+<h2 id="配置IPMI"><a href="#配置IPMI" class="headerlink" title="配置IPMI"></a>配置IPMI</h2><ul>
+<li><p>仅针对戴尔服务器</p>
+<ul>
+<li>其他操作教程: <code>https://www.ngui.cc/el/1966116.html?action=onClick</code></li>
+</ul>
+</li>
+<li><p>常规操作流程</p>
+<ul>
+<li><p>进入系统设置，选择 system BIOS</p>
+</li>
+<li><p>选择 iDRAC Settings</p>
+</li>
+<li><p>到最下边，选择 reset idrac configguration to defaults</p>
+</li>
+<li><p>选择yes，等待结束，选择continue</p>
+</li>
+<li><p>再次选择 iDRAC Settings，选择 network（使用专用网络接口）</p>
+</li>
+<li><p>NIC相关配置，Enabled启用nic，选择 dedicated</p>
+</li>
+<li><p>网络设置，IPv4 设置，ip，网关，掩码</p>
+</li>
+<li><p>IPMI Over LAN（通过局域网启用IPMI）选项，选择Enabled</p>
+</li>
+<li><p>配置好之后，能ping通，能登录访问即可</p>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>戴尔PowerEdge</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 操作系统的启动过程</title>
     <url>/2023/09/19/Linux%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="Linux-操作系统的启动过程"><a href="#Linux-操作系统的启动过程" class="headerlink" title="Linux 操作系统的启动过程"></a>Linux 操作系统的启动过程</h1><ul>
@@ -86,50 +130,6 @@
 ]]></content>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>idrac-ipmi</title>
-    <url>/2023/09/04/IPMI/</url>
-    <content><![CDATA[<h1 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h1><ul>
-<li>Intelligent Platform Management Interface，是一种用于管理和监控服务器的标准接口</li>
-</ul>
-<h2 id="idrac"><a href="#idrac" class="headerlink" title="idrac"></a>idrac</h2><ul>
-<li>Integrated Dell Remote Access Controller，戴尔集成远程访问控制器。是一个远程管理系统，由一块集成电路板组成，内置了支持和管理硬件的固件。idrac提供了一个Web界面，用户可以通过这个界面对服务器进行监控、管理、远程重启、重新启动操作系统等各种操作。同时，idrac还支持命令行方式和SNMP协议，以便更加方便地远程管理服务器。</li>
-<li>默认登录凭据：用户名：root，密码：calvin</li>
-</ul>
-<h2 id="配置IPMI"><a href="#配置IPMI" class="headerlink" title="配置IPMI"></a>配置IPMI</h2><ul>
-<li><p>仅针对戴尔服务器</p>
-<ul>
-<li>其他操作教程: <code>https://www.ngui.cc/el/1966116.html?action=onClick</code></li>
-</ul>
-</li>
-<li><p>常规操作流程</p>
-<ul>
-<li><p>进入系统设置，选择 system BIOS</p>
-</li>
-<li><p>选择 iDRAC Settings</p>
-</li>
-<li><p>到最下边，选择 reset idrac configguration to defaults</p>
-</li>
-<li><p>选择yes，等待结束，选择continue</p>
-</li>
-<li><p>再次选择 iDRAC Settings，选择 network（使用专用网络接口）</p>
-</li>
-<li><p>NIC相关配置，Enabled启用nic，选择 dedicated</p>
-</li>
-<li><p>网络设置，IPv4 设置，ip，网关，掩码</p>
-</li>
-<li><p>IPMI Over LAN（通过局域网启用IPMI）选项，选择Enabled</p>
-</li>
-<li><p>配置好之后，能ping通，能登录访问即可</p>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>戴尔PowerEdge</tag>
       </tags>
   </entry>
   <entry>
@@ -1046,6 +1046,7 @@ systemctl restart network<span aria-hidden="true" class="line-numbers-rows"><spa
 </ol>
 <h3 id="准备主机名映射"><a href="#准备主机名映射" class="headerlink" title="准备主机名映射"></a>准备主机名映射</h3><ol>
 <li><p>在Windows系统中修改hosts文件，填入如下内容：</p>
+<p>管理员打开记事本、打开 C:\Windows\System32\drivers\etc\hosts</p>
 <blockquote>
 <p>如果同学们使用MacOS系统，请：</p>
 <ol>
@@ -1064,14 +1065,15 @@ systemctl restart network<span aria-hidden="true" class="line-numbers-rows"><spa
 </ol>
 <h3 id="配置SSH免密登录"><a href="#配置SSH免密登录" class="headerlink" title="配置SSH免密登录"></a>配置SSH免密登录</h3><h4 id="简介-6"><a href="#简介-6" class="headerlink" title="简介"></a>简介</h4><p>SSH服务是一种用于远程登录的安全认证协议。</p>
 <p>我们通过FinalShell远程连接到Linux，就是使用的SSH服务。</p>
-<p>SSH服务支持：</p>
+<p>SSH服务支持两种用户认证模式：</p>
 <ol>
-<li>通过账户+密码的认证方式来做用户认证</li>
-<li>通过账户+秘钥文件的方式做用户认证</li>
+<li>账户+密码</li>
+<li>账户+秘钥文件</li>
 </ol>
 <p>SSH可以让我们通过SSH命令，远程的登陆到其它的主机上，比如：</p>
-<p>在node1执行：ssh root@node2，将以root用户登录node2服务器，输入密码即可成功登陆</p>
-<p>或者ssh node2，将以当前用户直接登陆到node2服务器。</p>
+<p>在node1执行：</p>
+<p>​	<code>ssh root@node2</code>，将以root用户登录node2服务器，输入密码即可成功登陆</p>
+<p>​	<code>ssh node2</code>，将以当前用户直接登陆到node2服务器。</p>
 <h4 id="SSH免密配置"><a href="#SSH免密配置" class="headerlink" title="SSH免密配置"></a>SSH免密配置</h4><p>后续安装的集群化软件，多数需要远程登录以及远程执行命令，我们可以简单起见，配置三台Linux服务器之间的免密码互相SSH登陆</p>
 <ol>
 <li><p>在每一台机器都执行：<code>ssh-keygen -t rsa -b 4096</code>，一路回车到底即可</p>
@@ -1305,7 +1307,7 @@ systemctl disable firewalld<span aria-hidden="true" class="line-numbers-rows"><s
 /export/server/kafka/bin/kafka-server-start.sh /export/server/kafka/config/server.properties
 
 <span class="token comment"># 方式2：【后台启动】分别在node1、2、3上执行如下语句</span>
-<span class="token function">nohup</span> /export/server/kafka/bin/kafka-server-start.sh /export/server/kafka/config/server.properties <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">>></span> /export/server/kafka/kafka-server.log <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">nohup</span> /export/server/kafka/bin/kafka-server-start.sh /export/server/kafka/config/server.properties <span class="token operator">></span> /export/server/kafka/kafka-server.log <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>验证Kafka启动</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在每一台服务器执行</span>
@@ -2214,6 +2216,165 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
       </tags>
   </entry>
   <entry>
+    <title>PC微信双开</title>
+    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
+    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
+<li><p>首先新建一个txt文件</p>
+<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+
+# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>保存文件，将txt文件改成后缀为bat</p>
+</li>
+<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
+</li>
+<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>工具类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PVE</title>
+    <url>/2023/09/25/PVE%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h1 id="PVE"><a href="#PVE" class="headerlink" title="PVE"></a>PVE</h1><ul>
+<li><p>背景：</p>
+<p>一般练习可以使用VMware，练习一些windows、centos、Ubuntu单机操作。在我练习集群化部署的时候，劣势显现出来，物理机上先装windows server，再装vmware，然后部署虚拟机。影响效率和性能不说，主要是组网、配置也不方便。所以选择PVE服务器虚拟化平台，直接在物理机上安装PVE，在此基础之上部署多台虚拟机，和原来的比较，pve系统相当于win系统，省去了一个vmware，可以更好的发挥性能，也更便于部署一些中间件，更便于运维监控。</p>
+</li>
+</ul>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li><p>Proxmox Virtual Environment，通常简称为 PVE、Proxmox、Proxmox VE。是一个开源的服务器虚拟化环境 Linux 发行版。PVE 基于 Debian，使用基于 Ubuntu 的定制内核，包含安装程序、web控制台和cli工具</p>
+</li>
+<li><p>pve就是一个linux系统，在此之上创建多个虚拟机，使用web控制台管理</p>
+</li>
+</ul>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><ul>
+<li>开、关、状态 ： <code>qm start / stop / status  VMid</code></li>
+<li>查询：<code>qm list</code><ul>
+<li>虚拟机关不上<code>ps -ef|grep &quot;/usr/bin/kvm -id VMid&quot;|grep -v grep</code>，查看进程id</li>
+<li>关闭<code>kill 进程id</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="主机名配置"><a href="#主机名配置" class="headerlink" title="主机名配置"></a>主机名配置</h2><h3 id="主机名配置-1"><a href="#主机名配置-1" class="headerlink" title="主机名配置"></a>主机名配置</h3><blockquote>
+<p>hostnamectl     # 查看主机名</p>
+<p> hostnamectl set-hostname XXX    # 配置主机名</p>
+</blockquote>
+<h3 id="主机名映射"><a href="#主机名映射" class="headerlink" title="主机名映射"></a>主机名映射</h3><ul>
+<li><p>1、Windows，管理员打开记事本、打开 C:\Windows\System32\drivers\etc，修改hosts文件</p>
+<pre class="line-numbers language-none"><code class="language-none">ip 主机名
+192.168.88.131 node1
+192.168.88.132 node2
+192.168.88.133 node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>2、每一台linux机器都要配置 修改<code>/etc/hosts</code> 文件，和上边一样</p>
+<ul>
+<li>浏览器ip:8006、主机名:8006都能访问web控制台，shell远程工具可以ip、主机名访问。说明主机映射配置成功，奇怪啊，Windows配完就直接能访问了？我的理解，因为我的电脑和pve平台都在同一局域网，所以在我这配完就能访问了</li>
+<li>本机认识pve、node123</li>
+<li>pve不认识 node123</li>
+<li>node1不认识node2——-下周配置linux的host，这周把ssh互相登录解决（目前仅仅是pve单向登录node123，node123还没双向相互复制），建议先配置host再ssh</li>
+</ul>
+</li>
+</ul>
+<h2 id="SSH配置"><a href="#SSH配置" class="headerlink" title="SSH配置"></a>SSH配置</h2><ul>
+<li><p>SSH服务是一种用于远程登录的安全认证协议。</p>
+<ul>
+<li><p>远程某台机器，生成了密钥，本地要想ssh连接，1，将ssh复制给这台机器自己，2，需把ssh下载到本地，并配置到远程工具中</p>
+<ul>
+<li>或者：本地先用这种方法连node1，然后node1把公钥复制给node2、3、4，再相互复制，这样不仅node1234可以互相登录，本机还可以利用一个公钥登录所有，即利用node1公钥登录noe1234</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>SSH服务支持多种认证方式：</p>
+</li>
+</ul>
+<ol>
+<li><p>口令：账户+密码</p>
+</li>
+<li><p>密钥：账户+秘钥文件</p>
+</li>
+<li><p>keyboard  Interactive  服务器发给你信息然后你手动输入信息发回</p>
+<p>我们通过FinalShell远程连接到Linux，就是使用的SSH服务。（windows登录linux）</p>
+</li>
+</ol>
+<ul>
+<li><p>生成密钥</p>
+<ul>
+<li><p><code>ssh-keygen -t rsa -b 4096</code>  一路回车到底即可</p>
+<blockquote>
+<p>-t rsa</p>
+<p>​	-t，指定密钥的类型，密钥的类型有两种，RSA，DSA，</p>
+<p>-b 4096</p>
+<p>​	-b，指定密钥长度，密钥长度为4096位</p>
+</blockquote>
+<blockquote>
+<p>C:\Users\用户.ssh</p>
+<p>.ssh文件夹</p>
+<ul>
+<li><p>known_hosts   记录ssh访问过计算机的公钥（public key）</p>
+</li>
+<li><p>id_rsa    生成的私钥</p>
+</li>
+<li><p>id_rsa.pub   生成的公钥</p>
+</li>
+<li><p>authorized_keys    存放授权过的无密登录服务器公钥</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>复制密钥</p>
+<ul>
+<li><p><code>ssh-copy-id 远程主机</code></p>
+<blockquote>
+<p>将本地生成的SSH公钥复制到远程主机</p>
+<p>想要互相登录，就要互相复制</p>
+<p>建议先配置主机映射，再弄ssh，否则</p>
+<p>优：ssh node1</p>
+<p>坏：ssh 192.168.3.89</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>SSH可以让我们通过SSH命令，远程的登陆到其它的主机上，比如：</p>
+<ul>
+<li>在node1执行：<code>ssh root@node2</code>，将以root用户登录node2服务器，输入密码即可成功登陆</li>
+<li>或者<code>ssh node2</code>，将以当前用户直接登陆到node2服务器。</li>
+</ul>
+</li>
+<li><p>退出登录</p>
+<ul>
+<li>exit</li>
+<li>ctrl +d</li>
+</ul>
+</li>
+</ul>
+<h4 id="SSH免密配置"><a href="#SSH免密配置" class="headerlink" title="SSH免密配置"></a>SSH免密配置</h4><p>集群化部署，多数需要远程登录以及远程执行命令，简单起见，配置服务器之间的免密码互相SSH登陆，比如三台机器，node1、node2、node3</p>
+<ol>
+<li><p>在每一台机器都执行：<code>ssh-keygen -t rsa -b 4096</code>，一路回车到底即可</p>
+</li>
+<li><p>在每一台机器都执行：</p>
+<pre class="line-numbers language-none"><code class="language-none">ssh-copy-id node1
+ssh-copy-id node2
+ssh-copy-id 192.168.3.66
+
+
+# 此步骤前提是已经配置完了主机映射关系,否则就要像第三行那样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>执行完毕后，node1、node2、node3之间将完成root用户之间的免密互通</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Raid</title>
     <url>/2023/08/23/Raid/</url>
     <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
@@ -2393,62 +2554,54 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
       </tags>
   </entry>
   <entry>
-    <title>PC微信双开</title>
-    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
-    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
-<li><p>首先新建一个txt文件</p>
-<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+    <title>github问题</title>
+    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>问题：<br>    * 在拉取、推送、克隆的时候常报错经常出现 Connection refused 的错误，大致有443错误、22错误<br>    <pre class="line-numbers language-none"><code class="language-none">常见git报错：
 
-# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>保存文件，将txt文件改成后缀为bat</p>
-</li>
-<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
-</li>
-<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
-</li>
-</ul>
+1、Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve
+
+2、ssh: connect to host github.com port 22: Connection timed out  （或者port 443）
+fatal: Could not read from remote repository.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>分析：<br>    * 由于GitHub经常被墙，访问不方便。</p>
+<pre><code>* 浏览器访问GitHub.com 网站是正常的，估计是域名解析被污染了
+
+* 这两个问题主要是因为连接github.com的22/443端口被拒绝了。
+  ssh连接默认使用22端口，22不能用可以调整为443端口
+</code></pre>
+<p>解决：<br>    * 1、如使用的代理，则关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br>      <code>ipconfig/flushdns</code></p>
+<pre><code>* 2、改22端口为443端口
+  * Git Bash窗口，`ssh -T git@github.com` 查看是否仍然报错
+  * 若执行命令 `ssh -T -p 443 git@ssh.github.com` 后不再提示connection refused
+  * 则说明改用443端口可行，输入 `vim ~/.ssh/config`
+    <pre class="line-numbers language-none"><code class="language-none">Host github.com
+  Hostname ssh.github.com
+  Port 443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+  * 重新执行 `ssh -T git@github.com` 
+    显示 `Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.`
+    说明成功
+  * ![](https://s1.ax1x.com/2023/08/25/pPNktxO.png)
+
+* 3、22、443端口都不能用了，但是网页访问github正常
+  * 先刷新DNS，若是无效再进行下一步
+  * 查看ssh.github.com这个域名对应的ip
+    `https://ipaddress.com/website/ssh.github.com`
+  * 查出ip后，测试ssh连接
+    `ssh -T -p 443 git@140.82.114.36`
+  *  显示 `Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.`即成功
+  *  输入 `vim ~/.ssh/config`
+     <pre class="line-numbers language-none"><code class="language-none">只要将Hostname ssh.github.com换成ip地址140.82.114.36即可
+
+ Host github.com
+  Hostname 40.82.114.36
+  Port 443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  *  大功告成  
+
+
+    
+</code></pre>
 ]]></content>
       <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cmd</title>
-    <url>/2023/08/19/cmd/</url>
-    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
-<li><p>ping——测试网络是否通畅</p>
-<ul>
-<li>使用icmp协议，网络连通性测试</li>
-</ul>
-</li>
-<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
-</li>
-<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
-<ul>
-<li><p>telnet ip 端口（跳到空窗口）</p>
-</li>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<ul>
-<li>三、找到telnet客户端，勾选打开</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>ifconfig——查看本机网络</p>
-</li>
-</ul>
-<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
-<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
-]]></content>
-      <tags>
-        <tag>cmd</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -2577,6 +2730,43 @@ tips：
       </tags>
   </entry>
   <entry>
+    <title>cmd</title>
+    <url>/2023/08/19/cmd/</url>
+    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
+<li><p>ping——测试网络是否通畅</p>
+<ul>
+<li>使用icmp协议，网络连通性测试</li>
+</ul>
+</li>
+<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
+</li>
+<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
+<ul>
+<li><p>telnet ip 端口（跳到空窗口）</p>
+</li>
+<li><p>无法telnet</p>
+<blockquote>
+<p>一、打开控制面板</p>
+<p>二、点击打开启用或关闭Windows功能</p>
+<ul>
+<li>三、找到telnet客户端，勾选打开</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>ifconfig——查看本机网络</p>
+</li>
+</ul>
+<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
+<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
+]]></content>
+      <tags>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo杂谈</title>
     <url>/2023/08/19/hexo%E6%9D%82%E8%B0%88/</url>
     <content><![CDATA[<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ul>
@@ -2646,57 +2836,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>github问题</title>
-    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>问题：<br>    * 在拉取、推送、克隆的时候常报错经常出现 Connection refused 的错误，大致有443错误、22错误<br>    <pre class="line-numbers language-none"><code class="language-none">常见git报错：
-
-1、Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve
-
-2、ssh: connect to host github.com port 22: Connection timed out  （或者port 443）
-fatal: Could not read from remote repository.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
-<p>分析：<br>    * 由于GitHub经常被墙，访问不方便。</p>
-<pre><code>* 浏览器访问GitHub.com 网站是正常的，估计是域名解析被污染了
-
-* 这两个问题主要是因为连接github.com的22/443端口被拒绝了。
-  ssh连接默认使用22端口，22不能用可以调整为443端口
-</code></pre>
-<p>解决：<br>    * 1、如使用的代理，则关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br>      <code>ipconfig/flushdns</code></p>
-<pre><code>* 2、改22端口为443端口
-  * Git Bash窗口，`ssh -T git@github.com` 查看是否仍然报错
-  * 若执行命令 `ssh -T -p 443 git@ssh.github.com` 后不再提示connection refused
-  * 则说明改用443端口可行，输入 `vim ~/.ssh/config`
-    <pre class="line-numbers language-none"><code class="language-none">Host github.com
-  Hostname ssh.github.com
-  Port 443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-  * 重新执行 `ssh -T git@github.com` 
-    显示 `Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.`
-    说明成功
-  * ![](https://s1.ax1x.com/2023/08/25/pPNktxO.png)
-
-* 3、22、443端口都不能用了，但是网页访问github正常
-  * 先刷新DNS，若是无效再进行下一步
-  * 查看ssh.github.com这个域名对应的ip
-    `https://ipaddress.com/website/ssh.github.com`
-  * 查出ip后，测试ssh连接
-    `ssh -T -p 443 git@140.82.114.36`
-  *  显示 `Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.`即成功
-  *  输入 `vim ~/.ssh/config`
-     <pre class="line-numbers language-none"><code class="language-none">只要将Hostname ssh.github.com换成ip地址140.82.114.36即可
-
- Host github.com
-  Hostname 40.82.114.36
-  Port 443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-  *  大功告成  
-
-
-    
-</code></pre>
-]]></content>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux重点内容</title>
     <url>/2023/08/19/linux/</url>
     <content><![CDATA[<p>linux运维：</p>
@@ -2708,6 +2847,58 @@ fatal: Could not read from remote repository.<span aria-hidden="true" class="lin
 ]]></content>
       <tags>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu</title>
+    <url>/2023/08/30/ubuntu/</url>
+    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
+<li><p>UEFI + GPT</p>
+</li>
+<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
+</li>
+</ul>
+<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
+<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
+<blockquote>
+<p>登录之后是普通用户，设置root密码</p>
+<p><code>sudo passwd root </code></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
+<li><code>apt</code></li>
+<li>centos  <code>yum</code></li>
+</ul>
+<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
+<ul>
+<li><p>ip a   # 查看 网卡</p>
+</li>
+<li><p>cd &#x2F;etc&#x2F;netplan </p>
+</li>
+<li><p>ls   # 查看.yaml文件</p>
+</li>
+<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
+</li>
+<li><p>编辑</p>
+<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
+
+网卡名
+   dhcp4: false    # 动态改成false
+      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
+      gateway4: 192.168.3.1    # 网关
+      nameservers:
+        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>退出vi文本编辑器</p>
+</li>
+<li><p>sudo netplan apply  # 保存</p>
+</li>
+</ul>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -2796,58 +2987,6 @@ fatal: Could not read from remote repository.<span aria-hidden="true" class="lin
 ]]></content>
       <tags>
         <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu</title>
-    <url>/2023/08/30/ubuntu/</url>
-    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
-<li><p>UEFI + GPT</p>
-</li>
-<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
-</li>
-</ul>
-<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
-<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
-<blockquote>
-<p>登录之后是普通用户，设置root密码</p>
-<p><code>sudo passwd root </code></p>
-</blockquote>
-</li>
-</ul>
-<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
-<li><code>apt</code></li>
-<li>centos  <code>yum</code></li>
-</ul>
-<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
-<ul>
-<li><p>ip a   # 查看 网卡</p>
-</li>
-<li><p>cd &#x2F;etc&#x2F;netplan </p>
-</li>
-<li><p>ls   # 查看.yaml文件</p>
-</li>
-<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
-</li>
-<li><p>编辑</p>
-<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
-
-网卡名
-   dhcp4: false    # 动态改成false
-      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
-      gateway4: 192.168.3.1    # 网关
-      nameservers:
-        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>退出vi文本编辑器</p>
-</li>
-<li><p>sudo netplan apply  # 保存</p>
-</li>
-</ul>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -2942,9 +3081,10 @@ fatal: Could not read from remote repository.<span aria-hidden="true" class="lin
 <p>它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。</p>
 <p>Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索引擎服务。</p>
 <p>很多服务中的搜索功能，都是基于es来实现的。</p>
-<h2 id="ZooKeepe"><a href="#ZooKeepe" class="headerlink" title="ZooKeepe"></a>ZooKeepe</h2><p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
+<h2 id="ZooKeepe"><a href="#ZooKeepe" class="headerlink" title="ZooKeepe"></a>ZooKeepe</h2><p> ZooKeeper从字面意思理解，【Zoo - 动物园，Keeper - 管理员】动物园中有很多种动物，这里的动物就可以比作分布式环境下多种多样的服务，而ZooKeeper做的就是管理这些服务。</p>
+<p>Zookeeper是一款分布式的集群化软件，可以在多台服务器上部署，并协同组成分布式集群一起工作。</p>
+<p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
 <p>除了为Hadoop和HBase提供协调服务外，Zookeeper也被其它许多软件采用作为其分布式状态一致性的依赖，比如Kafka，又或者一些软件项目中，也经常能见到Zookeeper作为一致性协调服务存在。</p>
-<p>Zookeeper不论是大数据领域亦或是其它服务器开发领域，涉及到分布式状态一致性的场景，总有它的身影存在。</p>
 <h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka是一款<code>分布式的、去中心化的、高吞吐低延迟、订阅模式</code>的消息队列系统。</p>
 <p>同RabbitMQ一样，Kafka也是消息队列。不过RabbitMQ多用于后端系统，因其更加专注于消息的延迟和容错。</p>
 <p>Kafka多用于大数据体系，因其更加专注于数据的吞吐能力。Kafka多数都是运行在分布式（集群化）模式下</p>
@@ -2957,7 +3097,43 @@ fatal: Could not read from remote repository.<span aria-hidden="true" class="lin
 </ul>
 </li>
 </ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2>]]></content>
+<h3 id="Hadoop集群角色"><a href="#Hadoop集群角色" class="headerlink" title="Hadoop集群角色"></a>Hadoop集群角色</h3><p>Hadoop生态体系中总共会出现如下进程角色：</p>
+<ol>
+<li>Hadoop HDFS的管理角色：Namenode进程（<code>仅需1个即可（管理者一个就够）</code>）</li>
+<li>Hadoop HDFS的工作角色：Datanode进程（<code>需要多个（工人，越多越好，一个机器启动一个）</code>）</li>
+<li>Hadoop YARN的管理角色：ResourceManager进程（<code>仅需1个即可（管理者一个就够）</code>）</li>
+<li>Hadoop YARN的工作角色：NodeManager进程（<code>需要多个（工人，越多越好，一个机器启动一个）</code>）</li>
+<li>Hadoop 历史记录服务器角色：HistoryServer进程（<code>仅需1个即可（功能进程无需太多1个足够）</code>）</li>
+<li>Hadoop 代理服务器角色：WebProxyServer进程（<code>仅需1个即可（功能进程无需太多1个足够）</code>）</li>
+<li>Zookeeper的进程：QuorumPeerMain进程（<code>仅需1个即可（Zookeeper的工作者，越多越好）</code>）</li>
+</ol>
+<h2 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h2><p>HBase在大数据领域应用十分广泛， 是一种<a href="https://so.csdn.net/so/search?q=%E5%88%86%E5%B8%83%E5%BC%8F&spm=1001.2101.3001.7020">分布式</a>、可扩展、支持海量数据存储的 NoSQL 数据库。</p>
+<p>和Redis一样，HBase是一款KeyValue型存储的数据库。</p>
+<p>不过和Redis设计方向不同</p>
+<ul>
+<li>Redis设计为少量数据，超快检索</li>
+<li>HBase设计为海量数据，快速检索</li>
+</ul>
+<h2 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h2><p>park是一款分布式内存计算引擎，可以支撑海量数据的分布式计算。</p>
+<p>Spark在大数据体系是明星产品，作为最新一代的综合计算引擎，支持离线计算和实时计算。</p>
+<p>在大数据领域广泛应用，是目前世界上使用最多的大数据分布式计算引擎。</p>
+<p>基于Hadoop集群，部署Spark Standalone集群。</p>
+<h2 id="Flink"><a href="#Flink" class="headerlink" title="Flink"></a>Flink</h2><p>Flink同Spark一样，是一款分布式内存计算引擎，可以支撑海量数据的分布式计算。</p>
+<p>Flink在大数据体系同样是明星产品，作为最新一代的综合计算引擎，支持离线计算和实时计算。</p>
+<p>在大数据领域广泛应用，是目前世界上除去Spark以外，应用最为广泛的分布式计算引擎。</p>
+<p>基于Hadoop集群，部署Flink Standalone集群</p>
+<p>Spark更加偏向于离线计算而Flink更加偏向于实时计算。</p>
+<h2 id="Zabbix"><a href="#Zabbix" class="headerlink" title="Zabbix"></a>Zabbix</h2><p>Zabbix 由 Alexei Vladishev 创建，目前由其成立的公司—— Zabbix SIA 积极的持续开发更新维护， 并为用户提供技术支持服务。</p>
+<p>Zabbix 是一个&#x3D;&#x3D;企业级分布式开源监控解决方案&#x3D;&#x3D;。</p>
+<p>Zabbix 软件能够&#x3D;&#x3D;监控&#x3D;&#x3D;众多网络参数和服务器的&#x3D;&#x3D;健康度、完整性&#x3D;&#x3D;。Zabbix 使用灵活的告警机制，允许用户为几乎任何事件配置基于邮件的告警。这样用户可以快速响应服务器问题。Zabbix 基于存储的数据提供出色的报表和数据可视化功能。这些功能使得 Zabbix 成为容量规划的理想选择</p>
+<h2 id="Grafana"><a href="#Grafana" class="headerlink" title="Grafana"></a>Grafana</h2><p><code>Grafana</code>支持常见的绝大多数操作系统, 如<code>windows</code> <code>mac</code> <code>linux</code> 同时也支持部署在<code>docker</code>中.</p>
+<p>大多数情况下, <code>Grafana</code>都是部署在<code>linux</code>服务器之上</p>
+<p><code>Grafana</code>支持两种部署形式</p>
+<ol>
+<li>自行部署, 可以部署在操作系统之上. 自行提供服务器, 域名等.</li>
+<li><code>Grafana</code>官方托管. 无需安装, 在线注册即可得到一个专属于自己的<code>Grafana</code>, 但是要花钱的. 是一种<code>SaaS</code>服务</li>
+</ol>
+]]></content>
       <tags>
         <tag>工具类</tag>
       </tags>
@@ -2971,15 +3147,6 @@ fatal: Could not read from remote repository.<span aria-hidden="true" class="lin
 ]]></content>
       <tags>
         <tag>宝塔面板</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>就是玩</title>
-    <url>/2023/09/15/%E5%B0%B1%E6%98%AF%E7%8E%A9/</url>
-    <content><![CDATA[<p>.⠄⠄⣿⣿⣿⣿⠘⡿⢛⣿⣿⣿⣿⣿⣧⢻⣿⣿⠃⠸⣿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⣿⣿⣿⣿⢀⠼⣛⣛⣭⢭⣟⣛⣛⣛⠿⠿⢆⡠⢿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⠸⣿⣿⢣⢶⣟⣿⣖⣿⣷⣻⣮⡿⣽⣿⣻⣖⣶⣤⣭⡉⠄⠄⠄⠄⠄<br>⠄⠄⠄⢹⠣⣛⣣⣭⣭⣭⣁⡛⠻⢽⣿⣿⣿⣿⢻⣿⣿⣿⣽⡧⡄⠄⠄⠄<br>⠄⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣌⡛⢿⣽⢘⣿⣷⣿⡻⠏⣛⣀⠄⠄<br>⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠙⡅⣿⠚⣡⣴⣿⣿⣿⡆⠄<br>⠄⠄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠄⣱⣾⣿⣿⣿⣿⣿⣿⠄<br>⠄⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠣⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠑⣿⣮⣝⣛⠿⠿⣿⣿⣿⣿⠄<br>⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠄</p>
-]]></content>
-      <tags>
-        <tag>工具类</tag>
       </tags>
   </entry>
   <entry>
@@ -3062,6 +3229,15 @@ fatal: Could not read from remote repository.<span aria-hidden="true" class="lin
       </tags>
   </entry>
   <entry>
+    <title>就是玩</title>
+    <url>/2023/09/15/%E5%B0%B1%E6%98%AF%E7%8E%A9/</url>
+    <content><![CDATA[<p>.⠄⠄⣿⣿⣿⣿⠘⡿⢛⣿⣿⣿⣿⣿⣧⢻⣿⣿⠃⠸⣿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⣿⣿⣿⣿⢀⠼⣛⣛⣭⢭⣟⣛⣛⣛⠿⠿⢆⡠⢿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⠸⣿⣿⢣⢶⣟⣿⣖⣿⣷⣻⣮⡿⣽⣿⣻⣖⣶⣤⣭⡉⠄⠄⠄⠄⠄<br>⠄⠄⠄⢹⠣⣛⣣⣭⣭⣭⣁⡛⠻⢽⣿⣿⣿⣿⢻⣿⣿⣿⣽⡧⡄⠄⠄⠄<br>⠄⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣌⡛⢿⣽⢘⣿⣷⣿⡻⠏⣛⣀⠄⠄<br>⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠙⡅⣿⠚⣡⣴⣿⣿⣿⡆⠄<br>⠄⠄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠄⣱⣾⣿⣿⣿⣿⣿⣿⠄<br>⠄⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠣⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠑⣿⣮⣝⣛⠿⠿⣿⣿⣿⣿⠄<br>⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠄</p>
+]]></content>
+      <tags>
+        <tag>工具类</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>工具类QA</title>
     <url>/2023/08/19/%E5%B7%A5%E5%85%B7%E7%B1%BBQA/</url>
     <content><![CDATA[<ul>
@@ -3116,6 +3292,41 @@ fatal: Could not read from remote repository.<span aria-hidden="true" class="lin
       </tags>
   </entry>
   <entry>
+    <title>戴尔PowerEdgeR620</title>
+    <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
+    <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
+<li>PERC 是 PowerEdge Raid Controller 的缩写</li>
+<li>前缀S表示为Software软件阵列，H 表示为Hardware 硬件阵列 ,</li>
+<li>从入门到高端型号第一位数字分别用1 3 7 8 表示，</li>
+<li>第二三位数字位为产品代数，</li>
+<li>结尾P表示 Performance 高性能型。</li>
+</ul>
+<h2 id="PERC名词"><a href="#PERC名词" class="headerlink" title="PERC名词"></a>PERC名词</h2><ul>
+<li>Disk Group：磁盘组，这里相当于是阵列，例如配置了一个RAID5，就是一个磁盘组。</li>
+<li>VD：Virtual Disk， 虚拟磁盘，虚拟磁盘可以不使用阵列的全部容量，也就是说一个磁盘组可以分为多个VD。</li>
+<li>PD：Physical Disk，物理磁盘。</li>
+</ul>
+<h2 id="配置Raid方法"><a href="#配置Raid方法" class="headerlink" title="配置Raid方法"></a>配置Raid方法</h2><ul>
+<li>1、F10直接做在生命周期控制器中，F10可选中文，会重启很麻烦</li>
+<li>2、F2在系统设置中做  —-√   简单明了</li>
+<li>3、ctrl+R做，界面繁琐麻烦</li>
+<li>问题：同样的raid级别，在ctrl+R中配置和在F2中配置，容量会不一样，不知道为什么！</li>
+</ul>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
+<li>1、改sata模式为raid</li>
+<li>2、做raid</li>
+<li>3、boot mode模式按需选择</li>
+</ul>
+<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
+<li>在安装系统时，系统文件里，不带有RAID 1的驱动程序，导致安装系统无法识别到RAID 1 的硬盘。需要手动加载 RAID 卡驱动程序</li>
+<li>raid版本和主板版本可能存在版本问题，注意匹配</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>戴尔PowerEdge</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>教程索引</title>
     <url>/2023/09/05/%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="教程索引"><a href="#教程索引" class="headerlink" title="教程索引"></a>教程索引</h1><h2 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h2><ul>
@@ -3150,52 +3361,7 @@ fatal: Could not read from remote repository.<span aria-hidden="true" class="lin
 <li><a href="https://blog.csdn.net/weixin_52269666/article/details/121577724">https://blog.csdn.net/weixin_52269666/article/details/121577724</a></li>
 </ul>
 <h3 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h3><ul>
-<li><p><a href="http://192.168.3.85:8080/">http://192.168.3.85:8080/</a></p>
-<ul>
-<li><p>最好选择8.x版本，10老出错,jdk搭配1.8.x</p>
-</li>
-<li><p>测试地址：本机ip:8080</p>
-<pre class="line-numbers language-none"><code class="language-none">Tomcat建议使用非Root用户安装并启动
-可以创建一个用户：tomcat用以部署
-
-
-1. 首先，放行tomcat需要使用的8080端口的外部访问权限
-
-   &gt; CentOS系统默认开启了防火墙，阻止外部网络流量访问系统内部
-   &gt;
-   &gt; 所以，如果想要Tomcat可以正常使用，需要对Tomcat默认使用的8080端口进行放行
-   &gt;
-   &gt; 放行有2种操作方式：
-   &gt;
-   &gt; 1. 关闭防火墙
-   &gt; 2. 配置防火墙规则，放行端口
-
-   &#96;&#96;&#96;shell
-   # 以下操作2选一即可
-   # 方式1：关闭防火墙
-   systemctl stop firewalld		# 关闭防火墙
-   systemctl disable firewalld		# 停止防火墙开机自启
-   
-   # 方式2：放行8080端口的外部访问
-   firewall-cmd --add-port&#x3D;8080&#x2F;tcp --permanent		# --add-port&#x3D;8080&#x2F;tcp表示放行8080端口的tcp访问，--permanent表示永久生效
-   firewall-cmd --reload								# 重新载入防火墙规则使其生效<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<blockquote>
-<p>方便起见，建议同学们选择方式1，直接关闭防火墙一劳永逸</p>
-<p>防火墙的配置非常复杂，后面会视情况独立出一集防火墙配置规则的章节。</p>
-</blockquote>
-<ol start="2">
-<li><p>以root用户操作，创建tomcat用户</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用root用户操作</span>
-<span class="token function">useradd</span> tomcat
-<span class="token comment"># 可选，为tomcat用户配置密码</span>
-<span class="token function">passwd</span> tomcat<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ol>
-<p>bin目录下<br>.&#x2F;startup.sh启动</p>
-<p>查看<br>[root@localhost bin]# lsof -i:8080<br>COMMAND   PID USER   FD   TYPE DEVICE SIZE&#x2F;OFF NODE NAME<br>java    40774 root   55u  IPv6  84944      0t0  TCP <em>:webcache (LISTEN)<br>[root@localhost bin]# netstat -anp | grep 8080<br>tcp6       0      0 :::8080                 :::</em>                    LISTEN      40774&#x2F;java<br>&#96;&#96;&#96;</p>
-</li>
-</ul>
-</li>
+<li><a href="https://blog.csdn.net/weixin_51839445/article/details/122057923">https://blog.csdn.net/weixin_51839445/article/details/122057923</a></li>
 </ul>
 <h2 id="Ubuntu-server"><a href="#Ubuntu-server" class="headerlink" title="Ubuntu server"></a>Ubuntu server</h2><h3 id="安装配置-1"><a href="#安装配置-1" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
 <li><p><a href="https://blog.csdn.net/m0_58805648/article/details/131021118">https://blog.csdn.net/m0_58805648/article/details/131021118</a></p>
@@ -3243,125 +3409,6 @@ fatal: Could not read from remote repository.<span aria-hidden="true" class="lin
 ]]></content>
       <tags>
         <tag>教程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>配置Raid和系统安装</title>
-    <url>/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h1><ul>
-<li>先配置raid，再按需分区，最后装系统<pre class="line-numbers language-none"><code class="language-none">* 先做raid准备好存储空间，然后按照需求进行分区和格式化，最后装系统
-  理解：就像先把房间分配好了才能进一步装修、入住
-
-* 必须选择分区模式，必须进行格式化
-
-* 如果系统是安装在raid盘上就必须先配置raid，再安装系统。
-  如果使用独立的系统盘，可以先安装系统，再配置raid（此时可以在系统下使用有GUI的raid管理程序已图形方式配置raid，但是影响效率，占内存），之后再使用系统磁盘管理分区、格式化。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
-<li><p>磁盘分区模式有mbr格式，guid格式（gpt格式）</p>
-</li>
-<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2TB 以下的硬盘，支持win7版本系统以下的32位和64位</p>
-</li>
-<li><p>guid分区：也叫gpt，全局唯一标识分区表，支持2T以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持64位系统，不支持32位系统</p>
-</li>
-<li><p>区别：，</p>
-<ul>
-<li><p>mbr分区</p>
-<ul>
-<li><p>&lt; 2T,选择mbr分区表</p>
-</li>
-<li><p>启动时，引导模式为 Legacy（bios）</p>
-</li>
-<li><p>最多只能描述 4 个分区，其中一个为主分区，其他为扩展分区，</p>
-</li>
-</ul>
-</li>
-<li><p>guid分区</p>
-<ul>
-<li><p>大于2T,选择guid分区表</p>
-</li>
-<li><p>启动时，引导模式为 uefi</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>注意：</p>
-<ul>
-<li><p>对应的分区模式要选择对应的引导模式</p>
-</li>
-<li><p>根据自己的raid需求，再bios中选择对应的引导模式</p>
-</li>
-<li><p>大于2t只能选择guid引导，否则做raid没意义，读不到那么大的容量</p>
-</li>
-</ul>
-</li>
-<li><p>如何判断硬盘格式是 guid 还是 mbr ？</p>
-<ul>
-<li><p>windows</p>
-<pre class="line-numbers language-none"><code class="language-none">&#39;以管理员身份运行&#39;cmd命令，输入&#39;diskpart&#39;命令
-输入&#39;list disk&#39;命令进行查看：如果&#39;Gpt&#39;中显示&#39;*&#39;，则为GPT格式，反之为MBR
-![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNFw40.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>linux</p>
-<pre class="line-numbers language-none"><code class="language-none">1、fdisk -l 命令，结果中的“Disk label type”的值为
-     dos则分区是mbr，若该结果的值为gpt则分区是gpt；
-2、parted -l 命令，结果中的“Partition Table”的值为
-     msdos则分区是mbr，若该结果的值为gpt则分区是gpt。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-</ul>
-<h2 id="引导模式"><a href="#引导模式" class="headerlink" title="引导模式"></a>引导模式</h2><ul>
-<li><p>在bios中配置，有Legacy（bios）和 uefi</p>
-</li>
-<li><p>区别</p>
-<ul>
-<li>UEFI是新式的BIOS，BIOS则是传统legacy。最明显的却别在于启动速度，UEFI明显更快，因为它支持硬件加速和并行处理。</li>
-<li><img src="https://s1.ax1x.com/2023/08/30/pPd6L9S.png" alt="img"></li>
-</ul>
-</li>
-</ul>
-<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
-<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
-</li>
-<li><p>流程</p>
-<ul>
-<li>配置raid</li>
-<li>配置引导模式，bios还是uefi</li>
-<li>配置磁盘的分区格式，格式化处理</li>
-</ul>
-</li>
-</ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li><p>有的统文件里，不带有raid驱动程序，导致安装系统无法识别到raid的硬盘。需要去官网下载，手动加载 raid 卡驱动程序</p>
-</li>
-<li><p>找不到适用的引导分区</p>
-<ul>
-<li>分区工具修复、重新分区</li>
-<li>可能是系统找不到raid驱动，导致找不到磁盘，去官网找对应主板的驱动，装上。</li>
-</ul>
-</li>
-</ul>
-<h1 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h1><ul>
-<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
-<ul>
-<li>linux默认mbr分区模式，所以配raid后，先改分区模式、配置分区，最后装系统 （否则易出现读不到盘，容量不对的情况）<ul>
-<li>一般直接在 控制台，改成guid分区，uefi引导</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>流程</p>
-<ul>
-<li>配置raid</li>
-<li>配置引导模式</li>
-<li>配置磁盘的分区格式，格式化处理</li>
-</ul>
-</li>
-</ul>
-<h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2>]]></content>
-      <tags>
-        <tag>系统安装</tag>
       </tags>
   </entry>
   <entry>
@@ -3509,44 +3556,165 @@ SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 </li>
 </ul>
 <h2 id="封装和分用"><a href="#封装和分用" class="headerlink" title="封装和分用"></a>封装和分用</h2><p>封装：当应用程序发送数据的时候，数据在协议层次当中自顶向下通过每一层，每一层都会对数据增加一些首部或尾部信息，这样的信息称之为协议数据单元（Protocol Data Unit，缩写为 PDU），在分层协议系统里，在指定的协议层上传送的数据单元，包含了该层的协议控制信息和用户信息。如下图所示：<br>物理层（一层）PDU 指数据位（Bit）<br>数据链路层（二层）PDU 指数据帧（Frame）<br>网络层（三层）PDU 指数据包（Packet）<br>传输层（四层）PDU 指数据段（Segment）<br>第五层以上为数据（data）<br>分用：当主机收到一个数据帧时，数据就从协议层底向上升，通过每一层时，检查并去掉对应层次的报文首部或尾部，与封装过程正好相反。</p>
+<h2 id="集中式网络"><a href="#集中式网络" class="headerlink" title="集中式网络"></a>集中式网络</h2><ul>
+<li><p>也称为单体架构</p>
+<p>集中式系统中一个独立的应用包含整个项目，所有的东西都在里面。部署到一个服务器上。 布署项目时，放到一个tomcat里的</p>
+</li>
+</ul>
+<h2 id="分布式网络"><a href="#分布式网络" class="headerlink" title="分布式网络"></a>分布式网络</h2><ul>
+<li><p>着公司的发展，应用的客户变多，功能也日益完善，加了很多的功能，整个项目在一个tomcat上跑，tomcat说它也很累，能不能少跑点代码，这时候 就产生了。</p>
+<p>我们可以把大项目按功能划分为很多的模块，比如说单独一个系统处理订单，一个处理用户登录，一个处理后台等等，然后每一个模块都单独在一个tomcat中跑，合起来就是一个完整的大项目，这样每一个tomcat都非常轻松</p>
+</li>
+<li><p>特征：</p>
+<ul>
+<li>多台计算机构成</li>
+<li>计算机之间通过网络进行通信</li>
+<li>彼此进行交互</li>
+<li>共同目标 有共同的功能</li>
+</ul>
+</li>
+</ul>
+<h2 id="C-S架构"><a href="#C-S架构" class="headerlink" title="C&#x2F;S架构"></a>C&#x2F;S架构</h2><p>Client&#x2F;Server架构或客户端&#x2F;服务端架构，主要特点是交互性强、具有安全的存取模式、网络通信量低、响应速度快、利于处理大量数据。但是该结构的程序是针对性开发，变更不够灵活，维护和管理的难度较大。通常只局限于小型局域网，不利于扩展。并且，由于该结构的每台客户机都需要安装相应的客户端程序，分布功能弱且兼容性差，不能实现快速部署安装和配置，因此缺少通用性，具有较大的局限性。</p>
+<h2 id="B-S架构"><a href="#B-S架构" class="headerlink" title="B&#x2F;S架构"></a>B&#x2F;S架构</h2><p>Browser&#x2F;Server架构或浏览器&#x2F;服务器端架构，它的主要特点是只安装维护一个服务器（Server），而客户端采用浏览器（Browse）运行软件。B&#x2F;S结构应用程序相对于传统的C&#x2F;S结构应用程序是一个非常大的进步。 B&#x2F;S结构的主要特点是分布性强、维护方便、开发简单且共享性强、总体拥有成本低。但数据安全性问题、对服务器要求过高、数据传输速度慢、软件的个性化特点明显降低。</p>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><ul>
+<li><p>C&#x2F;S是客户端和服务器端，例如QQ，大型游戏LOL等，都是通过点击登录开启客户端输入账号密码进行登录，服务器端进行存储用户所创建的所有账号以及密码，该架构主要优点是安全性高，因为每个用户自己电脑上都要安装客户端，因此每个客户端是独立的，响应速度会很快，用户体验好，但是维护会很差，比如游戏进行维护，每个用户都需要自行进行更新，</p>
+<ul>
+<li>常见的C&#x2F;S架构开发例如安卓。</li>
+</ul>
+</li>
+<li><p>B&#x2F;S是浏览器服务器端，只需要有一个浏览器，用户通过不同网址（URL）访问不同的服务器端程序，因为是通过输入网址访问，所以维护就会比较方便，不需要像C&#x2F;S那样每个用户都需要进行维护，而是该服务器提供维护即可，维护成功后，用户只需重新登录即可看到最新维护后的网页，但是因为是多个用户看同一个网页，进入同一个服务器端，如果人数很多，数据传输就会很慢，用户就会出现卡顿等问题，因此该模式对服务器要求高，</p>
+<ul>
+<li>常见的B&#x2F;S架构开发例如web。</li>
+</ul>
+</li>
+<li><p>相比于CS管理软件，BS在安装部署、升级维护、设备带宽、软件学习推广成本等方面都有无可比拟的优势。BS管理软件的用户在客户机上无需安装任何软件，使用浏览器即可访问系统。系统让企业扩张不再需要额外投入更多信息化的资金，让系统培训和后期推广都变得非常容易，管理模式变得可复制。</p>
+<p>可用性：任何时间、任何地点、任何系统，只要可以使用浏览器上网，就可以使用BS系统的终端，更多的系统用户加入时只需设立账号、培训即可，并支持移动办公和分布式办公。CS是典型的集中式机械化处理，交互性相对低。</p>
+</li>
+<li><p>C&#x2F;S 一般建立在专用的网络上，小范围里的网络环境，建立在局域网的基础上的；而B&#x2F;S是建立在广域网的基础上的。不必有专门的网络硬件环境，只要有操作系统和浏览器就行。</p>
+</li>
+</ul>
 ]]></content>
       <tags>
         <tag>计算机网络</tag>
       </tags>
   </entry>
   <entry>
-    <title>戴尔PowerEdgeR620</title>
-    <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
-    <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
-<li>PERC 是 PowerEdge Raid Controller 的缩写</li>
-<li>前缀S表示为Software软件阵列，H 表示为Hardware 硬件阵列 ,</li>
-<li>从入门到高端型号第一位数字分别用1 3 7 8 表示，</li>
-<li>第二三位数字位为产品代数，</li>
-<li>结尾P表示 Performance 高性能型。</li>
+    <title>配置Raid和系统安装</title>
+    <url>/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h1><ul>
+<li>先配置raid，再按需分区，最后装系统<pre class="line-numbers language-none"><code class="language-none">* 先做raid准备好存储空间，然后按照需求进行分区和格式化，最后装系统
+  理解：就像先把房间分配好了才能进一步装修、入住
+
+* 必须选择分区模式，必须进行格式化
+
+* 如果系统是安装在raid盘上就必须先配置raid，再安装系统。
+  如果使用独立的系统盘，可以先安装系统，再配置raid（此时可以在系统下使用有GUI的raid管理程序已图形方式配置raid，但是影响效率，占内存），之后再使用系统磁盘管理分区、格式化。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
-<h2 id="PERC名词"><a href="#PERC名词" class="headerlink" title="PERC名词"></a>PERC名词</h2><ul>
-<li>Disk Group：磁盘组，这里相当于是阵列，例如配置了一个RAID5，就是一个磁盘组。</li>
-<li>VD：Virtual Disk， 虚拟磁盘，虚拟磁盘可以不使用阵列的全部容量，也就是说一个磁盘组可以分为多个VD。</li>
-<li>PD：Physical Disk，物理磁盘。</li>
+<h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
+<li><p>磁盘分区模式有mbr格式，guid格式（gpt格式）</p>
+</li>
+<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2TB 以下的硬盘，支持win7版本系统以下的32位和64位</p>
+</li>
+<li><p>guid分区：也叫gpt，全局唯一标识分区表，支持2T以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持64位系统，不支持32位系统</p>
+</li>
+<li><p>区别：，</p>
+<ul>
+<li><p>mbr分区</p>
+<ul>
+<li><p>&lt; 2T,选择mbr分区表</p>
+</li>
+<li><p>启动时，引导模式为 Legacy（bios）</p>
+</li>
+<li><p>最多只能描述 4 个分区，其中一个为主分区，其他为扩展分区，</p>
+</li>
 </ul>
-<h2 id="配置Raid方法"><a href="#配置Raid方法" class="headerlink" title="配置Raid方法"></a>配置Raid方法</h2><ul>
-<li>1、F10直接做在生命周期控制器中，F10可选中文，会重启很麻烦</li>
-<li>2、F2在系统设置中做  —-√   简单明了</li>
-<li>3、ctrl+R做，界面繁琐麻烦</li>
-<li>问题：同样的raid级别，在ctrl+R中配置和在F2中配置，容量会不一样，不知道为什么！</li>
+</li>
+<li><p>guid分区</p>
+<ul>
+<li><p>大于2T,选择guid分区表</p>
+</li>
+<li><p>启动时，引导模式为 uefi</p>
+</li>
 </ul>
-<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
+</li>
 </ul>
-<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
-<li>在安装系统时，系统文件里，不带有RAID 1的驱动程序，导致安装系统无法识别到RAID 1 的硬盘。需要手动加载 RAID 卡驱动程序</li>
-<li>raid版本和主板版本可能存在版本问题，注意匹配</li>
+</li>
+<li><p>注意：</p>
+<ul>
+<li><p>对应的分区模式要选择对应的引导模式</p>
+</li>
+<li><p>根据自己的raid需求，再bios中选择对应的引导模式</p>
+</li>
+<li><p>大于2t只能选择guid引导，否则做raid没意义，读不到那么大的容量</p>
+</li>
 </ul>
-]]></content>
+</li>
+<li><p>如何判断硬盘格式是 guid 还是 mbr ？</p>
+<ul>
+<li><p>windows</p>
+<pre class="line-numbers language-none"><code class="language-none">&#39;以管理员身份运行&#39;cmd命令，输入&#39;diskpart&#39;命令
+输入&#39;list disk&#39;命令进行查看：如果&#39;Gpt&#39;中显示&#39;*&#39;，则为GPT格式，反之为MBR
+![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNFw40.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>linux</p>
+<pre class="line-numbers language-none"><code class="language-none">1、fdisk -l 命令，结果中的“Disk label type”的值为
+     dos则分区是mbr，若该结果的值为gpt则分区是gpt；
+2、parted -l 命令，结果中的“Partition Table”的值为
+     msdos则分区是mbr，若该结果的值为gpt则分区是gpt。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h2 id="引导模式"><a href="#引导模式" class="headerlink" title="引导模式"></a>引导模式</h2><ul>
+<li><p>在bios中配置，有Legacy（bios）和 uefi</p>
+</li>
+<li><p>区别</p>
+<ul>
+<li>UEFI是新式的BIOS，BIOS则是传统legacy。最明显的却别在于启动速度，UEFI明显更快，因为它支持硬件加速和并行处理。</li>
+<li><img src="https://s1.ax1x.com/2023/08/30/pPd6L9S.png" alt="img"></li>
+</ul>
+</li>
+</ul>
+<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
+<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
+</li>
+<li><p>流程</p>
+<ul>
+<li>配置raid</li>
+<li>配置引导模式，bios还是uefi</li>
+<li>配置磁盘的分区格式，格式化处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>有的统文件里，不带有raid驱动程序，导致安装系统无法识别到raid的硬盘。需要去官网下载，手动加载 raid 卡驱动程序</p>
+</li>
+<li><p>找不到适用的引导分区</p>
+<ul>
+<li>分区工具修复、重新分区</li>
+<li>可能是系统找不到raid驱动，导致找不到磁盘，去官网找对应主板的驱动，装上。</li>
+</ul>
+</li>
+</ul>
+<h1 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h1><ul>
+<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
+<ul>
+<li>linux默认mbr分区模式，所以配raid后，先改分区模式、配置分区，最后装系统 （否则易出现读不到盘，容量不对的情况）<ul>
+<li>一般直接在 控制台，改成guid分区，uefi引导</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>流程</p>
+<ul>
+<li>配置raid</li>
+<li>配置引导模式</li>
+<li>配置磁盘的分区格式，格式化处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2>]]></content>
       <tags>
-        <tag>戴尔PowerEdge</tag>
+        <tag>系统安装</tag>
       </tags>
   </entry>
   <entry>
@@ -3735,7 +3903,7 @@ port #存取I&#x2F;O端口<span aria-hidden="true" class="line-numbers-rows"><sp
 <li>swap分区：</li>
 </ul>
 <p>​        作用：类似于Windows的虚拟内存，在内存不够用时占用硬盘的虚拟内存来进行临时数据的存放，而对于linux就是swap分区</p>
-<p>​        分区建议：建议是物理内存大小的2倍，比如你电脑是4G的物理内存，swap分区可以是8G</p>
+<p>​        分区建议：建议是<strong>物理内存大小的2倍</strong>，比如你电脑是4G的物理内存，swap分区可以是8G</p>
 <p>　　 分区格式：swap格式</p>
 </blockquote>
 </li>

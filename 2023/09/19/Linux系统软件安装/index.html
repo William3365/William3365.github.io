@@ -274,7 +274,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-09-19
+                    2023-09-25
                 </div>
                 
 
@@ -1222,6 +1222,7 @@ systemctl restart network<span aria-hidden="true" class="line-numbers-rows"><spa
 </ol>
 <h3 id="准备主机名映射"><a href="#准备主机名映射" class="headerlink" title="准备主机名映射"></a>准备主机名映射</h3><ol>
 <li><p>在Windows系统中修改hosts文件，填入如下内容：</p>
+<p>管理员打开记事本、打开 C:\Windows\System32\drivers\etc\hosts</p>
 <blockquote>
 <p>如果同学们使用MacOS系统，请：</p>
 <ol>
@@ -1240,14 +1241,15 @@ systemctl restart network<span aria-hidden="true" class="line-numbers-rows"><spa
 </ol>
 <h3 id="配置SSH免密登录"><a href="#配置SSH免密登录" class="headerlink" title="配置SSH免密登录"></a>配置SSH免密登录</h3><h4 id="简介-6"><a href="#简介-6" class="headerlink" title="简介"></a>简介</h4><p>SSH服务是一种用于远程登录的安全认证协议。</p>
 <p>我们通过FinalShell远程连接到Linux，就是使用的SSH服务。</p>
-<p>SSH服务支持：</p>
+<p>SSH服务支持两种用户认证模式：</p>
 <ol>
-<li>通过账户+密码的认证方式来做用户认证</li>
-<li>通过账户+秘钥文件的方式做用户认证</li>
+<li>账户+密码</li>
+<li>账户+秘钥文件</li>
 </ol>
 <p>SSH可以让我们通过SSH命令，远程的登陆到其它的主机上，比如：</p>
-<p>在node1执行：ssh root@node2，将以root用户登录node2服务器，输入密码即可成功登陆</p>
-<p>或者ssh node2，将以当前用户直接登陆到node2服务器。</p>
+<p>在node1执行：</p>
+<p>​	<code>ssh root@node2</code>，将以root用户登录node2服务器，输入密码即可成功登陆</p>
+<p>​	<code>ssh node2</code>，将以当前用户直接登陆到node2服务器。</p>
 <h4 id="SSH免密配置"><a href="#SSH免密配置" class="headerlink" title="SSH免密配置"></a>SSH免密配置</h4><p>后续安装的集群化软件，多数需要远程登录以及远程执行命令，我们可以简单起见，配置三台Linux服务器之间的免密码互相SSH登陆</p>
 <ol>
 <li><p>在每一台机器都执行：<code>ssh-keygen -t rsa -b 4096</code>，一路回车到底即可</p>
@@ -1481,7 +1483,7 @@ systemctl disable firewalld<span aria-hidden="true" class="line-numbers-rows"><s
 /export/server/kafka/bin/kafka-server-start.sh /export/server/kafka/config/server.properties
 
 <span class="token comment"># 方式2：【后台启动】分别在node1、2、3上执行如下语句</span>
-<span class="token function">nohup</span> /export/server/kafka/bin/kafka-server-start.sh /export/server/kafka/config/server.properties <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">>></span> /export/server/kafka/kafka-server.log <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token function">nohup</span> /export/server/kafka/bin/kafka-server-start.sh /export/server/kafka/config/server.properties <span class="token operator">></span> /export/server/kafka/kafka-server.log <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>验证Kafka启动</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在每一台服务器执行</span>
@@ -3081,7 +3083,7 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">33.3k</span>
+                        class="white-color">36.1k</span>
             
             
             
