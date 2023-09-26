@@ -1420,6 +1420,8 @@ Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索�
 
 1. 在Windows系统中修改hosts文件，填入如下内容：
 
+   管理员打开记事本、打开 C:\Windows\System32\drivers\etc\hosts
+
    > 如果同学们使用MacOS系统，请：
    >
    > 1. sudo su -，切换到root
@@ -1449,18 +1451,18 @@ SSH服务是一种用于远程登录的安全认证协议。
 
 我们通过FinalShell远程连接到Linux，就是使用的SSH服务。
 
-SSH服务支持：
+SSH服务支持两种用户认证模式：
 
-1. 通过账户+密码的认证方式来做用户认证
-2. 通过账户+秘钥文件的方式做用户认证
-
-
+1. 账户+密码
+2. 账户+秘钥文件
 
 SSH可以让我们通过SSH命令，远程的登陆到其它的主机上，比如：
 
-在node1执行：ssh root@node2，将以root用户登录node2服务器，输入密码即可成功登陆
+在node1执行：
 
-或者ssh node2，将以当前用户直接登陆到node2服务器。
+​	`ssh root@node2`，将以root用户登录node2服务器，输入密码即可成功登陆
+
+​	`ssh node2`，将以当前用户直接登陆到node2服务器。
 
 
 
@@ -1837,7 +1839,7 @@ Kafka多数都是运行在分布式（集群化）模式下，所以课程将以
    /export/server/kafka/bin/kafka-server-start.sh /export/server/kafka/config/server.properties
    
    # 方式2：【后台启动】分别在node1、2、3上执行如下语句
-   nohup /export/server/kafka/bin/kafka-server-start.sh /export/server/kafka/config/server.properties 2>&1 >> /export/server/kafka/kafka-server.log &
+   nohup /export/server/kafka/bin/kafka-server-start.sh /export/server/kafka/config/server.properties > /export/server/kafka/kafka-server.log 2>&1 &
    ```
 
 9. 验证Kafka启动
