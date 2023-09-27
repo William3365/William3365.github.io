@@ -2216,28 +2216,6 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
       </tags>
   </entry>
   <entry>
-    <title>PC微信双开</title>
-    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
-    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
-<li><p>首先新建一个txt文件</p>
-<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
-
-# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>保存文件，将txt文件改成后缀为bat</p>
-</li>
-<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
-</li>
-<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PVE</title>
     <url>/2023/09/25/PVE%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<h1 id="PVE"><a href="#PVE" class="headerlink" title="PVE"></a>PVE</h1><ul>
@@ -2372,6 +2350,28 @@ ssh-copy-id 192.168.3.66
 ]]></content>
       <tags>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PC微信双开</title>
+    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
+    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
+<li><p>首先新建一个txt文件</p>
+<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+
+# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>保存文件，将txt文件改成后缀为bat</p>
+</li>
+<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
+</li>
+<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>工具类</tag>
       </tags>
   </entry>
   <entry>
@@ -2554,57 +2554,6 @@ ssh-copy-id 192.168.3.66
       </tags>
   </entry>
   <entry>
-    <title>github问题</title>
-    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>问题：<br>    * 在拉取、推送、克隆的时候常报错经常出现 Connection refused 的错误，大致有443错误、22错误<br>    <pre class="line-numbers language-none"><code class="language-none">常见git报错：
-
-1、Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve
-
-2、ssh: connect to host github.com port 22: Connection timed out  （或者port 443）
-fatal: Could not read from remote repository.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
-<p>分析：<br>    * 由于GitHub经常被墙，访问不方便。</p>
-<pre><code>* 浏览器访问GitHub.com 网站是正常的，估计是域名解析被污染了
-
-* 这两个问题主要是因为连接github.com的22/443端口被拒绝了。
-  ssh连接默认使用22端口，22不能用可以调整为443端口
-</code></pre>
-<p>解决：<br>    * 1、如使用的代理，则关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br>      <code>ipconfig/flushdns</code></p>
-<pre><code>* 2、改22端口为443端口
-  * Git Bash窗口，`ssh -T git@github.com` 查看是否仍然报错
-  * 若执行命令 `ssh -T -p 443 git@ssh.github.com` 后不再提示connection refused
-  * 则说明改用443端口可行，输入 `vim ~/.ssh/config`
-    <pre class="line-numbers language-none"><code class="language-none">Host github.com
-  Hostname ssh.github.com
-  Port 443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-  * 重新执行 `ssh -T git@github.com` 
-    显示 `Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.`
-    说明成功
-  * ![](https://s1.ax1x.com/2023/08/25/pPNktxO.png)
-
-* 3、22、443端口都不能用了，但是网页访问github正常
-  * 先刷新DNS，若是无效再进行下一步
-  * 查看ssh.github.com这个域名对应的ip
-    `https://ipaddress.com/website/ssh.github.com`
-  * 查出ip后，测试ssh连接
-    `ssh -T -p 443 git@140.82.114.36`
-  *  显示 `Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.`即成功
-  *  输入 `vim ~/.ssh/config`
-     <pre class="line-numbers language-none"><code class="language-none">只要将Hostname ssh.github.com换成ip地址140.82.114.36即可
-
- Host github.com
-  Hostname 40.82.114.36
-  Port 443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-  *  大功告成  
-
-
-    
-</code></pre>
-]]></content>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>centos7</title>
     <url>/2023/08/19/centos7/</url>
     <content><![CDATA[<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
@@ -2767,6 +2716,57 @@ tips：
       </tags>
   </entry>
   <entry>
+    <title>github问题</title>
+    <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>问题：<br>    * 在拉取、推送、克隆的时候常报错经常出现 Connection refused 的错误，大致有443错误、22错误<br>    <pre class="line-numbers language-none"><code class="language-none">常见git报错：
+
+1、Failed to connect to github.com port 443 after 21084 ms: Couldn‘t connect to serve
+
+2、ssh: connect to host github.com port 22: Connection timed out  （或者port 443）
+fatal: Could not read from remote repository.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>分析：<br>    * 由于GitHub经常被墙，访问不方便。</p>
+<pre><code>* 浏览器访问GitHub.com 网站是正常的，估计是域名解析被污染了
+
+* 这两个问题主要是因为连接github.com的22/443端口被拒绝了。
+  ssh连接默认使用22端口，22不能用可以调整为443端口
+</code></pre>
+<p>解决：<br>    * 1、如使用的代理，则关闭代理，然后重新刷新DNS缓存，用cmd打开windows命令窗口，输入：<br>      <code>ipconfig/flushdns</code></p>
+<pre><code>* 2、改22端口为443端口
+  * Git Bash窗口，`ssh -T git@github.com` 查看是否仍然报错
+  * 若执行命令 `ssh -T -p 443 git@ssh.github.com` 后不再提示connection refused
+  * 则说明改用443端口可行，输入 `vim ~/.ssh/config`
+    <pre class="line-numbers language-none"><code class="language-none">Host github.com
+  Hostname ssh.github.com
+  Port 443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+  * 重新执行 `ssh -T git@github.com` 
+    显示 `Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.`
+    说明成功
+  * ![](https://s1.ax1x.com/2023/08/25/pPNktxO.png)
+
+* 3、22、443端口都不能用了，但是网页访问github正常
+  * 先刷新DNS，若是无效再进行下一步
+  * 查看ssh.github.com这个域名对应的ip
+    `https://ipaddress.com/website/ssh.github.com`
+  * 查出ip后，测试ssh连接
+    `ssh -T -p 443 git@140.82.114.36`
+  *  显示 `Hi xxxxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.`即成功
+  *  输入 `vim ~/.ssh/config`
+     <pre class="line-numbers language-none"><code class="language-none">只要将Hostname ssh.github.com换成ip地址140.82.114.36即可
+
+ Host github.com
+  Hostname 40.82.114.36
+  Port 443<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  *  大功告成  
+
+
+    
+</code></pre>
+]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo杂谈</title>
     <url>/2023/08/19/hexo%E6%9D%82%E8%B0%88/</url>
     <content><![CDATA[<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ul>
@@ -2899,6 +2899,83 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用软件</title>
+    <url>/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
+<p>简单来说，Tomcat是一个WEB应用程序的托管平台，可以让用户编写的WEB应用程序，被Tomcat所托管，并提供网站服务。</p>
+<blockquote>
+<p>即让用户开发的WEB应用程序，变成可以被访问的网页。</p>
+</blockquote>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p><em>Nginx</em> 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。</p>
+<p>同Tomcat一样，Nginx可以托管用户编写的WEB应用程序成为可访问的网页服务，同时也可以作为流量代理服务器，控制流量的中转。</p>
+<p>Nginx在WEB开发领域，也是必备组件之一。</p>
+<h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>RabbitMQ是一款开源消息队列系统，为企业提供消息的发布、订阅、点对点传输等消息服务。</p>
+<p>RabbitMQ在企业开发中十分常见</p>
+<p>你可以把它当做一个快递站点，当你要发送一个包裹时，你把你的包裹放到快递站，快递员最终会把你的快递送到收件人那里，按照这种逻辑RabbitMQ是一个快递站，一个快递员帮你传递快件。RabbitMQ与快递站的主要区别在于，它不处理快件而是接收，存储和转发消息数据。</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>redis是一个开源的、使用C语言编写的、支持网络交互的、可基于内存也可持久化的Key-Value数据库。</p>
+<p>redis的特点就是：<code>快</code>，可以基于内存存储数据并提供超低延迟、超快的检索速度，一般用于在系统中提供快速缓存的能力。</p>
+<h2 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h2><p><a href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">全文搜索</a>属于最常见的需求，开源的 <a href="https://www.elastic.co/">Elasticsearch</a> （以下简称 es）是目前全文搜索引擎的首选。</p>
+<p>它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。</p>
+<p>Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索引擎服务。</p>
+<p>很多服务中的搜索功能，都是基于es来实现的。</p>
+<h2 id="ZooKeepe"><a href="#ZooKeepe" class="headerlink" title="ZooKeepe"></a>ZooKeepe</h2><p> ZooKeeper从字面意思理解，【Zoo - 动物园，Keeper - 管理员】动物园中有很多种动物，这里的动物就可以比作分布式环境下多种多样的服务，而ZooKeeper做的就是管理这些服务。</p>
+<p>Zookeeper是一款分布式的集群化软件，可以在多台服务器上部署，并协同组成分布式集群一起工作。</p>
+<p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
+<p>除了为Hadoop和HBase提供协调服务外，Zookeeper也被其它许多软件采用作为其分布式状态一致性的依赖，比如Kafka，又或者一些软件项目中，也经常能见到Zookeeper作为一致性协调服务存在。</p>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka是一款<code>分布式的、去中心化的、高吞吐低延迟、订阅模式</code>的消息队列系统。</p>
+<p>同RabbitMQ一样，Kafka也是消息队列。不过RabbitMQ多用于后端系统，因其更加专注于消息的延迟和容错。</p>
+<p>Kafka多用于大数据体系，因其更加专注于数据的吞吐能力。Kafka多数都是运行在分布式（集群化）模式下</p>
+<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>1、Hadoop是一个由Apache基金会所开发的分布式系统基础架构。<br>2、主要解决，海量数据的存储和海量数据的分析计算问题。</p>
+<ul>
+<li>Hadoop生态<ul>
+<li>Hadoop HDFS 提供分布式海量数据存储能力</li>
+<li>Hadoop YARN 提供分布式集群资源管理能力</li>
+<li>Hadoop MapReduce 提供分布式海量数据计算能力</li>
+</ul>
+</li>
+</ul>
+<h3 id="Hadoop集群角色"><a href="#Hadoop集群角色" class="headerlink" title="Hadoop集群角色"></a>Hadoop集群角色</h3><p>Hadoop生态体系中总共会出现如下进程角色：</p>
+<ol>
+<li>Hadoop HDFS的管理角色：Namenode进程（<code>仅需1个即可（管理者一个就够）</code>）</li>
+<li>Hadoop HDFS的工作角色：Datanode进程（<code>需要多个（工人，越多越好，一个机器启动一个）</code>）</li>
+<li>Hadoop YARN的管理角色：ResourceManager进程（<code>仅需1个即可（管理者一个就够）</code>）</li>
+<li>Hadoop YARN的工作角色：NodeManager进程（<code>需要多个（工人，越多越好，一个机器启动一个）</code>）</li>
+<li>Hadoop 历史记录服务器角色：HistoryServer进程（<code>仅需1个即可（功能进程无需太多1个足够）</code>）</li>
+<li>Hadoop 代理服务器角色：WebProxyServer进程（<code>仅需1个即可（功能进程无需太多1个足够）</code>）</li>
+<li>Zookeeper的进程：QuorumPeerMain进程（<code>仅需1个即可（Zookeeper的工作者，越多越好）</code>）</li>
+</ol>
+<h2 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h2><p>HBase在大数据领域应用十分广泛， 是一种<a href="https://so.csdn.net/so/search?q=%E5%88%86%E5%B8%83%E5%BC%8F&spm=1001.2101.3001.7020">分布式</a>、可扩展、支持海量数据存储的 NoSQL 数据库。</p>
+<p>和Redis一样，HBase是一款KeyValue型存储的数据库。</p>
+<p>不过和Redis设计方向不同</p>
+<ul>
+<li>Redis设计为少量数据，超快检索</li>
+<li>HBase设计为海量数据，快速检索</li>
+</ul>
+<h2 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h2><p>park是一款分布式内存计算引擎，可以支撑海量数据的分布式计算。</p>
+<p>Spark在大数据体系是明星产品，作为最新一代的综合计算引擎，支持离线计算和实时计算。</p>
+<p>在大数据领域广泛应用，是目前世界上使用最多的大数据分布式计算引擎。</p>
+<p>基于Hadoop集群，部署Spark Standalone集群。</p>
+<h2 id="Flink"><a href="#Flink" class="headerlink" title="Flink"></a>Flink</h2><p>Flink同Spark一样，是一款分布式内存计算引擎，可以支撑海量数据的分布式计算。</p>
+<p>Flink在大数据体系同样是明星产品，作为最新一代的综合计算引擎，支持离线计算和实时计算。</p>
+<p>在大数据领域广泛应用，是目前世界上除去Spark以外，应用最为广泛的分布式计算引擎。</p>
+<p>基于Hadoop集群，部署Flink Standalone集群</p>
+<p>Spark更加偏向于离线计算而Flink更加偏向于实时计算。</p>
+<h2 id="Zabbix"><a href="#Zabbix" class="headerlink" title="Zabbix"></a>Zabbix</h2><p>Zabbix 由 Alexei Vladishev 创建，目前由其成立的公司—— Zabbix SIA 积极的持续开发更新维护， 并为用户提供技术支持服务。</p>
+<p>Zabbix 是一个&#x3D;&#x3D;企业级分布式开源监控解决方案&#x3D;&#x3D;。</p>
+<p>Zabbix 软件能够&#x3D;&#x3D;监控&#x3D;&#x3D;众多网络参数和服务器的&#x3D;&#x3D;健康度、完整性&#x3D;&#x3D;。Zabbix 使用灵活的告警机制，允许用户为几乎任何事件配置基于邮件的告警。这样用户可以快速响应服务器问题。Zabbix 基于存储的数据提供出色的报表和数据可视化功能。这些功能使得 Zabbix 成为容量规划的理想选择</p>
+<h2 id="Grafana"><a href="#Grafana" class="headerlink" title="Grafana"></a>Grafana</h2><p><code>Grafana</code>支持常见的绝大多数操作系统, 如<code>windows</code> <code>mac</code> <code>linux</code> 同时也支持部署在<code>docker</code>中.</p>
+<p>大多数情况下, <code>Grafana</code>都是部署在<code>linux</code>服务器之上</p>
+<p><code>Grafana</code>支持两种部署形式</p>
+<ol>
+<li>自行部署, 可以部署在操作系统之上. 自行提供服务器, 域名等.</li>
+<li><code>Grafana</code>官方托管. 无需安装, 在线注册即可得到一个专属于自己的<code>Grafana</code>, 但是要花钱的. 是一种<code>SaaS</code>服务</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>工具类</tag>
       </tags>
   </entry>
   <entry>
@@ -3062,83 +3139,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>常用软件</title>
-    <url>/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
-    <content><![CDATA[<h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
-<p>简单来说，Tomcat是一个WEB应用程序的托管平台，可以让用户编写的WEB应用程序，被Tomcat所托管，并提供网站服务。</p>
-<blockquote>
-<p>即让用户开发的WEB应用程序，变成可以被访问的网页。</p>
-</blockquote>
-<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p><em>Nginx</em> 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。</p>
-<p>同Tomcat一样，Nginx可以托管用户编写的WEB应用程序成为可访问的网页服务，同时也可以作为流量代理服务器，控制流量的中转。</p>
-<p>Nginx在WEB开发领域，也是必备组件之一。</p>
-<h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>RabbitMQ是一款开源消息队列系统，为企业提供消息的发布、订阅、点对点传输等消息服务。</p>
-<p>RabbitMQ在企业开发中十分常见</p>
-<p>你可以把它当做一个快递站点，当你要发送一个包裹时，你把你的包裹放到快递站，快递员最终会把你的快递送到收件人那里，按照这种逻辑RabbitMQ是一个快递站，一个快递员帮你传递快件。RabbitMQ与快递站的主要区别在于，它不处理快件而是接收，存储和转发消息数据。</p>
-<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>redis是一个开源的、使用C语言编写的、支持网络交互的、可基于内存也可持久化的Key-Value数据库。</p>
-<p>redis的特点就是：<code>快</code>，可以基于内存存储数据并提供超低延迟、超快的检索速度，一般用于在系统中提供快速缓存的能力。</p>
-<h2 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h2><p><a href="https://baike.baidu.com/item/%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">全文搜索</a>属于最常见的需求，开源的 <a href="https://www.elastic.co/">Elasticsearch</a> （以下简称 es）是目前全文搜索引擎的首选。</p>
-<p>它可以快速地储存、搜索和分析海量数据。维基百科、Stack Overflow、Github 都采用它。</p>
-<p>Elasticsearch简称es，在企业内同样是一款应用非常广泛的搜索引擎服务。</p>
-<p>很多服务中的搜索功能，都是基于es来实现的。</p>
-<h2 id="ZooKeepe"><a href="#ZooKeepe" class="headerlink" title="ZooKeepe"></a>ZooKeepe</h2><p> ZooKeeper从字面意思理解，【Zoo - 动物园，Keeper - 管理员】动物园中有很多种动物，这里的动物就可以比作分布式环境下多种多样的服务，而ZooKeeper做的就是管理这些服务。</p>
-<p>Zookeeper是一款分布式的集群化软件，可以在多台服务器上部署，并协同组成分布式集群一起工作。</p>
-<p>ZooKeeper是一个<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F/19276232?fromModule=lemma_inlink">分布式</a>的，开放源码的<a href="https://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9854429?fromModule=lemma_inlink">分布式应用程序</a>协调服务，是Hadoop和<a href="https://baike.baidu.com/item/Hbase/7670213?fromModule=lemma_inlink">Hbase</a>的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。</p>
-<p>除了为Hadoop和HBase提供协调服务外，Zookeeper也被其它许多软件采用作为其分布式状态一致性的依赖，比如Kafka，又或者一些软件项目中，也经常能见到Zookeeper作为一致性协调服务存在。</p>
-<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p>Kafka是一款<code>分布式的、去中心化的、高吞吐低延迟、订阅模式</code>的消息队列系统。</p>
-<p>同RabbitMQ一样，Kafka也是消息队列。不过RabbitMQ多用于后端系统，因其更加专注于消息的延迟和容错。</p>
-<p>Kafka多用于大数据体系，因其更加专注于数据的吞吐能力。Kafka多数都是运行在分布式（集群化）模式下</p>
-<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>1、Hadoop是一个由Apache基金会所开发的分布式系统基础架构。<br>2、主要解决，海量数据的存储和海量数据的分析计算问题。</p>
-<ul>
-<li>Hadoop生态<ul>
-<li>Hadoop HDFS 提供分布式海量数据存储能力</li>
-<li>Hadoop YARN 提供分布式集群资源管理能力</li>
-<li>Hadoop MapReduce 提供分布式海量数据计算能力</li>
-</ul>
-</li>
-</ul>
-<h3 id="Hadoop集群角色"><a href="#Hadoop集群角色" class="headerlink" title="Hadoop集群角色"></a>Hadoop集群角色</h3><p>Hadoop生态体系中总共会出现如下进程角色：</p>
-<ol>
-<li>Hadoop HDFS的管理角色：Namenode进程（<code>仅需1个即可（管理者一个就够）</code>）</li>
-<li>Hadoop HDFS的工作角色：Datanode进程（<code>需要多个（工人，越多越好，一个机器启动一个）</code>）</li>
-<li>Hadoop YARN的管理角色：ResourceManager进程（<code>仅需1个即可（管理者一个就够）</code>）</li>
-<li>Hadoop YARN的工作角色：NodeManager进程（<code>需要多个（工人，越多越好，一个机器启动一个）</code>）</li>
-<li>Hadoop 历史记录服务器角色：HistoryServer进程（<code>仅需1个即可（功能进程无需太多1个足够）</code>）</li>
-<li>Hadoop 代理服务器角色：WebProxyServer进程（<code>仅需1个即可（功能进程无需太多1个足够）</code>）</li>
-<li>Zookeeper的进程：QuorumPeerMain进程（<code>仅需1个即可（Zookeeper的工作者，越多越好）</code>）</li>
-</ol>
-<h2 id="HBase"><a href="#HBase" class="headerlink" title="HBase"></a>HBase</h2><p>HBase在大数据领域应用十分广泛， 是一种<a href="https://so.csdn.net/so/search?q=%E5%88%86%E5%B8%83%E5%BC%8F&spm=1001.2101.3001.7020">分布式</a>、可扩展、支持海量数据存储的 NoSQL 数据库。</p>
-<p>和Redis一样，HBase是一款KeyValue型存储的数据库。</p>
-<p>不过和Redis设计方向不同</p>
-<ul>
-<li>Redis设计为少量数据，超快检索</li>
-<li>HBase设计为海量数据，快速检索</li>
-</ul>
-<h2 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h2><p>park是一款分布式内存计算引擎，可以支撑海量数据的分布式计算。</p>
-<p>Spark在大数据体系是明星产品，作为最新一代的综合计算引擎，支持离线计算和实时计算。</p>
-<p>在大数据领域广泛应用，是目前世界上使用最多的大数据分布式计算引擎。</p>
-<p>基于Hadoop集群，部署Spark Standalone集群。</p>
-<h2 id="Flink"><a href="#Flink" class="headerlink" title="Flink"></a>Flink</h2><p>Flink同Spark一样，是一款分布式内存计算引擎，可以支撑海量数据的分布式计算。</p>
-<p>Flink在大数据体系同样是明星产品，作为最新一代的综合计算引擎，支持离线计算和实时计算。</p>
-<p>在大数据领域广泛应用，是目前世界上除去Spark以外，应用最为广泛的分布式计算引擎。</p>
-<p>基于Hadoop集群，部署Flink Standalone集群</p>
-<p>Spark更加偏向于离线计算而Flink更加偏向于实时计算。</p>
-<h2 id="Zabbix"><a href="#Zabbix" class="headerlink" title="Zabbix"></a>Zabbix</h2><p>Zabbix 由 Alexei Vladishev 创建，目前由其成立的公司—— Zabbix SIA 积极的持续开发更新维护， 并为用户提供技术支持服务。</p>
-<p>Zabbix 是一个&#x3D;&#x3D;企业级分布式开源监控解决方案&#x3D;&#x3D;。</p>
-<p>Zabbix 软件能够&#x3D;&#x3D;监控&#x3D;&#x3D;众多网络参数和服务器的&#x3D;&#x3D;健康度、完整性&#x3D;&#x3D;。Zabbix 使用灵活的告警机制，允许用户为几乎任何事件配置基于邮件的告警。这样用户可以快速响应服务器问题。Zabbix 基于存储的数据提供出色的报表和数据可视化功能。这些功能使得 Zabbix 成为容量规划的理想选择</p>
-<h2 id="Grafana"><a href="#Grafana" class="headerlink" title="Grafana"></a>Grafana</h2><p><code>Grafana</code>支持常见的绝大多数操作系统, 如<code>windows</code> <code>mac</code> <code>linux</code> 同时也支持部署在<code>docker</code>中.</p>
-<p>大多数情况下, <code>Grafana</code>都是部署在<code>linux</code>服务器之上</p>
-<p><code>Grafana</code>支持两种部署形式</p>
-<ol>
-<li>自行部署, 可以部署在操作系统之上. 自行提供服务器, 域名等.</li>
-<li><code>Grafana</code>官方托管. 无需安装, 在线注册即可得到一个专属于自己的<code>Grafana</code>, 但是要花钱的. 是一种<code>SaaS</code>服务</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>宝塔面板</title>
     <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
     <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
@@ -3229,15 +3229,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>就是玩</title>
-    <url>/2023/09/15/%E5%B0%B1%E6%98%AF%E7%8E%A9/</url>
-    <content><![CDATA[<p>.⠄⠄⣿⣿⣿⣿⠘⡿⢛⣿⣿⣿⣿⣿⣧⢻⣿⣿⠃⠸⣿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⣿⣿⣿⣿⢀⠼⣛⣛⣭⢭⣟⣛⣛⣛⠿⠿⢆⡠⢿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⠸⣿⣿⢣⢶⣟⣿⣖⣿⣷⣻⣮⡿⣽⣿⣻⣖⣶⣤⣭⡉⠄⠄⠄⠄⠄<br>⠄⠄⠄⢹⠣⣛⣣⣭⣭⣭⣁⡛⠻⢽⣿⣿⣿⣿⢻⣿⣿⣿⣽⡧⡄⠄⠄⠄<br>⠄⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣌⡛⢿⣽⢘⣿⣷⣿⡻⠏⣛⣀⠄⠄<br>⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠙⡅⣿⠚⣡⣴⣿⣿⣿⡆⠄<br>⠄⠄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠄⣱⣾⣿⣿⣿⣿⣿⣿⠄<br>⠄⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠣⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠑⣿⣮⣝⣛⠿⠿⣿⣿⣿⣿⠄<br>⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠄</p>
-]]></content>
-      <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>工具类QA</title>
     <url>/2023/08/19/%E5%B7%A5%E5%85%B7%E7%B1%BBQA/</url>
     <content><![CDATA[<ul>
@@ -3253,6 +3244,15 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 </li>
 <li>PE系统<br>PE是指Windows 预安装环境 (Windows PE) 是在Windows内核上构建的具有有限服务的最小 Win32 子系统，说白了就是把系统写进U盘里；iso是一种光盘镜像文件格式，装系统的过程说简单点都是把系统原版ISO镜像里的系统文件或者GHO压缩镜像里的系统文件写入C盘并给C盘加上引导程序的过程，如果说两种安装方式有区别那就是有些第三方制作的PE里可以附加程序，比如可以加入一些万能的驱动程序，或者嵌入一些广告应用程序等等，而纯净的系统ISO安装是不夹带这些的。</li>
 </ul>
+]]></content>
+      <tags>
+        <tag>工具类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>就是玩</title>
+    <url>/2023/09/15/%E5%B0%B1%E6%98%AF%E7%8E%A9/</url>
+    <content><![CDATA[<p>.⠄⠄⣿⣿⣿⣿⠘⡿⢛⣿⣿⣿⣿⣿⣧⢻⣿⣿⠃⠸⣿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⣿⣿⣿⣿⢀⠼⣛⣛⣭⢭⣟⣛⣛⣛⠿⠿⢆⡠⢿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⠸⣿⣿⢣⢶⣟⣿⣖⣿⣷⣻⣮⡿⣽⣿⣻⣖⣶⣤⣭⡉⠄⠄⠄⠄⠄<br>⠄⠄⠄⢹⠣⣛⣣⣭⣭⣭⣁⡛⠻⢽⣿⣿⣿⣿⢻⣿⣿⣿⣽⡧⡄⠄⠄⠄<br>⠄⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣌⡛⢿⣽⢘⣿⣷⣿⡻⠏⣛⣀⠄⠄<br>⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠙⡅⣿⠚⣡⣴⣿⣿⣿⡆⠄<br>⠄⠄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠄⣱⣾⣿⣿⣿⣿⣿⣿⠄<br>⠄⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠣⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠑⣿⣮⣝⣛⠿⠿⣿⣿⣿⣿⠄<br>⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠄</p>
 ]]></content>
       <tags>
         <tag>工具类</tag>
@@ -3409,312 +3409,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>教程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络</title>
-    <url>/2023/09/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><ul>
-<li>知识体系庞大、复杂。详细知识有需要直接百度，本文仅作为重点内容总结，知识索引。目的在于快速搭建知识框架，了解重点内容。</li>
-</ul>
-<h2 id="光口模块"><a href="#光口模块" class="headerlink" title="光口模块"></a>光口模块</h2><ul>
-<li>光口就是光纤插口，，接光纤，传输光信号，交换机上的光口一般使用光模块</li>
-<li>光纤传输分为单模光纤和多模光纤，因此有了单模模块和多模模块。<ul>
-<li>多模光纤传输距离近，模块中一般标示SR（Short Range短距离），或者LRM（Long Reach Multimode长度延伸多点模式）；</li>
-<li>单模光纤传输距离远，常见标示LR（Long Range长距离）；ER（Extended Range超长距离）；ZR（Ze best Range最长距离）</li>
-</ul>
-</li>
-</ul>
-<h2 id="电口模块"><a href="#电口模块" class="headerlink" title="电口模块"></a>电口模块</h2><ul>
-<li>光转电模块，把光信号转化为电信号后接网线，传输电信号，接口类型为RJ45(网口)</li>
-<li>支持热插拔，常见类型有SFP、SFP+等，10G SFP+电口模块也被称为万兆电口模块，它的速率是10G</li>
-<li>电口模块通常和五类、六类、超六类或七类网线一起使用</li>
-</ul>
-<h2 id="网线"><a href="#网线" class="headerlink" title="网线"></a>网线</h2><ul>
-<li>最常用线序：568b，橙白、橙、绿白、蓝、蓝白、绿、棕白、棕</li>
-<li>分类：<ul>
-<li>五类：网线外侧标记 CAT.5</li>
-<li>超五类：网线外侧标记 CAT.5e </li>
-<li>六类：网线外侧标记 CAT.6 </li>
-<li>超六类：网线外侧标记 CAT.6a &#x2F; 6e </li>
-<li>七类：网线外侧标记 CAT.7</li>
-</ul>
-</li>
-</ul>
-<h2 id="路由器-Router"><a href="#路由器-Router" class="headerlink" title="路由器 Router"></a>路由器 Router</h2><ul>
-<li>计算机网络设备，它将所收到的数据包根据目的IP地址，选择合适的传输路径进行转发，直至转发到目的端，这个过程就叫做路由</li>
-<li>工作在OSI模型中的第三层网络层</li>
-<li></li>
-</ul>
-<h2 id="交换机-Switch"><a href="#交换机-Switch" class="headerlink" title="交换机 Switch"></a>交换机 Switch</h2><ul>
-<li>实现局域网内的通信，它通过“学习”，将每一端口相连设备的MAC地址与其自身相应的端口一一对应起来并且存放在交换机缓存中的MAC地址表中。通过这个MAC表来将数据帧发送到目的端</li>
-<li>工作在OSI模型的第二层数据链路层</li>
-<li>三层交换机，<ul>
-<li>本质上是“带有路由功能的（二层）交换机”。路由参照OSI模型中第三层网络层，因此带有第三层路由功能的交换机才被称为“三层交换机”</li>
-</ul>
-</li>
-</ul>
-<h2 id="防火墙-Firewall"><a href="#防火墙-Firewall" class="headerlink" title="防火墙 Firewall"></a>防火墙 Firewall</h2><ul>
-<li>建立在内部网络与外部公共网之间的一种安全隔离技术，为内外网的通信提供一个安全屏障</li>
-</ul>
-<h2 id="WAN"><a href="#WAN" class="headerlink" title="WAN"></a>WAN</h2><ul>
-<li>广域网(Wide Area Network)，通俗讲就是和猫外部网连接的网线口:对外的接口，和运营商、上级网络打交道。</li>
-</ul>
-<h2 id="LAN"><a href="#LAN" class="headerlink" title="LAN"></a>LAN</h2><ul>
-<li>局域网(Local Area Network)，通俗讲就是路由和用户之间网线口:对内的接口，设备通过网线与其直连</li>
-</ul>
-<h2 id="WLAN"><a href="#WLAN" class="headerlink" title="WLAN"></a>WLAN</h2><ul>
-<li>无线局域网(Wireless LAN)，数据通过电磁波传输，对内的接口，设备使用无线网，（如：wifi）</li>
-</ul>
-<h2 id="VLAN"><a href="#VLAN" class="headerlink" title="VLAN"></a>VLAN</h2><ul>
-<li>虚拟局域网，逻辑上的设备和用户，这些设备和用户互不受物理位置的限制，相互之间的通信就好像它们在同一个网段一样</li>
-<li>同一个vlan间，可以相互通信；不同vlan，若不做配置，不能相互通信。<ul>
-<li>VLAN划分和子网划分通常同时进行，一个VLAN对应一个子网，两者都是为了隔离通信,只不过VLAN在第二层隔离，子网是在第三层隔离</li>
-</ul>
-</li>
-</ul>
-<h2 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h2><ul>
-<li>虚拟专用网络，在公用网络上建立专用私有网络，VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问</li>
-</ul>
-<h2 id="IP-Internet-Protocol"><a href="#IP-Internet-Protocol" class="headerlink" title="IP Internet Protocol"></a>IP Internet Protocol</h2><ul>
-<li>IP负责在两个没有直连的两个网络之间进行通信，将数据包发送给最终目的的主机</li>
-<li>在 TCP&#x2F;IP 参考模型中处于第三层，也就是网络层</li>
-</ul>
-<h3 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h3><ul>
-<li>32位二进制数组成，以 . 划分8位一组共4组，用点分十进制的表示方式</li>
-<li>ip&#x3D;网络号+主机号<ul>
-<li>网络号表示其所属的网络段编号</li>
-<li>主机号则表示该网段中该主机的地址编号</li>
-</ul>
-</li>
-</ul>
-<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><ul>
-<li>128位十六进制数组成，以 : 划分16位一组共8组</li>
-<li>有更好的安全性和扩展性,  IPV4 和 IPV6不能兼容</li>
-</ul>
-<h3 id="静态ip、动态ip"><a href="#静态ip、动态ip" class="headerlink" title="静态ip、动态ip"></a>静态ip、动态ip</h3><ul>
-<li>静态ip，static，将固定IP地址持续分配给主机</li>
-<li>动态ip，DHCP协议，自动分配IP地址给用户</li>
-</ul>
-<h3 id="127-0-0-1"><a href="#127-0-0-1" class="headerlink" title="127.0.0.1"></a>127.0.0.1</h3><ul>
-<li>回环地址，用于测试时在本地运行并从本地访问服务</li>
-<li>localhost<ul>
-<li>IPv4指向  127.0.0.1</li>
-<li>IPv6指向  ::1</li>
-</ul>
-</li>
-</ul>
-<h2 id="子网掩码-NetMask"><a href="#子网掩码-NetMask" class="headerlink" title="子网掩码 NetMask"></a>子网掩码 NetMask</h2><ul>
-<li>形式上是网络号全为1，主机号全为0的IP地址<ul>
-<li>ip&#x3D;网络号+主机号，主机号&#x3D;子网网络号+子网主机号</li>
-</ul>
-</li>
-<li>必须结合IP地址一起使用，只有一个作用，将某个IP地址划分成网络地址和主机地址两部分，标志两个IP地址是否同属于一个子网<ul>
-<li>如果两个IP地址在子网掩码的按位与的计算下所得结果相同，即表明它们共属于同一子网中</li>
-</ul>
-</li>
-<li>IP默认分配的子网掩码每段只有 255 或 0。<ul>
-<li>常用：255.255.255.0   \   255.255.0.0</li>
-</ul>
-</li>
-</ul>
-<h2 id="网关-GateWay"><a href="#网关-GateWay" class="headerlink" title="网关 GateWay"></a>网关 GateWay</h2><ul>
-<li>工作在传输层，用于两个高层协议不同的网络互连，又称网间连接器、协议转换器，实质上是一个网络通向其他网络的IP地址</li>
-<li>一般指TCP&#x2F;IP协议中的网关，只有设置好网关的IP地址，TCP&#x2F;IP协议才能实现不同网络之间的相互通信</li>
-<li>默认网关的意思是一台主机如果找不到可用的网关，就把数据包发给默认指定的网关，由这个网关来处理数据包。</li>
-<li><strong>网关在网段内的可用ip中选一个，一般用的是第一个和最后一个</strong></li>
-</ul>
-<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
-<li>域名解析服务器（Domain Name System），把域名网址翻译成IP地址</li>
-</ul>
-<h2 id="端口-port"><a href="#端口-port" class="headerlink" title="端口 port"></a>端口 port</h2><ul>
-<li>IP 地址是用来发现和查找网络中的地址，但是不同程序如何互相通信呢？这就需要端口号来识别了。如果把 IP 地址比作一间房子，端口就是出入这间房子的门。</li>
-<li>服务器的默认程序一般都是通过端口号来识别的。<ul>
-<li>常用协议对应端口号：<pre class="line-numbers language-none"><code class="language-none">SSH 22
-FTP 20 和 21
-Telnet 23
-SMTP 25
-TFTP 69
-HTTP 80
-SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-</ul>
-<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h2 id="TCP-IP协议"><a href="#TCP-IP协议" class="headerlink" title="TCP&#x2F;IP协议"></a>TCP&#x2F;IP协议</h2><ul>
-<li>TCP(Transmission Control Protocol)&#x2F;IP(Internet Protocol)协议是现代互联网的基石，其实TCP&#x2F;IP代表一组协议，称为TCP&#x2F;IP协议簇，TCP和IP只是其中的两个最重要协议<br><a href="https://s2.51cto.com/oss/201906/17/f58f6ad856c6802b636d20d8f5ba2c3e.jpeg">https://s2.51cto.com/oss/201906/17/f58f6ad856c6802b636d20d8f5ba2c3e.jpeg</a></li>
-</ul>
-<h2 id="OSI模型"><a href="#OSI模型" class="headerlink" title="OSI模型"></a>OSI模型</h2><ul>
-<li>7层模型，高层(7、6、5、4)定义了应用程序的功能，下面3层(3、2、1)主要面向通过网络的端到端的数据流<ul>
-<li>7 应用层 </li>
-<li>6 表示层 </li>
-<li>5 会话层 </li>
-<li>4 传输层 </li>
-<li>3 网络层 </li>
-<li>2 数据链路层 </li>
-<li>1 物理层</li>
-</ul>
-</li>
-</ul>
-<h2 id="封装和分用"><a href="#封装和分用" class="headerlink" title="封装和分用"></a>封装和分用</h2><p>封装：当应用程序发送数据的时候，数据在协议层次当中自顶向下通过每一层，每一层都会对数据增加一些首部或尾部信息，这样的信息称之为协议数据单元（Protocol Data Unit，缩写为 PDU），在分层协议系统里，在指定的协议层上传送的数据单元，包含了该层的协议控制信息和用户信息。如下图所示：<br>物理层（一层）PDU 指数据位（Bit）<br>数据链路层（二层）PDU 指数据帧（Frame）<br>网络层（三层）PDU 指数据包（Packet）<br>传输层（四层）PDU 指数据段（Segment）<br>第五层以上为数据（data）<br>分用：当主机收到一个数据帧时，数据就从协议层底向上升，通过每一层时，检查并去掉对应层次的报文首部或尾部，与封装过程正好相反。</p>
-<h2 id="集中式网络"><a href="#集中式网络" class="headerlink" title="集中式网络"></a>集中式网络</h2><ul>
-<li><p>也称为单体架构</p>
-<p>集中式系统中一个独立的应用包含整个项目，所有的东西都在里面。部署到一个服务器上。 布署项目时，放到一个tomcat里的</p>
-</li>
-</ul>
-<h2 id="分布式网络"><a href="#分布式网络" class="headerlink" title="分布式网络"></a>分布式网络</h2><ul>
-<li><p>着公司的发展，应用的客户变多，功能也日益完善，加了很多的功能，整个项目在一个tomcat上跑，tomcat说它也很累，能不能少跑点代码，这时候 就产生了。</p>
-<p>我们可以把大项目按功能划分为很多的模块，比如说单独一个系统处理订单，一个处理用户登录，一个处理后台等等，然后每一个模块都单独在一个tomcat中跑，合起来就是一个完整的大项目，这样每一个tomcat都非常轻松</p>
-</li>
-<li><p>特征：</p>
-<ul>
-<li>多台计算机构成</li>
-<li>计算机之间通过网络进行通信</li>
-<li>彼此进行交互</li>
-<li>共同目标 有共同的功能</li>
-</ul>
-</li>
-</ul>
-<h2 id="C-S架构"><a href="#C-S架构" class="headerlink" title="C&#x2F;S架构"></a>C&#x2F;S架构</h2><p>Client&#x2F;Server架构或客户端&#x2F;服务端架构，主要特点是交互性强、具有安全的存取模式、网络通信量低、响应速度快、利于处理大量数据。但是该结构的程序是针对性开发，变更不够灵活，维护和管理的难度较大。通常只局限于小型局域网，不利于扩展。并且，由于该结构的每台客户机都需要安装相应的客户端程序，分布功能弱且兼容性差，不能实现快速部署安装和配置，因此缺少通用性，具有较大的局限性。</p>
-<h2 id="B-S架构"><a href="#B-S架构" class="headerlink" title="B&#x2F;S架构"></a>B&#x2F;S架构</h2><p>Browser&#x2F;Server架构或浏览器&#x2F;服务器端架构，它的主要特点是只安装维护一个服务器（Server），而客户端采用浏览器（Browse）运行软件。B&#x2F;S结构应用程序相对于传统的C&#x2F;S结构应用程序是一个非常大的进步。 B&#x2F;S结构的主要特点是分布性强、维护方便、开发简单且共享性强、总体拥有成本低。但数据安全性问题、对服务器要求过高、数据传输速度慢、软件的个性化特点明显降低。</p>
-<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><ul>
-<li><p>C&#x2F;S是客户端和服务器端，例如QQ，大型游戏LOL等，都是通过点击登录开启客户端输入账号密码进行登录，服务器端进行存储用户所创建的所有账号以及密码，该架构主要优点是安全性高，因为每个用户自己电脑上都要安装客户端，因此每个客户端是独立的，响应速度会很快，用户体验好，但是维护会很差，比如游戏进行维护，每个用户都需要自行进行更新，</p>
-<ul>
-<li>常见的C&#x2F;S架构开发例如安卓。</li>
-</ul>
-</li>
-<li><p>B&#x2F;S是浏览器服务器端，只需要有一个浏览器，用户通过不同网址（URL）访问不同的服务器端程序，因为是通过输入网址访问，所以维护就会比较方便，不需要像C&#x2F;S那样每个用户都需要进行维护，而是该服务器提供维护即可，维护成功后，用户只需重新登录即可看到最新维护后的网页，但是因为是多个用户看同一个网页，进入同一个服务器端，如果人数很多，数据传输就会很慢，用户就会出现卡顿等问题，因此该模式对服务器要求高，</p>
-<ul>
-<li>常见的B&#x2F;S架构开发例如web。</li>
-</ul>
-</li>
-<li><p>相比于CS管理软件，BS在安装部署、升级维护、设备带宽、软件学习推广成本等方面都有无可比拟的优势。BS管理软件的用户在客户机上无需安装任何软件，使用浏览器即可访问系统。系统让企业扩张不再需要额外投入更多信息化的资金，让系统培训和后期推广都变得非常容易，管理模式变得可复制。</p>
-<p>可用性：任何时间、任何地点、任何系统，只要可以使用浏览器上网，就可以使用BS系统的终端，更多的系统用户加入时只需设立账号、培训即可，并支持移动办公和分布式办公。CS是典型的集中式机械化处理，交互性相对低。</p>
-</li>
-<li><p>C&#x2F;S 一般建立在专用的网络上，小范围里的网络环境，建立在局域网的基础上的；而B&#x2F;S是建立在广域网的基础上的。不必有专门的网络硬件环境，只要有操作系统和浏览器就行。</p>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>配置Raid和系统安装</title>
-    <url>/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h1><ul>
-<li>先配置raid，再按需分区，最后装系统<pre class="line-numbers language-none"><code class="language-none">* 先做raid准备好存储空间，然后按照需求进行分区和格式化，最后装系统
-  理解：就像先把房间分配好了才能进一步装修、入住
-
-* 必须选择分区模式，必须进行格式化
-
-* 如果系统是安装在raid盘上就必须先配置raid，再安装系统。
-  如果使用独立的系统盘，可以先安装系统，再配置raid（此时可以在系统下使用有GUI的raid管理程序已图形方式配置raid，但是影响效率，占内存），之后再使用系统磁盘管理分区、格式化。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
-<li><p>磁盘分区模式有mbr格式，guid格式（gpt格式）</p>
-</li>
-<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2TB 以下的硬盘，支持win7版本系统以下的32位和64位</p>
-</li>
-<li><p>guid分区：也叫gpt，全局唯一标识分区表，支持2T以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持64位系统，不支持32位系统</p>
-</li>
-<li><p>区别：，</p>
-<ul>
-<li><p>mbr分区</p>
-<ul>
-<li><p>&lt; 2T,选择mbr分区表</p>
-</li>
-<li><p>启动时，引导模式为 Legacy（bios）</p>
-</li>
-<li><p>最多只能描述 4 个分区，其中一个为主分区，其他为扩展分区，</p>
-</li>
-</ul>
-</li>
-<li><p>guid分区</p>
-<ul>
-<li><p>大于2T,选择guid分区表</p>
-</li>
-<li><p>启动时，引导模式为 uefi</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>注意：</p>
-<ul>
-<li><p>对应的分区模式要选择对应的引导模式</p>
-</li>
-<li><p>根据自己的raid需求，再bios中选择对应的引导模式</p>
-</li>
-<li><p>大于2t只能选择guid引导，否则做raid没意义，读不到那么大的容量</p>
-</li>
-</ul>
-</li>
-<li><p>如何判断硬盘格式是 guid 还是 mbr ？</p>
-<ul>
-<li><p>windows</p>
-<pre class="line-numbers language-none"><code class="language-none">&#39;以管理员身份运行&#39;cmd命令，输入&#39;diskpart&#39;命令
-输入&#39;list disk&#39;命令进行查看：如果&#39;Gpt&#39;中显示&#39;*&#39;，则为GPT格式，反之为MBR
-![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNFw40.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>linux</p>
-<pre class="line-numbers language-none"><code class="language-none">1、fdisk -l 命令，结果中的“Disk label type”的值为
-     dos则分区是mbr，若该结果的值为gpt则分区是gpt；
-2、parted -l 命令，结果中的“Partition Table”的值为
-     msdos则分区是mbr，若该结果的值为gpt则分区是gpt。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-</ul>
-<h2 id="引导模式"><a href="#引导模式" class="headerlink" title="引导模式"></a>引导模式</h2><ul>
-<li><p>在bios中配置，有Legacy（bios）和 uefi</p>
-</li>
-<li><p>区别</p>
-<ul>
-<li>UEFI是新式的BIOS，BIOS则是传统legacy。最明显的却别在于启动速度，UEFI明显更快，因为它支持硬件加速和并行处理。</li>
-<li><img src="https://s1.ax1x.com/2023/08/30/pPd6L9S.png" alt="img"></li>
-</ul>
-</li>
-</ul>
-<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
-<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
-</li>
-<li><p>流程</p>
-<ul>
-<li>配置raid</li>
-<li>配置引导模式，bios还是uefi</li>
-<li>配置磁盘的分区格式，格式化处理</li>
-</ul>
-</li>
-</ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li><p>有的统文件里，不带有raid驱动程序，导致安装系统无法识别到raid的硬盘。需要去官网下载，手动加载 raid 卡驱动程序</p>
-</li>
-<li><p>找不到适用的引导分区</p>
-<ul>
-<li>分区工具修复、重新分区</li>
-<li>可能是系统找不到raid驱动，导致找不到磁盘，去官网找对应主板的驱动，装上。</li>
-</ul>
-</li>
-</ul>
-<h1 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h1><ul>
-<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
-<ul>
-<li>linux默认mbr分区模式，所以配raid后，先改分区模式、配置分区，最后装系统 （否则易出现读不到盘，容量不对的情况）<ul>
-<li>一般直接在 控制台，改成guid分区，uefi引导</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>流程</p>
-<ul>
-<li>配置raid</li>
-<li>配置引导模式</li>
-<li>配置磁盘的分区格式，格式化处理</li>
-</ul>
-</li>
-</ul>
-<h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2>]]></content>
-      <tags>
-        <tag>系统安装</tag>
       </tags>
   </entry>
   <entry>
@@ -4171,6 +3865,921 @@ aoligei.txt
 查看：lsblk、df、du、blkid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 ]]></content>
+      <tags>
+        <tag>计算机基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>配置Raid和系统安装</title>
+    <url>/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h1><ul>
+<li>先配置raid，再按需分区，最后装系统<pre class="line-numbers language-none"><code class="language-none">* 先做raid准备好存储空间，然后按照需求进行分区和格式化，最后装系统
+  理解：就像先把房间分配好了才能进一步装修、入住
+
+* 必须选择分区模式，必须进行格式化
+
+* 如果系统是安装在raid盘上就必须先配置raid，再安装系统。
+  如果使用独立的系统盘，可以先安装系统，再配置raid（此时可以在系统下使用有GUI的raid管理程序已图形方式配置raid，但是影响效率，占内存），之后再使用系统磁盘管理分区、格式化。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h1 id="分区模式和引导模式"><a href="#分区模式和引导模式" class="headerlink" title="分区模式和引导模式"></a>分区模式和引导模式</h1><h2 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h2><ul>
+<li><p>磁盘分区模式有mbr格式，guid格式（gpt格式）</p>
+</li>
+<li><p>mbr分区：硬盘主引导记录分区表，只支持容量在 2TB 以下的硬盘，支持win7版本系统以下的32位和64位</p>
+</li>
+<li><p>guid分区：也叫gpt，全局唯一标识分区表，支持2T以上的硬盘分区，GPT可管理硬盘大小达到了18EB，支持64位系统，不支持32位系统</p>
+</li>
+<li><p>区别：，</p>
+<ul>
+<li><p>mbr分区</p>
+<ul>
+<li><p>&lt; 2T,选择mbr分区表</p>
+</li>
+<li><p>启动时，引导模式为 Legacy（bios）</p>
+</li>
+<li><p>最多只能描述 4 个分区，其中一个为主分区，其他为扩展分区，</p>
+</li>
+</ul>
+</li>
+<li><p>guid分区</p>
+<ul>
+<li><p>大于2T,选择guid分区表</p>
+</li>
+<li><p>启动时，引导模式为 uefi</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>注意：</p>
+<ul>
+<li><p>对应的分区模式要选择对应的引导模式</p>
+</li>
+<li><p>根据自己的raid需求，再bios中选择对应的引导模式</p>
+</li>
+<li><p>大于2t只能选择guid引导，否则做raid没意义，读不到那么大的容量</p>
+</li>
+</ul>
+</li>
+<li><p>如何判断硬盘格式是 guid 还是 mbr ？</p>
+<ul>
+<li><p>windows</p>
+<pre class="line-numbers language-none"><code class="language-none">&#39;以管理员身份运行&#39;cmd命令，输入&#39;diskpart&#39;命令
+输入&#39;list disk&#39;命令进行查看：如果&#39;Gpt&#39;中显示&#39;*&#39;，则为GPT格式，反之为MBR
+![](https:&#x2F;&#x2F;s1.ax1x.com&#x2F;2023&#x2F;08&#x2F;25&#x2F;pPNFw40.png)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>linux</p>
+<pre class="line-numbers language-none"><code class="language-none">1、fdisk -l 命令，结果中的“Disk label type”的值为
+     dos则分区是mbr，若该结果的值为gpt则分区是gpt；
+2、parted -l 命令，结果中的“Partition Table”的值为
+     msdos则分区是mbr，若该结果的值为gpt则分区是gpt。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h2 id="引导模式"><a href="#引导模式" class="headerlink" title="引导模式"></a>引导模式</h2><ul>
+<li><p>在bios中配置，有Legacy（bios）和 uefi</p>
+</li>
+<li><p>区别</p>
+<ul>
+<li>UEFI是新式的BIOS，BIOS则是传统legacy。最明显的却别在于启动速度，UEFI明显更快，因为它支持硬件加速和并行处理。</li>
+<li><img src="https://s1.ax1x.com/2023/08/30/pPd6L9S.png" alt="img"></li>
+</ul>
+</li>
+</ul>
+<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
+<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
+</li>
+<li><p>流程</p>
+<ul>
+<li>配置raid</li>
+<li>配置引导模式，bios还是uefi</li>
+<li>配置磁盘的分区格式，格式化处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>有的统文件里，不带有raid驱动程序，导致安装系统无法识别到raid的硬盘。需要去官网下载，手动加载 raid 卡驱动程序</p>
+</li>
+<li><p>找不到适用的引导分区</p>
+<ul>
+<li>分区工具修复、重新分区</li>
+<li>可能是系统找不到raid驱动，导致找不到磁盘，去官网找对应主板的驱动，装上。</li>
+</ul>
+</li>
+</ul>
+<h1 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h1><ul>
+<li><p>核心：根据raid需求，选择合适的磁盘分区模式，合适的引导模式</p>
+<ul>
+<li>linux默认mbr分区模式，所以配raid后，先改分区模式、配置分区，最后装系统 （否则易出现读不到盘，容量不对的情况）<ul>
+<li>一般直接在 控制台，改成guid分区，uefi引导</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>流程</p>
+<ul>
+<li>配置raid</li>
+<li>配置引导模式</li>
+<li>配置磁盘的分区格式，格式化处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h2>]]></content>
+      <tags>
+        <tag>系统安装</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机基础</title>
+    <url>/2023/09/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h1 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h1><ul>
+<li><p>包含硬件、软件、网络、数据通信</p>
+</li>
+<li><p>知识体系庞大、复杂。详细知识有需要直接百度，本文仅作为重点内容总结，知识索引。目的在于快速搭建知识框架，了解重点内容。</p>
+</li>
+</ul>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><ul>
+<li>cpu&#x3D;运算器+控制器</li>
+</ul>
+<h3 id="系统性能指标"><a href="#系统性能指标" class="headerlink" title="系统性能指标"></a>系统性能指标</h3><ul>
+<li>数据通路<strong>带宽</strong>，数据总线一次能并行传输信息的位数</li>
+<li>吞吐量（Throughput），指系统在单位时间内处理或传输的数据量。通常以GB&#x2F;s或GB&#x2F;min为单位进行衡量。</li>
+<li>延迟（Latency），系统处理或传输数据所需的时间。通常以ms或s为单位进行衡量</li>
+<li>可扩展性（Scalability），可靠性（Reliability），可用性（Availability），可维护性（Maintainability）</li>
+</ul>
+<h3 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h3><ul>
+<li>主存储器、辅助存储器<ul>
+<li>主存储器就是内存，辅助存储器就是磁盘</li>
+</ul>
+</li>
+<li>计算机存储单位<ul>
+<li>GB，gigabyte，通常用于表示硬盘、U盘等存储介质的容量大小，数据通信中表示传输速率，十进制的容量单位，1000</li>
+<li>GiB，gibibyte，通常用于计算和表示计算机内存和文件大小，二进制的容量单位，1024<ul>
+<li>计算机网络的传输速率单位中，有时会使用到Mibit&#x2F;s或Gibit&#x2F;s等单位，但这些单位通常都是在计算机内部计算时使用，而不是在通信协议或标准中常用的单位</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="光口模块"><a href="#光口模块" class="headerlink" title="光口模块"></a>光口模块</h3><ul>
+<li><p>光口就是光纤插口，，接光纤，传输光信号，交换机上的光口一般使用光模块</p>
+</li>
+<li><p>光纤传输分为单模光纤和多模光纤，因此有了单模模块和多模模块。</p>
+<ul>
+<li><p>多模光纤传输距离近，模块中一般标示SR（Short Range短距离），或者LRM（Long Reach Multimode长度延伸多点模式）；</p>
+</li>
+<li><p>单模光纤传输距离远，常见标示LR（Long Range长距离）；ER（Extended Range超长距离）；ZR（Ze best Range最长距离）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="电口模块"><a href="#电口模块" class="headerlink" title="电口模块"></a>电口模块</h3><ul>
+<li><p>光转电模块，把光信号转化为电信号后接网线，传输电信号，接口类型为RJ45(网口)</p>
+</li>
+<li><p>支持热插拔，常见类型有SFP、SFP+等，10G SFP+电口模块也被称为万兆电口模块，它的速率是10G</p>
+</li>
+<li><p>电口模块通常和五类、六类、超六类或七类网线一起使用</p>
+</li>
+</ul>
+<h3 id="网线"><a href="#网线" class="headerlink" title="网线"></a>网线</h3><ul>
+<li><p>最常用线序：568b，橙白、橙、绿白、蓝、蓝白、绿、棕白、棕</p>
+</li>
+<li><p>分类：</p>
+<ul>
+<li><p>五类：网线外侧标记 CAT.5</p>
+</li>
+<li><p>超五类：网线外侧标记 CAT.5e </p>
+</li>
+<li><p>六类：网线外侧标记 CAT.6 </p>
+</li>
+<li><p>超六类：网线外侧标记 CAT.6a &#x2F; 6e </p>
+</li>
+<li><p>七类：网线外侧标记 CAT.7</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h2><h3 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h3><ul>
+<li><p>计算机系统&#x3D;硬件系统+软件系统</p>
+<ul>
+<li><p>硬件是这个计算机的物理基础，计算机的硬件决定了这个计算机天花板，瓶颈在哪</p>
+<p>软件决定了我们可以将计算机的性能发挥到怎样的程度</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="软件系统"><a href="#软件系统" class="headerlink" title="软件系统"></a>软件系统</h3><ul>
+<li><img src="https://img-blog.csdnimg.cn/57d354341ebb4bf399fba3dd4912f81b.png" style="zoom: 67%;" /></li>
+<li></li>
+</ul>
+<h3 id="防火墙-Firewall"><a href="#防火墙-Firewall" class="headerlink" title="防火墙 Firewall"></a>防火墙 Firewall</h3><ul>
+<li>建立在内部网络与外部公共网之间的一种安全隔离技术，为内外网的通信提供一个安全屏障</li>
+</ul>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3><ul>
+<li><img src="https://img-blog.csdnimg.cn/0a0d299ffae24afd8aa457a46ce62527.png" style="zoom: 67%;" />
+* <img src="https://img-blog.csdnimg.cn/ff93a68cbce646ad998dad8a88c4633b.png" style="zoom: 67%;" />
+* <img src="https://img-blog.csdnimg.cn/0f143aba16384346846240f76930fcd0.png" style="zoom:67%;" /></li>
+</ul>
+<h3 id="网络指标"><a href="#网络指标" class="headerlink" title="网络指标"></a>网络指标</h3><ul>
+<li><p>比特：bit，简写b，也叫位，是计算机内部数据存储的最小单位，表示信息的最小单位，用于描述数据的存储和传输，是二进制数的一位，可以表示0和1两种状态，</p>
+</li>
+<li><p>字节：byte，简写B，是计算机中数据处理的基本单位，由八个二进制位构成 ，1B&#x3D;8b，用于表示数据的最小存储单位和某些数据类型的固定大小</p>
+</li>
+</ul>
+<h4 id="标准"><a href="#标准" class="headerlink" title="标准"></a>标准</h4><ul>
+<li><p>标准化工作</p>
+<ul>
+<li>实现不同厂商硬件、软件之间相互连通，必须遵循统一的标准</li>
+</ul>
+</li>
+<li><p>标准化工作相关组织</p>
+<ul>
+<li><img src="https://img-blog.csdnimg.cn/c82af90fd71c4c0a8c5c8e0a2a46b919.png" style="zoom:67%;" /></li>
+</ul>
+</li>
+<li><p>IEEE802标准</p>
+<img src="https://img-blog.csdnimg.cn/f45378c9322d4916ac84165072de2af8.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="速率"><a href="#速率" class="headerlink" title="速率"></a>速率</h4><img src="https://img-blog.csdnimg.cn/b964d9b0407c4d82a0684ba220dd2019.png" style="zoom:67%;" />
+
+<h4 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h4><ul>
+<li><p>网络设备所支持的最高速度，带宽是一个理想状态，一般不会达到</p>
+<img src="https://img-blog.csdnimg.cn/ed300562c1ed486fb5755d1cad6236ff.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h4><ul>
+<li>吞吐量永远小于带宽</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/69f3a2a719454a4284377ac7ee02cc26.png" style="zoom:67%;" />
+
+
+
+<h4 id="网络时延"><a href="#网络时延" class="headerlink" title="网络时延"></a>网络时延</h4><img src="https://img-blog.csdnimg.cn/3b464527191249e0b0be5e7580317d5a.png" style="zoom: 67%;" />
+
+<h4 id="时延带宽积"><a href="#时延带宽积" class="headerlink" title="时延带宽积"></a>时延带宽积</h4><img src="https://img-blog.csdnimg.cn/52ad63a0e514457daa45badf00b22a38.png" style="zoom:67%;" />
+
+<h4 id="RTT"><a href="#RTT" class="headerlink" title="RTT"></a>RTT</h4><ul>
+<li><p>往返时延</p>
+<img src="https://img-blog.csdnimg.cn/e0d6e085ca2a4ca29cfc0f9aad6cf44c.png" style="zoom:67%;" />
+</li>
+<li><img src="https://img-blog.csdnimg.cn/85b98ed4fff14a6bbefa589a086c7f65.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="利用率"><a href="#利用率" class="headerlink" title="利用率"></a>利用率</h4><img src="https://img-blog.csdnimg.cn/15c7ab2acaf7482f8bf33d756e81ec73.png" style="zoom:67%;" />
+
+
+
+<h3 id="分层结构"><a href="#分层结构" class="headerlink" title="分层结构"></a>分层结构</h3><ul>
+<li>对于具体数据的传输 上一层的PDU 会作为下一层的SDU与下一层的PCI想加继续组成下一层的PDU</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/339ab8cecb1b4cbb8ff42ccb636a962e.png" style="zoom:67%;" />
+
+<ul>
+<li><p>封装</p>
+<p>封装：当应用程序发送数据的时候，数据在协议层次当中自顶向下通过每一层，每一层都会对数据增加一些首部或尾部信息，这样的信息称之为协议数据单元（Protocol Data Unit，缩写为 PDU），在分层协议系统里，在指定的协议层上传送的数据单元，包含了该层的协议控制信息和用户信息。<br>物理层（一层）PDU 指数据位（Bit）<br>数据链路层（二层）PDU 指数据帧（Frame）<br>网络层（三层）PDU 指数据包（Packet）<br>传输层（四层）PDU 指数据段（Segment）<br>第五层以上为数据（data）</p>
+</li>
+<li><p>分用：当主机收到一个数据帧时，数据就从协议层底向上升，通过每一层时，检查并去掉对应层次的报文首部或尾部，与封装过程正好相反。</p>
+</li>
+<li><img src="https://img-blog.csdnimg.cn/3258a2adeb16429390ed3e8ca4caf666.png" alt="img" style="zoom:67%;" />
+
+
+</li>
+<li><p>分层基本原则</p>
+<img src="https://img-blog.csdnimg.cn/fb64906fb116422796912e729e4e8131.png" style="zoom:67%;" /></li>
+</ul>
+<h3 id="OSI-模型"><a href="#OSI-模型" class="headerlink" title="OSI 模型"></a>OSI 模型</h3><ul>
+<li>OSI（开放式系统互联）模型是一个由国际标准化组织（ISO）定义的模型，用于描述<a href="https://so.csdn.net/so/search?q=%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C&spm=1001.2101.3001.7020">计算机网络</a>中的通信协议。</li>
+</ul>
+<h4 id="层次结构"><a href="#层次结构" class="headerlink" title="层次结构"></a>层次结构</h4><img src="https://img-blog.csdnimg.cn/49c2c1b6a5454984977e5f960543975a.png" style="zoom:67%;" />
+
+<h4 id="通信过程"><a href="#通信过程" class="headerlink" title="通信过程"></a>通信过程</h4><ul>
+<li>高层(7、6、5、4)定义了应用程序端到端的功能，下面3层(3、2、1)主要通过网络点到点的数据流</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/be86895bc7a24bf9b27b10f58da7ceda.png" style="zoom:67%;" />
+
+<ul>
+<li><p>其实就是一个a端打包，b端拆包的过程，A 走7654321，B 走1234567</p>
+<p>注意：数据链路层不仅增加了头部，还增加了尾部</p>
+<img src="https://img-blog.csdnimg.cn/207aa8dc400b43a39f4e19d7bd9f5fef.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="分层详解"><a href="#分层详解" class="headerlink" title="分层详解"></a>分层详解</h4><ul>
+<li><p><strong>应用层</strong>：所有能和用户交互，产生网络流量的程序</p>
+<ul>
+<li>协议：HTTP，HTTPS，FTP，DNS，POP3，SMTP，WWW，Telnet</li>
+</ul>
+</li>
+<li><p><strong>表示层</strong>：用于处理在两个通信系统中交换信息的表示方式（语法、语义）</p>
+<ul>
+<li><p>功能：数据格式转换、数据加密解密、数据压缩恢复</p>
+</li>
+<li><p>协议：JPEG、ASCII</p>
+</li>
+</ul>
+</li>
+<li><p><strong>会话层</strong>：想表示层实体&#x2F;用户进程提供建立并在连接上有序的传输数据，这就是会话，也是建立同步（SYN）</p>
+<ul>
+<li><p>功能：</p>
+<ul>
+<li>建立、管理、终止会话</li>
+<li>使用校验点，可以让会话在通信失效时从校验点&#x2F;同步点继续恢复通信，实现数据同步</li>
+</ul>
+</li>
+<li><p>协议：SSH、RPC</p>
+</li>
+</ul>
+</li>
+<li><p><strong>传输层</strong>：负责主机中两个进程的通信，即端到端的通信</p>
+<ul>
+<li><p>传输单位：报文段、用户数据报</p>
+</li>
+<li><p>功能：</p>
+<ul>
+<li>可靠传输、不可靠传输</li>
+<li>差错控制、流量控制</li>
+<li>复用分用<ul>
+<li>复用：多个应用层的进程可同时使用传输层的服务</li>
+<li>分用：传输层讲收到的信息，分别交给应用层中相应的进程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>协议：TCP、UDP</p>
+</li>
+</ul>
+</li>
+<li><p><strong>网络层</strong>：把分组从源端传到目的端，为分组交换网上不同的主机，提供通信服务</p>
+<ul>
+<li>传输单位：数据报</li>
+<li>功能：<ul>
+<li>路由选择，选择最佳路径</li>
+<li>流量控制，控制主机的传输速度</li>
+<li>差错控制，看分组有没有差错，有就纠正，不能纠正就丢掉</li>
+<li>拥塞控制，控制全局的传送，包括主机，中间节点</li>
+</ul>
+</li>
+<li>协议：IP，IPX，ICMP，ARP</li>
+</ul>
+</li>
+<li><p><strong>数据链路层</strong>：把网络层传下来的数据组装成帧</p>
+<ul>
+<li>传输单位：帧</li>
+<li>功能：<ul>
+<li>组装帧，定义帧的开始和结束</li>
+<li>差错控制，帧错+位错</li>
+<li>流量控制</li>
+<li>访问&#x2F;接入控制，控制对信道的访问</li>
+</ul>
+</li>
+<li>协议：ARP、RARP、PPP、STP、SDLC、HDLC</li>
+</ul>
+</li>
+<li><p><strong>物理层</strong>：在物理媒介上实现比特流的传输</p>
+<ul>
+<li>传输单位：比特</li>
+<li>功能：<ul>
+<li>定义接口特性、定义传输速率</li>
+<li>定义传输模式（单工、半双工、双工）<ul>
+<li>单工：定义号了发送方、接收方，只能单项通信</li>
+<li>半双工：既可以当发送方也可以当接收方，但同一时间只能有一人讲话</li>
+<li>双工：两人可以同时说话</li>
+</ul>
+</li>
+<li>比特同步</li>
+<li>比特编码：用高低电平表示0和1</li>
+</ul>
+</li>
+<li>协议： V.24，RJ45，E802.3</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP-IP-模型"><a href="#TCP-IP-模型" class="headerlink" title="TCP&#x2F;IP 模型"></a>TCP&#x2F;IP 模型</h3><ul>
+<li>TCP&#x2F;IP协议簇，代表一组协议，TCP和IP只是其中的两个最重要协议</li>
+</ul>
+<h4 id="层次结构-1"><a href="#层次结构-1" class="headerlink" title="层次结构"></a>层次结构</h4><ul>
+<li><p>标准定义的TCP&#x2F;IP模型为四层模型，没有对网络接口层进行明确的细分，但是在使用TCP&#x2F;IP模型时，一般会网络接口层分为链路层、物理层</p>
+<p>用以综合OSI模型和TCP&#x2F;IP模型的优点</p>
+<img src="https://z1.ax1x.com/2023/09/27/pPHWhgH.png" style="zoom:67%;" />
+
+<ul>
+<li><strong>应用层</strong>：支持各种网络应用</li>
+<li><strong>传输层</strong>：进程—进程的数据传输</li>
+<li><strong>网际层</strong>：源主机到目的主机的数据分组、路由转发</li>
+<li><strong>数据链路层</strong>：将网际层传递的数据报封装成帧</li>
+<li><strong>物理层</strong>：比特传输</li>
+</ul>
+</li>
+<li><p>osi参考模型和tcp&#x2F;ip参考模型对比</p>
+<ul>
+<li><p>相同点</p>
+<ul>
+<li>可以实现异构网络互联，基于独立的协议栈概念，都有分层</li>
+</ul>
+</li>
+<li><p>不同点</p>
+<img src="https://z1.ax1x.com/2023/09/27/pPHI3TI.png" style="zoom:67%;" /></li>
+</ul>
+</li>
+<li><p>通信过程</p>
+<img src="https://img-blog.csdnimg.cn/48730c65c7904bce8f7da682e8ed5ea6.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h4><img src="https://img-blog.csdnimg.cn/d79fad85ba3943dd82fbe8734932366b.png" style="zoom:67%;" />
+
+
+
+<img src="https://img-blog.csdnimg.cn/e6776369bdd64641a52eaf95a831d1b2.png" style="zoom:67%;" />
+
+
+
+<h5 id="网络应用模型"><a href="#网络应用模型" class="headerlink" title="网络应用模型"></a>网络应用模型</h5><h6 id="集中式网络"><a href="#集中式网络" class="headerlink" title="集中式网络"></a>集中式网络</h6><ul>
+<li><p>也称为单体架构</p>
+<p>集中式系统中一个独立的应用包含整个项目，所有的东西都在里面。部署到一个服务器上。 布署项目时，放到一个tomcat里的</p>
+</li>
+</ul>
+<h6 id="分布式网络"><a href="#分布式网络" class="headerlink" title="分布式网络"></a>分布式网络</h6><ul>
+<li><p>着公司的发展，应用的客户变多，功能也日益完善，加了很多的功能，整个项目在一个tomcat上跑，tomcat说它也很累，能不能少跑点代码，这时候 就产生了。</p>
+<p>我们可以把大项目按功能划分为很多的模块，比如说单独一个系统处理订单，一个处理用户登录，一个处理后台等等，然后每一个模块都单独在一个tomcat中跑，合起来就是一个完整的大项目，这样每一个tomcat都非常轻松</p>
+</li>
+<li><p>特征：</p>
+<ul>
+<li>多台计算机构成</li>
+<li>计算机之间通过网络进行通信</li>
+<li>彼此进行交互</li>
+<li>共同目标 有共同的功能</li>
+</ul>
+</li>
+</ul>
+<h6 id="P2P架构"><a href="#P2P架构" class="headerlink" title="P2P架构"></a>P2P架构</h6><img src="https://img-blog.csdnimg.cn/29a2cddc64fd4424a93c972e8dadc2d4.png" style="zoom:67%;" />
+
+<h6 id="C-S架构"><a href="#C-S架构" class="headerlink" title="C&#x2F;S架构"></a>C&#x2F;S架构</h6><p>Client&#x2F;Server架构或客户端&#x2F;服务端架构，主要特点是交互性强、具有安全的存取模式、网络通信量低、响应速度快、利于处理大量数据。但是该结构的程序是针对性开发，变更不够灵活，维护和管理的难度较大。通常只局限于小型局域网，不利于扩展。并且，由于该结构的每台客户机都需要安装相应的客户端程序，分布功能弱且兼容性差，不能实现快速部署安装和配置，因此缺少通用性，具有较大的局限性。</p>
+<img src="https://img-blog.csdnimg.cn/cb39d2326081471aa6cc621e597ef98b.png" style="zoom:67%;" />
+
+
+
+<h6 id="B-S架构"><a href="#B-S架构" class="headerlink" title="B&#x2F;S架构"></a>B&#x2F;S架构</h6><p>Browser&#x2F;Server架构或浏览器&#x2F;服务器端架构，它的主要特点是只安装维护一个服务器（Server），而客户端采用浏览器（Browse）运行软件。B&#x2F;S结构应用程序相对于传统的C&#x2F;S结构应用程序是一个非常大的进步。 B&#x2F;S结构的主要特点是分布性强、维护方便、开发简单且共享性强、总体拥有成本低。但数据安全性问题、对服务器要求过高、数据传输速度慢、软件的个性化特点明显降低。</p>
+<ul>
+<li><p>对比</p>
+<ul>
+<li><p>C&#x2F;S是客户端和服务器端，例如QQ，大型游戏LOL等，都是通过点击登录开启客户端输入账号密码进行登录，服务器端进行存储用户所创建的所有账号以及密码，该架构主要优点是安全性高，因为每个用户自己电脑上都要安装客户端，因此每个客户端是独立的，响应速度会很快，用户体验好，但是维护会很差，比如游戏进行维护，每个用户都需要自行进行更新，</p>
+<ul>
+<li>常见的C&#x2F;S架构开发例如安卓。</li>
+</ul>
+</li>
+<li><p>B&#x2F;S是浏览器服务器端，只需要有一个浏览器，用户通过不同网址（URL）访问不同的服务器端程序，因为是通过输入网址访问，所以维护就会比较方便，不需要像C&#x2F;S那样每个用户都需要进行维护，而是该服务器提供维护即可，维护成功后，用户只需重新登录即可看到最新维护后的网页，但是因为是多个用户看同一个网页，进入同一个服务器端，如果人数很多，数据传输就会很慢，用户就会出现卡顿等问题，因此该模式对服务器要求高，</p>
+<ul>
+<li>常见的B&#x2F;S架构开发例如web。</li>
+</ul>
+</li>
+<li><p>相比于CS管理软件，BS在安装部署、升级维护、设备带宽、软件学习推广成本等方面都有无可比拟的优势。BS管理软件的用户在客户机上无需安装任何软件，使用浏览器即可访问系统。系统让企业扩张不再需要额外投入更多信息化的资金，让系统培训和后期推广都变得非常容易，管理模式变得可复制。</p>
+<p>可用性：任何时间、任何地点、任何系统，只要可以使用浏览器上网，就可以使用BS系统的终端，更多的系统用户加入时只需设立账号、培训即可，并支持移动办公和分布式办公。CS是典型的集中式机械化处理，交互性相对低。</p>
+</li>
+<li><p>C&#x2F;S 一般建立在专用的网络上，小范围里的网络环境，建立在局域网的基础上的；而B&#x2F;S是建立在广域网的基础上的。不必有专门的网络硬件环境，只要有操作系统和浏览器就行。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="DNS系统"><a href="#DNS系统" class="headerlink" title="DNS系统"></a>DNS系统</h5><ul>
+<li><p>域名解析服务器（Domain Name System），把域名网址翻译成IP地址</p>
+<img src="https://img-blog.csdnimg.cn/7343418b1ca543e08b1138f00383c60e.png" style="zoom:67%;" />
+
+
+</li>
+<li><img src="https://img-blog.csdnimg.cn/7358b7e039524f7c891cf5c0c14d250b.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/28af063ad6894d19ab91e81120c0fbe1.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="FTP协议"><a href="#FTP协议" class="headerlink" title="FTP协议"></a>FTP协议</h5><img src="https://img-blog.csdnimg.cn/ec4f0bb190e941cd8037ebcd577b2d3b.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/1b6e5e85a9b44c36bad20ed59985f1bd.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/3b5957045668419cae5d4bf8b5721580.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/a0aac050e5934661b75ba51dadecb872.png" style="zoom:67%;" />
+
+
+
+<h5 id="电子邮件-e-mail"><a href="#电子邮件-e-mail" class="headerlink" title="电子邮件 e-mail"></a>电子邮件 e-mail</h5><img src="https://img-blog.csdnimg.cn/bc4241e156b64c4b946d2e24ca471305.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/c82e7c523062425fbb386ae58d89e89c.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/bb9b3ecc97d14fa5be931c054d40f442.png" style="zoom:67%;" />
+
+
+
+<h6 id="SMTP协议"><a href="#SMTP协议" class="headerlink" title="SMTP协议"></a>SMTP协议</h6><img src="https://img-blog.csdnimg.cn/1e105776aade444aa9a94314b65ebed9.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/51ad9af7575c4485a9e1c94dfc64a892.png" style="zoom:67%;" />
+
+
+
+<h6 id="MIME协议"><a href="#MIME协议" class="headerlink" title="MIME协议"></a>MIME协议</h6><img src="https://img-blog.csdnimg.cn/94acdb8a4af940dd9b4042780c064177.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/fe26e1f6763c433ea14843161c073926.png" style="zoom:67%;" />
+
+
+
+<h6 id="POP3协议"><a href="#POP3协议" class="headerlink" title="POP3协议"></a>POP3协议</h6><img src="https://img-blog.csdnimg.cn/fac69c90afd0427fb14973fded74c26f.png" style="zoom:67%;" />
+
+
+
+<h6 id="IMAP协议"><a href="#IMAP协议" class="headerlink" title="IMAP协议"></a>IMAP协议</h6><img src="https://img-blog.csdnimg.cn/a0f31298e9804f72b82c982ede6d5ae3.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/f9c8c8f4e8204be5a55a87c09495f119.png" style="zoom:67%;" />
+
+
+
+<h5 id="www和HTTP协议"><a href="#www和HTTP协议" class="headerlink" title="www和HTTP协议"></a>www和HTTP协议</h5><img src="https://img-blog.csdnimg.cn/3585b8255555489eaf86730a5fc296e2.png" style="zoom:67%;" />
+
+
+
+<h6 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h6><img src="https://img-blog.csdnimg.cn/d5fcbb5bbfb9412f9b1e4224fd4e2226.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/1c7e0f56ac13491cbf0da2510f5bfdfb.png" style="zoom:67%;" />
+
+<ul>
+<li><p>连接方式</p>
+<img src="https://img-blog.csdnimg.cn/3ae9202f2d9544cd9b2703063a06835a.png" style="zoom:67%;" />
+</li>
+<li><p>报文结构</p>
+<img src="https://img-blog.csdnimg.cn/39142191165749588305856ad4244794.png" style="zoom:67%;" />
+
+<img src="https://z1.ax1x.com/2023/09/27/pPHjhRA.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h4><img src="https://img-blog.csdnimg.cn/e86ad846e0fc4a2790d3887a1f5e3b5f.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/14f4281694e44d79a10b274950edfbc2.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/ea42f64470e8427b89583258eb735dc5.png" style="zoom:67%;" />
+
+<h5 id="端口-port"><a href="#端口-port" class="headerlink" title="端口 port"></a>端口 port</h5><ul>
+<li><p>IP 地址是用来发现和查找网络中的地址，但是不同程序如何互相通信呢？这就需要端口号来识别了。如果把 IP 地址比作一间房子，端口就是出入这间房子的门。</p>
+</li>
+<li><p>服务器的默认程序一般都是通过端口号来识别的。</p>
+<ul>
+<li><p>常用协议对应端口号：</p>
+<pre class="line-numbers language-none"><code class="language-none">SSH 22
+FTP 20 和 21
+Telnet 23
+SMTP 25
+TFTP 69
+HTTP 80
+SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h5 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h5><img src="https://img-blog.csdnimg.cn/935962391aef4aae8973d9b2de272d14.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/f5d3f38364ae44fa94e8dd07a830640e.png" style="zoom:67%;" />
+
+<h6 id="TCP连接管理"><a href="#TCP连接管理" class="headerlink" title="TCP连接管理"></a>TCP连接管理</h6><img src="https://img-blog.csdnimg.cn/4b519f0db67d4c50a2a3ca08b44b1687.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/d362fa6d25d24336896a9021251660fc.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/e92c4399c1044739aabd7ce5f414183b.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/15e9e9cc538e4fce964f9a818a9677fb.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/845f17c6819b48d7bf1082f015385523.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/ccc81ef86a4a42e7ac279b3679f7deee.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/74833cc510f94eb894f7eb836d2bfcbe.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/841683b39e5e44e3986340a25f162462.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/994015ce714841e48d5eacfc9fdee809.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/251864a14caf477c92f53953bffd9d90.png" style="zoom:67%;" />
+
+
+
+
+
+
+
+
+
+<h5 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h5><img src="https://img-blog.csdnimg.cn/c908f4d061dc4acd88d16d70a13f4885.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/367be196a5d541d69ad8a1f95ced9741.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/785a82b388da445c95e6f5fc2703fd7a.png" style="zoom:67%;" />
+
+
+
+<h5 id="传输层设备"><a href="#传输层设备" class="headerlink" title="传输层设备"></a>传输层设备</h5><h6 id="网关-GateWay"><a href="#网关-GateWay" class="headerlink" title="网关 GateWay"></a>网关 GateWay</h6><ul>
+<li><p>是一个网络设备或软件，其作用是将两个使用不同协议的网络段连接在一起。网关可以是一个硬件设备，如路由器、服务器等，也可以是一个软件程序</p>
+</li>
+<li><p>工作在传输层，用于两个高层协议不同的网络互连，又称网间连接器、协议转换器，实质上是一个网络通向其他网络的IP地址，使得不同的网络可以相互通信</p>
+</li>
+<li><p>一般指TCP&#x2F;IP协议中的网关，只有设置好网关的IP地址，TCP&#x2F;IP协议才能实现不同网络之间的相互通信</p>
+</li>
+<li><p>默认网关的意思是一台主机如果找不到可用的网关，就把数据包发给默认指定的网关，由这个网关来处理数据包。</p>
+</li>
+<li><p><strong>网关在网段内的可用ip中选一个，一般用的是第一个和最后一个</strong></p>
+</li>
+</ul>
+<h6 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h6><ul>
+<li>虚拟专用网络，在公用网络上建立专用私有网络，VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问</li>
+</ul>
+<h4 id="网际层"><a href="#网际层" class="headerlink" title="网际层"></a>网际层</h4><img src="https://img-blog.csdnimg.cn/c3fb16c8cda84c9aa5e150723841335d.png" style="zoom:67%;" />
+
+
+
+<h5 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h5><p>Internet Protocol</p>
+<ul>
+<li>IP负责在两个没有直连的两个网络之间进行通信，将数据包发送给最终目的的主机</li>
+<li>在 TCP&#x2F;IP 参考模型中处于第三层，也就是网际层</li>
+</ul>
+<h6 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h6><ul>
+<li>32位二进制数组成，以 . 划分8位一组共4组，用点分十进制的表示方式</li>
+<li>ip&#x3D;网络号+主机号<ul>
+<li>网络号表示其所属的网络段编号</li>
+<li>主机号则表示该网段中该主机的地址编号</li>
+</ul>
+</li>
+</ul>
+<h6 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h6><ul>
+<li>128位十六进制数组成，以 : 划分16位一组共8组</li>
+<li>有更好的安全性和扩展性,  IPV4 和 IPV6不能兼容</li>
+</ul>
+<h6 id="静态ip、动态ip"><a href="#静态ip、动态ip" class="headerlink" title="静态ip、动态ip"></a>静态ip、动态ip</h6><ul>
+<li>静态ip，static，将固定IP地址持续分配给主机</li>
+<li>动态ip，DHCP协议，自动分配IP地址给用户</li>
+</ul>
+<h6 id="127-0-0-1"><a href="#127-0-0-1" class="headerlink" title="127.0.0.1"></a>127.0.0.1</h6><ul>
+<li>回环地址，用于测试时在本地运行并从本地访问服务</li>
+<li>localhost<ul>
+<li>IPv4指向  127.0.0.1</li>
+<li>IPv6指向  ::1</li>
+</ul>
+</li>
+</ul>
+<h6 id="子网掩码-NetMask"><a href="#子网掩码-NetMask" class="headerlink" title="子网掩码 NetMask"></a>子网掩码 NetMask</h6><ul>
+<li>形式上是网络号全为1，主机号全为0的IP地址<ul>
+<li>ip&#x3D;网络号+主机号，主机号&#x3D;子网网络号+子网主机号</li>
+</ul>
+</li>
+<li>必须结合IP地址一起使用，只有一个作用，将某个IP地址划分成网络地址和主机地址两部分，标志两个IP地址是否同属于一个子网<ul>
+<li>如果两个IP地址在子网掩码的按位与的计算下所得结果相同，即表明它们共属于同一子网中</li>
+</ul>
+</li>
+<li>IP默认分配的子网掩码每段只有 255 或 0。<ul>
+<li>常用：255.255.255.0   \   255.255.0.0</li>
+</ul>
+</li>
+</ul>
+<h6 id="IP组播"><a href="#IP组播" class="headerlink" title="IP组播"></a>IP组播</h6><img src="https://img-blog.csdnimg.cn/6cee46577f9e42bda607d4385185bb65.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/7ba82eff0e164430960c4195c3700441.png" style="zoom:67%;" />
+
+
+
+<h5 id="重要协议"><a href="#重要协议" class="headerlink" title="重要协议"></a>重要协议</h5><ul>
+<li><p>IP协议</p>
+</li>
+<li><p>ARP协议</p>
+</li>
+<li><p>DHCP协议</p>
+</li>
+<li><p>RIP协议</p>
+</li>
+<li><p>OSPF协议</p>
+</li>
+<li><p>BGP协议</p>
+</li>
+<li><p>ICMP协议</p>
+<ul>
+<li><p>Tcp&#x2F;ip协议栈</p>
+<img src="https://img-blog.csdnimg.cn/b7af75a3d0ae420d802a056c845bd986.png" style="zoom:67%;" /></li>
+</ul>
+</li>
+</ul>
+<h5 id="网际层设备"><a href="#网际层设备" class="headerlink" title="网际层设备"></a>网际层设备</h5><h6 id="路由器-Router"><a href="#路由器-Router" class="headerlink" title="路由器 Router"></a>路由器 Router</h6><ul>
+<li>计算机网络设备，它将所收到的数据包根据目的IP地址，选择合适的传输路径进行转发，直至转发到目的端，这个过程就叫做路由</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/d7843a7c5830433fa3aafdc05253ff8e.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/d22455a414794dcba33bdb68b8b82d06.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/00e2dec6d581472a8890fdedfd32a3ca.png" style="zoom:67%;" />
+
+
+
+<h6 id="交换机-Switch"><a href="#交换机-Switch" class="headerlink" title="交换机 Switch"></a>交换机 Switch</h6><ul>
+<li><p>实现局域网内的通信，它通过“学习”，将每一端口相连设备的MAC地址与其自身相应的端口一一对应起来并且存放在交换机缓存中的MAC地址表中。通过这个MAC表来将数据帧发送到目的端</p>
+</li>
+<li><p>工作在OSI模型的第二层数据链路层</p>
+</li>
+<li><p>三层交换机，</p>
+<ul>
+<li>本质上是“带有路由功能的（二层）交换机”。路由参照OSI模型中第三层网络层，因此带有第三层路由功能的交换机才被称为“三层交换机”</li>
+</ul>
+</li>
+<li><ul>
+<li></li>
+</ul>
+</li>
+</ul>
+<h4 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h4><img src="https://img-blog.csdnimg.cn/3a5d0f4c59614bb180e130c35ad14db7.png" style="zoom:67%;" />
+
+<h5 id="功能概念"><a href="#功能概念" class="headerlink" title="功能概念"></a>功能概念</h5><img src="https://img-blog.csdnimg.cn/1a727517c5494057ac07eb37d60f1894.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/4acec0b641e64bbfa1295d673fc2f466.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/b4862acb40f34547b9579d3db0cb836d.png" style="zoom:67%;" />
+
+
+
+<h5 id="封装成帧和透明传输"><a href="#封装成帧和透明传输" class="headerlink" title="封装成帧和透明传输"></a>封装成帧和透明传输</h5><ul>
+<li>封装成帧</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/5bffe137ea32446e8c0b72eb59dadf00.png" style="zoom:67%;" />
+
+<ul>
+<li><p>透明传输</p>
+<img src="https://img-blog.csdnimg.cn/501a55b5afbd47c7b726b6b66c9129f7.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="差错控制"><a href="#差错控制" class="headerlink" title="差错控制"></a>差错控制</h5><ul>
+<li><p>差错分类</p>
+<img src="https://img-blog.csdnimg.cn/8151b9240bf34b488096dbed4634bd48.png" style="zoom:67%;" />
+</li>
+<li><p>差错控制</p>
+<img src="https://img-blog.csdnimg.cn/02d5a360f33d4b7b93bc51927b4f0cc0.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/788b4f4993c5419ca88815bd8e8bf742.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="流量控制与可靠传输机制"><a href="#流量控制与可靠传输机制" class="headerlink" title="流量控制与可靠传输机制"></a>流量控制与可靠传输机制</h5><img src="https://img-blog.csdnimg.cn/b3adfc173e16400f8f59c6ef8d703820.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/a4ad48450abf4f26a4c37e83e5ddcdab.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/a1216569e0cf4c77acb6abd52097ddb4.png" style="zoom:67%;" />
+
+
+
+<h5 id="信道划分介质访问控制"><a href="#信道划分介质访问控制" class="headerlink" title="信道划分介质访问控制"></a>信道划分介质访问控制</h5><ul>
+<li><p>两种链路</p>
+<img src="https://img-blog.csdnimg.cn/d5afb248e8f747a7a3604f3cfb3e7473.png" style="zoom:67%;" />
+</li>
+<li><p>介质访问控制</p>
+<img src="https://img-blog.csdnimg.cn/f22814c8f6144d48880b888833bed1a0.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/7248cc3fa23847678067ab919a232ae8.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="局域网-LAN"><a href="#局域网-LAN" class="headerlink" title="局域网 LAN"></a>局域网 LAN</h5><ul>
+<li><p>局域网(Local Area Network)</p>
+</li>
+<li><p>基本概念和体系结构</p>
+<img src="https://img-blog.csdnimg.cn/8ebead92c1e04ba6a117abd1e5461245.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/e02076f2557f43afb0c79c703e25f656.png" style="zoom:67%;" />
+
+<p>WLAN</p>
+<ul>
+<li>无线局域网(Wireless LAN)，数据通过电磁波传输，对内的接口，设备使用无线网，（如：wifi）</li>
+<li>IEEE 802.11无线局域网</li>
+</ul>
+<p>VLAN</p>
+<ul>
+<li>虚拟局域网，逻辑上的设备和用户，这些设备和用户互不受物理位置的限制，相互之间的通信就好像它们在同一个网段一样</li>
+<li>同一个vlan间，可以相互通信；不同vlan，若不做配置，不能相互通信。<ul>
+<li>VLAN划分和子网划分通常同时进行，一个VLAN对应一个子网，两者都是为了隔离通信,只不过VLAN在第二层隔离，子网是在第三层隔离</li>
+</ul>
+</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/41a63f9c984d42d4abe9f1d470b9eca0.png" style="zoom:67%;" />
+</li>
+<li><p>传输介质</p>
+<img src="https://img-blog.csdnimg.cn/f01a47431ae840d1b7740be728d4058c.png" style="zoom:67%;" />
+</li>
+<li><p>介质访问控制</p>
+<img src="https://img-blog.csdnimg.cn/de31f7eb99854c78af9e5ab096fa7c1b.png" style="zoom:67%;" /></li>
+</ul>
+<h6 id="以太网-Ethernet"><a href="#以太网-Ethernet" class="headerlink" title="以太网 Ethernet"></a>以太网 Ethernet</h6><img src="https://img-blog.csdnimg.cn/3be9b6e570b64dd8b277e817ae0ddc06.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/aebf9b2e04c44d339a177f4efa859671.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/65b5ea858deb4f3fa576fb2d3e86955d.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/8179c38333a74d7a87f5be0df9bf0733.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/3be6d9bed81645ae8a7c570cc93997b4.png" style="zoom:67%;" />
+
+<h6 id="网络适配器与MAC地址"><a href="#网络适配器与MAC地址" class="headerlink" title="网络适配器与MAC地址"></a>网络适配器与MAC地址</h6><img src="https://img-blog.csdnimg.cn/7ef0c235ded34569afdb544b78e04391.png" style="zoom:67%;" />
+
+
+
+<h5 id="广域网-WAN"><a href="#广域网-WAN" class="headerlink" title="广域网 WAN"></a>广域网 WAN</h5><p>广域网(Wide Area Network)，通俗讲就是和猫外部网连接的网线口:对外的接口，和运营商、上级网络打交道。</p>
+<img src="https://img-blog.csdnimg.cn/6c7bd0795e2b405f9c0e922b3b65d7f2.png" style="zoom:67%;" />
+
+<h6 id="PPP协议"><a href="#PPP协议" class="headerlink" title="PPP协议"></a>PPP协议</h6><img src="https://img-blog.csdnimg.cn/aadaccbaf3a0452699aa2b6e2c3344c7.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/e0b76a0cd4eb418f952fafd89e0c1561.png" style="zoom:67%;" />
+
+
+
+<ul>
+<li><p>PPP协议的三个组成部分</p>
+<img src="https://img-blog.csdnimg.cn/e0b62cf07e9e4a9fa1993a73a4406630.png" style="zoom:67%;" />
+</li>
+<li><p>PPP协议的状态图</p>
+</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/e117dcea122b4967805e2d13e7829e48.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/f6b01220532d414aadbabf8438229e5d.png" style="zoom:67%;" />
+
+
+
+<h6 id="HDLC协议"><a href="#HDLC协议" class="headerlink" title="HDLC协议"></a>HDLC协议</h6><img src="https://img-blog.csdnimg.cn/522fb276e5574bac9a304079f8bda289.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/f79af51ba6d64929ba8fbca297c8d17d.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/ead9aa108ff2436e930dc113ae1980a7.png" style="zoom:67%;" />
+
+<ul>
+<li>PPP协议和HDLC协议的区别</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/b53d5e9ad9044c16864cbac39a6de7f9.png" style="zoom:67%;" />
+
+
+
+<h5 id="链路层设备"><a href="#链路层设备" class="headerlink" title="链路层设备"></a>链路层设备</h5><h6 id="物理层扩展以太网"><a href="#物理层扩展以太网" class="headerlink" title="物理层扩展以太网"></a>物理层扩展以太网</h6><img src="https://img-blog.csdnimg.cn/dead6748450745eabf8d2ec015a69e7a.png" style="zoom:67%;" />
+
+<h6 id="链路层扩展以太网"><a href="#链路层扩展以太网" class="headerlink" title="链路层扩展以太网"></a>链路层扩展以太网</h6><img src="https://img-blog.csdnimg.cn/4fe0733d535e4fcaa624fb3d9f161701.png" style="zoom:67%;" />
+
+<h6 id="网桥"><a href="#网桥" class="headerlink" title="网桥"></a>网桥</h6><img src="https://img-blog.csdnimg.cn/ffe8ac96eac749e0ae601de3fab213c7.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/ecc184c689604da08e8e9aa6ad2a7bba.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/d94b3723783546d7b999b497cfbf38e3.png" style="zoom:67%;" />
+
+<h6 id="以太网交换机"><a href="#以太网交换机" class="headerlink" title="以太网交换机"></a>以太网交换机</h6><img src="https://img-blog.csdnimg.cn/f360315c2e7f492eaeedb5de6ec48c0e.png" style="zoom:67%;" />
+
+<h6 id="冲突域和广播域"><a href="#冲突域和广播域" class="headerlink" title="冲突域和广播域"></a>冲突域和广播域</h6><img src="https://img-blog.csdnimg.cn/4b59ad3402864278a5cae335505dfe00.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/cd3a6b24406f4c93af82e3f2d1ddf918.png" style="zoom:67%;" />
+
+
+
+
+
+<h4 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h4><img src="https://img-blog.csdnimg.cn/63c52fa96a2f4ff68939eacc9b585cd6.png" style="zoom:67%;" />
+
+
+
+<ul>
+<li><img src="https://img-blog.csdnimg.cn/185496edc28141749b2f8a7959d297d8.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="传输介质及其分类"><a href="#传输介质及其分类" class="headerlink" title="传输介质及其分类"></a>传输介质及其分类</h5><ul>
+<li><img src="https://img-blog.csdnimg.cn/8b01cebeec5e44399c5c52125cfd1150.png" style="zoom:67%;" />
+</li>
+<li><img src="https://img-blog.csdnimg.cn/f044251ffc194e44ac387774d7627b84.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="物理层设备"><a href="#物理层设备" class="headerlink" title="物理层设备"></a>物理层设备</h5><ul>
+<li><p>中继器</p>
+<img src="https://img-blog.csdnimg.cn/14410e73e52b4481a1d2244203e467ae.png" style="zoom:67%;" />
+
+
+</li>
+<li><p>集线器（多口中继器）</p>
+<img src="https://img-blog.csdnimg.cn/022416b64de9445b89a4d62256a60da0.png" style="zoom:67%;" /></li>
+</ul>
+<h2 id="数据通信"><a href="#数据通信" class="headerlink" title="数据通信"></a>数据通信</h2><h3 id="典型的数据通信模型"><a href="#典型的数据通信模型" class="headerlink" title="典型的数据通信模型"></a>典型的数据通信模型</h3><img src="https://img-blog.csdnimg.cn/0988b6795240494b9e0a8b706642fae5.png" style="zoom:67%;" />
+
+
+
+<h3 id="数据通信相关术语"><a href="#数据通信相关术语" class="headerlink" title="数据通信相关术语"></a>数据通信相关术语</h3><img src="https://img-blog.csdnimg.cn/9296e6774e794166b5e190f6dffdefb8.png" style="zoom:67%;" />
+
+
+
+<h4 id="码元、波特、速率、带宽、失真"><a href="#码元、波特、速率、带宽、失真" class="headerlink" title="码元、波特、速率、带宽、失真"></a>码元、波特、速率、带宽、失真</h4><ul>
+<li>带宽是衡量数据传输速率的指标</li>
+<li>宽带是一种网络传输标准和网络接入方式，如ADSL宽带、光纤宽带等</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/ecc2889cdd654e7eb238bc880423d65e.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/f594d82393e3421a9893ef08dab4a3b5.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/cfd7d2a02c0c4797a927c8ca14035ed3.png" style="zoom:67%;" />
+
+
+
+
+
+<h3 id="三种通信方式"><a href="#三种通信方式" class="headerlink" title="三种通信方式"></a>三种通信方式</h3><img src="https://img-blog.csdnimg.cn/8f7ca34836a74a9ea315065a70ce6e16.png" style="zoom:67%;" />
+
+
+
+<h3 id="两种数据传输方式"><a href="#两种数据传输方式" class="headerlink" title="两种数据传输方式"></a>两种数据传输方式</h3><img src="https://img-blog.csdnimg.cn/ed7608b7fb074e35af2bac335e55516b.png" style="zoom:67%;" />
+
+
+
+<h3 id="编码与调制"><a href="#编码与调制" class="headerlink" title="编码与调制"></a>编码与调制</h3><ul>
+<li><img src="https://img-blog.csdnimg.cn/b2beb8f5ef25471c86cc82ecbe09ce57.png" style="zoom:67%;" /></li>
+<li></li>
+</ul>
+<h4 id="基带信号与宽带信号"><a href="#基带信号与宽带信号" class="headerlink" title="基带信号与宽带信号"></a>基带信号与宽带信号</h4><img src="https://img-blog.csdnimg.cn/863a723b09a647d69a7342165bfddf5a.png" style="zoom:67%;" />
+
+
+
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4>]]></content>
       <tags>
         <tag>计算机基础</tag>
       </tags>

@@ -1,0 +1,2088 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="计算机基础, 学无止境">
+    <meta name="description" content="计算机基础
+包含硬件、软件、网络、数据通信
+
+知识体系庞大、复杂。详细知识有需要直接百度，本文仅作为重点内容总结，知识索引。目的在于快速搭建知识框架，了解重点内容。
+
+
+硬件CPU
+cpu&amp;#x3D;运算器+控制器
+
+系统性能指标
+数据通路">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>计算机基础 | 豆荚blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">豆荚blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">豆荚blog</div>
+        <div class="logo-desc">
+            
+            豆荚blog,学习-工作
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">计算机基础</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+                                <span class="chip bg-color">计算机基础</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-09-05
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2023-09-27
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    18 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="计算机基础"><a href="#计算机基础" class="headerlink" title="计算机基础"></a>计算机基础</h1><ul>
+<li><p>包含硬件、软件、网络、数据通信</p>
+</li>
+<li><p>知识体系庞大、复杂。详细知识有需要直接百度，本文仅作为重点内容总结，知识索引。目的在于快速搭建知识框架，了解重点内容。</p>
+</li>
+</ul>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><ul>
+<li>cpu&#x3D;运算器+控制器</li>
+</ul>
+<h3 id="系统性能指标"><a href="#系统性能指标" class="headerlink" title="系统性能指标"></a>系统性能指标</h3><ul>
+<li>数据通路<strong>带宽</strong>，数据总线一次能并行传输信息的位数</li>
+<li>吞吐量（Throughput），指系统在单位时间内处理或传输的数据量。通常以GB&#x2F;s或GB&#x2F;min为单位进行衡量。</li>
+<li>延迟（Latency），系统处理或传输数据所需的时间。通常以ms或s为单位进行衡量</li>
+<li>可扩展性（Scalability），可靠性（Reliability），可用性（Availability），可维护性（Maintainability）</li>
+</ul>
+<h3 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h3><ul>
+<li>主存储器、辅助存储器<ul>
+<li>主存储器就是内存，辅助存储器就是磁盘</li>
+</ul>
+</li>
+<li>计算机存储单位<ul>
+<li>GB，gigabyte，通常用于表示硬盘、U盘等存储介质的容量大小，数据通信中表示传输速率，十进制的容量单位，1000</li>
+<li>GiB，gibibyte，通常用于计算和表示计算机内存和文件大小，二进制的容量单位，1024<ul>
+<li>计算机网络的传输速率单位中，有时会使用到Mibit&#x2F;s或Gibit&#x2F;s等单位，但这些单位通常都是在计算机内部计算时使用，而不是在通信协议或标准中常用的单位</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="光口模块"><a href="#光口模块" class="headerlink" title="光口模块"></a>光口模块</h3><ul>
+<li><p>光口就是光纤插口，，接光纤，传输光信号，交换机上的光口一般使用光模块</p>
+</li>
+<li><p>光纤传输分为单模光纤和多模光纤，因此有了单模模块和多模模块。</p>
+<ul>
+<li><p>多模光纤传输距离近，模块中一般标示SR（Short Range短距离），或者LRM（Long Reach Multimode长度延伸多点模式）；</p>
+</li>
+<li><p>单模光纤传输距离远，常见标示LR（Long Range长距离）；ER（Extended Range超长距离）；ZR（Ze best Range最长距离）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="电口模块"><a href="#电口模块" class="headerlink" title="电口模块"></a>电口模块</h3><ul>
+<li><p>光转电模块，把光信号转化为电信号后接网线，传输电信号，接口类型为RJ45(网口)</p>
+</li>
+<li><p>支持热插拔，常见类型有SFP、SFP+等，10G SFP+电口模块也被称为万兆电口模块，它的速率是10G</p>
+</li>
+<li><p>电口模块通常和五类、六类、超六类或七类网线一起使用</p>
+</li>
+</ul>
+<h3 id="网线"><a href="#网线" class="headerlink" title="网线"></a>网线</h3><ul>
+<li><p>最常用线序：568b，橙白、橙、绿白、蓝、蓝白、绿、棕白、棕</p>
+</li>
+<li><p>分类：</p>
+<ul>
+<li><p>五类：网线外侧标记 CAT.5</p>
+</li>
+<li><p>超五类：网线外侧标记 CAT.5e </p>
+</li>
+<li><p>六类：网线外侧标记 CAT.6 </p>
+</li>
+<li><p>超六类：网线外侧标记 CAT.6a &#x2F; 6e </p>
+</li>
+<li><p>七类：网线外侧标记 CAT.7</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h2><h3 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h3><ul>
+<li><p>计算机系统&#x3D;硬件系统+软件系统</p>
+<ul>
+<li><p>硬件是这个计算机的物理基础，计算机的硬件决定了这个计算机天花板，瓶颈在哪</p>
+<p>软件决定了我们可以将计算机的性能发挥到怎样的程度</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="软件系统"><a href="#软件系统" class="headerlink" title="软件系统"></a>软件系统</h3><ul>
+<li><img src="https://img-blog.csdnimg.cn/57d354341ebb4bf399fba3dd4912f81b.png" style="zoom: 67%;" /></li>
+<li></li>
+</ul>
+<h3 id="防火墙-Firewall"><a href="#防火墙-Firewall" class="headerlink" title="防火墙 Firewall"></a>防火墙 Firewall</h3><ul>
+<li>建立在内部网络与外部公共网之间的一种安全隔离技术，为内外网的通信提供一个安全屏障</li>
+</ul>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h3><ul>
+<li><img src="https://img-blog.csdnimg.cn/0a0d299ffae24afd8aa457a46ce62527.png" style="zoom: 67%;" />
+* <img src="https://img-blog.csdnimg.cn/ff93a68cbce646ad998dad8a88c4633b.png" style="zoom: 67%;" />
+* <img src="https://img-blog.csdnimg.cn/0f143aba16384346846240f76930fcd0.png" style="zoom:67%;" /></li>
+</ul>
+<h3 id="网络指标"><a href="#网络指标" class="headerlink" title="网络指标"></a>网络指标</h3><ul>
+<li><p>比特：bit，简写b，也叫位，是计算机内部数据存储的最小单位，表示信息的最小单位，用于描述数据的存储和传输，是二进制数的一位，可以表示0和1两种状态，</p>
+</li>
+<li><p>字节：byte，简写B，是计算机中数据处理的基本单位，由八个二进制位构成 ，1B&#x3D;8b，用于表示数据的最小存储单位和某些数据类型的固定大小</p>
+</li>
+</ul>
+<h4 id="标准"><a href="#标准" class="headerlink" title="标准"></a>标准</h4><ul>
+<li><p>标准化工作</p>
+<ul>
+<li>实现不同厂商硬件、软件之间相互连通，必须遵循统一的标准</li>
+</ul>
+</li>
+<li><p>标准化工作相关组织</p>
+<ul>
+<li><img src="https://img-blog.csdnimg.cn/c82af90fd71c4c0a8c5c8e0a2a46b919.png" style="zoom:67%;" /></li>
+</ul>
+</li>
+<li><p>IEEE802标准</p>
+<img src="https://img-blog.csdnimg.cn/f45378c9322d4916ac84165072de2af8.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="速率"><a href="#速率" class="headerlink" title="速率"></a>速率</h4><img src="https://img-blog.csdnimg.cn/b964d9b0407c4d82a0684ba220dd2019.png" style="zoom:67%;" />
+
+<h4 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h4><ul>
+<li><p>网络设备所支持的最高速度，带宽是一个理想状态，一般不会达到</p>
+<img src="https://img-blog.csdnimg.cn/ed300562c1ed486fb5755d1cad6236ff.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h4><ul>
+<li>吞吐量永远小于带宽</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/69f3a2a719454a4284377ac7ee02cc26.png" style="zoom:67%;" />
+
+
+
+<h4 id="网络时延"><a href="#网络时延" class="headerlink" title="网络时延"></a>网络时延</h4><img src="https://img-blog.csdnimg.cn/3b464527191249e0b0be5e7580317d5a.png" style="zoom: 67%;" />
+
+<h4 id="时延带宽积"><a href="#时延带宽积" class="headerlink" title="时延带宽积"></a>时延带宽积</h4><img src="https://img-blog.csdnimg.cn/52ad63a0e514457daa45badf00b22a38.png" style="zoom:67%;" />
+
+<h4 id="RTT"><a href="#RTT" class="headerlink" title="RTT"></a>RTT</h4><ul>
+<li><p>往返时延</p>
+<img src="https://img-blog.csdnimg.cn/e0d6e085ca2a4ca29cfc0f9aad6cf44c.png" style="zoom:67%;" />
+</li>
+<li><img src="https://img-blog.csdnimg.cn/85b98ed4fff14a6bbefa589a086c7f65.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="利用率"><a href="#利用率" class="headerlink" title="利用率"></a>利用率</h4><img src="https://img-blog.csdnimg.cn/15c7ab2acaf7482f8bf33d756e81ec73.png" style="zoom:67%;" />
+
+
+
+<h3 id="分层结构"><a href="#分层结构" class="headerlink" title="分层结构"></a>分层结构</h3><ul>
+<li>对于具体数据的传输 上一层的PDU 会作为下一层的SDU与下一层的PCI想加继续组成下一层的PDU</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/339ab8cecb1b4cbb8ff42ccb636a962e.png" style="zoom:67%;" />
+
+<ul>
+<li><p>封装</p>
+<p>封装：当应用程序发送数据的时候，数据在协议层次当中自顶向下通过每一层，每一层都会对数据增加一些首部或尾部信息，这样的信息称之为协议数据单元（Protocol Data Unit，缩写为 PDU），在分层协议系统里，在指定的协议层上传送的数据单元，包含了该层的协议控制信息和用户信息。<br>物理层（一层）PDU 指数据位（Bit）<br>数据链路层（二层）PDU 指数据帧（Frame）<br>网络层（三层）PDU 指数据包（Packet）<br>传输层（四层）PDU 指数据段（Segment）<br>第五层以上为数据（data）</p>
+</li>
+<li><p>分用：当主机收到一个数据帧时，数据就从协议层底向上升，通过每一层时，检查并去掉对应层次的报文首部或尾部，与封装过程正好相反。</p>
+</li>
+<li><img src="https://img-blog.csdnimg.cn/3258a2adeb16429390ed3e8ca4caf666.png" alt="img" style="zoom:67%;" />
+
+
+</li>
+<li><p>分层基本原则</p>
+<img src="https://img-blog.csdnimg.cn/fb64906fb116422796912e729e4e8131.png" style="zoom:67%;" /></li>
+</ul>
+<h3 id="OSI-模型"><a href="#OSI-模型" class="headerlink" title="OSI 模型"></a>OSI 模型</h3><ul>
+<li>OSI（开放式系统互联）模型是一个由国际标准化组织（ISO）定义的模型，用于描述<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C&spm=1001.2101.3001.7020">计算机网络</a>中的通信协议。</li>
+</ul>
+<h4 id="层次结构"><a href="#层次结构" class="headerlink" title="层次结构"></a>层次结构</h4><img src="https://img-blog.csdnimg.cn/49c2c1b6a5454984977e5f960543975a.png" style="zoom:67%;" />
+
+<h4 id="通信过程"><a href="#通信过程" class="headerlink" title="通信过程"></a>通信过程</h4><ul>
+<li>高层(7、6、5、4)定义了应用程序端到端的功能，下面3层(3、2、1)主要通过网络点到点的数据流</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/be86895bc7a24bf9b27b10f58da7ceda.png" style="zoom:67%;" />
+
+<ul>
+<li><p>其实就是一个a端打包，b端拆包的过程，A 走7654321，B 走1234567</p>
+<p>注意：数据链路层不仅增加了头部，还增加了尾部</p>
+<img src="https://img-blog.csdnimg.cn/207aa8dc400b43a39f4e19d7bd9f5fef.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="分层详解"><a href="#分层详解" class="headerlink" title="分层详解"></a>分层详解</h4><ul>
+<li><p><strong>应用层</strong>：所有能和用户交互，产生网络流量的程序</p>
+<ul>
+<li>协议：HTTP，HTTPS，FTP，DNS，POP3，SMTP，WWW，Telnet</li>
+</ul>
+</li>
+<li><p><strong>表示层</strong>：用于处理在两个通信系统中交换信息的表示方式（语法、语义）</p>
+<ul>
+<li><p>功能：数据格式转换、数据加密解密、数据压缩恢复</p>
+</li>
+<li><p>协议：JPEG、ASCII</p>
+</li>
+</ul>
+</li>
+<li><p><strong>会话层</strong>：想表示层实体&#x2F;用户进程提供建立并在连接上有序的传输数据，这就是会话，也是建立同步（SYN）</p>
+<ul>
+<li><p>功能：</p>
+<ul>
+<li>建立、管理、终止会话</li>
+<li>使用校验点，可以让会话在通信失效时从校验点&#x2F;同步点继续恢复通信，实现数据同步</li>
+</ul>
+</li>
+<li><p>协议：SSH、RPC</p>
+</li>
+</ul>
+</li>
+<li><p><strong>传输层</strong>：负责主机中两个进程的通信，即端到端的通信</p>
+<ul>
+<li><p>传输单位：报文段、用户数据报</p>
+</li>
+<li><p>功能：</p>
+<ul>
+<li>可靠传输、不可靠传输</li>
+<li>差错控制、流量控制</li>
+<li>复用分用<ul>
+<li>复用：多个应用层的进程可同时使用传输层的服务</li>
+<li>分用：传输层讲收到的信息，分别交给应用层中相应的进程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>协议：TCP、UDP</p>
+</li>
+</ul>
+</li>
+<li><p><strong>网络层</strong>：把分组从源端传到目的端，为分组交换网上不同的主机，提供通信服务</p>
+<ul>
+<li>传输单位：数据报</li>
+<li>功能：<ul>
+<li>路由选择，选择最佳路径</li>
+<li>流量控制，控制主机的传输速度</li>
+<li>差错控制，看分组有没有差错，有就纠正，不能纠正就丢掉</li>
+<li>拥塞控制，控制全局的传送，包括主机，中间节点</li>
+</ul>
+</li>
+<li>协议：IP，IPX，ICMP，ARP</li>
+</ul>
+</li>
+<li><p><strong>数据链路层</strong>：把网络层传下来的数据组装成帧</p>
+<ul>
+<li>传输单位：帧</li>
+<li>功能：<ul>
+<li>组装帧，定义帧的开始和结束</li>
+<li>差错控制，帧错+位错</li>
+<li>流量控制</li>
+<li>访问&#x2F;接入控制，控制对信道的访问</li>
+</ul>
+</li>
+<li>协议：ARP、RARP、PPP、STP、SDLC、HDLC</li>
+</ul>
+</li>
+<li><p><strong>物理层</strong>：在物理媒介上实现比特流的传输</p>
+<ul>
+<li>传输单位：比特</li>
+<li>功能：<ul>
+<li>定义接口特性、定义传输速率</li>
+<li>定义传输模式（单工、半双工、双工）<ul>
+<li>单工：定义号了发送方、接收方，只能单项通信</li>
+<li>半双工：既可以当发送方也可以当接收方，但同一时间只能有一人讲话</li>
+<li>双工：两人可以同时说话</li>
+</ul>
+</li>
+<li>比特同步</li>
+<li>比特编码：用高低电平表示0和1</li>
+</ul>
+</li>
+<li>协议： V.24，RJ45，E802.3</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP-IP-模型"><a href="#TCP-IP-模型" class="headerlink" title="TCP&#x2F;IP 模型"></a>TCP&#x2F;IP 模型</h3><ul>
+<li>TCP&#x2F;IP协议簇，代表一组协议，TCP和IP只是其中的两个最重要协议</li>
+</ul>
+<h4 id="层次结构-1"><a href="#层次结构-1" class="headerlink" title="层次结构"></a>层次结构</h4><ul>
+<li><p>标准定义的TCP&#x2F;IP模型为四层模型，没有对网络接口层进行明确的细分，但是在使用TCP&#x2F;IP模型时，一般会网络接口层分为链路层、物理层</p>
+<p>用以综合OSI模型和TCP&#x2F;IP模型的优点</p>
+<img src="https://z1.ax1x.com/2023/09/27/pPHWhgH.png" style="zoom:67%;" />
+
+<ul>
+<li><strong>应用层</strong>：支持各种网络应用</li>
+<li><strong>传输层</strong>：进程—进程的数据传输</li>
+<li><strong>网际层</strong>：源主机到目的主机的数据分组、路由转发</li>
+<li><strong>数据链路层</strong>：将网际层传递的数据报封装成帧</li>
+<li><strong>物理层</strong>：比特传输</li>
+</ul>
+</li>
+<li><p>osi参考模型和tcp&#x2F;ip参考模型对比</p>
+<ul>
+<li><p>相同点</p>
+<ul>
+<li>可以实现异构网络互联，基于独立的协议栈概念，都有分层</li>
+</ul>
+</li>
+<li><p>不同点</p>
+<img src="https://z1.ax1x.com/2023/09/27/pPHI3TI.png" style="zoom:67%;" /></li>
+</ul>
+</li>
+<li><p>通信过程</p>
+<img src="https://img-blog.csdnimg.cn/48730c65c7904bce8f7da682e8ed5ea6.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h4><img src="https://img-blog.csdnimg.cn/d79fad85ba3943dd82fbe8734932366b.png" style="zoom:67%;" />
+
+
+
+<img src="https://img-blog.csdnimg.cn/e6776369bdd64641a52eaf95a831d1b2.png" style="zoom:67%;" />
+
+
+
+<h5 id="网络应用模型"><a href="#网络应用模型" class="headerlink" title="网络应用模型"></a>网络应用模型</h5><h6 id="集中式网络"><a href="#集中式网络" class="headerlink" title="集中式网络"></a>集中式网络</h6><ul>
+<li><p>也称为单体架构</p>
+<p>集中式系统中一个独立的应用包含整个项目，所有的东西都在里面。部署到一个服务器上。 布署项目时，放到一个tomcat里的</p>
+</li>
+</ul>
+<h6 id="分布式网络"><a href="#分布式网络" class="headerlink" title="分布式网络"></a>分布式网络</h6><ul>
+<li><p>着公司的发展，应用的客户变多，功能也日益完善，加了很多的功能，整个项目在一个tomcat上跑，tomcat说它也很累，能不能少跑点代码，这时候 就产生了。</p>
+<p>我们可以把大项目按功能划分为很多的模块，比如说单独一个系统处理订单，一个处理用户登录，一个处理后台等等，然后每一个模块都单独在一个tomcat中跑，合起来就是一个完整的大项目，这样每一个tomcat都非常轻松</p>
+</li>
+<li><p>特征：</p>
+<ul>
+<li>多台计算机构成</li>
+<li>计算机之间通过网络进行通信</li>
+<li>彼此进行交互</li>
+<li>共同目标 有共同的功能</li>
+</ul>
+</li>
+</ul>
+<h6 id="P2P架构"><a href="#P2P架构" class="headerlink" title="P2P架构"></a>P2P架构</h6><img src="https://img-blog.csdnimg.cn/29a2cddc64fd4424a93c972e8dadc2d4.png" style="zoom:67%;" />
+
+<h6 id="C-S架构"><a href="#C-S架构" class="headerlink" title="C&#x2F;S架构"></a>C&#x2F;S架构</h6><p>Client&#x2F;Server架构或客户端&#x2F;服务端架构，主要特点是交互性强、具有安全的存取模式、网络通信量低、响应速度快、利于处理大量数据。但是该结构的程序是针对性开发，变更不够灵活，维护和管理的难度较大。通常只局限于小型局域网，不利于扩展。并且，由于该结构的每台客户机都需要安装相应的客户端程序，分布功能弱且兼容性差，不能实现快速部署安装和配置，因此缺少通用性，具有较大的局限性。</p>
+<img src="https://img-blog.csdnimg.cn/cb39d2326081471aa6cc621e597ef98b.png" style="zoom:67%;" />
+
+
+
+<h6 id="B-S架构"><a href="#B-S架构" class="headerlink" title="B&#x2F;S架构"></a>B&#x2F;S架构</h6><p>Browser&#x2F;Server架构或浏览器&#x2F;服务器端架构，它的主要特点是只安装维护一个服务器（Server），而客户端采用浏览器（Browse）运行软件。B&#x2F;S结构应用程序相对于传统的C&#x2F;S结构应用程序是一个非常大的进步。 B&#x2F;S结构的主要特点是分布性强、维护方便、开发简单且共享性强、总体拥有成本低。但数据安全性问题、对服务器要求过高、数据传输速度慢、软件的个性化特点明显降低。</p>
+<ul>
+<li><p>对比</p>
+<ul>
+<li><p>C&#x2F;S是客户端和服务器端，例如QQ，大型游戏LOL等，都是通过点击登录开启客户端输入账号密码进行登录，服务器端进行存储用户所创建的所有账号以及密码，该架构主要优点是安全性高，因为每个用户自己电脑上都要安装客户端，因此每个客户端是独立的，响应速度会很快，用户体验好，但是维护会很差，比如游戏进行维护，每个用户都需要自行进行更新，</p>
+<ul>
+<li>常见的C&#x2F;S架构开发例如安卓。</li>
+</ul>
+</li>
+<li><p>B&#x2F;S是浏览器服务器端，只需要有一个浏览器，用户通过不同网址（URL）访问不同的服务器端程序，因为是通过输入网址访问，所以维护就会比较方便，不需要像C&#x2F;S那样每个用户都需要进行维护，而是该服务器提供维护即可，维护成功后，用户只需重新登录即可看到最新维护后的网页，但是因为是多个用户看同一个网页，进入同一个服务器端，如果人数很多，数据传输就会很慢，用户就会出现卡顿等问题，因此该模式对服务器要求高，</p>
+<ul>
+<li>常见的B&#x2F;S架构开发例如web。</li>
+</ul>
+</li>
+<li><p>相比于CS管理软件，BS在安装部署、升级维护、设备带宽、软件学习推广成本等方面都有无可比拟的优势。BS管理软件的用户在客户机上无需安装任何软件，使用浏览器即可访问系统。系统让企业扩张不再需要额外投入更多信息化的资金，让系统培训和后期推广都变得非常容易，管理模式变得可复制。</p>
+<p>可用性：任何时间、任何地点、任何系统，只要可以使用浏览器上网，就可以使用BS系统的终端，更多的系统用户加入时只需设立账号、培训即可，并支持移动办公和分布式办公。CS是典型的集中式机械化处理，交互性相对低。</p>
+</li>
+<li><p>C&#x2F;S 一般建立在专用的网络上，小范围里的网络环境，建立在局域网的基础上的；而B&#x2F;S是建立在广域网的基础上的。不必有专门的网络硬件环境，只要有操作系统和浏览器就行。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="DNS系统"><a href="#DNS系统" class="headerlink" title="DNS系统"></a>DNS系统</h5><ul>
+<li><p>域名解析服务器（Domain Name System），把域名网址翻译成IP地址</p>
+<img src="https://img-blog.csdnimg.cn/7343418b1ca543e08b1138f00383c60e.png" style="zoom:67%;" />
+
+
+</li>
+<li><img src="https://img-blog.csdnimg.cn/7358b7e039524f7c891cf5c0c14d250b.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/28af063ad6894d19ab91e81120c0fbe1.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="FTP协议"><a href="#FTP协议" class="headerlink" title="FTP协议"></a>FTP协议</h5><img src="https://img-blog.csdnimg.cn/ec4f0bb190e941cd8037ebcd577b2d3b.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/1b6e5e85a9b44c36bad20ed59985f1bd.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/3b5957045668419cae5d4bf8b5721580.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/a0aac050e5934661b75ba51dadecb872.png" style="zoom:67%;" />
+
+
+
+<h5 id="电子邮件-e-mail"><a href="#电子邮件-e-mail" class="headerlink" title="电子邮件 e-mail"></a>电子邮件 e-mail</h5><img src="https://img-blog.csdnimg.cn/bc4241e156b64c4b946d2e24ca471305.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/c82e7c523062425fbb386ae58d89e89c.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/bb9b3ecc97d14fa5be931c054d40f442.png" style="zoom:67%;" />
+
+
+
+<h6 id="SMTP协议"><a href="#SMTP协议" class="headerlink" title="SMTP协议"></a>SMTP协议</h6><img src="https://img-blog.csdnimg.cn/1e105776aade444aa9a94314b65ebed9.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/51ad9af7575c4485a9e1c94dfc64a892.png" style="zoom:67%;" />
+
+
+
+<h6 id="MIME协议"><a href="#MIME协议" class="headerlink" title="MIME协议"></a>MIME协议</h6><img src="https://img-blog.csdnimg.cn/94acdb8a4af940dd9b4042780c064177.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/fe26e1f6763c433ea14843161c073926.png" style="zoom:67%;" />
+
+
+
+<h6 id="POP3协议"><a href="#POP3协议" class="headerlink" title="POP3协议"></a>POP3协议</h6><img src="https://img-blog.csdnimg.cn/fac69c90afd0427fb14973fded74c26f.png" style="zoom:67%;" />
+
+
+
+<h6 id="IMAP协议"><a href="#IMAP协议" class="headerlink" title="IMAP协议"></a>IMAP协议</h6><img src="https://img-blog.csdnimg.cn/a0f31298e9804f72b82c982ede6d5ae3.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/f9c8c8f4e8204be5a55a87c09495f119.png" style="zoom:67%;" />
+
+
+
+<h5 id="www和HTTP协议"><a href="#www和HTTP协议" class="headerlink" title="www和HTTP协议"></a>www和HTTP协议</h5><img src="https://img-blog.csdnimg.cn/3585b8255555489eaf86730a5fc296e2.png" style="zoom:67%;" />
+
+
+
+<h6 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h6><img src="https://img-blog.csdnimg.cn/d5fcbb5bbfb9412f9b1e4224fd4e2226.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/1c7e0f56ac13491cbf0da2510f5bfdfb.png" style="zoom:67%;" />
+
+<ul>
+<li><p>连接方式</p>
+<img src="https://img-blog.csdnimg.cn/3ae9202f2d9544cd9b2703063a06835a.png" style="zoom:67%;" />
+</li>
+<li><p>报文结构</p>
+<img src="https://img-blog.csdnimg.cn/39142191165749588305856ad4244794.png" style="zoom:67%;" />
+
+<img src="https://z1.ax1x.com/2023/09/27/pPHjhRA.png" style="zoom:67%;" /></li>
+</ul>
+<h4 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h4><img src="https://img-blog.csdnimg.cn/e86ad846e0fc4a2790d3887a1f5e3b5f.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/14f4281694e44d79a10b274950edfbc2.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/ea42f64470e8427b89583258eb735dc5.png" style="zoom:67%;" />
+
+<h5 id="端口-port"><a href="#端口-port" class="headerlink" title="端口 port"></a>端口 port</h5><ul>
+<li><p>IP 地址是用来发现和查找网络中的地址，但是不同程序如何互相通信呢？这就需要端口号来识别了。如果把 IP 地址比作一间房子，端口就是出入这间房子的门。</p>
+</li>
+<li><p>服务器的默认程序一般都是通过端口号来识别的。</p>
+<ul>
+<li><p>常用协议对应端口号：</p>
+<pre class="line-numbers language-none"><code class="language-none">SSH 22
+FTP 20 和 21
+Telnet 23
+SMTP 25
+TFTP 69
+HTTP 80
+SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h5 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h5><img src="https://img-blog.csdnimg.cn/935962391aef4aae8973d9b2de272d14.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/f5d3f38364ae44fa94e8dd07a830640e.png" style="zoom:67%;" />
+
+<h6 id="TCP连接管理"><a href="#TCP连接管理" class="headerlink" title="TCP连接管理"></a>TCP连接管理</h6><img src="https://img-blog.csdnimg.cn/4b519f0db67d4c50a2a3ca08b44b1687.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/d362fa6d25d24336896a9021251660fc.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/e92c4399c1044739aabd7ce5f414183b.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/15e9e9cc538e4fce964f9a818a9677fb.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/845f17c6819b48d7bf1082f015385523.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/ccc81ef86a4a42e7ac279b3679f7deee.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/74833cc510f94eb894f7eb836d2bfcbe.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/841683b39e5e44e3986340a25f162462.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/994015ce714841e48d5eacfc9fdee809.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/251864a14caf477c92f53953bffd9d90.png" style="zoom:67%;" />
+
+
+
+
+
+
+
+
+
+<h5 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h5><img src="https://img-blog.csdnimg.cn/c908f4d061dc4acd88d16d70a13f4885.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/367be196a5d541d69ad8a1f95ced9741.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/785a82b388da445c95e6f5fc2703fd7a.png" style="zoom:67%;" />
+
+
+
+<h5 id="传输层设备"><a href="#传输层设备" class="headerlink" title="传输层设备"></a>传输层设备</h5><h6 id="网关-GateWay"><a href="#网关-GateWay" class="headerlink" title="网关 GateWay"></a>网关 GateWay</h6><ul>
+<li><p>是一个网络设备或软件，其作用是将两个使用不同协议的网络段连接在一起。网关可以是一个硬件设备，如路由器、服务器等，也可以是一个软件程序</p>
+</li>
+<li><p>工作在传输层，用于两个高层协议不同的网络互连，又称网间连接器、协议转换器，实质上是一个网络通向其他网络的IP地址，使得不同的网络可以相互通信</p>
+</li>
+<li><p>一般指TCP&#x2F;IP协议中的网关，只有设置好网关的IP地址，TCP&#x2F;IP协议才能实现不同网络之间的相互通信</p>
+</li>
+<li><p>默认网关的意思是一台主机如果找不到可用的网关，就把数据包发给默认指定的网关，由这个网关来处理数据包。</p>
+</li>
+<li><p><strong>网关在网段内的可用ip中选一个，一般用的是第一个和最后一个</strong></p>
+</li>
+</ul>
+<h6 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h6><ul>
+<li>虚拟专用网络，在公用网络上建立专用私有网络，VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问</li>
+</ul>
+<h4 id="网际层"><a href="#网际层" class="headerlink" title="网际层"></a>网际层</h4><img src="https://img-blog.csdnimg.cn/c3fb16c8cda84c9aa5e150723841335d.png" style="zoom:67%;" />
+
+
+
+<h5 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h5><p>Internet Protocol</p>
+<ul>
+<li>IP负责在两个没有直连的两个网络之间进行通信，将数据包发送给最终目的的主机</li>
+<li>在 TCP&#x2F;IP 参考模型中处于第三层，也就是网际层</li>
+</ul>
+<h6 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h6><ul>
+<li>32位二进制数组成，以 . 划分8位一组共4组，用点分十进制的表示方式</li>
+<li>ip&#x3D;网络号+主机号<ul>
+<li>网络号表示其所属的网络段编号</li>
+<li>主机号则表示该网段中该主机的地址编号</li>
+</ul>
+</li>
+</ul>
+<h6 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h6><ul>
+<li>128位十六进制数组成，以 : 划分16位一组共8组</li>
+<li>有更好的安全性和扩展性,  IPV4 和 IPV6不能兼容</li>
+</ul>
+<h6 id="静态ip、动态ip"><a href="#静态ip、动态ip" class="headerlink" title="静态ip、动态ip"></a>静态ip、动态ip</h6><ul>
+<li>静态ip，static，将固定IP地址持续分配给主机</li>
+<li>动态ip，DHCP协议，自动分配IP地址给用户</li>
+</ul>
+<h6 id="127-0-0-1"><a href="#127-0-0-1" class="headerlink" title="127.0.0.1"></a>127.0.0.1</h6><ul>
+<li>回环地址，用于测试时在本地运行并从本地访问服务</li>
+<li>localhost<ul>
+<li>IPv4指向  127.0.0.1</li>
+<li>IPv6指向  ::1</li>
+</ul>
+</li>
+</ul>
+<h6 id="子网掩码-NetMask"><a href="#子网掩码-NetMask" class="headerlink" title="子网掩码 NetMask"></a>子网掩码 NetMask</h6><ul>
+<li>形式上是网络号全为1，主机号全为0的IP地址<ul>
+<li>ip&#x3D;网络号+主机号，主机号&#x3D;子网网络号+子网主机号</li>
+</ul>
+</li>
+<li>必须结合IP地址一起使用，只有一个作用，将某个IP地址划分成网络地址和主机地址两部分，标志两个IP地址是否同属于一个子网<ul>
+<li>如果两个IP地址在子网掩码的按位与的计算下所得结果相同，即表明它们共属于同一子网中</li>
+</ul>
+</li>
+<li>IP默认分配的子网掩码每段只有 255 或 0。<ul>
+<li>常用：255.255.255.0   \   255.255.0.0</li>
+</ul>
+</li>
+</ul>
+<h6 id="IP组播"><a href="#IP组播" class="headerlink" title="IP组播"></a>IP组播</h6><img src="https://img-blog.csdnimg.cn/6cee46577f9e42bda607d4385185bb65.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/7ba82eff0e164430960c4195c3700441.png" style="zoom:67%;" />
+
+
+
+<h5 id="重要协议"><a href="#重要协议" class="headerlink" title="重要协议"></a>重要协议</h5><ul>
+<li><p>IP协议</p>
+</li>
+<li><p>ARP协议</p>
+</li>
+<li><p>DHCP协议</p>
+</li>
+<li><p>RIP协议</p>
+</li>
+<li><p>OSPF协议</p>
+</li>
+<li><p>BGP协议</p>
+</li>
+<li><p>ICMP协议</p>
+<ul>
+<li><p>Tcp&#x2F;ip协议栈</p>
+<img src="https://img-blog.csdnimg.cn/b7af75a3d0ae420d802a056c845bd986.png" style="zoom:67%;" /></li>
+</ul>
+</li>
+</ul>
+<h5 id="网际层设备"><a href="#网际层设备" class="headerlink" title="网际层设备"></a>网际层设备</h5><h6 id="路由器-Router"><a href="#路由器-Router" class="headerlink" title="路由器 Router"></a>路由器 Router</h6><ul>
+<li>计算机网络设备，它将所收到的数据包根据目的IP地址，选择合适的传输路径进行转发，直至转发到目的端，这个过程就叫做路由</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/d7843a7c5830433fa3aafdc05253ff8e.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/d22455a414794dcba33bdb68b8b82d06.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/00e2dec6d581472a8890fdedfd32a3ca.png" style="zoom:67%;" />
+
+
+
+<h6 id="交换机-Switch"><a href="#交换机-Switch" class="headerlink" title="交换机 Switch"></a>交换机 Switch</h6><ul>
+<li><p>实现局域网内的通信，它通过“学习”，将每一端口相连设备的MAC地址与其自身相应的端口一一对应起来并且存放在交换机缓存中的MAC地址表中。通过这个MAC表来将数据帧发送到目的端</p>
+</li>
+<li><p>工作在OSI模型的第二层数据链路层</p>
+</li>
+<li><p>三层交换机，</p>
+<ul>
+<li>本质上是“带有路由功能的（二层）交换机”。路由参照OSI模型中第三层网络层，因此带有第三层路由功能的交换机才被称为“三层交换机”</li>
+</ul>
+</li>
+<li><ul>
+<li></li>
+</ul>
+</li>
+</ul>
+<h4 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h4><img src="https://img-blog.csdnimg.cn/3a5d0f4c59614bb180e130c35ad14db7.png" style="zoom:67%;" />
+
+<h5 id="功能概念"><a href="#功能概念" class="headerlink" title="功能概念"></a>功能概念</h5><img src="https://img-blog.csdnimg.cn/1a727517c5494057ac07eb37d60f1894.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/4acec0b641e64bbfa1295d673fc2f466.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/b4862acb40f34547b9579d3db0cb836d.png" style="zoom:67%;" />
+
+
+
+<h5 id="封装成帧和透明传输"><a href="#封装成帧和透明传输" class="headerlink" title="封装成帧和透明传输"></a>封装成帧和透明传输</h5><ul>
+<li>封装成帧</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/5bffe137ea32446e8c0b72eb59dadf00.png" style="zoom:67%;" />
+
+<ul>
+<li><p>透明传输</p>
+<img src="https://img-blog.csdnimg.cn/501a55b5afbd47c7b726b6b66c9129f7.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="差错控制"><a href="#差错控制" class="headerlink" title="差错控制"></a>差错控制</h5><ul>
+<li><p>差错分类</p>
+<img src="https://img-blog.csdnimg.cn/8151b9240bf34b488096dbed4634bd48.png" style="zoom:67%;" />
+</li>
+<li><p>差错控制</p>
+<img src="https://img-blog.csdnimg.cn/02d5a360f33d4b7b93bc51927b4f0cc0.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/788b4f4993c5419ca88815bd8e8bf742.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="流量控制与可靠传输机制"><a href="#流量控制与可靠传输机制" class="headerlink" title="流量控制与可靠传输机制"></a>流量控制与可靠传输机制</h5><img src="https://img-blog.csdnimg.cn/b3adfc173e16400f8f59c6ef8d703820.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/a4ad48450abf4f26a4c37e83e5ddcdab.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/a1216569e0cf4c77acb6abd52097ddb4.png" style="zoom:67%;" />
+
+
+
+<h5 id="信道划分介质访问控制"><a href="#信道划分介质访问控制" class="headerlink" title="信道划分介质访问控制"></a>信道划分介质访问控制</h5><ul>
+<li><p>两种链路</p>
+<img src="https://img-blog.csdnimg.cn/d5afb248e8f747a7a3604f3cfb3e7473.png" style="zoom:67%;" />
+</li>
+<li><p>介质访问控制</p>
+<img src="https://img-blog.csdnimg.cn/f22814c8f6144d48880b888833bed1a0.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/7248cc3fa23847678067ab919a232ae8.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="局域网-LAN"><a href="#局域网-LAN" class="headerlink" title="局域网 LAN"></a>局域网 LAN</h5><ul>
+<li><p>局域网(Local Area Network)</p>
+</li>
+<li><p>基本概念和体系结构</p>
+<img src="https://img-blog.csdnimg.cn/8ebead92c1e04ba6a117abd1e5461245.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/e02076f2557f43afb0c79c703e25f656.png" style="zoom:67%;" />
+
+<p>WLAN</p>
+<ul>
+<li>无线局域网(Wireless LAN)，数据通过电磁波传输，对内的接口，设备使用无线网，（如：wifi）</li>
+<li>IEEE 802.11无线局域网</li>
+</ul>
+<p>VLAN</p>
+<ul>
+<li>虚拟局域网，逻辑上的设备和用户，这些设备和用户互不受物理位置的限制，相互之间的通信就好像它们在同一个网段一样</li>
+<li>同一个vlan间，可以相互通信；不同vlan，若不做配置，不能相互通信。<ul>
+<li>VLAN划分和子网划分通常同时进行，一个VLAN对应一个子网，两者都是为了隔离通信,只不过VLAN在第二层隔离，子网是在第三层隔离</li>
+</ul>
+</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/41a63f9c984d42d4abe9f1d470b9eca0.png" style="zoom:67%;" />
+</li>
+<li><p>传输介质</p>
+<img src="https://img-blog.csdnimg.cn/f01a47431ae840d1b7740be728d4058c.png" style="zoom:67%;" />
+</li>
+<li><p>介质访问控制</p>
+<img src="https://img-blog.csdnimg.cn/de31f7eb99854c78af9e5ab096fa7c1b.png" style="zoom:67%;" /></li>
+</ul>
+<h6 id="以太网-Ethernet"><a href="#以太网-Ethernet" class="headerlink" title="以太网 Ethernet"></a>以太网 Ethernet</h6><img src="https://img-blog.csdnimg.cn/3be9b6e570b64dd8b277e817ae0ddc06.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/aebf9b2e04c44d339a177f4efa859671.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/65b5ea858deb4f3fa576fb2d3e86955d.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/8179c38333a74d7a87f5be0df9bf0733.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/3be6d9bed81645ae8a7c570cc93997b4.png" style="zoom:67%;" />
+
+<h6 id="网络适配器与MAC地址"><a href="#网络适配器与MAC地址" class="headerlink" title="网络适配器与MAC地址"></a>网络适配器与MAC地址</h6><img src="https://img-blog.csdnimg.cn/7ef0c235ded34569afdb544b78e04391.png" style="zoom:67%;" />
+
+
+
+<h5 id="广域网-WAN"><a href="#广域网-WAN" class="headerlink" title="广域网 WAN"></a>广域网 WAN</h5><p>广域网(Wide Area Network)，通俗讲就是和猫外部网连接的网线口:对外的接口，和运营商、上级网络打交道。</p>
+<img src="https://img-blog.csdnimg.cn/6c7bd0795e2b405f9c0e922b3b65d7f2.png" style="zoom:67%;" />
+
+<h6 id="PPP协议"><a href="#PPP协议" class="headerlink" title="PPP协议"></a>PPP协议</h6><img src="https://img-blog.csdnimg.cn/aadaccbaf3a0452699aa2b6e2c3344c7.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/e0b76a0cd4eb418f952fafd89e0c1561.png" style="zoom:67%;" />
+
+
+
+<ul>
+<li><p>PPP协议的三个组成部分</p>
+<img src="https://img-blog.csdnimg.cn/e0b62cf07e9e4a9fa1993a73a4406630.png" style="zoom:67%;" />
+</li>
+<li><p>PPP协议的状态图</p>
+</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/e117dcea122b4967805e2d13e7829e48.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/f6b01220532d414aadbabf8438229e5d.png" style="zoom:67%;" />
+
+
+
+<h6 id="HDLC协议"><a href="#HDLC协议" class="headerlink" title="HDLC协议"></a>HDLC协议</h6><img src="https://img-blog.csdnimg.cn/522fb276e5574bac9a304079f8bda289.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/f79af51ba6d64929ba8fbca297c8d17d.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/ead9aa108ff2436e930dc113ae1980a7.png" style="zoom:67%;" />
+
+<ul>
+<li>PPP协议和HDLC协议的区别</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/b53d5e9ad9044c16864cbac39a6de7f9.png" style="zoom:67%;" />
+
+
+
+<h5 id="链路层设备"><a href="#链路层设备" class="headerlink" title="链路层设备"></a>链路层设备</h5><h6 id="物理层扩展以太网"><a href="#物理层扩展以太网" class="headerlink" title="物理层扩展以太网"></a>物理层扩展以太网</h6><img src="https://img-blog.csdnimg.cn/dead6748450745eabf8d2ec015a69e7a.png" style="zoom:67%;" />
+
+<h6 id="链路层扩展以太网"><a href="#链路层扩展以太网" class="headerlink" title="链路层扩展以太网"></a>链路层扩展以太网</h6><img src="https://img-blog.csdnimg.cn/4fe0733d535e4fcaa624fb3d9f161701.png" style="zoom:67%;" />
+
+<h6 id="网桥"><a href="#网桥" class="headerlink" title="网桥"></a>网桥</h6><img src="https://img-blog.csdnimg.cn/ffe8ac96eac749e0ae601de3fab213c7.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/ecc184c689604da08e8e9aa6ad2a7bba.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/d94b3723783546d7b999b497cfbf38e3.png" style="zoom:67%;" />
+
+<h6 id="以太网交换机"><a href="#以太网交换机" class="headerlink" title="以太网交换机"></a>以太网交换机</h6><img src="https://img-blog.csdnimg.cn/f360315c2e7f492eaeedb5de6ec48c0e.png" style="zoom:67%;" />
+
+<h6 id="冲突域和广播域"><a href="#冲突域和广播域" class="headerlink" title="冲突域和广播域"></a>冲突域和广播域</h6><img src="https://img-blog.csdnimg.cn/4b59ad3402864278a5cae335505dfe00.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/cd3a6b24406f4c93af82e3f2d1ddf918.png" style="zoom:67%;" />
+
+
+
+
+
+<h4 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h4><img src="https://img-blog.csdnimg.cn/63c52fa96a2f4ff68939eacc9b585cd6.png" style="zoom:67%;" />
+
+
+
+<ul>
+<li><img src="https://img-blog.csdnimg.cn/185496edc28141749b2f8a7959d297d8.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="传输介质及其分类"><a href="#传输介质及其分类" class="headerlink" title="传输介质及其分类"></a>传输介质及其分类</h5><ul>
+<li><img src="https://img-blog.csdnimg.cn/8b01cebeec5e44399c5c52125cfd1150.png" style="zoom:67%;" />
+</li>
+<li><img src="https://img-blog.csdnimg.cn/f044251ffc194e44ac387774d7627b84.png" style="zoom:67%;" /></li>
+</ul>
+<h5 id="物理层设备"><a href="#物理层设备" class="headerlink" title="物理层设备"></a>物理层设备</h5><ul>
+<li><p>中继器</p>
+<img src="https://img-blog.csdnimg.cn/14410e73e52b4481a1d2244203e467ae.png" style="zoom:67%;" />
+
+
+</li>
+<li><p>集线器（多口中继器）</p>
+<img src="https://img-blog.csdnimg.cn/022416b64de9445b89a4d62256a60da0.png" style="zoom:67%;" /></li>
+</ul>
+<h2 id="数据通信"><a href="#数据通信" class="headerlink" title="数据通信"></a>数据通信</h2><h3 id="典型的数据通信模型"><a href="#典型的数据通信模型" class="headerlink" title="典型的数据通信模型"></a>典型的数据通信模型</h3><img src="https://img-blog.csdnimg.cn/0988b6795240494b9e0a8b706642fae5.png" style="zoom:67%;" />
+
+
+
+<h3 id="数据通信相关术语"><a href="#数据通信相关术语" class="headerlink" title="数据通信相关术语"></a>数据通信相关术语</h3><img src="https://img-blog.csdnimg.cn/9296e6774e794166b5e190f6dffdefb8.png" style="zoom:67%;" />
+
+
+
+<h4 id="码元、波特、速率、带宽、失真"><a href="#码元、波特、速率、带宽、失真" class="headerlink" title="码元、波特、速率、带宽、失真"></a>码元、波特、速率、带宽、失真</h4><ul>
+<li>带宽是衡量数据传输速率的指标</li>
+<li>宽带是一种网络传输标准和网络接入方式，如ADSL宽带、光纤宽带等</li>
+</ul>
+<img src="https://img-blog.csdnimg.cn/ecc2889cdd654e7eb238bc880423d65e.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/f594d82393e3421a9893ef08dab4a3b5.png" style="zoom:67%;" />
+
+<img src="https://img-blog.csdnimg.cn/cfd7d2a02c0c4797a927c8ca14035ed3.png" style="zoom:67%;" />
+
+
+
+
+
+<h3 id="三种通信方式"><a href="#三种通信方式" class="headerlink" title="三种通信方式"></a>三种通信方式</h3><img src="https://img-blog.csdnimg.cn/8f7ca34836a74a9ea315065a70ce6e16.png" style="zoom:67%;" />
+
+
+
+<h3 id="两种数据传输方式"><a href="#两种数据传输方式" class="headerlink" title="两种数据传输方式"></a>两种数据传输方式</h3><img src="https://img-blog.csdnimg.cn/ed7608b7fb074e35af2bac335e55516b.png" style="zoom:67%;" />
+
+
+
+<h3 id="编码与调制"><a href="#编码与调制" class="headerlink" title="编码与调制"></a>编码与调制</h3><ul>
+<li><img src="https://img-blog.csdnimg.cn/b2beb8f5ef25471c86cc82ecbe09ce57.png" style="zoom:67%;" /></li>
+<li></li>
+</ul>
+<h4 id="基带信号与宽带信号"><a href="#基带信号与宽带信号" class="headerlink" title="基带信号与宽带信号"></a>基带信号与宽带信号</h4><img src="https://img-blog.csdnimg.cn/863a723b09a647d69a7342165bfddf5a.png" style="zoom:67%;" />
+
+
+
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">william</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2023/09/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">http://example.com/2023/09/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">william</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+                                    <span class="chip bg-color">计算机基础</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url('/medias/comment_bg.png') 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table,
+    th,
+    td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, 0.1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: 0.5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*='language-'] {
+        padding: 1.2em;
+        margin: 0.5em 0;
+    }
+
+    #vcomments code[class*='language-'],
+    pre[class*='language-'] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type='checkbox']:not(:checked),
+    [type='checkbox']:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: 0.2em;
+    }
+
+    #vcomments table,
+    th,
+    td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n),
+    thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type='checkbox']:not(:checked),
+    [type='checkbox']:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="https://unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'C2R9sEhwLp0hV6fa3riZtZ3Y-gzGzoHsz',
+        appKey: 'rPFTLjUS5fjblCN2gr0tekar',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: '554033828',
+        enableQQ: true,
+        requiredFields: ['追风浪子', '554033828@qq.com'], //设置必填项
+        emojiCDN: '//i0.hdslb.com/bfs/emote/', //设置哔站表情包地址
+        // 表情title和图片映射
+        emojiMaps: {
+            tv_doge: '6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png',
+            tv_亲亲: 'a8111ad55953ef5e3be3327ef94eb4a39d535d06.png',
+            tv_偷笑: 'bb690d4107620f1c15cff29509db529a73aee261.png',
+            tv_再见: '180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png',
+            tv_冷漠: 'b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png',
+            tv_发怒: '34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png',
+            tv_发财: '34db290afd2963723c6eb3c4560667db7253a21a.png',
+            tv_可爱: '9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png',
+            tv_吐血: '09dd16a7aa59b77baa1155d47484409624470c77.png',
+            tv_呆: 'fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png',
+            tv_呕吐: '9f996894a39e282ccf5e66856af49483f81870f3.png',
+            tv_困: '241ee304e44c0af029adceb294399391e4737ef2.png',
+            tv_坏笑: '1f0b87f731a671079842116e0991c91c2c88645a.png',
+            tv_大佬: '093c1e2c490161aca397afc45573c877cdead616.png',
+            tv_大哭: '23269aeb35f99daee28dda129676f6e9ea87934f.png',
+            tv_委屈: 'd04dba7b5465779e9755d2ab6f0a897b9b33bb77.png',
+            tv_害羞: 'a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png',
+            tv_尴尬: '7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png',
+            tv_微笑: '70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png',
+            tv_思考: '90cf159733e558137ed20aa04d09964436f618a1.png',
+            tv_惊吓: '0d15c7e2ee58e935adc6a7193ee042388adc22af.png',
+            tv_打脸: '56ab10b624063e966bfcb76ea5dc4794d87dfd47.png',
+            tv_抓狂: 'fe31c08edad661d63762b04e17b8d5ae3c71a757.png',
+            tv_抠鼻: 'c666f55e88d471e51bbd9fab9bb308110824a6eb.png',
+            tv_斜眼笑: '911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png',
+            tv_无奈: 'ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png',
+            tv_晕: '5443c22b4d07fb1907ccc610c8e6db254f2461b7.png',
+            tv_流汗: 'cead1c351ab8d79e9f369605beb90148db0fbed3.png',
+            tv_流泪: '7e71cde7858f0cd50d74b0264aa26db612a8a167.png',
+            tv_流鼻血: 'c32d39db2737f89b904ca32700d140a9241b0767.png',
+            tv_点赞: 'f85c354995bd99e28fc76c869bfe42ba6438eff4.png',
+            tv_生气: '26702dcafdab5e8225b43ffd23c94ac1ff932654.png',
+            tv_生病: '8b0ec90e6b86771092a498c54f09fc94621c1900.png',
+            tv_疑问: '0793d949b18d7be716078349c202c15ff166f314.png',
+            tv_白眼: 'c1d59f439e379ee50eef488bcb5e5378e5044ea4.png',
+            tv_皱眉: '72ccad6679fea0d14cce648b4d818e09b8ffea2d.png',
+            tv_目瞪口呆: '0b8cb81a68de5d5365212c99375e7ace3e7891b7.png',
+            tv_睡着: '8b196675b53af58264f383c50ad0945048290b33.png',
+            tv_笑哭: '1abc628f6d4f4caf9d0e7800878f4697abbc8273.png',
+            tv_腼腆: '89712c0d4af73e67f89e35cbc518420380a7f6f4.png',
+            tv_色: '61822c7e9aae5da76475e7892534545336b23a6f.png',
+            tv_调侃: '4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png',
+            tv_调皮: 'b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png',
+            tv_鄙视: '6e72339f346a692a495b123174b49e4e8e781303.png',
+            tv_闭嘴: 'c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png',
+            tv_难过: '87f46748d3f142ebc6586ff58860d0e2fc8263ba.png',
+            tv_馋: 'fc7e829b845c43c623c8b490ee3602b7f0e76a31.png',
+            tv_鬼脸: '0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png',
+            tv_黑人问号: '45821a01f51bc867da9edbaa2e070410819a95b2.png',
+            tv_鼓掌: '1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png',
+        },
+    });
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="运维常见名词索引">
+                        
+                        <span class="card-title">运维常见名词索引</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-09-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            william
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">计算机基础</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/09/05/%E6%95%99%E7%A8%8B/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="教程索引">
+                        
+                        <span class="card-title">教程索引</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            william
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%99%E7%A8%8B/">
+                        <span class="chip bg-color">教程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 豆荚blog<br />'
+            + '文章作者: william<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <a href="/about" target="_blank">william</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">38k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+    <!--浏览器搞笑标题-->
+    <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
