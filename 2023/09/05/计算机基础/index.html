@@ -11,11 +11,8 @@
 知识体系庞大、复杂。详细知识有需要直接百度，本文仅作为重点内容总结，知识索引。目的在于快速搭建知识框架，了解重点内容。
 
 
-硬件CPU
-cpu&amp;#x3D;运算器+控制器
-
-系统性能指标
-数据通路">
+硬件网卡 NIC
+Network Interface Card，网络接">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -284,21 +281,21 @@ cpu&amp;#x3D;运算器+控制器
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-09-27
+                    2023-10-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.1k
+                    5.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    18 分
+                    20 分
                 </div>
                 
 
@@ -327,7 +324,27 @@ cpu&amp;#x3D;运算器+控制器
 <li><p>知识体系庞大、复杂。详细知识有需要直接百度，本文仅作为重点内容总结，知识索引。目的在于快速搭建知识框架，了解重点内容。</p>
 </li>
 </ul>
-<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><ul>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><h3 id="网卡-NIC"><a href="#网卡-NIC" class="headerlink" title="网卡 NIC"></a>网卡 NIC</h3><ul>
+<li>Network Interface Card，网络接口卡、网卡，是计算机与网络介质之间的电气连接设备，它负责传输和确认比特数据流以及网络地址。网卡的参数包括带宽速度、总线方式和电气接口方式等</li>
+<li>常见名称：<ul>
+<li>网卡名称通常是由系统或者特定的网络管理工具自动分配或者设置的<ul>
+<li>eth0:1、eth1:1：冒号前面的部分代表物理网卡名称，冒号后面的数字代表该物理网卡接口编号</li>
+</ul>
+</li>
+<li><strong>eth</strong> 网卡则是旧的命名规则，其命名方式是根据网卡的驱动程序来确定的</li>
+<li><strong>eno</strong> 指以太网接口，eno网卡是新的命名规则，这种命名方式是根据网卡的物理位置和连接方式来确定的</li>
+<li><strong>vmbr</strong> 指虚拟机桥接网卡</li>
+<li><strong>br-lan</strong>，用于在Linux系统中的LAN口设备桥接，它是在eth0.1和rai0的基础上虚拟出来的设备，可以把有线LAN口和无线网统一划分为LAN，便于管理<ul>
+<li>eth0.1是虚拟VLAN网卡，是由物理网卡加入到不同的VLAN而生成的。当物理网卡被加入到某个VLAN时，将生成一个相应的虚拟VLAN网卡，称为子网卡，其网络接口名是eth0.1、eth1.2等</li>
+<li>rai0在Linux中是一个虚拟设备，表示无线接口的回环地址。它通常用于测试和调试阶段，帮助无线设备进行数据传输。在生产环境中，通常不会使用rai0接口。</li>
+</ul>
+</li>
+<li><strong>lo</strong> 表示本地回环接口</li>
+<li><strong>wlan</strong> 表示无线网络接口，</li>
+</ul>
+</li>
+</ul>
+<h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><ul>
 <li>cpu&#x3D;运算器+控制器</li>
 </ul>
 <h3 id="系统性能指标"><a href="#系统性能指标" class="headerlink" title="系统性能指标"></a>系统性能指标</h3><ul>
@@ -350,9 +367,21 @@ cpu&amp;#x3D;运算器+控制器
 </ul>
 </li>
 </ul>
-<h3 id="光口模块"><a href="#光口模块" class="headerlink" title="光口模块"></a>光口模块</h3><ul>
-<li><p>光口就是光纤插口，，接光纤，传输光信号，交换机上的光口一般使用光模块</p>
+<h3 id="电口、光口"><a href="#电口、光口" class="headerlink" title="电口、光口"></a>电口、光口</h3><h4 id="电口"><a href="#电口" class="headerlink" title="电口"></a>电口</h4><ul>
+<li>服务器和网络中对于RJ45(网口)、双绞线、同轴电缆等传输电信号线材接口的统称，处理电信号———-连接电解质线材的接口</li>
+</ul>
+<h5 id="电口模块（光转电模块）"><a href="#电口模块（光转电模块）" class="headerlink" title="电口模块（光转电模块）"></a>电口模块（光转电模块）</h5><ul>
+<li><p>把光信号转化为电信号，接网线，传输电信号，接口类型为RJ45</p>
 </li>
+<li><p>支持热插拔，常见类型有SFP、SFP+等，10G SFP+电口模块也被称为万兆电口模块，它的速率是10G</p>
+</li>
+<li><p>电口模块通常和五类、六类、超六类或七类网线一起使用</p>
+</li>
+</ul>
+<h4 id="光口"><a href="#光口" class="headerlink" title="光口"></a>光口</h4><ul>
+<li>光口就是光纤插口，接光纤，传输光信号，交换机上的光口一般使用光模块</li>
+</ul>
+<h5 id="光口模块"><a href="#光口模块" class="headerlink" title="光口模块"></a>光口模块</h5><ul>
 <li><p>光纤传输分为单模光纤和多模光纤，因此有了单模模块和多模模块。</p>
 <ul>
 <li><p>多模光纤传输距离近，模块中一般标示SR（Short Range短距离），或者LRM（Long Reach Multimode长度延伸多点模式）；</p>
@@ -362,12 +391,12 @@ cpu&amp;#x3D;运算器+控制器
 </ul>
 </li>
 </ul>
-<h3 id="电口模块"><a href="#电口模块" class="headerlink" title="电口模块"></a>电口模块</h3><ul>
-<li><p>光转电模块，把光信号转化为电信号后接网线，传输电信号，接口类型为RJ45(网口)</p>
-</li>
-<li><p>支持热插拔，常见类型有SFP、SFP+等，10G SFP+电口模块也被称为万兆电口模块，它的速率是10G</p>
-</li>
-<li><p>电口模块通常和五类、六类、超六类或七类网线一起使用</p>
+<img src="https://pic4.zhimg.com/v2-788e86bf7025c76398d5ea1fd14c3fa3_r.jpg" style="zoom: 50%;" />
+
+<ul>
+<li>光纤跳线：又称光纤连接器，指光缆两端都装上连接器插头，用来实现光路活动连接;<ul>
+<li>光纤跳线和模块相互之间不可以互用</li>
+</ul>
 </li>
 </ul>
 <h3 id="网线"><a href="#网线" class="headerlink" title="网线"></a>网线</h3><ul>
@@ -388,6 +417,7 @@ cpu&amp;#x3D;运算器+控制器
 </ul>
 </li>
 </ul>
+<h3 id="以太网供电-POE"><a href="#以太网供电-POE" class="headerlink" title="以太网供电 POE"></a>以太网供电 POE</h3><p>是一种可以在以太网路中透过双绞线来传输电力与资料到装置上的技术。以太网供电技术的出发点是让IP电话、WLAN接入点、网络摄像头等小型网络设备，可以直接从以太网线（4对双绞线中空闲的2对来传输）获得电力，无需单独铺设电力线，以简化系统布线，降低网络基础设施的建设成本</p>
 <h2 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h2><h3 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h3><ul>
 <li><p>计算机系统&#x3D;硬件系统+软件系统</p>
 <ul>
@@ -549,15 +579,37 @@ cpu&amp;#x3D;运算器+控制器
 </li>
 <li><p><strong>数据链路层</strong>：把网络层传下来的数据组装成帧</p>
 <ul>
-<li>传输单位：帧</li>
-<li>功能：<ul>
+<li><p>传输单位：帧</p>
+</li>
+<li><p>功能：</p>
+<ul>
 <li>组装帧，定义帧的开始和结束</li>
 <li>差错控制，帧错+位错</li>
 <li>流量控制</li>
 <li>访问&#x2F;接入控制，控制对信道的访问</li>
 </ul>
 </li>
-<li>协议：ARP、RARP、PPP、STP、SDLC、HDLC</li>
+<li><p>协议：ARP、RARP、PPP、STP、SDLC、HDLC</p>
+</li>
+<li><p>交换机 Switch</p>
+<ul>
+<li><p>交换机功能，将终端节点设备连接到网络。</p>
+</li>
+<li><p>实现局域网内的通信，主要作用就是实现不同vlan之间的通信</p>
+</li>
+<li><p>三层交换机</p>
+<ul>
+<li><p>带有第三层路由功能的交换机才被称为“三层交换机”</p>
+</li>
+<li><p>三层交换 &#x3D; 二层交换 + 三层转发</p>
+</li>
+<li><p>路由：数据包 转发</p>
+<p>交换：数据帧 找mac地址</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p><strong>物理层</strong>：在物理媒介上实现比特流的传输</p>
@@ -882,7 +934,10 @@ SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 </li>
 </ul>
 <h5 id="网际层设备"><a href="#网际层设备" class="headerlink" title="网际层设备"></a>网际层设备</h5><h6 id="路由器-Router"><a href="#路由器-Router" class="headerlink" title="路由器 Router"></a>路由器 Router</h6><ul>
-<li>计算机网络设备，它将所收到的数据包根据目的IP地址，选择合适的传输路径进行转发，直至转发到目的端，这个过程就叫做路由</li>
+<li><p>路由器功能，1连通不同网络，2选择信息传输线路</p>
+</li>
+<li><p>计算机网络设备，它将所收到的数据包根据目的IP地址，选择合适的传输路径进行转发，直至转发到目的端，这个过程就叫做路由</p>
+</li>
 </ul>
 <img src="https://img-blog.csdnimg.cn/d7843a7c5830433fa3aafdc05253ff8e.png" style="zoom:67%;" />
 
@@ -892,21 +947,6 @@ SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 
 
 
-<h6 id="交换机-Switch"><a href="#交换机-Switch" class="headerlink" title="交换机 Switch"></a>交换机 Switch</h6><ul>
-<li><p>实现局域网内的通信，它通过“学习”，将每一端口相连设备的MAC地址与其自身相应的端口一一对应起来并且存放在交换机缓存中的MAC地址表中。通过这个MAC表来将数据帧发送到目的端</p>
-</li>
-<li><p>工作在OSI模型的第二层数据链路层</p>
-</li>
-<li><p>三层交换机，</p>
-<ul>
-<li>本质上是“带有路由功能的（二层）交换机”。路由参照OSI模型中第三层网络层，因此带有第三层路由功能的交换机才被称为“三层交换机”</li>
-</ul>
-</li>
-<li><ul>
-<li></li>
-</ul>
-</li>
-</ul>
 <h4 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h4><img src="https://img-blog.csdnimg.cn/3a5d0f4c59614bb180e130c35ad14db7.png" style="zoom:67%;" />
 
 <h5 id="功能概念"><a href="#功能概念" class="headerlink" title="功能概念"></a>功能概念</h5><img src="https://img-blog.csdnimg.cn/1a727517c5494057ac07eb37d60f1894.png" style="zoom:67%;" />
@@ -1806,7 +1846,7 @@ SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">38k</span>
+                        class="white-color">39.6k</span>
             
             
             
