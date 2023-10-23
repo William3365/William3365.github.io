@@ -4,32 +4,20 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="cmd, 学无止境">
-    <meta name="description" content="网络测试命令
-ping——测试网络是否通畅
-使用icmp协议，网络连通性测试
+    <meta name="keywords" content="学无止境">
+    <meta name="description" content="运维监控
+看监控指标的时候，要有统计分析思想
+
+方式
+
+登录服务器，查看日志文件—-效率低
+监控软件集成化的监测性能指标，智能关联分析—效率高
 
 
+常见的单位
 
-
-
-ping ip
-测试网络连通情况
-
-
-ping -t ip
-不间断的一直ping
-
-
-ping -a ip
-局域网内解析出主机名
-
-
-
-
-
-
-trace">
+bps &amp;#x3D; bits&amp;#x2F;s
+1B &amp;#x3D; 8bit，1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -41,7 +29,7 @@ trace">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>cmd | 豆荚blog</title>
+    <title>豆荚blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -246,12 +234,12 @@ trace">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">cmd</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -273,13 +261,9 @@ trace">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/cmd/">
-                                <span class="chip bg-color">cmd</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -291,28 +275,28 @@ trace">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-08-19
+                    2023-10-14
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-10-20
+                    2023-10-12
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    259
+                    544
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -335,56 +319,65 @@ trace">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
-<li>ping——测试网络是否通畅<ul>
-<li>使用icmp协议，网络连通性测试</li>
-</ul>
+                <h1 id="运维监控"><a href="#运维监控" class="headerlink" title="运维监控"></a>运维监控</h1><ul>
+<li><p>看监控指标的时候，要有统计分析思想</p>
 </li>
-</ul>
-<blockquote>
+<li><p>方式</p>
 <ul>
-<li>ping ip<ul>
-<li>测试网络连通情况</li>
+<li>登录服务器，查看日志文件—-效率低</li>
+<li>监控软件集成化的监测性能指标，智能关联分析—效率高</li>
 </ul>
 </li>
-<li>ping -t ip<ul>
-<li>不间断的一直ping</li>
-</ul>
-</li>
-<li>ping -a ip<ul>
-<li>局域网内解析出主机名</li>
-</ul>
-</li>
-<li></li>
-</ul>
-</blockquote>
+<li><p>常见的单位</p>
 <ul>
-<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
+<li>bps &#x3D; bits&#x2F;s</li>
+<li>1B &#x3D; 8bit，1byte &#x3D; 8bit</li>
+</ul>
 </li>
-<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
+</ul>
+<h2 id="操作系统监控"><a href="#操作系统监控" class="headerlink" title="操作系统监控"></a>操作系统监控</h2><h3 id="CPU-内存-负载监控指标"><a href="#CPU-内存-负载监控指标" class="headerlink" title="CPU,内存,负载监控指标"></a>CPU,内存,负载监控指标</h3><h4 id="CPU使用率"><a href="#CPU使用率" class="headerlink" title="CPU使用率"></a>CPU使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h4 id="内存使用率"><a href="#内存使用率" class="headerlink" title="内存使用率"></a>内存使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h4 id="系统平均负载"><a href="#系统平均负载" class="headerlink" title="系统平均负载"></a>系统平均负载</h4><ul>
+<li><p>(count)</p>
+</li>
+<li><p>系统平均负载（System Load Averages）指的是在特定时间段内，服务器主机处于运行状态的所有进程、线程占用 CPU 的部分总和，即平均负载。这个数值是评估系统负载状况的重要指标。</p>
+</li>
+<li><p>在Linux系统中，平均负载的取值范围是从0到n(n为CPU核心数)。当平均负载超过了CPU核心数的70%，那么可能就需要考虑进行优化，以避免系统资源过度使用导致的性能下降或其他相关问题</p>
+</li>
+</ul>
+<h3 id="磁盘监控指标"><a href="#磁盘监控指标" class="headerlink" title="磁盘监控指标"></a>磁盘监控指标</h3><h4 id="磁盘使用率"><a href="#磁盘使用率" class="headerlink" title="磁盘使用率"></a>磁盘使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h4 id="读写字节数"><a href="#读写字节数" class="headerlink" title="读写字节数"></a>读写字节数</h4><ul>
+<li>(bytes&#x2F;s)</li>
+</ul>
+<h4 id="读写请求数"><a href="#读写请求数" class="headerlink" title="读写请求数"></a>读写请求数</h4><p>(Count&#x2F;s)</p>
+<h4 id="Inode使用率"><a href="#Inode使用率" class="headerlink" title="Inode使用率"></a>Inode使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h3 id="网络监控指标"><a href="#网络监控指标" class="headerlink" title="网络监控指标"></a>网络监控指标</h3><h4 id="网络流入流出速率-bps"><a href="#网络流入流出速率-bps" class="headerlink" title="网络流入流出速率 bps"></a>网络流入流出速率 bps</h4><ul>
+<li>bps，即bit per second，比特每秒，bits&#x2F;s，衡量网络传输速度的单位，通常用于表示数据传输速度或网络带宽</li>
+<li>单位包括Kb&#x2F;s、<strong>Mb&#x2F;s</strong>、KB&#x2F;s<ul>
+<li>Mb&#x2F;s更快，1KB&#x2F;s &#x3D; 1024 * 1b&#x2F;s &#x3D; 1024b&#x2F;s、1Mb&#x2F;s &#x3D; 1024 * 1Kb&#x2F;s &#x3D; 1024Kb&#x2F;s</li>
+</ul>
+</li>
+</ul>
+<h4 id="网络流入流出数据包数-pps"><a href="#网络流入流出数据包数-pps" class="headerlink" title="网络流入流出数据包数 pps"></a>网络流入流出数据包数 pps</h4><p>((Count&#x2F;s)</p>
 <ul>
-<li><p>telnet ip 端口（跳到空窗口）</p>
-</li>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<ul>
-<li>三、找到telnet客户端，勾选打开</li>
+<li>pps，即Packet Per Second，包每秒，pps，衡量网络设备（如交换机、路由器等）处理数据包能力的单位，反映了设备的性能。</li>
 </ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>ifconfig——查看本机网络</p>
-</li>
-<li><p>netstat -an   查看正在运行的端口</p>
-</li>
-</ul>
-<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
-<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
-
+<h4 id="TCP连接数"><a href="#TCP连接数" class="headerlink" title="TCP连接数"></a>TCP连接数</h4><h2 id="服务器监控"><a href="#服务器监控" class="headerlink" title="服务器监控"></a>服务器监控</h2><h3 id="CPU使用率-1"><a href="#CPU使用率-1" class="headerlink" title="CPU使用率"></a>CPU使用率</h3><h3 id="公网流入带宽"><a href="#公网流入带宽" class="headerlink" title="公网流入带宽"></a>公网流入带宽</h3><p>bits&#x2F;s</p>
+<h3 id="公网流出带宽"><a href="#公网流出带宽" class="headerlink" title="公网流出带宽"></a>公网流出带宽</h3><p>bits&#x2F;s</p>
+<h3 id="公网流出带宽使用率"><a href="#公网流出带宽使用率" class="headerlink" title="公网流出带宽使用率"></a>公网流出带宽使用率</h3><h3 id="磁盘读取写入BPS"><a href="#磁盘读取写入BPS" class="headerlink" title="磁盘读取写入BPS"></a>磁盘读取写入BPS</h3><p>(bytes&#x2F;s)</p>
+<h3 id="磁盘读取写入IOPS"><a href="#磁盘读取写入IOPS" class="headerlink" title="磁盘读取写入IOPS"></a>磁盘读取写入IOPS</h3><p>(Count&#x2F;Second)</p>
+<h2 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控"></a>网络监控</h2><h3 id="网卡带宽"><a href="#网卡带宽" class="headerlink" title="网卡带宽"></a>网卡带宽</h3><p>(bits&#x2F;s</p>
+<h3 id="网卡流入包数"><a href="#网卡流入包数" class="headerlink" title="网卡流入包数"></a>网卡流入包数</h3><p>(Count&#x2F;s)</p>
+<h3 id="网卡错误包数"><a href="#网卡错误包数" class="headerlink" title="网卡错误包数"></a>网卡错误包数</h3><p>(Count&#x2F;s)</p>
+<h3 id="网络连接数-个"><a href="#网络连接数-个" class="headerlink" title="网络连接数(个)"></a>网络连接数(个)</h3><h3 id="VPC-宽带-bits-s"><a href="#VPC-宽带-bits-s" class="headerlink" title="VPC-宽带(bits&#x2F;s)"></a>VPC-宽带(bits&#x2F;s)</h3><h3 id="VPC-宽带使用率"><a href="#VPC-宽带使用率" class="headerlink" title="VPC-宽带使用率(%)"></a>VPC-宽带使用率(%)</h3>
                 
             </div>
             <hr/>
@@ -410,7 +403,7 @@ trace">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2023/08/19/cmd/">http://example.com/2023/08/19/cmd/</a>
+                    <a href="http://example.com/2023/10/14/%E8%BF%90%E7%BB%B4%E7%9B%91%E6%8E%A7/">http://example.com/2023/10/14/%E8%BF%90%E7%BB%B4%E7%9B%91%E6%8E%A7/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -447,11 +440,7 @@ trace">
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/cmd/">
-                                    <span class="chip bg-color">cmd</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -820,62 +809,18 @@ trace">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/08/19/centos7/">
+                <a href="/2023/10/14/%E8%BF%90%E7%BB%B4%E7%9B%91%E6%8E%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="centos7">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
                         
-                        <span class="card-title">centos7</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-08-19
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            william
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/centos7/">
-                        <span class="chip bg-color">centos7</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/08/19/hexo%E6%9D%82%E8%B0%88/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="hexo杂谈">
-                        
-                        <span class="card-title">hexo杂谈</span>
+                        <span class="card-title"></span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -886,7 +831,7 @@ trace">
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-14
                             </span>
                         <span class="publish-author">
                             
@@ -896,13 +841,43 @@ trace">
                         </span>
                     </div>
                 </div>
+
                 
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/hexo/">
-                        <span class="chip bg-color">hexo</span>
-                    </a>
-                    
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/10/14/Debian/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            william
+                            
+                        </span>
+                    </div>
                 </div>
                 
             </div>

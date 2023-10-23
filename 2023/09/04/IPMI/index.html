@@ -278,14 +278,14 @@ Integrated Dell Remote Access Controller，戴尔集成远程">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-09-04
+                    2023-10-13
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    296
+                    420
                 </div>
                 
 
@@ -320,7 +320,7 @@ Integrated Dell Remote Access Controller，戴尔集成远程">
 </ul>
 <h2 id="idrac"><a href="#idrac" class="headerlink" title="idrac"></a>idrac</h2><ul>
 <li>Integrated Dell Remote Access Controller，戴尔集成远程访问控制器。是一个远程管理系统，由一块集成电路板组成，内置了支持和管理硬件的固件。idrac提供了一个Web界面，用户可以通过这个界面对服务器进行监控、管理、远程重启、重新启动操作系统等各种操作。同时，idrac还支持命令行方式和SNMP协议，以便更加方便地远程管理服务器。</li>
-<li>默认登录凭据：用户名：root，密码：calvin</li>
+<li>默认登录凭据：用户名：root，默认密码：calvin</li>
 </ul>
 <h2 id="配置IPMI"><a href="#配置IPMI" class="headerlink" title="配置IPMI"></a>配置IPMI</h2><ul>
 <li><p>仅针对戴尔服务器</p>
@@ -330,23 +330,53 @@ Integrated Dell Remote Access Controller，戴尔集成远程">
 </li>
 <li><p>常规操作流程</p>
 <ul>
-<li><p>进入系统设置，选择 system BIOS</p>
+<li><p>开机F2进 <strong>system setup</strong> 系统设置</p>
 </li>
-<li><p>选择 iDRAC Settings</p>
+<li><p>选择 <strong>iDRAC Settings</strong>，进入</p>
+<blockquote>
+<ul>
+<li>如果需要<strong>恢复默认配置</strong>，选择 <strong>reset idrac configguration to defaults</strong><ul>
+<li>选择yes，等待初始化完成即可，continue，跳到系统设置界面，重新进idrac settings界面</li>
+</ul>
 </li>
-<li><p>到最下边，选择 reset idrac configguration to defaults</p>
+<li>如果<strong>忘记密码</strong>、<strong>修改密码</strong>，选择 <strong>user configuration</strong>，进去修改即可</li>
+</ul>
+</blockquote>
 </li>
-<li><p>选择yes，等待结束，选择continue</p>
+<li></li>
+<li><p>选择 <strong>network</strong> 网络设置（使用专用网络接口）</p>
+<blockquote>
+<p>network settings</p>
+<ul>
+<li>启用NIC，enable nic选择 <strong>Enabled</strong></li>
+<li>nic selection自动有，failover network故障转移网络可以不选，直接none</li>
+</ul>
+</blockquote>
 </li>
-<li><p>再次选择 iDRAC Settings，选择 network（使用专用网络接口）</p>
+<li><p>IPv4 settings</p>
+<blockquote>
+<p>enable ipv4，选择 enabled   ，启用ipv4</p>
+<p>enable DHCP，选择 disabled  ，禁用dhcp使用静态ip</p>
+<p>设置，ip，网关，掩码，DNS</p>
+</blockquote>
 </li>
-<li><p>NIC相关配置，Enabled启用nic，选择 dedicated</p>
+<li><p>IPMI settings</p>
+<blockquote>
+<p>enable IPMI Over LAN，选择Enabled  ，通过局域网启用IPMI</p>
+</blockquote>
 </li>
-<li><p>网络设置，IPv4 设置，ip，网关，掩码</p>
+<li><p>配置好之后，保存、退出</p>
 </li>
-<li><p>IPMI Over LAN（通过局域网启用IPMI）选项，选择Enabled</p>
+<li><p><strong>检验</strong></p>
+<ul>
+<li><p>能ping通，能登录访问即可</p>
+<blockquote>
+<p>排错：</p>
+<p>​	检验，ping ip、网关、外网，三个全可以才行</p>
+<p>​	若ping 外网显示 name unknown 之类的，首先想DNS问题</p>
+</blockquote>
 </li>
-<li><p>配置好之后，能ping通，能登录访问即可</p>
+</ul>
 </li>
 </ul>
 </li>
@@ -1048,7 +1078,7 @@ Integrated Dell Remote Access Controller，戴尔集成远程">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">39.6k</span>
+                        class="white-color">41.6k</span>
             
             
             

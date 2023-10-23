@@ -1,6 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>/2023/10/14/Debian/</url>
+    <content><![CDATA[<h1 id="Debian"><a href="#Debian" class="headerlink" title="Debian"></a>Debian</h1><ul>
+<li><p>版本选择指南：</p>
+<ul>
+<li><p>我认为官网弄得很乱，不明晰</p>
+</li>
+<li><p>进入官网下载页面，默认下载当前最新稳定版，按需选择其他发行版本</p>
+</li>
+<li><p>选择了对应版，页面上</p>
+<ul>
+<li>【安装信息】进入下载界面</li>
+<li>【安装指南】进入查看安装手册</li>
+</ul>
+</li>
+<li><p>按需选择镜像介质、系统架构</p>
+<ul>
+<li><p>amd64就是64位</p>
+</li>
+<li><p>建议离线安装、选择DVD介质</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="安装流程"><a href="#安装流程" class="headerlink" title="安装流程"></a>安装流程</h2><p><strong>建议断网离线安装，有些插件补丁下载需要外网，卡、慢</strong></p>
+<ul>
+<li><p>安装程序选项</p>
+<ul>
+<li><p><strong>Graphical install 图形化安装（更友好）</strong></p>
+<p>教程 <code>http://www.360doc.com/content/20/1217/02/11770334_951926947.shtml</code></p>
+</li>
+<li><p>install 文字安装</p>
+<p>教程 <code>https://www.cnblogs.com/qinfangzhe/p/15915788.html</code></p>
+</li>
+</ul>
+</li>
+<li><p>选择系统语言、位置时区、键盘</p>
+<ul>
+<li>系统语言、键盘都选择 <strong>English</strong>，选择中文容易出现乱码</li>
+</ul>
+</li>
+<li><p>配置网络</p>
+<ul>
+<li>暂时不进行网络设置</li>
+<li>网络<strong>主机名</strong>，默认debian</li>
+<li>网络域名，可以不写</li>
+</ul>
+</li>
+<li><p>设置用户、密码</p>
+<ul>
+<li><p>设置 <strong>root管理员账户</strong> 密码</p>
+</li>
+<li><p>设置普通账户、密码</p>
+</li>
+<li><p>debian<strong>默认</strong>以普通用户登录，不能以root用户登录，可以登录之后再切换</p>
+<blockquote>
+<p>修改默认设置，允许root登录</p>
+<p>–</p>
+<p>首先确定ssh服务是否正在运行，是否开机自启    <code>systemctl status ssh</code></p>
+<p>修改配置文件  <code>vi /etc/ssh/sshd_config </code></p>
+<ol>
+<li><code>PermitRootLogin yes    去掉注释符# ，修改为yes</code></li>
+<li><code>PermitEmptyPasswords yes     去掉注释符# ，修改为yes</code>  ，允许设置简单密码（可选）</li>
+<li><code>systemctl restart ssh    重启 SSH 服务</code></li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>磁盘设置</p>
+<ul>
+<li>选择磁盘分区模式<ul>
+<li>guided引导程序自动分区，简单起见，选择整个引导磁盘 guided-use entire disk (可按需选择)</li>
+<li>manual手动分区</li>
+</ul>
+</li>
+<li>选择要分区的磁盘</li>
+<li>选择磁盘分区方案，简单起见，默认方案 All files in one partition (recommended for new users)</li>
+<li>安装程序显示磁盘配置、检查分区，无误就 finsh 继续，yes确认写入，有误就 undo 撤销</li>
+</ul>
+</li>
+<li><p>完成基本安装</p>
+</li>
+<li><p>是否扫描CD或DVD光盘安装其他的软件，选择 no</p>
+<ul>
+<li>基于最小安装原则，后续缺什么再装什么</li>
+</ul>
+</li>
+<li><p>选择包管理源、镜像源</p>
+</li>
+<li><p>软件安装</p>
+<ul>
+<li>SSH、standard system utilities（必备，最小化安装）</li>
+</ul>
+</li>
+<li><p>将boot GRUD引导文件写入硬盘</p>
+<ul>
+<li>install the grub boot loader on a hard disk，选择 yes</li>
+<li>选择对应 硬盘</li>
+</ul>
+</li>
+<li><p>安装完成重启系统</p>
+</li>
+</ul>
+<h2 id="配置ip"><a href="#配置ip" class="headerlink" title="配置ip"></a>配置ip</h2><blockquote>
+<p>查看网卡信息     ip a</p>
+<p>查看原来的配置信息   cat   &#x2F;etc&#x2F;network&#x2F;interfaces</p>
+<p>修改配置文件     vi  &#x2F;etc&#x2F;network&#x2F;interfaces</p>
+<pre class="line-numbers language-none"><code class="language-none">auto 网卡名                 # 网卡自启动 
+iface 网卡名 inet static    # 改为static
+address 192.168.1.183
+netmask 255.255.255.0
+gateway 192.168.1.1
+dns-nameservers xxxxxxxx      # dns还需要在配置另一处<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>重启网卡  systemctl restart networking，    不生效直接重启系统，（进行到这一步，一般可以ping通外网IP，但是还不支持域名解析）</p>
+<p>修改dns配置文件   vi   &#x2F;etc&#x2F;resolv.conf </p>
+<pre class="line-numbers language-none"><code class="language-none">search loacl    # 自动解析local域
+nameserver xxxxxxxx    # 可以写一个也可以写多个，另起一行 nameserver xxxxxxxx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>重启系统，刷新网卡    reboot      测试ping baidu.com</p>
+</blockquote>
+<p>​             </p>
+<h2 id="设置主机不休眠"><a href="#设置主机不休眠" class="headerlink" title="设置主机不休眠"></a>设置主机不休眠</h2><p>编辑配置文件 logind.conf</p>
+<p>​	<code>sudo vi /etc/systemd/logind.conf</code></p>
+<p>找到以下行：</p>
+<pre class="line-numbers language-none"><code class="language-none">#HandleLidSwitch&#x3D;suspend
+
+将前面的注释符号#去掉，并将其改为：
+HandleLidSwitch&#x3D;ignore<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>重启 reboot</p>
+]]></content>
+  </entry>
+  <entry>
     <title>idrac-ipmi</title>
     <url>/2023/09/04/IPMI/</url>
     <content><![CDATA[<h1 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h1><ul>
@@ -8,7 +145,7 @@
 </ul>
 <h2 id="idrac"><a href="#idrac" class="headerlink" title="idrac"></a>idrac</h2><ul>
 <li>Integrated Dell Remote Access Controller，戴尔集成远程访问控制器。是一个远程管理系统，由一块集成电路板组成，内置了支持和管理硬件的固件。idrac提供了一个Web界面，用户可以通过这个界面对服务器进行监控、管理、远程重启、重新启动操作系统等各种操作。同时，idrac还支持命令行方式和SNMP协议，以便更加方便地远程管理服务器。</li>
-<li>默认登录凭据：用户名：root，密码：calvin</li>
+<li>默认登录凭据：用户名：root，默认密码：calvin</li>
 </ul>
 <h2 id="配置IPMI"><a href="#配置IPMI" class="headerlink" title="配置IPMI"></a>配置IPMI</h2><ul>
 <li><p>仅针对戴尔服务器</p>
@@ -18,23 +155,53 @@
 </li>
 <li><p>常规操作流程</p>
 <ul>
-<li><p>进入系统设置，选择 system BIOS</p>
+<li><p>开机F2进 <strong>system setup</strong> 系统设置</p>
 </li>
-<li><p>选择 iDRAC Settings</p>
+<li><p>选择 <strong>iDRAC Settings</strong>，进入</p>
+<blockquote>
+<ul>
+<li>如果需要<strong>恢复默认配置</strong>，选择 <strong>reset idrac configguration to defaults</strong><ul>
+<li>选择yes，等待初始化完成即可，continue，跳到系统设置界面，重新进idrac settings界面</li>
+</ul>
 </li>
-<li><p>到最下边，选择 reset idrac configguration to defaults</p>
+<li>如果<strong>忘记密码</strong>、<strong>修改密码</strong>，选择 <strong>user configuration</strong>，进去修改即可</li>
+</ul>
+</blockquote>
 </li>
-<li><p>选择yes，等待结束，选择continue</p>
+<li></li>
+<li><p>选择 <strong>network</strong> 网络设置（使用专用网络接口）</p>
+<blockquote>
+<p>network settings</p>
+<ul>
+<li>启用NIC，enable nic选择 <strong>Enabled</strong></li>
+<li>nic selection自动有，failover network故障转移网络可以不选，直接none</li>
+</ul>
+</blockquote>
 </li>
-<li><p>再次选择 iDRAC Settings，选择 network（使用专用网络接口）</p>
+<li><p>IPv4 settings</p>
+<blockquote>
+<p>enable ipv4，选择 enabled   ，启用ipv4</p>
+<p>enable DHCP，选择 disabled  ，禁用dhcp使用静态ip</p>
+<p>设置，ip，网关，掩码，DNS</p>
+</blockquote>
 </li>
-<li><p>NIC相关配置，Enabled启用nic，选择 dedicated</p>
+<li><p>IPMI settings</p>
+<blockquote>
+<p>enable IPMI Over LAN，选择Enabled  ，通过局域网启用IPMI</p>
+</blockquote>
 </li>
-<li><p>网络设置，IPv4 设置，ip，网关，掩码</p>
+<li><p>配置好之后，保存、退出</p>
 </li>
-<li><p>IPMI Over LAN（通过局域网启用IPMI）选项，选择Enabled</p>
+<li><p><strong>检验</strong></p>
+<ul>
+<li><p>能ping通，能登录访问即可</p>
+<blockquote>
+<p>排错：</p>
+<p>​	检验，ping ip、网关、外网，三个全可以才行</p>
+<p>​	若ping 外网显示 name unknown 之类的，首先想DNS问题</p>
+</blockquote>
 </li>
-<li><p>配置好之后，能ping通，能登录访问即可</p>
+</ul>
 </li>
 </ul>
 </li>
@@ -133,140 +300,25 @@
       </tags>
   </entry>
   <entry>
-    <title>PVE</title>
-    <url>/2023/09/25/PVE%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<h1 id="PVE"><a href="#PVE" class="headerlink" title="PVE"></a>PVE</h1><ul>
-<li><p>背景：</p>
-<p>一般练习可以使用VMware，练习一些windows、centos、Ubuntu单机操作。在我练习集群化部署的时候，劣势显现出来，物理机上先装windows server，再装vmware，然后部署虚拟机。影响效率和性能不说，主要是组网、配置也不方便。所以选择PVE服务器虚拟化平台，直接在物理机上安装PVE，在此基础之上部署多台虚拟机，和原来的比较，pve系统相当于win系统，省去了一个vmware，可以更好的发挥性能，也更便于部署一些中间件，更便于运维监控。</p>
-</li>
-</ul>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
-<li><p>Proxmox Virtual Environment，通常简称为 PVE、Proxmox、Proxmox VE。是一个开源的服务器虚拟化环境 Linux 发行版。PVE 基于 Debian，使用基于 Ubuntu 的定制内核，包含安装程序、web控制台和cli工具</p>
-</li>
-<li><p>pve就是一个linux系统，在此之上创建多个虚拟机，使用web控制台管理</p>
-</li>
-</ul>
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><ul>
-<li>开、关、状态 ： <code>qm start / stop / status  VMid</code></li>
-<li>查询：<code>qm list</code><ul>
-<li>虚拟机关不上<code>ps -ef|grep &quot;/usr/bin/kvm -id VMid&quot;|grep -v grep</code>，查看进程id</li>
-<li>关闭<code>kill 进程id</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="主机名配置"><a href="#主机名配置" class="headerlink" title="主机名配置"></a>主机名配置</h2><h3 id="主机名配置-1"><a href="#主机名配置-1" class="headerlink" title="主机名配置"></a>主机名配置</h3><blockquote>
-<p>hostnamectl     # 查看主机名</p>
-<p> hostnamectl set-hostname XXX    # 配置主机名</p>
-</blockquote>
-<h3 id="主机名映射"><a href="#主机名映射" class="headerlink" title="主机名映射"></a>主机名映射</h3><ul>
-<li><p>1、Windows，管理员打开记事本、打开 C:\Windows\System32\drivers\etc，修改hosts文件</p>
-<pre class="line-numbers language-none"><code class="language-none">ip 主机名
-192.168.88.131 node1
-192.168.88.132 node2
-192.168.88.133 node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>2、每一台linux机器都要配置 修改<code>/etc/hosts</code> 文件，和上边一样</p>
-<ul>
-<li>浏览器ip:8006、主机名:8006都能访问web控制台，shell远程工具可以ip、主机名访问。说明主机映射配置成功，奇怪啊，Windows配完就直接能访问了？我的理解，因为我的电脑和pve平台都在同一局域网，所以在我这配完就能访问了</li>
-<li>本机认识pve、node123</li>
-<li>pve不认识 node123</li>
-<li>node1不认识node2——-下周配置linux的host，这周把ssh互相登录解决（目前仅仅是pve单向登录node123，node123还没双向相互复制），建议先配置host再ssh</li>
-</ul>
-</li>
-</ul>
-<h2 id="SSH配置"><a href="#SSH配置" class="headerlink" title="SSH配置"></a>SSH配置</h2><ul>
-<li><p>SSH服务是一种用于远程登录的安全认证协议。</p>
-<ul>
-<li><p>远程某台机器，生成了密钥，本地要想ssh连接，1，将ssh复制给这台机器自己，2，需把ssh下载到本地，并配置到远程工具中</p>
-<ul>
-<li>或者：本地先用这种方法连node1，然后node1把公钥复制给node2、3、4，再相互复制，这样不仅node1234可以互相登录，本机还可以利用一个公钥登录所有，即利用node1公钥登录noe1234</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>SSH服务支持多种认证方式：</p>
-</li>
-</ul>
-<ol>
-<li><p>口令：账户+密码</p>
-</li>
-<li><p>密钥：账户+秘钥文件</p>
-</li>
-<li><p>keyboard  Interactive  服务器发给你信息然后你手动输入信息发回</p>
-<p>我们通过FinalShell远程连接到Linux，就是使用的SSH服务。（windows登录linux）</p>
-</li>
-</ol>
-<ul>
-<li><p>生成密钥</p>
-<ul>
-<li><p><code>ssh-keygen -t rsa -b 4096</code>  一路回车到底即可</p>
-<blockquote>
-<p>-t rsa</p>
-<p>​	-t，指定密钥的类型，密钥的类型有两种，RSA，DSA，</p>
-<p>-b 4096</p>
-<p>​	-b，指定密钥长度，密钥长度为4096位</p>
-</blockquote>
-<blockquote>
-<p>C:\Users\用户.ssh</p>
-<p>.ssh文件夹</p>
-<ul>
-<li><p>known_hosts   记录ssh访问过计算机的公钥（public key）</p>
-</li>
-<li><p>id_rsa    生成的私钥</p>
-</li>
-<li><p>id_rsa.pub   生成的公钥</p>
-</li>
-<li><p>authorized_keys    存放授权过的无密登录服务器公钥</p>
-</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>复制密钥</p>
-<ul>
-<li><p><code>ssh-copy-id 远程主机</code></p>
-<blockquote>
-<p>将本地生成的SSH公钥复制到远程主机</p>
-<p>想要互相登录，就要互相复制</p>
-<p>建议先配置主机映射，再弄ssh，否则</p>
-<p>优：ssh node1</p>
-<p>坏：ssh 192.168.3.89</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>SSH可以让我们通过SSH命令，远程的登陆到其它的主机上，比如：</p>
-<ul>
-<li>在node1执行：<code>ssh root@node2</code>，将以root用户登录node2服务器，输入密码即可成功登陆</li>
-<li>或者<code>ssh node2</code>，将以当前用户直接登陆到node2服务器。</li>
-</ul>
-</li>
-<li><p>退出登录</p>
-<ul>
-<li>exit</li>
-<li>ctrl +d</li>
-</ul>
-</li>
-</ul>
-<h4 id="SSH免密配置"><a href="#SSH免密配置" class="headerlink" title="SSH免密配置"></a>SSH免密配置</h4><p>集群化部署，多数需要远程登录以及远程执行命令，简单起见，配置服务器之间的免密码互相SSH登陆，比如三台机器，node1、node2、node3</p>
-<ol>
-<li><p>在每一台机器都执行：<code>ssh-keygen -t rsa -b 4096</code>，一路回车到底即可</p>
-</li>
-<li><p>在每一台机器都执行：</p>
-<pre class="line-numbers language-none"><code class="language-none">ssh-copy-id node1
-ssh-copy-id node2
-ssh-copy-id 192.168.3.66
+    <title>PC微信双开</title>
+    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
+    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
+<li><p>首先新建一个txt文件</p>
+<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
 
-
-# 此步骤前提是已经配置完了主机映射关系,否则就要像第三行那样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>保存文件，将txt文件改成后缀为bat</p>
 </li>
-<li><p>执行完毕后，node1、node2、node3之间将完成root用户之间的免密互通</p>
+<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
 </li>
-</ol>
+<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
+</li>
+</ul>
 ]]></content>
       <tags>
-        <tag>Linux</tag>
+        <tag>工具类</tag>
       </tags>
   </entry>
   <entry>
@@ -2353,25 +2405,140 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
       </tags>
   </entry>
   <entry>
-    <title>PC微信双开</title>
-    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
-    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
-<li><p>首先新建一个txt文件</p>
-<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
-
-# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>保存文件，将txt文件改成后缀为bat</p>
-</li>
-<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
-</li>
-<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
+    <title>PVE</title>
+    <url>/2023/09/25/PVE%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h1 id="PVE"><a href="#PVE" class="headerlink" title="PVE"></a>PVE</h1><ul>
+<li><p>背景：</p>
+<p>一般练习可以使用VMware，练习一些windows、centos、Ubuntu单机操作。在我练习集群化部署的时候，劣势显现出来，物理机上先装windows server，再装vmware，然后部署虚拟机。影响效率和性能不说，主要是组网、配置也不方便。所以选择PVE服务器虚拟化平台，直接在物理机上安装PVE，在此基础之上部署多台虚拟机，和原来的比较，pve系统相当于win系统，省去了一个vmware，可以更好的发挥性能，也更便于部署一些中间件，更便于运维监控。</p>
 </li>
 </ul>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li><p>Proxmox Virtual Environment，通常简称为 PVE、Proxmox、Proxmox VE。是一个开源的服务器虚拟化环境 Linux 发行版。PVE 基于 Debian，使用基于 Ubuntu 的定制内核，包含安装程序、web控制台和cli工具</p>
+</li>
+<li><p>pve就是一个linux系统，在此之上创建多个虚拟机，使用web控制台管理</p>
+</li>
+</ul>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><ul>
+<li>开、关、状态 ： <code>qm start / stop / status  VMid</code></li>
+<li>查询：<code>qm list</code><ul>
+<li>虚拟机关不上<code>ps -ef|grep &quot;/usr/bin/kvm -id VMid&quot;|grep -v grep</code>，查看进程id</li>
+<li>关闭<code>kill 进程id</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="主机名配置"><a href="#主机名配置" class="headerlink" title="主机名配置"></a>主机名配置</h2><h3 id="主机名配置-1"><a href="#主机名配置-1" class="headerlink" title="主机名配置"></a>主机名配置</h3><blockquote>
+<p>hostnamectl     # 查看主机名</p>
+<p> hostnamectl set-hostname XXX    # 配置主机名</p>
+</blockquote>
+<h3 id="主机名映射"><a href="#主机名映射" class="headerlink" title="主机名映射"></a>主机名映射</h3><ul>
+<li><p>1、Windows，管理员打开记事本、打开 C:\Windows\System32\drivers\etc，修改hosts文件</p>
+<pre class="line-numbers language-none"><code class="language-none">ip 主机名
+192.168.88.131 node1
+192.168.88.132 node2
+192.168.88.133 node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>2、每一台linux机器都要配置 修改<code>/etc/hosts</code> 文件，和上边一样</p>
+<ul>
+<li>浏览器ip:8006、主机名:8006都能访问web控制台，shell远程工具可以ip、主机名访问。说明主机映射配置成功，奇怪啊，Windows配完就直接能访问了？我的理解，因为我的电脑和pve平台都在同一局域网，所以在我这配完就能访问了</li>
+<li>本机认识pve、node123</li>
+<li>pve不认识 node123</li>
+<li>node1不认识node2——-下周配置linux的host，这周把ssh互相登录解决（目前仅仅是pve单向登录node123，node123还没双向相互复制），建议先配置host再ssh</li>
+</ul>
+</li>
+</ul>
+<h2 id="SSH配置"><a href="#SSH配置" class="headerlink" title="SSH配置"></a>SSH配置</h2><ul>
+<li><p>SSH服务是一种用于远程登录的安全认证协议。</p>
+<ul>
+<li><p>远程某台机器，生成了密钥，本地要想ssh连接，1，将ssh复制给这台机器自己，2，需把ssh下载到本地，并配置到远程工具中</p>
+<ul>
+<li>或者：本地先用这种方法连node1，然后node1把公钥复制给node2、3、4，再相互复制，这样不仅node1234可以互相登录，本机还可以利用一个公钥登录所有，即利用node1公钥登录noe1234</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>SSH服务支持多种认证方式：</p>
+</li>
+</ul>
+<ol>
+<li><p>口令：账户+密码</p>
+</li>
+<li><p>密钥：账户+秘钥文件</p>
+</li>
+<li><p>keyboard  Interactive  服务器发给你信息然后你手动输入信息发回</p>
+<p>我们通过FinalShell远程连接到Linux，就是使用的SSH服务。（windows登录linux）</p>
+</li>
+</ol>
+<ul>
+<li><p>生成密钥</p>
+<ul>
+<li><p><code>ssh-keygen -t rsa -b 4096</code>  一路回车到底即可</p>
+<blockquote>
+<p>-t rsa</p>
+<p>​	-t，指定密钥的类型，密钥的类型有两种，RSA，DSA，</p>
+<p>-b 4096</p>
+<p>​	-b，指定密钥长度，密钥长度为4096位</p>
+</blockquote>
+<blockquote>
+<p>C:\Users\用户.ssh</p>
+<p>.ssh文件夹</p>
+<ul>
+<li><p>known_hosts   记录ssh访问过计算机的公钥（public key）</p>
+</li>
+<li><p>id_rsa    生成的私钥</p>
+</li>
+<li><p>id_rsa.pub   生成的公钥</p>
+</li>
+<li><p>authorized_keys    存放授权过的无密登录服务器公钥</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>复制密钥</p>
+<ul>
+<li><p><code>ssh-copy-id 远程主机</code></p>
+<blockquote>
+<p>将本地生成的SSH公钥复制到远程主机</p>
+<p>想要互相登录，就要互相复制</p>
+<p>建议先配置主机映射，再弄ssh，否则</p>
+<p>优：ssh node1</p>
+<p>坏：ssh 192.168.3.89</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>SSH可以让我们通过SSH命令，远程的登陆到其它的主机上，比如：</p>
+<ul>
+<li>在node1执行：<code>ssh root@node2</code>，将以root用户登录node2服务器，输入密码即可成功登陆</li>
+<li>或者<code>ssh node2</code>，将以当前用户直接登陆到node2服务器。</li>
+</ul>
+</li>
+<li><p>退出登录</p>
+<ul>
+<li>exit</li>
+<li>ctrl +d</li>
+</ul>
+</li>
+</ul>
+<h4 id="SSH免密配置"><a href="#SSH免密配置" class="headerlink" title="SSH免密配置"></a>SSH免密配置</h4><p>集群化部署，多数需要远程登录以及远程执行命令，简单起见，配置服务器之间的免密码互相SSH登陆，比如三台机器，node1、node2、node3</p>
+<ol>
+<li><p>在每一台机器都执行：<code>ssh-keygen -t rsa -b 4096</code>，一路回车到底即可</p>
+</li>
+<li><p>在每一台机器都执行：</p>
+<pre class="line-numbers language-none"><code class="language-none">ssh-copy-id node1
+ssh-copy-id node2
+ssh-copy-id 192.168.3.66
+
+
+# 此步骤前提是已经配置完了主机映射关系,否则就要像第三行那样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>执行完毕后，node1、node2、node3之间将完成root用户之间的免密互通</p>
+</li>
+</ol>
 ]]></content>
       <tags>
-        <tag>工具类</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -2723,6 +2890,63 @@ tips：
       </tags>
   </entry>
   <entry>
+    <title>cmd</title>
+    <url>/2023/08/19/cmd/</url>
+    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
+<li>ping——测试网络是否通畅<ul>
+<li>使用icmp协议，网络连通性测试</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>ping ip<ul>
+<li>测试网络连通情况</li>
+</ul>
+</li>
+<li>ping -t ip<ul>
+<li>不间断的一直ping</li>
+</ul>
+</li>
+<li>ping -a ip<ul>
+<li>局域网内解析出主机名</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</blockquote>
+<ul>
+<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
+</li>
+<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
+<ul>
+<li><p>telnet ip 端口（跳到空窗口）</p>
+</li>
+<li><p>无法telnet</p>
+<blockquote>
+<p>一、打开控制面板</p>
+<p>二、点击打开启用或关闭Windows功能</p>
+<ul>
+<li>三、找到telnet客户端，勾选打开</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>ifconfig——查看本机网络</p>
+</li>
+<li><p>netstat -an   查看正在运行的端口</p>
+</li>
+</ul>
+<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
+<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
+]]></content>
+      <tags>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>github问题</title>
     <url>/2023/08/10/github%E4%BB%A3%E7%90%86%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>问题：<br>    * 在拉取、推送、克隆的时候常报错经常出现 Connection refused 的错误，大致有443错误、22错误<br>    <pre class="line-numbers language-none"><code class="language-none">常见git报错：
@@ -2771,57 +2995,6 @@ fatal: Could not read from remote repository.<span aria-hidden="true" class="lin
 ]]></content>
       <tags>
         <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cmd</title>
-    <url>/2023/08/19/cmd/</url>
-    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
-<li><p>ping——测试网络是否通畅</p>
-<ul>
-<li>使用icmp协议，网络连通性测试</li>
-</ul>
-</li>
-<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
-</li>
-<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
-<ul>
-<li><p>telnet ip 端口（跳到空窗口）</p>
-</li>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<ul>
-<li>三、找到telnet客户端，勾选打开</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>ifconfig——查看本机网络</p>
-</li>
-</ul>
-<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
-<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
-]]></content>
-      <tags>
-        <tag>cmd</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux重点内容</title>
-    <url>/2023/08/19/linux/</url>
-    <content><![CDATA[<p>linux运维：</p>
-<ul>
-<li>网络配置，防火墙，管理远程主机</li>
-<li>用户、用户组配置</li>
-<li>软件安装部署，文件操作</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -2891,6 +3064,116 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux重点内容</title>
+    <url>/2023/08/19/linux/</url>
+    <content><![CDATA[<p>linux运维：</p>
+<ul>
+<li>网络配置，防火墙，管理远程主机</li>
+<li>用户、用户组配置</li>
+<li>软件安装部署，文件操作</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows server</title>
+    <url>/2023/08/19/windows%20server/</url>
+    <content><![CDATA[<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
+<li>工作流程</li>
+</ul>
+<p>1、装设备、装系统<br>2、设置用户、配ip、配端口<br>3、服务器管理器，开启【远程桌面，远程管理】，设置防火墙、关闭电源设置里的休眠<br>4、测试：ping通，远程通、3389端口在<br>5、交付</p>
+<h2 id="业务操作"><a href="#业务操作" class="headerlink" title="业务操作"></a>业务操作</h2><h3 id="配置远程桌面"><a href="#配置远程桌面" class="headerlink" title="配置远程桌面"></a>配置远程桌面</h3><ul>
+<li>流程<ul>
+<li><p>服务器管理器，开启，远程桌面、远程管理，需要进入 防火墙</p>
+</li>
+<li><p>windows防火墙，入站规则，开启服务：</p>
+<ul>
+<li>—否则无法远程连接<br>    远程桌面（tcp-in 用户模式）<br>远程桌面（udp-in 用户模式）</li>
+<li>—否则无法ping通<br>    核心网络诊断-icmp 回显请求（icmpv4-in） &#x2F; 文件和打印机共享（回显请求-icmpv4-in）<br>核心网络诊断-icmp 回显请求（icmpv4-in）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="配置新ip"><a href="#配置新ip" class="headerlink" title="配置新ip"></a>配置新ip</h3><ul>
+<li><p>流程</p>
+<ul>
+<li>配置ip，修改默认端口号</li>
+<li>配置成功、ping成功、telnet成功、远程桌面成功</li>
+</ul>
+</li>
+<li><p>修改默认端口号，</p>
+<ul>
+<li><p>改成5位，22xxx或者33xxx</p>
+<blockquote>
+<p>1、注册表中，修改两处端口号【 PortNumber 】</p>
+<ul>
+<li><p>路径1：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ wds \ rdpwd \ tds \ tcp</p>
+</li>
+<li><p>路径2：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ winstations \ rdp-tcp</p>
+</li>
+</ul>
+<p>2、防火墙中新建入站规则–端口号</p>
+<p>3、服务，重新启动服务 【remot desktop services】</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="做系统"><a href="#做系统" class="headerlink" title="做系统"></a>做系统</h3><ul>
+<li>windows server datacenter版本</li>
+<li>分盘<ul>
+<li>直接c盘给50G，其余空闲，让客户自己弄</li>
+</ul>
+</li>
+<li>安装好系统卸载那些捆绑的垃圾软件（主要针对大白菜）</li>
+</ul>
+<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
+<li><p>同一时间，多个用户，用一个账号登录，比如A，B，C，D四台机器，同时使用administrator这个账户登录服务器</p>
+</li>
+<li><p>流程</p>
+<ul>
+<li><p>首先开启远程桌面、远程管理</p>
+</li>
+<li><p>服务器与管理器 》管理 》添加角色和功能向导 》基于角色或基于功能的安装</p>
+</li>
+<li><p>远程桌面服务 》远程桌面(会话)主机、远程桌面授权</p>
+</li>
+<li><p>确认安装所选内容，重启服务器</p>
+<p><img src="https://s1.ax1x.com/2023/08/31/pPw7KkF.png"></p>
+</li>
+<li><p><strong>直接执行以下操作也可以</strong></p>
+</li>
+<li><p>运行&#x2F;cmd，输入【gpedit.msc】打开策略组</p>
+</li>
+<li><p>计算机配置\管理模板\Windows 组件\远程桌面服务\远程桌面会话主机\连接</p>
+</li>
+<li><p>将远程桌面服务的用户限制到单独的远程桌面会话，禁用</p>
+</li>
+<li><p>限制连接的数量，启用，允许的RD最大连接数——修改</p>
+</li>
+<li><p>cmd，输入【gpupdate &#x2F;force】刷新策略，使策略生效</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
+<li><p>无法telnet</p>
+<blockquote>
+<p>一、打开控制面板</p>
+<p>二、点击打开启用或关闭Windows功能</p>
+<p>三、找到telnet客户端，勾选打开</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>windows</tag>
       </tags>
   </entry>
   <entry>
@@ -3023,91 +3306,35 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>windows server</title>
-    <url>/2023/08/19/windows%20server/</url>
-    <content><![CDATA[<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
-<li>工作流程</li>
-</ul>
-<p>1、装设备、装系统<br>2、设置用户、配ip、配端口<br>3、服务器管理器，开启【远程桌面，远程管理】，设置防火墙<br>4、测试，ping通，远程通<br>5、交付</p>
-<h2 id="业务操作"><a href="#业务操作" class="headerlink" title="业务操作"></a>业务操作</h2><h3 id="配置远程桌面"><a href="#配置远程桌面" class="headerlink" title="配置远程桌面"></a>配置远程桌面</h3><ul>
-<li>流程<ul>
-<li><p>服务器管理器，开启，远程桌面、远程管理，需要进入 防火墙</p>
-</li>
-<li><p>windows防火墙，入站规则，开启服务：</p>
+    <title>周报(1)</title>
+    <url>/2023/08/19/%E5%91%A8%E6%8A%A5/</url>
+    <content><![CDATA[<p>入职第一周<br>本人前端程序员一名，因故回到县城老家，找不到工作，改行做机房运维，记录0基础运维成长</p>
+<p>第一天，简单看了下培训文档和基本信息资料，然后领导交代制作pe系统盘，有一说一，这个东西是计算机人的基础，大学也都学过，但是我不会，我从来没用U盘装过系统。<br>使用大白菜一键制作U盘。不知道为什么，中间做一半电脑卡死了，弄坏了一个U盘，直接读不出来了。然后就是去网上找iso镜像，有一说一，国内的这些网站广告是真的多。需要的系统文件有windows server 2008、2021、2022、centos7.x。找到之后，就开始了漫长的下载，由于网络问题，10点开始下载，下午1点才下载好。<br>下载好之后，网上教程说用软碟通刻录、直接复制拷贝等等。我用软碟通但是安装的时候一直中文乱码，然后就用复制解压到U盘的方法,windows系统要求做在一个盘里，cent的做在另一个盘里。解压的过程中，要么是空间不够，要么电脑半路卡死。奇奇怪怪，我之前电脑从来没卡死过，8代i5，16+256+512，以前开机7s，现在都是20s。奇奇怪怪。<br>到了下班点，WindowsU盘还没弄好，回家接着弄。</p>
+<p>two<br>U盘弄好了，但是尝试在虚拟机中装系统，一直出错，win是卡死，centos是网卡配置出错。<br>然后跟着领导学习装系统，遇到的问题是，下载的镜像不全，不干净，导致缺少网卡驱动。初步认识了windows server 系统。<br>发现自己关于计算机网络、硬件知识认知不足，起码不全面，懂一点，但是不多，不深。有空给他系统学一学。<br>关于linux，之前学了基础的命令，但是也都忘得七七八八了，抽空给多练练，关于软件安装部署那块，抓紧学了，找到规律和共性</p>
+<p>three<br>装ws2008、2012、2022，并且配置ip、端口，尝试远程连接，ping，telnet</p>
+<p>foure<br>装centos7，配置网络，开关防火墙，学习防火墙相关知识，安装gui界面、对比使用cli和gui</p>
+<p>five<br>装宝塔面板并学习使用，了解网络相关知识，不同主板系统bios区别差异，学习cmd的其他常用知识</p>
+]]></content>
+      <tags>
+        <tag>复盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图标制作</title>
+    <url>/2023/10/09/%E5%9B%BE%E6%A0%87%E5%88%B6%E4%BD%9C/</url>
+    <content><![CDATA[<h1 id="图标制作"><a href="#图标制作" class="headerlink" title="图标制作"></a>图标制作</h1><p>有的时候安装的软件图标很丑，或者大小不符合我的需求（我的桌面图标比较大），我会选择自制图标</p>
 <ul>
-<li>—否则无法远程连接<br>    远程桌面（tcp-in 用户模式）<br>远程桌面（udp-in 用户模式）</li>
-<li>—否则无法ping通<br>    核心网络诊断-icmp 回显请求（icmpv4-in） &#x2F; 文件和打印机共享（回显请求-icmpv4-in）<br>核心网络诊断-icmp 回显请求（icmpv4-in）</li>
+<li>1、百度搜索ico  </li>
+<li>2、网站生成icon <ul>
+<li>在线生成ICO图标：<a href="http://www.ico51.cn/">http://www.ico51.cn/</a></li>
 </ul>
 </li>
-</ul>
-</li>
-</ul>
-<h3 id="配置新ip"><a href="#配置新ip" class="headerlink" title="配置新ip"></a>配置新ip</h3><ul>
-<li><p>流程</p>
-<ul>
-<li>配置ip，修改默认端口号</li>
-<li>配置成功、ping成功、telnet成功、远程桌面成功</li>
-</ul>
-</li>
-<li><p>修改默认端口号，</p>
-<ul>
-<li><p>改成5位，22xxx或者33xxx</p>
-<blockquote>
-<p>1、注册表中，修改两处端口号【 PortNumber 】</p>
-<ul>
-<li><p>路径1：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ wds \ rdpwd \ tds \ tcp</p>
-</li>
-<li><p>路径2：hkey_local_machine \ system \ currentcontrolset \ control \ terminal server \ winstations \ rdp-tcp</p>
-</li>
-</ul>
-<p>2、防火墙中新建入站规则–端口号</p>
-<p>3、服务，重新启动服务 【remot desktop services】</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
-<li><p>同一时间，多个用户，用一个账号登录，比如A，B，C，D四台机器，同时使用administrator这个账户登录服务器</p>
-</li>
-<li><p>流程</p>
-<ul>
-<li><p>首先开启远程桌面、远程管理</p>
-</li>
-<li><p>服务器与管理器 》管理 》添加角色和功能向导 》基于角色或基于功能的安装</p>
-</li>
-<li><p>远程桌面服务 》远程桌面(会话)主机、远程桌面授权</p>
-</li>
-<li><p>确认安装所选内容，重启服务器</p>
-<p><img src="https://s1.ax1x.com/2023/08/31/pPw7KkF.png"></p>
-</li>
-<li><p><strong>直接执行以下操作也可以</strong></p>
-</li>
-<li><p>运行&#x2F;cmd，输入【gpedit.msc】打开策略组</p>
-</li>
-<li><p>计算机配置\管理模板\Windows 组件\远程桌面服务\远程桌面会话主机\连接</p>
-</li>
-<li><p>将远程桌面服务的用户限制到单独的远程桌面会话，禁用</p>
-</li>
-<li><p>限制连接的数量，启用，允许的RD最大连接数——修改</p>
-</li>
-<li><p>cmd，输入【gpupdate &#x2F;force】刷新策略，使策略生效</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<p>三、找到telnet客户端，勾选打开</p>
-</blockquote>
-</li>
+<li>3、选择生成目标尺寸</li>
+<li>4、点击属性、替换即可</li>
 </ul>
 ]]></content>
       <tags>
-        <tag>windows</tag>
+        <tag>计算机基础</tag>
       </tags>
   </entry>
   <entry>
@@ -3169,35 +3396,14 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>周报(1)</title>
-    <url>/2023/08/19/%E5%91%A8%E6%8A%A5/</url>
-    <content><![CDATA[<p>入职第一周<br>本人前端程序员一名，因故回到县城老家，找不到工作，改行做机房运维，记录0基础运维成长</p>
-<p>第一天，简单看了下培训文档和基本信息资料，然后领导交代制作pe系统盘，有一说一，这个东西是计算机人的基础，大学也都学过，但是我不会，我从来没用U盘装过系统。<br>使用大白菜一键制作U盘。不知道为什么，中间做一半电脑卡死了，弄坏了一个U盘，直接读不出来了。然后就是去网上找iso镜像，有一说一，国内的这些网站广告是真的多。需要的系统文件有windows server 2008、2021、2022、centos7.x。找到之后，就开始了漫长的下载，由于网络问题，10点开始下载，下午1点才下载好。<br>下载好之后，网上教程说用软碟通刻录、直接复制拷贝等等。我用软碟通但是安装的时候一直中文乱码，然后就用复制解压到U盘的方法,windows系统要求做在一个盘里，cent的做在另一个盘里。解压的过程中，要么是空间不够，要么电脑半路卡死。奇奇怪怪，我之前电脑从来没卡死过，8代i5，16+256+512，以前开机7s，现在都是20s。奇奇怪怪。<br>到了下班点，WindowsU盘还没弄好，回家接着弄。</p>
-<p>two<br>U盘弄好了，但是尝试在虚拟机中装系统，一直出错，win是卡死，centos是网卡配置出错。<br>然后跟着领导学习装系统，遇到的问题是，下载的镜像不全，不干净，导致缺少网卡驱动。初步认识了windows server 系统。<br>发现自己关于计算机网络、硬件知识认知不足，起码不全面，懂一点，但是不多，不深。有空给他系统学一学。<br>关于linux，之前学了基础的命令，但是也都忘得七七八八了，抽空给多练练，关于软件安装部署那块，抓紧学了，找到规律和共性</p>
-<p>three<br>装ws2008、2012、2022，并且配置ip、端口，尝试远程连接，ping，telnet</p>
-<p>foure<br>装centos7，配置网络，开关防火墙，学习防火墙相关知识，安装gui界面、对比使用cli和gui</p>
-<p>five<br>装宝塔面板并学习使用，了解网络相关知识，不同主板系统bios区别差异，学习cmd的其他常用知识</p>
+    <title>宝塔面板</title>
+    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
+    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
+<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
+<p>firewall-cmd –list-all</p>
 ]]></content>
       <tags>
-        <tag>复盘</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图标制作</title>
-    <url>/2023/10/09/%E5%9B%BE%E6%A0%87%E5%88%B6%E4%BD%9C/</url>
-    <content><![CDATA[<h1 id="图标制作"><a href="#图标制作" class="headerlink" title="图标制作"></a>图标制作</h1><p>有的时候安装的软件图标很丑，或者大小不符合我的需求（我的桌面图标比较大），我会选择自制图标</p>
-<ul>
-<li>1、百度搜索ico  </li>
-<li>2、网站生成icon <ul>
-<li>在线生成ICO图标：<a href="http://www.ico51.cn/">http://www.ico51.cn/</a></li>
-</ul>
-</li>
-<li>3、选择生成目标尺寸</li>
-<li>4、点击属性、替换即可</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>计算机基础</tag>
+        <tag>宝塔面板</tag>
       </tags>
   </entry>
   <entry>
@@ -3280,14 +3486,33 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>宝塔面板</title>
-    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
-    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
-<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
-<p>firewall-cmd –list-all</p>
+    <title>就是玩</title>
+    <url>/2023/09/15/%E5%B0%B1%E6%98%AF%E7%8E%A9/</url>
+    <content><![CDATA[<p>.⠄⠄⣿⣿⣿⣿⠘⡿⢛⣿⣿⣿⣿⣿⣧⢻⣿⣿⠃⠸⣿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⣿⣿⣿⣿⢀⠼⣛⣛⣭⢭⣟⣛⣛⣛⠿⠿⢆⡠⢿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⠸⣿⣿⢣⢶⣟⣿⣖⣿⣷⣻⣮⡿⣽⣿⣻⣖⣶⣤⣭⡉⠄⠄⠄⠄⠄<br>⠄⠄⠄⢹⠣⣛⣣⣭⣭⣭⣁⡛⠻⢽⣿⣿⣿⣿⢻⣿⣿⣿⣽⡧⡄⠄⠄⠄<br>⠄⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣌⡛⢿⣽⢘⣿⣷⣿⡻⠏⣛⣀⠄⠄<br>⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠙⡅⣿⠚⣡⣴⣿⣿⣿⡆⠄<br>⠄⠄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠄⣱⣾⣿⣿⣿⣿⣿⣿⠄<br>⠄⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠣⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠑⣿⣮⣝⣛⠿⠿⣿⣿⣿⣿⠄<br>⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠄</p>
 ]]></content>
       <tags>
-        <tag>宝塔面板</tag>
+        <tag>工具类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>工具类QA</title>
+    <url>/2023/08/19/%E5%B7%A5%E5%85%B7%E7%B1%BBQA/</url>
+    <content><![CDATA[<ul>
+<li>软碟通解决：<ul>
+<li>控制面板\时钟和区域——更改日期、时间或数字格式——管理——更改系统区域设置——beat版，使用unicode utf-8  取消勾选</li>
+</ul>
+</li>
+<li>pe启动U盘：<ul>
+<li>大白菜做好，测试好之后，直接把iso文件复制粘贴进去就好</li>
+<li>USB-HDD模式：硬盘仿真模式，兼容性很高，适用于新机型，但对于一些只支持USB-ZIP模式的电脑则无法启动，<strong>一般制作U盘启动盘选择该模式</strong>。</li>
+<li>USB-ZIP模式：大容量软盘仿真模式，在一些比较老的电脑上是唯一可选的模式，对新电脑来说兼容性不好，特别是2GB以上的大容量U盘。</li>
+</ul>
+</li>
+<li>PE系统<br>PE是指Windows 预安装环境 (Windows PE) 是在Windows内核上构建的具有有限服务的最小 Win32 子系统，说白了就是把系统写进U盘里；iso是一种光盘镜像文件格式，装系统的过程说简单点都是把系统原版ISO镜像里的系统文件或者GHO压缩镜像里的系统文件写入C盘并给C盘加上引导程序的过程，如果说两种安装方式有区别那就是有些第三方制作的PE里可以附加程序，比如可以加入一些万能的驱动程序，或者嵌入一些广告应用程序等等，而纯净的系统ISO安装是不夹带这些的。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>工具类</tag>
       </tags>
   </entry>
   <entry>
@@ -3324,36 +3549,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>就是玩</title>
-    <url>/2023/09/15/%E5%B0%B1%E6%98%AF%E7%8E%A9/</url>
-    <content><![CDATA[<p>.⠄⠄⣿⣿⣿⣿⠘⡿⢛⣿⣿⣿⣿⣿⣧⢻⣿⣿⠃⠸⣿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⣿⣿⣿⣿⢀⠼⣛⣛⣭⢭⣟⣛⣛⣛⠿⠿⢆⡠⢿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⠸⣿⣿⢣⢶⣟⣿⣖⣿⣷⣻⣮⡿⣽⣿⣻⣖⣶⣤⣭⡉⠄⠄⠄⠄⠄<br>⠄⠄⠄⢹⠣⣛⣣⣭⣭⣭⣁⡛⠻⢽⣿⣿⣿⣿⢻⣿⣿⣿⣽⡧⡄⠄⠄⠄<br>⠄⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣌⡛⢿⣽⢘⣿⣷⣿⡻⠏⣛⣀⠄⠄<br>⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠙⡅⣿⠚⣡⣴⣿⣿⣿⡆⠄<br>⠄⠄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠄⣱⣾⣿⣿⣿⣿⣿⣿⠄<br>⠄⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠣⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠑⣿⣮⣝⣛⠿⠿⣿⣿⣿⣿⠄<br>⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠄</p>
-]]></content>
-      <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>工具类QA</title>
-    <url>/2023/08/19/%E5%B7%A5%E5%85%B7%E7%B1%BBQA/</url>
-    <content><![CDATA[<ul>
-<li>软碟通解决：<ul>
-<li>控制面板\时钟和区域——更改日期、时间或数字格式——管理——更改系统区域设置——beat版，使用unicode utf-8  取消勾选</li>
-</ul>
-</li>
-<li>pe启动U盘：<ul>
-<li>大白菜做好，测试好之后，直接把iso文件复制粘贴进去就好</li>
-<li>USB-HDD模式：硬盘仿真模式，兼容性很高，适用于新机型，但对于一些只支持USB-ZIP模式的电脑则无法启动，<strong>一般制作U盘启动盘选择该模式</strong>。</li>
-<li>USB-ZIP模式：大容量软盘仿真模式，在一些比较老的电脑上是唯一可选的模式，对新电脑来说兼容性不好，特别是2GB以上的大容量U盘。</li>
-</ul>
-</li>
-<li>PE系统<br>PE是指Windows 预安装环境 (Windows PE) 是在Windows内核上构建的具有有限服务的最小 Win32 子系统，说白了就是把系统写进U盘里；iso是一种光盘镜像文件格式，装系统的过程说简单点都是把系统原版ISO镜像里的系统文件或者GHO压缩镜像里的系统文件写入C盘并给C盘加上引导程序的过程，如果说两种安装方式有区别那就是有些第三方制作的PE里可以附加程序，比如可以加入一些万能的驱动程序，或者嵌入一些广告应用程序等等，而纯净的系统ISO安装是不夹带这些的。</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>戴尔PowerEdgeR620</title>
     <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
     <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
@@ -3386,6 +3581,91 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>戴尔PowerEdge</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>教程索引</title>
+    <url>/2023/09/05/%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="教程索引"><a href="#教程索引" class="headerlink" title="教程索引"></a>教程索引</h1><h2 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h2><ul>
+<li><a href="https://www.ngui.cc/el/1966116.html?action=onClick">https://www.ngui.cc/el/1966116.html?action=onClick</a></li>
+</ul>
+<h2 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h2><h3 id="远程桌面"><a href="#远程桌面" class="headerlink" title="远程桌面"></a>远程桌面</h3><ul>
+<li><a href="https://www.zuankewang.com/377113">https://www.zuankewang.com/377113</a></li>
+</ul>
+<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
+<li>&lt; <a href="https://zhuanlan.zhihu.com/p/617786559%3E">https://zhuanlan.zhihu.com/p/617786559&gt;</a></li>
+</ul>
+<h3 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
+<li><p><a href="https://www.somode.com/softjc/6849.html">https://www.somode.com/softjc/6849.html</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/hy19930118/article/details/108778158">https://blog.csdn.net/hy19930118/article/details/108778158</a></p>
+</li>
+<li><p><a href="https://www.bkqs.com.cn/content/qn02g0693.html">https://www.bkqs.com.cn/content/qn02g0693.html</a></p>
+</li>
+<li></li>
+</ul>
+<h2 id="Centos-7"><a href="#Centos-7" class="headerlink" title="Centos 7"></a>Centos 7</h2><h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/GZY0601/article/details/126946446">https://blog.csdn.net/GZY0601/article/details/126946446</a></li>
+<li><a href="https://blog.csdn.net/weixin_48609917/article/details/126152384">https://blog.csdn.net/weixin_48609917/article/details/126152384</a></li>
+<li><a href="http://www.taodudu.cc/news/show-5386755.html?action=onClick">http://www.taodudu.cc/news/show-5386755.html?action=onClick</a></li>
+<li><a href="https://blog.csdn.net/qq_33427869/article/details/126668794">https://blog.csdn.net/qq_33427869/article/details/126668794</a></li>
+<li><a href="https://juejin.cn/post/6844904101583519752">https://juejin.cn/post/6844904101583519752</a></li>
+</ul>
+<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><ul>
+<li><a href="https://www.cnblogs.com/huaiguang10/p/14980758.html">https://www.cnblogs.com/huaiguang10/p/14980758.html</a></li>
+</ul>
+<h3 id="密码破解-1"><a href="#密码破解-1" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
+<li><a href="https://blog.csdn.net/weixin_52269666/article/details/121577724">https://blog.csdn.net/weixin_52269666/article/details/121577724</a></li>
+</ul>
+<h3 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h3><ul>
+<li><a href="https://blog.csdn.net/weixin_51839445/article/details/122057923">https://blog.csdn.net/weixin_51839445/article/details/122057923</a></li>
+</ul>
+<h2 id="Ubuntu-server"><a href="#Ubuntu-server" class="headerlink" title="Ubuntu server"></a>Ubuntu server</h2><h3 id="安装配置-1"><a href="#安装配置-1" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><p><a href="https://blog.csdn.net/m0_58805648/article/details/131021118">https://blog.csdn.net/m0_58805648/article/details/131021118</a></p>
+</li>
+<li><p><a href="https://www.bilibili.com/read/cv25574905/">https://www.bilibili.com/read/cv25574905/</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3">https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1">https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1</a></p>
+</li>
+</ul>
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="磁盘分区格式化"><a href="#磁盘分区格式化" class="headerlink" title="磁盘分区格式化"></a>磁盘分区格式化</h3><ul>
+<li><p><a href="https://blog.csdn.net/cailirong123/article/details/130015943">https://blog.csdn.net/cailirong123/article/details/130015943</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/weixin_39705794/article/details/116706177">https://blog.csdn.net/weixin_39705794/article/details/116706177</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/weixin_43704834/article/details/123839054">https://blog.csdn.net/weixin_43704834/article/details/123839054</a></p>
+</li>
+</ul>
+<h3 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h3><ul>
+<li><a href="https://blog.csdn.net/m0_57911290/article/details/123248428">https://blog.csdn.net/m0_57911290/article/details/123248428</a></li>
+</ul>
+<h2 id="Raid"><a href="#Raid" class="headerlink" title="Raid"></a>Raid</h2><ul>
+<li><p><a href="https://www.cnblogs.com/linagcheng/p/15651591.html">https://www.cnblogs.com/linagcheng/p/15651591.html</a></p>
+</li>
+<li><p><a href="https://www.codenong.com/cs106881457/">https://www.codenong.com/cs106881457/</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/494925217">https://zhuanlan.zhihu.com/p/494925217</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/weixin_45027467/article/details/121671046">https://blog.csdn.net/weixin_45027467/article/details/121671046</a></p>
+</li>
+</ul>
+<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><h3 id="安装配置-2"><a href="#安装配置-2" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/qq_42006801/article/details/124830995">https://blog.csdn.net/qq_42006801/article/details/124830995</a></li>
+</ul>
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="安装配置-3"><a href="#安装配置-3" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/thefg/article/details/128601410">https://blog.csdn.net/thefg/article/details/128601410</a></li>
+</ul>
+<h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><h3 id="安装配置-4"><a href="#安装配置-4" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="http://e.betheme.net/article/show-1318951.html?action=onClick">http://e.betheme.net/article/show-1318951.html?action=onClick</a></li>
+</ul>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="安装配置-5"><a href="#安装配置-5" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
+<li><a href="https://blog.csdn.net/hellozhangxians/article/details/127169375">https://blog.csdn.net/hellozhangxians/article/details/127169375</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>教程</tag>
       </tags>
   </entry>
   <entry>
@@ -3856,8 +4136,27 @@ aoligei.txt
 </li>
 </ul>
 <h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><h3 id="网卡-NIC"><a href="#网卡-NIC" class="headerlink" title="网卡 NIC"></a>网卡 NIC</h3><ul>
-<li>Network Interface Card，网络接口卡、网卡，是计算机与网络介质之间的电气连接设备，它负责传输和确认比特数据流以及网络地址。网卡的参数包括带宽速度、总线方式和电气接口方式等</li>
-<li>常见名称：<ul>
+<li><p>Network Interface Card，网络接口卡、网卡，是计算机与网络介质之间的电气连接设备，它负责传输和确认比特数据流以及网络地址。网卡的参数包括带宽速度、总线方式和电气接口方式等</p>
+</li>
+<li><p>网卡型号区分：</p>
+<ul>
+<li><p>有Gigabit、1000M 相关字样说明是—<strong>千兆网卡</strong></p>
+</li>
+<li><p>有10GB、10-Gigabit相关字样说明是—<strong>万兆网卡</strong></p>
+</li>
+<li><p>没有以上信息说明是—<strong>百兆网卡</strong></p>
+</li>
+<li><p>命令：</p>
+<p><code>ethtool 网卡名</code></p>
+<blockquote>
+<p>ip a  # 查看网络信息（网卡、ip）</p>
+<p>ethtoo 网卡名   # 查看网卡信息</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>常见名称：</p>
+<ul>
 <li>网卡名称通常是由系统或者特定的网络管理工具自动分配或者设置的<ul>
 <li>eth0:1、eth1:1：冒号前面的部分代表物理网卡名称，冒号后面的数字代表该物理网卡接口编号</li>
 </ul>
@@ -3872,6 +4171,8 @@ aoligei.txt
 </li>
 <li><strong>lo</strong> 表示本地回环接口</li>
 <li><strong>wlan</strong> 表示无线网络接口，</li>
+<li><strong>bond0</strong>，Linux系统下配置的网络接口，它通过将多个物理网卡接口绑定在一起，形成一个虚拟的网络接口，可以增加服务器可靠性，同时可增加网络带宽，提供稳定的网络服务。bond0需要至少两个物理网卡来工作，一般将其命名为eth0和eth1，其中一个是主网卡，另一个是备份网卡。当主网卡失效时，备份网卡会自动接管，从而保证机器仍能对外服务，工作原理是传输数据包顺序是依次传输，即第1个包走eth0，下一个包就走eth1等，一直循环下去，直到最后一个传输完毕</li>
+<li><strong>docker0</strong>网卡是Docker在安装后自动创建的虚拟网桥，作用是连接在其上的设备转发数据帧。类似于交换机，所有在docker0网桥上的设备都处于同一个网络环境。从docker0子网中分配一个IP给每个容器使用，并设置docker0的IP地址为容器的默认网关。此外，Docker在主机上创建一对虚拟网卡veth pair设备，一端放在新创建的容器中并命名为eth0（容器的网卡），另一端放在主机中，以vethxxx这样类似的名字命名，并将这个网络设备加入到docker0网桥中。容器不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的IP和端口进行通信。</li>
 </ul>
 </li>
 </ul>
@@ -4805,88 +5106,66 @@ SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
       </tags>
   </entry>
   <entry>
-    <title>教程索引</title>
-    <url>/2023/09/05/%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="教程索引"><a href="#教程索引" class="headerlink" title="教程索引"></a>教程索引</h1><h2 id="IPMI"><a href="#IPMI" class="headerlink" title="IPMI"></a>IPMI</h2><ul>
-<li><a href="https://www.ngui.cc/el/1966116.html?action=onClick">https://www.ngui.cc/el/1966116.html?action=onClick</a></li>
-</ul>
-<h2 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h2><h3 id="远程桌面"><a href="#远程桌面" class="headerlink" title="远程桌面"></a>远程桌面</h3><ul>
-<li><a href="https://www.zuankewang.com/377113">https://www.zuankewang.com/377113</a></li>
-</ul>
-<h3 id="多用户远程登录"><a href="#多用户远程登录" class="headerlink" title="多用户远程登录"></a>多用户远程登录</h3><ul>
-<li>&lt; <a href="https://zhuanlan.zhihu.com/p/617786559%3E">https://zhuanlan.zhihu.com/p/617786559&gt;</a></li>
-</ul>
-<h3 id="密码破解"><a href="#密码破解" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
-<li><p><a href="https://www.somode.com/softjc/6849.html">https://www.somode.com/softjc/6849.html</a></p>
+    <title></title>
+    <url>/2023/10/14/%E8%BF%90%E7%BB%B4%E7%9B%91%E6%8E%A7/</url>
+    <content><![CDATA[<h1 id="运维监控"><a href="#运维监控" class="headerlink" title="运维监控"></a>运维监控</h1><ul>
+<li><p>看监控指标的时候，要有统计分析思想</p>
 </li>
-<li><p><a href="https://blog.csdn.net/hy19930118/article/details/108778158">https://blog.csdn.net/hy19930118/article/details/108778158</a></p>
-</li>
-<li><p><a href="https://www.bkqs.com.cn/content/qn02g0693.html">https://www.bkqs.com.cn/content/qn02g0693.html</a></p>
-</li>
-<li></li>
+<li><p>方式</p>
+<ul>
+<li>登录服务器，查看日志文件—-效率低</li>
+<li>监控软件集成化的监测性能指标，智能关联分析—效率高</li>
 </ul>
-<h2 id="Centos-7"><a href="#Centos-7" class="headerlink" title="Centos 7"></a>Centos 7</h2><h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/GZY0601/article/details/126946446">https://blog.csdn.net/GZY0601/article/details/126946446</a></li>
-<li><a href="https://blog.csdn.net/weixin_48609917/article/details/126152384">https://blog.csdn.net/weixin_48609917/article/details/126152384</a></li>
-<li><a href="http://www.taodudu.cc/news/show-5386755.html?action=onClick">http://www.taodudu.cc/news/show-5386755.html?action=onClick</a></li>
-<li><a href="https://blog.csdn.net/qq_33427869/article/details/126668794">https://blog.csdn.net/qq_33427869/article/details/126668794</a></li>
-<li><a href="https://juejin.cn/post/6844904101583519752">https://juejin.cn/post/6844904101583519752</a></li>
-</ul>
-<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><ul>
-<li><a href="https://www.cnblogs.com/huaiguang10/p/14980758.html">https://www.cnblogs.com/huaiguang10/p/14980758.html</a></li>
-</ul>
-<h3 id="密码破解-1"><a href="#密码破解-1" class="headerlink" title="密码破解"></a>密码破解</h3><ul>
-<li><a href="https://blog.csdn.net/weixin_52269666/article/details/121577724">https://blog.csdn.net/weixin_52269666/article/details/121577724</a></li>
-</ul>
-<h3 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h3><ul>
-<li><a href="https://blog.csdn.net/weixin_51839445/article/details/122057923">https://blog.csdn.net/weixin_51839445/article/details/122057923</a></li>
-</ul>
-<h2 id="Ubuntu-server"><a href="#Ubuntu-server" class="headerlink" title="Ubuntu server"></a>Ubuntu server</h2><h3 id="安装配置-1"><a href="#安装配置-1" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><p><a href="https://blog.csdn.net/m0_58805648/article/details/131021118">https://blog.csdn.net/m0_58805648/article/details/131021118</a></p>
 </li>
-<li><p><a href="https://www.bilibili.com/read/cv25574905/">https://www.bilibili.com/read/cv25574905/</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3">https://blog.csdn.net/qq_33427869/article/details/126668794?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-126668794-blog-109094604.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235%5Ev38%5Epc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1">https://blog.csdn.net/jsnhux/article/details/109094604?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-109094604-blog-106964303.235^v38^pc_relevant_anti_t3_base&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=1</a></p>
+<li><p>常见的单位</p>
+<ul>
+<li>bps &#x3D; bits&#x2F;s</li>
+<li>1B &#x3D; 8bit，1byte &#x3D; 8bit</li>
+</ul>
 </li>
 </ul>
-<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="磁盘分区格式化"><a href="#磁盘分区格式化" class="headerlink" title="磁盘分区格式化"></a>磁盘分区格式化</h3><ul>
-<li><p><a href="https://blog.csdn.net/cailirong123/article/details/130015943">https://blog.csdn.net/cailirong123/article/details/130015943</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/weixin_39705794/article/details/116706177">https://blog.csdn.net/weixin_39705794/article/details/116706177</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/weixin_43704834/article/details/123839054">https://blog.csdn.net/weixin_43704834/article/details/123839054</a></p>
-</li>
+<h2 id="操作系统监控"><a href="#操作系统监控" class="headerlink" title="操作系统监控"></a>操作系统监控</h2><h3 id="CPU-内存-负载监控指标"><a href="#CPU-内存-负载监控指标" class="headerlink" title="CPU,内存,负载监控指标"></a>CPU,内存,负载监控指标</h3><h4 id="CPU使用率"><a href="#CPU使用率" class="headerlink" title="CPU使用率"></a>CPU使用率</h4><ul>
+<li>单位 %</li>
 </ul>
-<h3 id="数据备份"><a href="#数据备份" class="headerlink" title="数据备份"></a>数据备份</h3><ul>
-<li><a href="https://blog.csdn.net/m0_57911290/article/details/123248428">https://blog.csdn.net/m0_57911290/article/details/123248428</a></li>
+<h4 id="内存使用率"><a href="#内存使用率" class="headerlink" title="内存使用率"></a>内存使用率</h4><ul>
+<li>单位 %</li>
 </ul>
-<h2 id="Raid"><a href="#Raid" class="headerlink" title="Raid"></a>Raid</h2><ul>
-<li><p><a href="https://www.cnblogs.com/linagcheng/p/15651591.html">https://www.cnblogs.com/linagcheng/p/15651591.html</a></p>
+<h4 id="系统平均负载"><a href="#系统平均负载" class="headerlink" title="系统平均负载"></a>系统平均负载</h4><ul>
+<li><p>(count)</p>
 </li>
-<li><p><a href="https://www.codenong.com/cs106881457/">https://www.codenong.com/cs106881457/</a></p>
+<li><p>系统平均负载（System Load Averages）指的是在特定时间段内，服务器主机处于运行状态的所有进程、线程占用 CPU 的部分总和，即平均负载。这个数值是评估系统负载状况的重要指标。</p>
 </li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/494925217">https://zhuanlan.zhihu.com/p/494925217</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/weixin_45027467/article/details/121671046">https://blog.csdn.net/weixin_45027467/article/details/121671046</a></p>
+<li><p>在Linux系统中，平均负载的取值范围是从0到n(n为CPU核心数)。当平均负载超过了CPU核心数的70%，那么可能就需要考虑进行优化，以避免系统资源过度使用导致的性能下降或其他相关问题</p>
 </li>
 </ul>
-<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><h3 id="安装配置-2"><a href="#安装配置-2" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/qq_42006801/article/details/124830995">https://blog.csdn.net/qq_42006801/article/details/124830995</a></li>
+<h3 id="磁盘监控指标"><a href="#磁盘监控指标" class="headerlink" title="磁盘监控指标"></a>磁盘监控指标</h3><h4 id="磁盘使用率"><a href="#磁盘使用率" class="headerlink" title="磁盘使用率"></a>磁盘使用率</h4><ul>
+<li>单位 %</li>
 </ul>
-<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="安装配置-3"><a href="#安装配置-3" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/thefg/article/details/128601410">https://blog.csdn.net/thefg/article/details/128601410</a></li>
+<h4 id="读写字节数"><a href="#读写字节数" class="headerlink" title="读写字节数"></a>读写字节数</h4><ul>
+<li>(bytes&#x2F;s)</li>
 </ul>
-<h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><h3 id="安装配置-4"><a href="#安装配置-4" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="http://e.betheme.net/article/show-1318951.html?action=onClick">http://e.betheme.net/article/show-1318951.html?action=onClick</a></li>
+<h4 id="读写请求数"><a href="#读写请求数" class="headerlink" title="读写请求数"></a>读写请求数</h4><p>(Count&#x2F;s)</p>
+<h4 id="Inode使用率"><a href="#Inode使用率" class="headerlink" title="Inode使用率"></a>Inode使用率</h4><ul>
+<li>单位 %</li>
 </ul>
-<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="安装配置-5"><a href="#安装配置-5" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
-<li><a href="https://blog.csdn.net/hellozhangxians/article/details/127169375">https://blog.csdn.net/hellozhangxians/article/details/127169375</a></li>
+<h3 id="网络监控指标"><a href="#网络监控指标" class="headerlink" title="网络监控指标"></a>网络监控指标</h3><h4 id="网络流入流出速率-bps"><a href="#网络流入流出速率-bps" class="headerlink" title="网络流入流出速率 bps"></a>网络流入流出速率 bps</h4><ul>
+<li>bps，即bit per second，比特每秒，bits&#x2F;s，衡量网络传输速度的单位，通常用于表示数据传输速度或网络带宽</li>
+<li>单位包括Kb&#x2F;s、<strong>Mb&#x2F;s</strong>、KB&#x2F;s<ul>
+<li>Mb&#x2F;s更快，1KB&#x2F;s &#x3D; 1024 * 1b&#x2F;s &#x3D; 1024b&#x2F;s、1Mb&#x2F;s &#x3D; 1024 * 1Kb&#x2F;s &#x3D; 1024Kb&#x2F;s</li>
 </ul>
-]]></content>
-      <tags>
-        <tag>教程</tag>
-      </tags>
+</li>
+</ul>
+<h4 id="网络流入流出数据包数-pps"><a href="#网络流入流出数据包数-pps" class="headerlink" title="网络流入流出数据包数 pps"></a>网络流入流出数据包数 pps</h4><p>((Count&#x2F;s)</p>
+<ul>
+<li>pps，即Packet Per Second，包每秒，pps，衡量网络设备（如交换机、路由器等）处理数据包能力的单位，反映了设备的性能。</li>
+</ul>
+<h4 id="TCP连接数"><a href="#TCP连接数" class="headerlink" title="TCP连接数"></a>TCP连接数</h4><h2 id="服务器监控"><a href="#服务器监控" class="headerlink" title="服务器监控"></a>服务器监控</h2><h3 id="CPU使用率-1"><a href="#CPU使用率-1" class="headerlink" title="CPU使用率"></a>CPU使用率</h3><h3 id="公网流入带宽"><a href="#公网流入带宽" class="headerlink" title="公网流入带宽"></a>公网流入带宽</h3><p>bits&#x2F;s</p>
+<h3 id="公网流出带宽"><a href="#公网流出带宽" class="headerlink" title="公网流出带宽"></a>公网流出带宽</h3><p>bits&#x2F;s</p>
+<h3 id="公网流出带宽使用率"><a href="#公网流出带宽使用率" class="headerlink" title="公网流出带宽使用率"></a>公网流出带宽使用率</h3><h3 id="磁盘读取写入BPS"><a href="#磁盘读取写入BPS" class="headerlink" title="磁盘读取写入BPS"></a>磁盘读取写入BPS</h3><p>(bytes&#x2F;s)</p>
+<h3 id="磁盘读取写入IOPS"><a href="#磁盘读取写入IOPS" class="headerlink" title="磁盘读取写入IOPS"></a>磁盘读取写入IOPS</h3><p>(Count&#x2F;Second)</p>
+<h2 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控"></a>网络监控</h2><h3 id="网卡带宽"><a href="#网卡带宽" class="headerlink" title="网卡带宽"></a>网卡带宽</h3><p>(bits&#x2F;s</p>
+<h3 id="网卡流入包数"><a href="#网卡流入包数" class="headerlink" title="网卡流入包数"></a>网卡流入包数</h3><p>(Count&#x2F;s)</p>
+<h3 id="网卡错误包数"><a href="#网卡错误包数" class="headerlink" title="网卡错误包数"></a>网卡错误包数</h3><p>(Count&#x2F;s)</p>
+<h3 id="网络连接数-个"><a href="#网络连接数-个" class="headerlink" title="网络连接数(个)"></a>网络连接数(个)</h3><h3 id="VPC-宽带-bits-s"><a href="#VPC-宽带-bits-s" class="headerlink" title="VPC-宽带(bits&#x2F;s)"></a>VPC-宽带(bits&#x2F;s)</h3><h3 id="VPC-宽带使用率"><a href="#VPC-宽带使用率" class="headerlink" title="VPC-宽带使用率(%)"></a>VPC-宽带使用率(%)</h3>]]></content>
   </entry>
 </search>

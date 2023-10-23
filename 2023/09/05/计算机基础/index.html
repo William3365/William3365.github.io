@@ -281,21 +281,21 @@ Network Interface Card，网络接">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-10-09
+                    2023-10-12
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.8k
+                    6.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    20 分
+                    21 分
                 </div>
                 
 
@@ -325,8 +325,27 @@ Network Interface Card，网络接">
 </li>
 </ul>
 <h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><h3 id="网卡-NIC"><a href="#网卡-NIC" class="headerlink" title="网卡 NIC"></a>网卡 NIC</h3><ul>
-<li>Network Interface Card，网络接口卡、网卡，是计算机与网络介质之间的电气连接设备，它负责传输和确认比特数据流以及网络地址。网卡的参数包括带宽速度、总线方式和电气接口方式等</li>
-<li>常见名称：<ul>
+<li><p>Network Interface Card，网络接口卡、网卡，是计算机与网络介质之间的电气连接设备，它负责传输和确认比特数据流以及网络地址。网卡的参数包括带宽速度、总线方式和电气接口方式等</p>
+</li>
+<li><p>网卡型号区分：</p>
+<ul>
+<li><p>有Gigabit、1000M 相关字样说明是—<strong>千兆网卡</strong></p>
+</li>
+<li><p>有10GB、10-Gigabit相关字样说明是—<strong>万兆网卡</strong></p>
+</li>
+<li><p>没有以上信息说明是—<strong>百兆网卡</strong></p>
+</li>
+<li><p>命令：</p>
+<p><code>ethtool 网卡名</code></p>
+<blockquote>
+<p>ip a  # 查看网络信息（网卡、ip）</p>
+<p>ethtoo 网卡名   # 查看网卡信息</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>常见名称：</p>
+<ul>
 <li>网卡名称通常是由系统或者特定的网络管理工具自动分配或者设置的<ul>
 <li>eth0:1、eth1:1：冒号前面的部分代表物理网卡名称，冒号后面的数字代表该物理网卡接口编号</li>
 </ul>
@@ -341,6 +360,8 @@ Network Interface Card，网络接">
 </li>
 <li><strong>lo</strong> 表示本地回环接口</li>
 <li><strong>wlan</strong> 表示无线网络接口，</li>
+<li><strong>bond0</strong>，Linux系统下配置的网络接口，它通过将多个物理网卡接口绑定在一起，形成一个虚拟的网络接口，可以增加服务器可靠性，同时可增加网络带宽，提供稳定的网络服务。bond0需要至少两个物理网卡来工作，一般将其命名为eth0和eth1，其中一个是主网卡，另一个是备份网卡。当主网卡失效时，备份网卡会自动接管，从而保证机器仍能对外服务，工作原理是传输数据包顺序是依次传输，即第1个包走eth0，下一个包就走eth1等，一直循环下去，直到最后一个传输完毕</li>
+<li><strong>docker0</strong>网卡是Docker在安装后自动创建的虚拟网桥，作用是连接在其上的设备转发数据帧。类似于交换机，所有在docker0网桥上的设备都处于同一个网络环境。从docker0子网中分配一个IP给每个容器使用，并设置docker0的IP地址为容器的默认网关。此外，Docker在主机上创建一对虚拟网卡veth pair设备，一端放在新创建的容器中并命名为eth0（容器的网卡），另一端放在主机中，以vethxxx这样类似的名字命名，并将这个网络设备加入到docker0网桥中。容器不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的IP和端口进行通信。</li>
 </ul>
 </li>
 </ul>
@@ -1846,7 +1867,7 @@ SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">39.6k</span>
+                        class="white-color">41.6k</span>
             
             
             
