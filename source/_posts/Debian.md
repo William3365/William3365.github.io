@@ -127,4 +127,24 @@
 >
 > 
 
-​              
+​             
+
+
+
+## 设置主机不休眠
+
+编辑配置文件 logind.conf
+
+​	`sudo vi /etc/systemd/logind.conf`
+
+找到以下行：
+
+```
+#HandleLidSwitch=suspend
+
+将前面的注释符号#去掉，并将其改为：
+HandleLidSwitch=ignore
+```
+
+重启 reboot
+

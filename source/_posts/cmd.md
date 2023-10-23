@@ -32,6 +32,8 @@ tags:	cmd
 
 * ifconfig------查看本机网络
 
+* netstat -an   查看正在运行的端口
+
 ## 路由命令
 route print------显示路由，查看网关
 
