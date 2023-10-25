@@ -212,6 +212,28 @@ HandleLidSwitch&#x3D;ignore<span aria-hidden="true" class="line-numbers-rows"><s
       </tags>
   </entry>
   <entry>
+    <title>PC微信双开</title>
+    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
+    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
+<li><p>首先新建一个txt文件</p>
+<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+
+# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>保存文件，将txt文件改成后缀为bat</p>
+</li>
+<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
+</li>
+<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>工具类</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 操作系统的启动过程</title>
     <url>/2023/09/19/Linux%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="Linux-操作系统的启动过程"><a href="#Linux-操作系统的启动过程" class="headerlink" title="Linux 操作系统的启动过程"></a>Linux 操作系统的启动过程</h1><ul>
@@ -300,25 +322,319 @@ HandleLidSwitch&#x3D;ignore<span aria-hidden="true" class="line-numbers-rows"><s
       </tags>
   </entry>
   <entry>
-    <title>PC微信双开</title>
-    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
-    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
-<li><p>首先新建一个txt文件</p>
-<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+    <title>PVE</title>
+    <url>/2023/09/25/PVE%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h1 id="PVE"><a href="#PVE" class="headerlink" title="PVE"></a>PVE</h1><ul>
+<li><p>背景：</p>
+<p>一般练习可以使用VMware，练习一些windows、centos、Ubuntu单机操作。在我练习集群化部署的时候，劣势显现出来，物理机上先装windows server，再装vmware，然后部署虚拟机。影响效率和性能不说，主要是组网、配置也不方便。所以选择PVE服务器虚拟化平台，直接在物理机上安装PVE，在此基础之上部署多台虚拟机，和原来的比较，pve系统相当于win系统，省去了一个vmware，可以更好的发挥性能，也更便于部署一些中间件，更便于运维监控。</p>
+</li>
+</ul>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li><p>Proxmox Virtual Environment，通常简称为 PVE、Proxmox、Proxmox VE。是一个开源的服务器虚拟化环境 Linux 发行版。PVE 基于 Debian，使用基于 Ubuntu 的定制内核，包含安装程序、web控制台和cli工具</p>
+</li>
+<li><p>pve就是一个linux系统，在此之上创建多个虚拟机，使用web控制台管理</p>
+</li>
+</ul>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><ul>
+<li>开、关、状态 ： <code>qm start / stop / status  VMid</code></li>
+<li>查询：<code>qm list</code><ul>
+<li>虚拟机关不上<code>ps -ef|grep &quot;/usr/bin/kvm -id VMid&quot;|grep -v grep</code>，查看进程id</li>
+<li>关闭<code>kill 进程id</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="主机名配置"><a href="#主机名配置" class="headerlink" title="主机名配置"></a>主机名配置</h2><h3 id="主机名配置-1"><a href="#主机名配置-1" class="headerlink" title="主机名配置"></a>主机名配置</h3><blockquote>
+<p>hostnamectl     # 查看主机名</p>
+<p> hostnamectl set-hostname XXX    # 配置主机名</p>
+</blockquote>
+<h3 id="主机名映射"><a href="#主机名映射" class="headerlink" title="主机名映射"></a>主机名映射</h3><ul>
+<li><p>1、Windows，管理员打开记事本、打开 C:\Windows\System32\drivers\etc，修改hosts文件</p>
+<pre class="line-numbers language-none"><code class="language-none">ip 主机名
+192.168.88.131 node1
+192.168.88.132 node2
+192.168.88.133 node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>2、每一台linux机器都要配置 修改<code>/etc/hosts</code> 文件，和上边一样</p>
+<ul>
+<li>浏览器ip:8006、主机名:8006都能访问web控制台，shell远程工具可以ip、主机名访问。说明主机映射配置成功，奇怪啊，Windows配完就直接能访问了？我的理解，因为我的电脑和pve平台都在同一局域网，所以在我这配完就能访问了</li>
+<li>本机认识pve、node123</li>
+<li>pve不认识 node123</li>
+<li>node1不认识node2——-下周配置linux的host，这周把ssh互相登录解决（目前仅仅是pve单向登录node123，node123还没双向相互复制），建议先配置host再ssh</li>
+</ul>
+</li>
+</ul>
+<h2 id="SSH配置"><a href="#SSH配置" class="headerlink" title="SSH配置"></a>SSH配置</h2><ul>
+<li><p>SSH服务是一种用于远程登录的安全认证协议。</p>
+<ul>
+<li><p>远程某台机器，生成了密钥，本地要想ssh连接，1，将ssh复制给这台机器自己，2，需把ssh下载到本地，并配置到远程工具中</p>
+<ul>
+<li>或者：本地先用这种方法连node1，然后node1把公钥复制给node2、3、4，再相互复制，这样不仅node1234可以互相登录，本机还可以利用一个公钥登录所有，即利用node1公钥登录noe1234</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>SSH服务支持多种认证方式：</p>
+</li>
+</ul>
+<ol>
+<li><p>口令：账户+密码</p>
+</li>
+<li><p>密钥：账户+秘钥文件</p>
+</li>
+<li><p>keyboard  Interactive  服务器发给你信息然后你手动输入信息发回</p>
+<p>我们通过FinalShell远程连接到Linux，就是使用的SSH服务。（windows登录linux）</p>
+</li>
+</ol>
+<ul>
+<li><p>生成密钥</p>
+<ul>
+<li><p><code>ssh-keygen -t rsa -b 4096</code>  一路回车到底即可</p>
+<blockquote>
+<p>-t rsa</p>
+<p>​	-t，指定密钥的类型，密钥的类型有两种，RSA，DSA，</p>
+<p>-b 4096</p>
+<p>​	-b，指定密钥长度，密钥长度为4096位</p>
+</blockquote>
+<blockquote>
+<p>C:\Users\用户.ssh</p>
+<p>.ssh文件夹</p>
+<ul>
+<li><p>known_hosts   记录ssh访问过计算机的公钥（public key）</p>
+</li>
+<li><p>id_rsa    生成的私钥</p>
+</li>
+<li><p>id_rsa.pub   生成的公钥</p>
+</li>
+<li><p>authorized_keys    存放授权过的无密登录服务器公钥</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>复制密钥</p>
+<ul>
+<li><p><code>ssh-copy-id 远程主机</code></p>
+<blockquote>
+<p>将本地生成的SSH公钥复制到远程主机</p>
+<p>想要互相登录，就要互相复制</p>
+<p>建议先配置主机映射，再弄ssh，否则</p>
+<p>优：ssh node1</p>
+<p>坏：ssh 192.168.3.89</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>SSH可以让我们通过SSH命令，远程的登陆到其它的主机上，比如：</p>
+<ul>
+<li>在node1执行：<code>ssh root@node2</code>，将以root用户登录node2服务器，输入密码即可成功登陆</li>
+<li>或者<code>ssh node2</code>，将以当前用户直接登陆到node2服务器。</li>
+</ul>
+</li>
+<li><p>退出登录</p>
+<ul>
+<li>exit</li>
+<li>ctrl +d</li>
+</ul>
+</li>
+</ul>
+<h4 id="SSH免密配置"><a href="#SSH免密配置" class="headerlink" title="SSH免密配置"></a>SSH免密配置</h4><p>集群化部署，多数需要远程登录以及远程执行命令，简单起见，配置服务器之间的免密码互相SSH登陆，比如三台机器，node1、node2、node3</p>
+<ol>
+<li><p>在每一台机器都执行：<code>ssh-keygen -t rsa -b 4096</code>，一路回车到底即可</p>
+</li>
+<li><p>在每一台机器都执行：</p>
+<pre class="line-numbers language-none"><code class="language-none">ssh-copy-id node1
+ssh-copy-id node2
+ssh-copy-id 192.168.3.66
 
-# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>保存文件，将txt文件改成后缀为bat</p>
+
+# 此步骤前提是已经配置完了主机映射关系,否则就要像第三行那样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
+<li><p>执行完毕后，node1、node2、node3之间将完成root用户之间的免密互通</p>
 </li>
-<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
+</ol>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Raid</title>
+    <url>/2023/08/23/Raid/</url>
+    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
+<li><p>为什么要做raid？</p>
+<ul>
+<li>花小钱办大事（降本增效），提供容错机制（数据安全）</li>
+</ul>
 </li>
+<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
+</li>
+<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
+</li>
+<li><p>技术架构：数据条带、镜像、数据校验技术</p>
+<ul>
+<li><p>stripe条带化阵列，没有冗余，但是可提供最佳性能和附加存储。</p>
+</li>
+<li><p>mirror镜像，阵列中的每个驱动器上镜像相同的数据</p>
+</li>
+<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
+</li>
+<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
+<ul>
+<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
+</ul>
+</li>
+<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
+</li>
+<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
+</li>
+</ul>
+</li>
+<li><p>热备盘</p>
+<ul>
+<li><p>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</p>
+</li>
+<li><p>软 RAID，</p>
+<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
+
+占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
+
+跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>硬 RAID </p>
+<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
+
+性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>软硬混合 RAID ，成本、性能居中</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Raid等级"><a href="#Raid等级" class="headerlink" title="Raid等级"></a>Raid等级</h2><ul>
+<li><p>raid0</p>
+<ul>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
+<li>例：2T + 2T &#x3D; 4T</li>
+<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
+<li>视频、音频存储、打印等</li>
+</ul>
+</li>
+<li><p>raid1</p>
+<ul>
+<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
+<li>例：2T + 2T &#x3D; 2T</li>
+<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
+<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
+<li>邮件、数据库</li>
+</ul>
+</li>
+<li><p>raid5</p>
+<ul>
+<li><strong>最少3块</strong></li>
+<li>例：2T + 2T+ 2T &#x3D; 4T</li>
+<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
+<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
+<li>适用于金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid6</p>
+<ul>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
+<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
+<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
+</ul>
+</li>
+<li><p>raid10</p>
+<ul>
+<li><strong>最少四块硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
+<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
+<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
+<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
+<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
+</ul>
+</li>
+<li><p>raid50</p>
+<ul>
+<li><strong>至少需要六个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>RAID 5 + 0</li>
+</ul>
+</li>
+<li><p>raid60</p>
+<ul>
+<li><strong>最少需要八个硬盘</strong></li>
+<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
+<li>比 RAID 50 阵列更可靠</li>
+</ul>
+</li>
+</ul>
+<h2 id="Raid状态"><a href="#Raid状态" class="headerlink" title="Raid状态"></a>Raid状态</h2><p>若不需配置阵列，则需要将硬盘转换为 non-RAID 直通模式</p>
+<ul>
+<li><p>物理磁盘 pd</p>
+<ul>
+<li><p>online，可正常使用，处于在线状态</p>
+</li>
+<li><p>ready，该磁盘预备好了，可以被设置为raid但未配置</p>
+</li>
+<li><p>rebuild，重建状态，表示raid组正在进行数据同步</p>
+</li>
+</ul>
+</li>
+<li><p>虚拟磁盘 vd</p>
+<ul>
+<li>Normal，状态正常，所有成员盘均在线</li>
+<li>Offline，表示raid组存在超过允许范围的故障或离线硬盘，raid组瘫痪，数据已无法读写</li>
+<li>Degraded，降级状态，表示raid组中有故障或离线的硬盘，但基于raid组的磁盘仍然可以正常读写</li>
+<li>Failed，虚拟磁盘故障</li>
+</ul>
+</li>
+</ul>
+<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
+<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
+<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
+
+如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
+
+如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
+
+容量&gt;性能，raid50、raid10
+数据保护，raid6、raid60
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
+</li>
+<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
+</li>
+<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
+</li>
+<li><p>先配置raid，再按需分区，最后装系统</p>
+</li>
+<li><p>raid和non-raid</p>
+<ul>
+<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
+<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
+</ul>
+</li>
+</ul>
+<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
+<li>1、改sata模式为raid</li>
+<li>2、做raid</li>
+<li>3、boot mode模式按需选择</li>
+</ul>
+<p>1、检查硬件，可正常工作、安装连接无误</p>
+<p>2、根据读盘结果，按需配置raid</p>
+<p>3、查看虚拟磁盘配置结果</p>
+<ul>
+<li>mdadm，建设，管理，监控raid</li>
 </ul>
 ]]></content>
       <tags>
-        <tag>工具类</tag>
+        <tag>Raid</tag>
       </tags>
   </entry>
   <entry>
@@ -2405,143 +2721,6 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
       </tags>
   </entry>
   <entry>
-    <title>PVE</title>
-    <url>/2023/09/25/PVE%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<h1 id="PVE"><a href="#PVE" class="headerlink" title="PVE"></a>PVE</h1><ul>
-<li><p>背景：</p>
-<p>一般练习可以使用VMware，练习一些windows、centos、Ubuntu单机操作。在我练习集群化部署的时候，劣势显现出来，物理机上先装windows server，再装vmware，然后部署虚拟机。影响效率和性能不说，主要是组网、配置也不方便。所以选择PVE服务器虚拟化平台，直接在物理机上安装PVE，在此基础之上部署多台虚拟机，和原来的比较，pve系统相当于win系统，省去了一个vmware，可以更好的发挥性能，也更便于部署一些中间件，更便于运维监控。</p>
-</li>
-</ul>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
-<li><p>Proxmox Virtual Environment，通常简称为 PVE、Proxmox、Proxmox VE。是一个开源的服务器虚拟化环境 Linux 发行版。PVE 基于 Debian，使用基于 Ubuntu 的定制内核，包含安装程序、web控制台和cli工具</p>
-</li>
-<li><p>pve就是一个linux系统，在此之上创建多个虚拟机，使用web控制台管理</p>
-</li>
-</ul>
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><ul>
-<li>开、关、状态 ： <code>qm start / stop / status  VMid</code></li>
-<li>查询：<code>qm list</code><ul>
-<li>虚拟机关不上<code>ps -ef|grep &quot;/usr/bin/kvm -id VMid&quot;|grep -v grep</code>，查看进程id</li>
-<li>关闭<code>kill 进程id</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="主机名配置"><a href="#主机名配置" class="headerlink" title="主机名配置"></a>主机名配置</h2><h3 id="主机名配置-1"><a href="#主机名配置-1" class="headerlink" title="主机名配置"></a>主机名配置</h3><blockquote>
-<p>hostnamectl     # 查看主机名</p>
-<p> hostnamectl set-hostname XXX    # 配置主机名</p>
-</blockquote>
-<h3 id="主机名映射"><a href="#主机名映射" class="headerlink" title="主机名映射"></a>主机名映射</h3><ul>
-<li><p>1、Windows，管理员打开记事本、打开 C:\Windows\System32\drivers\etc，修改hosts文件</p>
-<pre class="line-numbers language-none"><code class="language-none">ip 主机名
-192.168.88.131 node1
-192.168.88.132 node2
-192.168.88.133 node3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>2、每一台linux机器都要配置 修改<code>/etc/hosts</code> 文件，和上边一样</p>
-<ul>
-<li>浏览器ip:8006、主机名:8006都能访问web控制台，shell远程工具可以ip、主机名访问。说明主机映射配置成功，奇怪啊，Windows配完就直接能访问了？我的理解，因为我的电脑和pve平台都在同一局域网，所以在我这配完就能访问了</li>
-<li>本机认识pve、node123</li>
-<li>pve不认识 node123</li>
-<li>node1不认识node2——-下周配置linux的host，这周把ssh互相登录解决（目前仅仅是pve单向登录node123，node123还没双向相互复制），建议先配置host再ssh</li>
-</ul>
-</li>
-</ul>
-<h2 id="SSH配置"><a href="#SSH配置" class="headerlink" title="SSH配置"></a>SSH配置</h2><ul>
-<li><p>SSH服务是一种用于远程登录的安全认证协议。</p>
-<ul>
-<li><p>远程某台机器，生成了密钥，本地要想ssh连接，1，将ssh复制给这台机器自己，2，需把ssh下载到本地，并配置到远程工具中</p>
-<ul>
-<li>或者：本地先用这种方法连node1，然后node1把公钥复制给node2、3、4，再相互复制，这样不仅node1234可以互相登录，本机还可以利用一个公钥登录所有，即利用node1公钥登录noe1234</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>SSH服务支持多种认证方式：</p>
-</li>
-</ul>
-<ol>
-<li><p>口令：账户+密码</p>
-</li>
-<li><p>密钥：账户+秘钥文件</p>
-</li>
-<li><p>keyboard  Interactive  服务器发给你信息然后你手动输入信息发回</p>
-<p>我们通过FinalShell远程连接到Linux，就是使用的SSH服务。（windows登录linux）</p>
-</li>
-</ol>
-<ul>
-<li><p>生成密钥</p>
-<ul>
-<li><p><code>ssh-keygen -t rsa -b 4096</code>  一路回车到底即可</p>
-<blockquote>
-<p>-t rsa</p>
-<p>​	-t，指定密钥的类型，密钥的类型有两种，RSA，DSA，</p>
-<p>-b 4096</p>
-<p>​	-b，指定密钥长度，密钥长度为4096位</p>
-</blockquote>
-<blockquote>
-<p>C:\Users\用户.ssh</p>
-<p>.ssh文件夹</p>
-<ul>
-<li><p>known_hosts   记录ssh访问过计算机的公钥（public key）</p>
-</li>
-<li><p>id_rsa    生成的私钥</p>
-</li>
-<li><p>id_rsa.pub   生成的公钥</p>
-</li>
-<li><p>authorized_keys    存放授权过的无密登录服务器公钥</p>
-</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>复制密钥</p>
-<ul>
-<li><p><code>ssh-copy-id 远程主机</code></p>
-<blockquote>
-<p>将本地生成的SSH公钥复制到远程主机</p>
-<p>想要互相登录，就要互相复制</p>
-<p>建议先配置主机映射，再弄ssh，否则</p>
-<p>优：ssh node1</p>
-<p>坏：ssh 192.168.3.89</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>SSH可以让我们通过SSH命令，远程的登陆到其它的主机上，比如：</p>
-<ul>
-<li>在node1执行：<code>ssh root@node2</code>，将以root用户登录node2服务器，输入密码即可成功登陆</li>
-<li>或者<code>ssh node2</code>，将以当前用户直接登陆到node2服务器。</li>
-</ul>
-</li>
-<li><p>退出登录</p>
-<ul>
-<li>exit</li>
-<li>ctrl +d</li>
-</ul>
-</li>
-</ul>
-<h4 id="SSH免密配置"><a href="#SSH免密配置" class="headerlink" title="SSH免密配置"></a>SSH免密配置</h4><p>集群化部署，多数需要远程登录以及远程执行命令，简单起见，配置服务器之间的免密码互相SSH登陆，比如三台机器，node1、node2、node3</p>
-<ol>
-<li><p>在每一台机器都执行：<code>ssh-keygen -t rsa -b 4096</code>，一路回车到底即可</p>
-</li>
-<li><p>在每一台机器都执行：</p>
-<pre class="line-numbers language-none"><code class="language-none">ssh-copy-id node1
-ssh-copy-id node2
-ssh-copy-id 192.168.3.66
-
-
-# 此步骤前提是已经配置完了主机映射关系,否则就要像第三行那样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>执行完毕后，node1、node2、node3之间将完成root用户之间的免密互通</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VNC</title>
     <url>/2023/10/09/VNC/</url>
     <content><![CDATA[<h1 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h1><h2 id="什么是vnc"><a href="#什么是vnc" class="headerlink" title="什么是vnc"></a>什么是vnc</h2><ul>
@@ -2586,182 +2765,60 @@ ssh-copy-id 192.168.3.66
       </tags>
   </entry>
   <entry>
-    <title>Raid</title>
-    <url>/2023/08/23/Raid/</url>
-    <content><![CDATA[<h1 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h1><ul>
-<li><p>为什么要做raid？</p>
+    <title>cmd</title>
+    <url>/2023/08/19/cmd/</url>
+    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
+<li>ping——测试网络是否通畅<ul>
+<li>使用icmp协议，网络连通性测试</li>
+</ul>
+</li>
+</ul>
+<blockquote>
 <ul>
-<li>花小钱办大事（降本增效），提供容错机制（数据安全）</li>
+<li>ping ip<ul>
+<li>测试网络连通情况</li>
 </ul>
 </li>
-<li><p>RAID，独立（廉价）冗余磁盘阵列，简称磁盘阵列，一种多磁盘管理技术</p>
+<li>ping -t ip<ul>
+<li>不间断的一直ping</li>
+</ul>
 </li>
-<li><p>用多个独立的磁盘组成在一起形成一个大的磁盘系统，从而实现比单块磁盘更好的存储性能和更高的可靠性。</p>
+<li>ping -a ip<ul>
+<li>局域网内解析出主机名</li>
+</ul>
 </li>
-<li><p>技术架构：数据条带、镜像、数据校验技术</p>
+<li></li>
+</ul>
+</blockquote>
 <ul>
-<li><p>stripe条带化阵列，没有冗余，但是可提供最佳性能和附加存储。</p>
+<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
 </li>
-<li><p>mirror镜像，阵列中的每个驱动器上镜像相同的数据</p>
-</li>
-<li><p>根据运用或组合运用这三种技术的策略和架构，可以把 RAID 分为不同的等级，以满足不同数据应用的需求</p>
-</li>
-<li><p>RAID0 - RAID6 七个等级，还有组合raid</p>
+<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
 <ul>
-<li>标准 RAID 等级各有优势和不足。把多个 RAID 等级组合起来，实现互补，组合等级的实现成本一般都非常昂贵，只是在 少数特定场合应用</li>
-</ul>
+<li><p>telnet ip 端口（跳到空窗口）</p>
 </li>
-<li><p>在实际应用领域中使用最多的 RAID 等级是 RAID0 、 RAID1 、 RAID3 、 RAID5 、 RAID6 和 RAID10、RAID01。</p>
-</li>
-<li><p>每一个等级代表一种实现方法和技术，等级之间并无高低之分。在实际应用中，应当根据用户的数据应用特点，综合考虑可用性、性能和成本来选择合适的 RAID 等级，以及具体的实现方式。</p>
-</li>
-</ul>
-</li>
-<li><p>热备盘</p>
+<li><p>无法telnet</p>
+<blockquote>
+<p>一、打开控制面板</p>
+<p>二、点击打开启用或关闭Windows功能</p>
 <ul>
-<li><p>当损坏的盘超出限制，热备盘就会临时顶替掉损坏的磁盘，继续维持原来的数据正常运转，相当于磁盘的最后一层保险</p>
-</li>
-<li><p>软 RAID，</p>
-<pre class="line-numbers language-none"><code class="language-none">无独立的RAID控制卡，由操作系统和CPU来实现所有的RAID功能。
-
-占用CPU资源，如果操作系统出现故障，则RAID信息会丢失，RAID功能将不可用。
-
-跟硬RAID比性能差，但成本低。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>硬 RAID </p>
-<pre class="line-numbers language-none"><code class="language-none">拥有独立的RAID控制卡，通过RAID卡实现所有的RAID功能，不占用CPU资源。
-
-性能好，但成本高。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>软硬混合 RAID ，成本、性能居中</p>
+<li>三、找到telnet客户端，勾选打开</li>
+</ul>
+</blockquote>
 </li>
 </ul>
 </li>
-</ul>
-<h2 id="Raid等级"><a href="#Raid等级" class="headerlink" title="Raid等级"></a>Raid等级</h2><ul>
-<li><p>raid0</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong>，一般不单独使用</li>
-<li>例：2T + 2T &#x3D; 4T</li>
-<li><strong>不提供数据冗余保护，单个硬盘故障将导致阵列上的所有数据丢失</strong></li>
-<li>视频、音频存储、打印等</li>
-</ul>
+<li><p>ifconfig——查看本机网络</p>
 </li>
-<li><p>raid1</p>
-<ul>
-<li><strong>最少要用两个磁盘（偶数数量的磁盘）</strong></li>
-<li>例：2T + 2T &#x3D; 2T</li>
-<li>数据安全性最高，对硬盘上的数据进行镜像，以在发生硬盘故障时提供容错能力</li>
-<li>成本高，磁盘空间利用率为50%，一半的空间用于存储冗余数据</li>
-<li>邮件、数据库</li>
-</ul>
-</li>
-<li><p>raid5</p>
-<ul>
-<li><strong>最少3块</strong></li>
-<li>例：2T + 2T+ 2T &#x3D; 4T</li>
-<li>读取性能相对高，磁盘空间利用率大于RAID 10，<strong>允许1个物理磁盘发生故障，而不丢失数据</strong>（可以理解为 RAID0 和 RAID1 的折中方案，是目前综合性能最佳的数据保护解决方案）</li>
-<li>写入性能相对低，重建数据时，性能会受到较大的影响</li>
-<li>适用于金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid6</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li>读取性能较高，磁盘空间利用率大于RAID 10，<strong>允许2个物理磁盘发生故障，而不丢失数据</strong></li>
-<li>成本高于RAID 5，写入性能较低（低于RAID 5）</li>
-<li>对数据安全要求非常高、成本同样重要的场景，它一般是替代RAID 10经济性选择。如金融、数据库等</li>
-</ul>
-</li>
-<li><p>raid10</p>
-<ul>
-<li><strong>最少四块硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T &#x3D; 4T</li>
-<li><strong>RAID 1与RAID 0的结合，先创建RAID 1，再创建RAID 0</strong></li>
-<li>读取性能仅次于RAID 0，磁盘没有全部故障，数据就不会丢失。一半磁盘故障时，仍可正常运转</li>
-<li>成本高。磁盘空间利用率50%，一半的空间用于存储冗余数据</li>
-<li>于读写性能要求高，数据安全大于磁盘成本的场景。如银行、数据库等。</li>
-</ul>
-</li>
-<li><p>raid50</p>
-<ul>
-<li><strong>至少需要六个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>RAID 5 + 0</li>
-</ul>
-</li>
-<li><p>raid60</p>
-<ul>
-<li><strong>最少需要八个硬盘</strong></li>
-<li>例：2T + 2T + 2T + 2T + 2T + 2T + 2T + 2T &#x3D; 8T</li>
-<li>比 RAID 50 阵列更可靠</li>
-</ul>
+<li><p>netstat -an   查看正在运行的端口</p>
 </li>
 </ul>
-<h2 id="Raid状态"><a href="#Raid状态" class="headerlink" title="Raid状态"></a>Raid状态</h2><p>若不需配置阵列，则需要将硬盘转换为 non-RAID 直通模式</p>
-<ul>
-<li><p>物理磁盘 pd</p>
-<ul>
-<li><p>online，可正常使用，处于在线状态</p>
-</li>
-<li><p>ready，该磁盘预备好了，可以被设置为raid但未配置</p>
-</li>
-<li><p>rebuild，重建状态，表示raid组正在进行数据同步</p>
-</li>
-</ul>
-</li>
-<li><p>虚拟磁盘 vd</p>
-<ul>
-<li>Normal，状态正常，所有成员盘均在线</li>
-<li>Offline，表示raid组存在超过允许范围的故障或离线硬盘，raid组瘫痪，数据已无法读写</li>
-<li>Degraded，降级状态，表示raid组中有故障或离线的硬盘，但基于raid组的磁盘仍然可以正常读写</li>
-<li>Failed，虚拟磁盘故障</li>
-</ul>
-</li>
-</ul>
-<h2 id="raid选型"><a href="#raid选型" class="headerlink" title="raid选型"></a>raid选型</h2><ul>
-<li><p>从I&#x2F;O性能、成本、容错三个因素来选择</p>
-<pre class="line-numbers language-none"><code class="language-none">如果不考虑容错，选择RAID 0可获得高I&#x2F;O性能。
-
-如果I&#x2F;O性能、容错都重要，而成本不是主要因素，可选择RAID 1。
-
-如果I&#x2F;O性能、成本、容错都重要，则根据磁盘数、可用容量、允许故障硬盘数选择RAID 5、RAID 6、RAID 10、RAID 50或RAID 60
-
-容量&gt;性能，raid50、raid10
-数据保护，raid6、raid60
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
-<li><p>组建RAID时，建议使用硬盘型号、容量完全一样的企业级硬盘。</p>
-</li>
-<li><p>组建RAID会删除硬盘上的所有数据，如有需要请先备份硬盘上的旧数据。</p>
-</li>
-<li><p>已组建RAID的硬盘上存有残留的RAID信息，如需再次组建RAID，需先清除这些信息。</p>
-</li>
-<li><p>先配置raid，再按需分区，最后装系统</p>
-</li>
-<li><p>raid和non-raid</p>
-<ul>
-<li>不做raid的时候，改成non-raid，这样就可以被系统直接识别</li>
-<li>non-raid非阵列模式（普通模式），即可独立识别每一块磁盘</li>
-</ul>
-</li>
-</ul>
-<h2 id="配置Raid流程"><a href="#配置Raid流程" class="headerlink" title="配置Raid流程"></a>配置Raid流程</h2><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
-</ul>
-<p>1、检查硬件，可正常工作、安装连接无误</p>
-<p>2、根据读盘结果，按需配置raid</p>
-<p>3、查看虚拟磁盘配置结果</p>
-<ul>
-<li>mdadm，建设，管理，监控raid</li>
-</ul>
+<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
+<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
 ]]></content>
       <tags>
-        <tag>Raid</tag>
+        <tag>cmd</tag>
       </tags>
   </entry>
   <entry>
@@ -2887,63 +2944,6 @@ tips：
 ]]></content>
       <tags>
         <tag>centos7</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cmd</title>
-    <url>/2023/08/19/cmd/</url>
-    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
-<li>ping——测试网络是否通畅<ul>
-<li>使用icmp协议，网络连通性测试</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<ul>
-<li>ping ip<ul>
-<li>测试网络连通情况</li>
-</ul>
-</li>
-<li>ping -t ip<ul>
-<li>不间断的一直ping</li>
-</ul>
-</li>
-<li>ping -a ip<ul>
-<li>局域网内解析出主机名</li>
-</ul>
-</li>
-<li></li>
-</ul>
-</blockquote>
-<ul>
-<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
-</li>
-<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
-<ul>
-<li><p>telnet ip 端口（跳到空窗口）</p>
-</li>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<ul>
-<li>三、找到telnet客户端，勾选打开</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>ifconfig——查看本机网络</p>
-</li>
-<li><p>netstat -an   查看正在运行的端口</p>
-</li>
-</ul>
-<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
-<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
-]]></content>
-      <tags>
-        <tag>cmd</tag>
       </tags>
   </entry>
   <entry>
@@ -3081,6 +3081,58 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu</title>
+    <url>/2023/08/30/ubuntu/</url>
+    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
+<li><p>UEFI + GPT</p>
+</li>
+<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
+</li>
+</ul>
+<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
+<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
+<blockquote>
+<p>登录之后是普通用户，设置root密码</p>
+<p><code>sudo passwd root </code></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
+<li><code>apt</code></li>
+<li>centos  <code>yum</code></li>
+</ul>
+<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
+<ul>
+<li><p>ip a   # 查看 网卡</p>
+</li>
+<li><p>cd &#x2F;etc&#x2F;netplan </p>
+</li>
+<li><p>ls   # 查看.yaml文件</p>
+</li>
+<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
+</li>
+<li><p>编辑</p>
+<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
+
+网卡名
+   dhcp4: false    # 动态改成false
+      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
+      gateway4: 192.168.3.1    # 网关
+      nameservers:
+        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>退出vi文本编辑器</p>
+</li>
+<li><p>sudo netplan apply  # 保存</p>
+</li>
+</ul>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>windows server</title>
     <url>/2023/08/19/windows%20server/</url>
     <content><![CDATA[<h1 id="windows-server"><a href="#windows-server" class="headerlink" title="windows server"></a>windows server</h1><ul>
@@ -3177,55 +3229,61 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu</title>
-    <url>/2023/08/30/ubuntu/</url>
-    <content><![CDATA[<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ul>
-<li><p>UEFI + GPT</p>
-</li>
-<li><p>制作U盘启动盘的时候，官网下载的是混合镜像，可以iso加载，可以dd加载，推荐iso</p>
-</li>
+    <title>运维常见名词索引</title>
+    <url>/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/</url>
+    <content><![CDATA[<h1 id="名词中英文对照索引"><a href="#名词中英文对照索引" class="headerlink" title="名词中英文对照索引"></a>名词中英文对照索引</h1><h1 id="A"><a href="#A" class="headerlink" title="A"></a>A</h1><ul>
+<li>AOC，Active Optical Cables，有源光缆</li>
 </ul>
-<h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><ul>
-<li><p>Ubantu默认禁止使用root用户，登录的是普通用户，要么切root，要么sudo，大多数命令都要带sudo</p>
-<blockquote>
-<p>登录之后是普通用户，设置root密码</p>
-<p><code>sudo passwd root </code></p>
-</blockquote>
-</li>
+<h1 id="B"><a href="#B" class="headerlink" title="B"></a>B</h1><h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="D"><a href="#D" class="headerlink" title="D"></a>D</h1><ul>
+<li>DNS，</li>
 </ul>
-<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul>
-<li><code>apt</code></li>
-<li>centos  <code>yum</code></li>
+<h1 id="E"><a href="#E" class="headerlink" title="E"></a>E</h1><ul>
+<li>embedded，嵌入……之中的</li>
 </ul>
-<h3 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h3><blockquote>
-<ul>
-<li><p>ip a   # 查看 网卡</p>
-</li>
-<li><p>cd &#x2F;etc&#x2F;netplan </p>
-</li>
-<li><p>ls   # 查看.yaml文件</p>
-</li>
-<li><p>sudo vi yaml文件     # 用文本编辑器打开</p>
-</li>
-<li><p>编辑</p>
-<pre class="line-numbers language-none"><code class="language-none">yaml对格式、缩进有严格要求！！！
-
-网卡名
-   dhcp4: false    # 动态改成false
-      addresses: [192.168.3.86&#x2F;24]   # 前面是ip地址，24对应的子网掩码是255.255.255.0
-      gateway4: 192.168.3.1    # 网关
-      nameservers:
-        addresses: [192.168.3.1]   # DNS<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>退出vi文本编辑器</p>
-</li>
-<li><p>sudo netplan apply  # 保存</p>
-</li>
+<h1 id="F"><a href="#F" class="headerlink" title="F"></a>F</h1><ul>
+<li>Firewall，防火墙</li>
 </ul>
-</blockquote>
-]]></content>
+<h1 id="G"><a href="#G" class="headerlink" title="G"></a>G</h1><ul>
+<li>GATEWAY，网关</li>
+</ul>
+<h1 id="H"><a href="#H" class="headerlink" title="H"></a>H</h1><ul>
+<li>HUB，集线器</li>
+<li>hd，ide接口的，读出来hda</li>
+<li></li>
+</ul>
+<h1 id="I"><a href="#I" class="headerlink" title="I"></a>I</h1><ul>
+<li>iDRAC，</li>
+<li>IPMI，</li>
+<li>integrated，集成的</li>
+</ul>
+<h1 id="J"><a href="#J" class="headerlink" title="J"></a>J</h1><h1 id="K"><a href="#K" class="headerlink" title="K"></a>K</h1><h1 id="L"><a href="#L" class="headerlink" title="L"></a>L</h1><ul>
+<li>LV&#x3D;，logical volume，逻辑卷</li>
+<li>LVM，Logical Volume Manager，逻辑卷管理</li>
+</ul>
+<h1 id="M"><a href="#M" class="headerlink" title="M"></a>M</h1><ul>
+<li>MAC，网卡的硬件地址</li>
+</ul>
+<h1 id="N"><a href="#N" class="headerlink" title="N"></a>N</h1><ul>
+<li>NIC，网卡</li>
+<li>NETMASK，子网掩码</li>
+</ul>
+<h1 id="O"><a href="#O" class="headerlink" title="O"></a>O</h1><ul>
+<li>OSI，</li>
+</ul>
+<h1 id="P"><a href="#P" class="headerlink" title="P"></a>P</h1><p>pd，物理磁盘</p>
+<p>pg，物理磁盘组</p>
+<p>pv，physical volume，物理卷</p>
+<h1 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h1><h1 id="R"><a href="#R" class="headerlink" title="R"></a>R</h1><ul>
+<li>Router，路由器</li>
+</ul>
+<h1 id="S"><a href="#S" class="headerlink" title="S"></a>S</h1><ul>
+<li>switch，交换机（Ethernet switch）</li>
+<li>vd，虚拟磁盘</li>
+<li>vg，volume group，卷组</li>
+</ul>
+<h1 id="T"><a href="#T" class="headerlink" title="T"></a>T</h1><h1 id="U"><a href="#U" class="headerlink" title="U"></a>U</h1><h1 id="V"><a href="#V" class="headerlink" title="V"></a>V</h1><h1 id="W"><a href="#W" class="headerlink" title="W"></a>W</h1><h1 id="X"><a href="#X" class="headerlink" title="X"></a>X</h1><h1 id="Y"><a href="#Y" class="headerlink" title="Y"></a>Y</h1><h1 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h1>]]></content>
       <tags>
-        <tag>Ubuntu</tag>
+        <tag>计算机基础</tag>
       </tags>
   </entry>
   <entry>
@@ -3320,6 +3378,17 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
+    <title>宝塔面板</title>
+    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
+    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
+<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
+<p>firewall-cmd –list-all</p>
+]]></content>
+      <tags>
+        <tag>宝塔面板</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>图标制作</title>
     <url>/2023/10/09/%E5%9B%BE%E6%A0%87%E5%88%B6%E4%BD%9C/</url>
     <content><![CDATA[<h1 id="图标制作"><a href="#图标制作" class="headerlink" title="图标制作"></a>图标制作</h1><p>有的时候安装的软件图标很丑，或者大小不符合我的需求（我的桌面图标比较大），我会选择自制图标</p>
@@ -3335,75 +3404,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>计算机基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>运维常见名词索引</title>
-    <url>/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/</url>
-    <content><![CDATA[<h1 id="名词中英文对照索引"><a href="#名词中英文对照索引" class="headerlink" title="名词中英文对照索引"></a>名词中英文对照索引</h1><h1 id="A"><a href="#A" class="headerlink" title="A"></a>A</h1><ul>
-<li>AOC，Active Optical Cables，有源光缆</li>
-</ul>
-<h1 id="B"><a href="#B" class="headerlink" title="B"></a>B</h1><h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="D"><a href="#D" class="headerlink" title="D"></a>D</h1><ul>
-<li>DNS，</li>
-</ul>
-<h1 id="E"><a href="#E" class="headerlink" title="E"></a>E</h1><ul>
-<li>embedded，嵌入……之中的</li>
-</ul>
-<h1 id="F"><a href="#F" class="headerlink" title="F"></a>F</h1><ul>
-<li>Firewall，防火墙</li>
-</ul>
-<h1 id="G"><a href="#G" class="headerlink" title="G"></a>G</h1><ul>
-<li>GATEWAY，网关</li>
-</ul>
-<h1 id="H"><a href="#H" class="headerlink" title="H"></a>H</h1><ul>
-<li>HUB，集线器</li>
-<li>hd，ide接口的，读出来hda</li>
-<li></li>
-</ul>
-<h1 id="I"><a href="#I" class="headerlink" title="I"></a>I</h1><ul>
-<li>iDRAC，</li>
-<li>IPMI，</li>
-<li>integrated，集成的</li>
-</ul>
-<h1 id="J"><a href="#J" class="headerlink" title="J"></a>J</h1><h1 id="K"><a href="#K" class="headerlink" title="K"></a>K</h1><h1 id="L"><a href="#L" class="headerlink" title="L"></a>L</h1><ul>
-<li>LV&#x3D;，logical volume，逻辑卷</li>
-<li>LVM，Logical Volume Manager，逻辑卷管理</li>
-</ul>
-<h1 id="M"><a href="#M" class="headerlink" title="M"></a>M</h1><ul>
-<li>MAC，网卡的硬件地址</li>
-</ul>
-<h1 id="N"><a href="#N" class="headerlink" title="N"></a>N</h1><ul>
-<li>NIC，网卡</li>
-<li>NETMASK，子网掩码</li>
-</ul>
-<h1 id="O"><a href="#O" class="headerlink" title="O"></a>O</h1><ul>
-<li>OSI，</li>
-</ul>
-<h1 id="P"><a href="#P" class="headerlink" title="P"></a>P</h1><p>pd，物理磁盘</p>
-<p>pg，物理磁盘组</p>
-<p>pv，physical volume，物理卷</p>
-<h1 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h1><h1 id="R"><a href="#R" class="headerlink" title="R"></a>R</h1><ul>
-<li>Router，路由器</li>
-</ul>
-<h1 id="S"><a href="#S" class="headerlink" title="S"></a>S</h1><ul>
-<li>switch，交换机（Ethernet switch）</li>
-<li>vd，虚拟磁盘</li>
-<li>vg，volume group，卷组</li>
-</ul>
-<h1 id="T"><a href="#T" class="headerlink" title="T"></a>T</h1><h1 id="U"><a href="#U" class="headerlink" title="U"></a>U</h1><h1 id="V"><a href="#V" class="headerlink" title="V"></a>V</h1><h1 id="W"><a href="#W" class="headerlink" title="W"></a>W</h1><h1 id="X"><a href="#X" class="headerlink" title="X"></a>X</h1><h1 id="Y"><a href="#Y" class="headerlink" title="Y"></a>Y</h1><h1 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h1>]]></content>
-      <tags>
-        <tag>计算机基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>宝塔面板</title>
-    <url>/2023/08/19/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/</url>
-    <content><![CDATA[<p>内网，chrome无法登录，切换无痕模式即可、或者使用edge</p>
-<p> systemctl status firewalld.service<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8888&#x2F;tcp –permanent<br>firewall-cmd –reload</p>
-<p>firewall-cmd –list-all</p>
-]]></content>
-      <tags>
-        <tag>宝塔面板</tag>
       </tags>
   </entry>
   <entry>
@@ -3546,41 +3546,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>机器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>戴尔PowerEdgeR620</title>
-    <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
-    <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
-<li>PERC 是 PowerEdge Raid Controller 的缩写</li>
-<li>前缀S表示为Software软件阵列，H 表示为Hardware 硬件阵列 ,</li>
-<li>从入门到高端型号第一位数字分别用1 3 7 8 表示，</li>
-<li>第二三位数字位为产品代数，</li>
-<li>结尾P表示 Performance 高性能型。</li>
-</ul>
-<h2 id="PERC名词"><a href="#PERC名词" class="headerlink" title="PERC名词"></a>PERC名词</h2><ul>
-<li>Disk Group：磁盘组，这里相当于是阵列，例如配置了一个RAID5，就是一个磁盘组。</li>
-<li>VD：Virtual Disk， 虚拟磁盘，虚拟磁盘可以不使用阵列的全部容量，也就是说一个磁盘组可以分为多个VD。</li>
-<li>PD：Physical Disk，物理磁盘。</li>
-</ul>
-<h2 id="配置Raid方法"><a href="#配置Raid方法" class="headerlink" title="配置Raid方法"></a>配置Raid方法</h2><ul>
-<li>1、F10直接做在生命周期控制器中，F10可选中文，会重启很麻烦</li>
-<li>2、F2在系统设置中做  —-√   简单明了</li>
-<li>3、ctrl+R做，界面繁琐麻烦</li>
-<li>问题：同样的raid级别，在ctrl+R中配置和在F2中配置，容量会不一样，不知道为什么！</li>
-</ul>
-<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
-</ul>
-<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
-<li>在安装系统时，系统文件里，不带有RAID 1的驱动程序，导致安装系统无法识别到RAID 1 的硬盘。需要手动加载 RAID 卡驱动程序</li>
-<li>raid版本和主板版本可能存在版本问题，注意匹配</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>戴尔PowerEdge</tag>
       </tags>
   </entry>
   <entry>
@@ -4987,6 +4952,104 @@ SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
       </tags>
   </entry>
   <entry>
+    <title>戴尔PowerEdgeR620</title>
+    <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
+    <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
+<li>PERC 是 PowerEdge Raid Controller 的缩写</li>
+<li>前缀S表示为Software软件阵列，H 表示为Hardware 硬件阵列 ,</li>
+<li>从入门到高端型号第一位数字分别用1 3 7 8 表示，</li>
+<li>第二三位数字位为产品代数，</li>
+<li>结尾P表示 Performance 高性能型。</li>
+</ul>
+<h2 id="PERC名词"><a href="#PERC名词" class="headerlink" title="PERC名词"></a>PERC名词</h2><ul>
+<li>Disk Group：磁盘组，这里相当于是阵列，例如配置了一个RAID5，就是一个磁盘组。</li>
+<li>VD：Virtual Disk， 虚拟磁盘，虚拟磁盘可以不使用阵列的全部容量，也就是说一个磁盘组可以分为多个VD。</li>
+<li>PD：Physical Disk，物理磁盘。</li>
+</ul>
+<h2 id="配置Raid方法"><a href="#配置Raid方法" class="headerlink" title="配置Raid方法"></a>配置Raid方法</h2><ul>
+<li>1、F10直接做在生命周期控制器中，F10可选中文，会重启很麻烦</li>
+<li>2、F2在系统设置中做  —-√   简单明了</li>
+<li>3、ctrl+R做，界面繁琐麻烦</li>
+<li>问题：同样的raid级别，在ctrl+R中配置和在F2中配置，容量会不一样，不知道为什么！</li>
+</ul>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
+<li>1、改sata模式为raid</li>
+<li>2、做raid</li>
+<li>3、boot mode模式按需选择</li>
+</ul>
+<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
+<li>在安装系统时，系统文件里，不带有RAID 1的驱动程序，导致安装系统无法识别到RAID 1 的硬盘。需要手动加载 RAID 卡驱动程序</li>
+<li>raid版本和主板版本可能存在版本问题，注意匹配</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>戴尔PowerEdge</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/10/14/%E8%BF%90%E7%BB%B4%E7%9B%91%E6%8E%A7/</url>
+    <content><![CDATA[<h1 id="运维监控"><a href="#运维监控" class="headerlink" title="运维监控"></a>运维监控</h1><ul>
+<li><p>看监控指标的时候，要有统计分析思想</p>
+</li>
+<li><p>方式</p>
+<ul>
+<li>登录服务器，查看日志文件—-效率低</li>
+<li>监控软件集成化的监测性能指标，智能关联分析—效率高</li>
+</ul>
+</li>
+<li><p>常见的单位</p>
+<ul>
+<li>bps &#x3D; bits&#x2F;s</li>
+<li>1B &#x3D; 8bit，1byte &#x3D; 8bit</li>
+</ul>
+</li>
+</ul>
+<h2 id="操作系统监控"><a href="#操作系统监控" class="headerlink" title="操作系统监控"></a>操作系统监控</h2><h3 id="CPU-内存-负载监控指标"><a href="#CPU-内存-负载监控指标" class="headerlink" title="CPU,内存,负载监控指标"></a>CPU,内存,负载监控指标</h3><h4 id="CPU使用率"><a href="#CPU使用率" class="headerlink" title="CPU使用率"></a>CPU使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h4 id="内存使用率"><a href="#内存使用率" class="headerlink" title="内存使用率"></a>内存使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h4 id="系统平均负载"><a href="#系统平均负载" class="headerlink" title="系统平均负载"></a>系统平均负载</h4><ul>
+<li><p>(count)</p>
+</li>
+<li><p>系统平均负载（System Load Averages）指的是在特定时间段内，服务器主机处于运行状态的所有进程、线程占用 CPU 的部分总和，即平均负载。这个数值是评估系统负载状况的重要指标。</p>
+</li>
+<li><p>在Linux系统中，平均负载的取值范围是从0到n(n为CPU核心数)。当平均负载超过了CPU核心数的70%，那么可能就需要考虑进行优化，以避免系统资源过度使用导致的性能下降或其他相关问题</p>
+</li>
+</ul>
+<h3 id="磁盘监控指标"><a href="#磁盘监控指标" class="headerlink" title="磁盘监控指标"></a>磁盘监控指标</h3><h4 id="磁盘使用率"><a href="#磁盘使用率" class="headerlink" title="磁盘使用率"></a>磁盘使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h4 id="读写字节数"><a href="#读写字节数" class="headerlink" title="读写字节数"></a>读写字节数</h4><ul>
+<li>(bytes&#x2F;s)</li>
+</ul>
+<h4 id="读写请求数"><a href="#读写请求数" class="headerlink" title="读写请求数"></a>读写请求数</h4><p>(Count&#x2F;s)</p>
+<h4 id="Inode使用率"><a href="#Inode使用率" class="headerlink" title="Inode使用率"></a>Inode使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h3 id="网络监控指标"><a href="#网络监控指标" class="headerlink" title="网络监控指标"></a>网络监控指标</h3><h4 id="网络流入流出速率-bps"><a href="#网络流入流出速率-bps" class="headerlink" title="网络流入流出速率 bps"></a>网络流入流出速率 bps</h4><ul>
+<li>bps，即bit per second，比特每秒，bits&#x2F;s，衡量网络传输速度的单位，通常用于表示数据传输速度或网络带宽</li>
+<li>单位包括Kb&#x2F;s、<strong>Mb&#x2F;s</strong>、KB&#x2F;s<ul>
+<li>Mb&#x2F;s更快，1KB&#x2F;s &#x3D; 1024 * 1b&#x2F;s &#x3D; 1024b&#x2F;s、1Mb&#x2F;s &#x3D; 1024 * 1Kb&#x2F;s &#x3D; 1024Kb&#x2F;s</li>
+</ul>
+</li>
+</ul>
+<h4 id="网络流入流出数据包数-pps"><a href="#网络流入流出数据包数-pps" class="headerlink" title="网络流入流出数据包数 pps"></a>网络流入流出数据包数 pps</h4><p>((Count&#x2F;s)</p>
+<ul>
+<li>pps，即Packet Per Second，包每秒，pps，衡量网络设备（如交换机、路由器等）处理数据包能力的单位，反映了设备的性能。</li>
+</ul>
+<h4 id="TCP连接数"><a href="#TCP连接数" class="headerlink" title="TCP连接数"></a>TCP连接数</h4><h2 id="服务器监控"><a href="#服务器监控" class="headerlink" title="服务器监控"></a>服务器监控</h2><h3 id="CPU使用率-1"><a href="#CPU使用率-1" class="headerlink" title="CPU使用率"></a>CPU使用率</h3><h3 id="公网流入带宽"><a href="#公网流入带宽" class="headerlink" title="公网流入带宽"></a>公网流入带宽</h3><p>bits&#x2F;s</p>
+<h3 id="公网流出带宽"><a href="#公网流出带宽" class="headerlink" title="公网流出带宽"></a>公网流出带宽</h3><p>bits&#x2F;s</p>
+<h3 id="公网流出带宽使用率"><a href="#公网流出带宽使用率" class="headerlink" title="公网流出带宽使用率"></a>公网流出带宽使用率</h3><h3 id="磁盘读取写入BPS"><a href="#磁盘读取写入BPS" class="headerlink" title="磁盘读取写入BPS"></a>磁盘读取写入BPS</h3><p>(bytes&#x2F;s)</p>
+<h3 id="磁盘读取写入IOPS"><a href="#磁盘读取写入IOPS" class="headerlink" title="磁盘读取写入IOPS"></a>磁盘读取写入IOPS</h3><p>(Count&#x2F;Second)</p>
+<h2 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控"></a>网络监控</h2><h3 id="网卡带宽"><a href="#网卡带宽" class="headerlink" title="网卡带宽"></a>网卡带宽</h3><p>(bits&#x2F;s</p>
+<h3 id="网卡流入包数"><a href="#网卡流入包数" class="headerlink" title="网卡流入包数"></a>网卡流入包数</h3><p>(Count&#x2F;s)</p>
+<h3 id="网卡错误包数"><a href="#网卡错误包数" class="headerlink" title="网卡错误包数"></a>网卡错误包数</h3><p>(Count&#x2F;s)</p>
+<h3 id="网络连接数-个"><a href="#网络连接数-个" class="headerlink" title="网络连接数(个)"></a>网络连接数(个)</h3><h3 id="VPC-宽带-bits-s"><a href="#VPC-宽带-bits-s" class="headerlink" title="VPC-宽带(bits&#x2F;s)"></a>VPC-宽带(bits&#x2F;s)</h3><h3 id="VPC-宽带使用率"><a href="#VPC-宽带使用率" class="headerlink" title="VPC-宽带使用率(%)"></a>VPC-宽带使用率(%)</h3>]]></content>
+  </entry>
+  <entry>
     <title>配置Raid和系统安装</title>
     <url>/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h1 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h1><ul>
@@ -5104,68 +5167,5 @@ SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
       <tags>
         <tag>系统安装</tag>
       </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/10/14/%E8%BF%90%E7%BB%B4%E7%9B%91%E6%8E%A7/</url>
-    <content><![CDATA[<h1 id="运维监控"><a href="#运维监控" class="headerlink" title="运维监控"></a>运维监控</h1><ul>
-<li><p>看监控指标的时候，要有统计分析思想</p>
-</li>
-<li><p>方式</p>
-<ul>
-<li>登录服务器，查看日志文件—-效率低</li>
-<li>监控软件集成化的监测性能指标，智能关联分析—效率高</li>
-</ul>
-</li>
-<li><p>常见的单位</p>
-<ul>
-<li>bps &#x3D; bits&#x2F;s</li>
-<li>1B &#x3D; 8bit，1byte &#x3D; 8bit</li>
-</ul>
-</li>
-</ul>
-<h2 id="操作系统监控"><a href="#操作系统监控" class="headerlink" title="操作系统监控"></a>操作系统监控</h2><h3 id="CPU-内存-负载监控指标"><a href="#CPU-内存-负载监控指标" class="headerlink" title="CPU,内存,负载监控指标"></a>CPU,内存,负载监控指标</h3><h4 id="CPU使用率"><a href="#CPU使用率" class="headerlink" title="CPU使用率"></a>CPU使用率</h4><ul>
-<li>单位 %</li>
-</ul>
-<h4 id="内存使用率"><a href="#内存使用率" class="headerlink" title="内存使用率"></a>内存使用率</h4><ul>
-<li>单位 %</li>
-</ul>
-<h4 id="系统平均负载"><a href="#系统平均负载" class="headerlink" title="系统平均负载"></a>系统平均负载</h4><ul>
-<li><p>(count)</p>
-</li>
-<li><p>系统平均负载（System Load Averages）指的是在特定时间段内，服务器主机处于运行状态的所有进程、线程占用 CPU 的部分总和，即平均负载。这个数值是评估系统负载状况的重要指标。</p>
-</li>
-<li><p>在Linux系统中，平均负载的取值范围是从0到n(n为CPU核心数)。当平均负载超过了CPU核心数的70%，那么可能就需要考虑进行优化，以避免系统资源过度使用导致的性能下降或其他相关问题</p>
-</li>
-</ul>
-<h3 id="磁盘监控指标"><a href="#磁盘监控指标" class="headerlink" title="磁盘监控指标"></a>磁盘监控指标</h3><h4 id="磁盘使用率"><a href="#磁盘使用率" class="headerlink" title="磁盘使用率"></a>磁盘使用率</h4><ul>
-<li>单位 %</li>
-</ul>
-<h4 id="读写字节数"><a href="#读写字节数" class="headerlink" title="读写字节数"></a>读写字节数</h4><ul>
-<li>(bytes&#x2F;s)</li>
-</ul>
-<h4 id="读写请求数"><a href="#读写请求数" class="headerlink" title="读写请求数"></a>读写请求数</h4><p>(Count&#x2F;s)</p>
-<h4 id="Inode使用率"><a href="#Inode使用率" class="headerlink" title="Inode使用率"></a>Inode使用率</h4><ul>
-<li>单位 %</li>
-</ul>
-<h3 id="网络监控指标"><a href="#网络监控指标" class="headerlink" title="网络监控指标"></a>网络监控指标</h3><h4 id="网络流入流出速率-bps"><a href="#网络流入流出速率-bps" class="headerlink" title="网络流入流出速率 bps"></a>网络流入流出速率 bps</h4><ul>
-<li>bps，即bit per second，比特每秒，bits&#x2F;s，衡量网络传输速度的单位，通常用于表示数据传输速度或网络带宽</li>
-<li>单位包括Kb&#x2F;s、<strong>Mb&#x2F;s</strong>、KB&#x2F;s<ul>
-<li>Mb&#x2F;s更快，1KB&#x2F;s &#x3D; 1024 * 1b&#x2F;s &#x3D; 1024b&#x2F;s、1Mb&#x2F;s &#x3D; 1024 * 1Kb&#x2F;s &#x3D; 1024Kb&#x2F;s</li>
-</ul>
-</li>
-</ul>
-<h4 id="网络流入流出数据包数-pps"><a href="#网络流入流出数据包数-pps" class="headerlink" title="网络流入流出数据包数 pps"></a>网络流入流出数据包数 pps</h4><p>((Count&#x2F;s)</p>
-<ul>
-<li>pps，即Packet Per Second，包每秒，pps，衡量网络设备（如交换机、路由器等）处理数据包能力的单位，反映了设备的性能。</li>
-</ul>
-<h4 id="TCP连接数"><a href="#TCP连接数" class="headerlink" title="TCP连接数"></a>TCP连接数</h4><h2 id="服务器监控"><a href="#服务器监控" class="headerlink" title="服务器监控"></a>服务器监控</h2><h3 id="CPU使用率-1"><a href="#CPU使用率-1" class="headerlink" title="CPU使用率"></a>CPU使用率</h3><h3 id="公网流入带宽"><a href="#公网流入带宽" class="headerlink" title="公网流入带宽"></a>公网流入带宽</h3><p>bits&#x2F;s</p>
-<h3 id="公网流出带宽"><a href="#公网流出带宽" class="headerlink" title="公网流出带宽"></a>公网流出带宽</h3><p>bits&#x2F;s</p>
-<h3 id="公网流出带宽使用率"><a href="#公网流出带宽使用率" class="headerlink" title="公网流出带宽使用率"></a>公网流出带宽使用率</h3><h3 id="磁盘读取写入BPS"><a href="#磁盘读取写入BPS" class="headerlink" title="磁盘读取写入BPS"></a>磁盘读取写入BPS</h3><p>(bytes&#x2F;s)</p>
-<h3 id="磁盘读取写入IOPS"><a href="#磁盘读取写入IOPS" class="headerlink" title="磁盘读取写入IOPS"></a>磁盘读取写入IOPS</h3><p>(Count&#x2F;Second)</p>
-<h2 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控"></a>网络监控</h2><h3 id="网卡带宽"><a href="#网卡带宽" class="headerlink" title="网卡带宽"></a>网卡带宽</h3><p>(bits&#x2F;s</p>
-<h3 id="网卡流入包数"><a href="#网卡流入包数" class="headerlink" title="网卡流入包数"></a>网卡流入包数</h3><p>(Count&#x2F;s)</p>
-<h3 id="网卡错误包数"><a href="#网卡错误包数" class="headerlink" title="网卡错误包数"></a>网卡错误包数</h3><p>(Count&#x2F;s)</p>
-<h3 id="网络连接数-个"><a href="#网络连接数-个" class="headerlink" title="网络连接数(个)"></a>网络连接数(个)</h3><h3 id="VPC-宽带-bits-s"><a href="#VPC-宽带-bits-s" class="headerlink" title="VPC-宽带(bits&#x2F;s)"></a>VPC-宽带(bits&#x2F;s)</h3><h3 id="VPC-宽带使用率"><a href="#VPC-宽带使用率" class="headerlink" title="VPC-宽带使用率(%)"></a>VPC-宽带使用率(%)</h3>]]></content>
   </entry>
 </search>
