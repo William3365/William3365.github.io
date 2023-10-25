@@ -212,28 +212,6 @@ HandleLidSwitch&#x3D;ignore<span aria-hidden="true" class="line-numbers-rows"><s
       </tags>
   </entry>
   <entry>
-    <title>PC微信双开</title>
-    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
-    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
-<li><p>首先新建一个txt文件</p>
-<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
-start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
-
-# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>保存文件，将txt文件改成后缀为bat</p>
-</li>
-<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
-</li>
-<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>工具类</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux 操作系统的启动过程</title>
     <url>/2023/09/19/Linux%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="Linux-操作系统的启动过程"><a href="#Linux-操作系统的启动过程" class="headerlink" title="Linux 操作系统的启动过程"></a>Linux 操作系统的启动过程</h1><ul>
@@ -319,6 +297,28 @@ start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
 ]]></content>
       <tags>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PC微信双开</title>
+    <url>/2023/09/07/PC%E5%BE%AE%E4%BF%A1%E5%8F%8C%E5%BC%80/</url>
+    <content><![CDATA[<h1 id="PC微信双开"><a href="#PC微信双开" class="headerlink" title="PC微信双开"></a>PC微信双开</h1><ul>
+<li><p>首先新建一个txt文件</p>
+<pre class="line-numbers language-none"><code class="language-none">TASKKILL &#x2F;F  &#x2F;IM wechat.exe
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+start &quot;&quot; &quot;xxxx\WeChat.exe&quot;
+
+# 把xxxx改成wechat.exe的路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>保存文件，将txt文件改成后缀为bat</p>
+</li>
+<li><p>退出微信，使微信打开是扫码界面。然后关闭微信</p>
+</li>
+<li><p>双击bat文件，打开了两个扫码登录的界面，然后正常登录</p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>工具类</tag>
       </tags>
   </entry>
   <entry>
@@ -2721,107 +2721,6 @@ systemctl <span class="token builtin class-name">enable</span> grafana-server<sp
       </tags>
   </entry>
   <entry>
-    <title>VNC</title>
-    <url>/2023/10/09/VNC/</url>
-    <content><![CDATA[<h1 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h1><h2 id="什么是vnc"><a href="#什么是vnc" class="headerlink" title="什么是vnc"></a>什么是vnc</h2><ul>
-<li>Virtual Network Computing，VNC就是一个通过软件方式实现ATM 网络计算机模式的软件系统，它是由AT&amp;T开发的一套远程控制的开源软件。</li>
-<li>当网络中的计算机安装了相应的VNC 软件后，就可以在计算机上随时建立和取消对远端计算机的管理控制，所以给这个软件起名为“虚拟网络计算机”</li>
-<li>VNC采用Server&#x2F;Client模式，由VNC Server和VNC Viewer（Client）两部分组成，所有不同平台版本的VNC，不管是Server还是Client，都支持VNC的通讯协议RFB，这样就能够很容易地实现不同平台的相互操作。</li>
-<li><strong>VNC Server</strong>的操作系统和TCP&#x2F;IP协议栈都能正常工作，具有能访问到的IP地址，并且启动VNC Server后，才能对它进行远程控制。</li>
-<li><strong>VNC Viewer（Client）</strong>，通常工作在5900端口，使用时需提前获得server的ip(有时需要端口)、用户名和密码</li>
-</ul>
-<h2 id="远程管理技术之间的区别"><a href="#远程管理技术之间的区别" class="headerlink" title="远程管理技术之间的区别"></a>远程管理技术之间的区别</h2><ul>
-<li><strong>VNC</strong>是一种软件级别的远程桌面协议，它允许用户在本地计算机上通过网络连接到远程计算机，并实时地查看、控制远程计算机的桌面界面。主要用于远程桌面连接和控制。</li>
-<li><strong>IPMI</strong>是一种硬件级别的管理接口，它允许管理员通过网络连接到远程服务器或设备，进行监控、管理和控制操作。IPMI提供了诸如远程开关机、系统重启、传感器数据监测、事件日志记录等功能。IPMI可以在服务器关机或操作系统崩溃的情况下，仍然对硬件进行管理和维护。IPMI主要用于服务器硬件管理</li>
-</ul>
-<h2 id="远程管理方式之间的区别"><a href="#远程管理方式之间的区别" class="headerlink" title="远程管理方式之间的区别"></a>远程管理方式之间的区别</h2><ul>
-<li>workbench连接<ul>
-<li>线管理云服务器的工具，利用浏览器直接登录云服务器，无需安装任何软件或插件。workbench的优点是方便快捷，不受网络环境和操作系统的限制，但缺点是功能相对较少，不能进行复杂的操作和设置。</li>
-</ul>
-</li>
-<li>VNC连接<ul>
-<li>优点是功能强大，可以进行图形化界面的操作和设置，但缺点是需要安装客户端软件，必须在同一网络，并且受网络环境和防火墙的影响</li>
-</ul>
-</li>
-<li>SSH连接<ul>
-<li>比较灵活，可以根据不同的操作系统和需求选择不同的工具，比如linux利用shell工具（xshell，finalshell）进行连接，windows使用自带的远程桌面连接（mstsc）或第三方软件如PuTTY来连接</li>
-<li>使用时需要确保电脑和云服务器之间的网络通畅，并且服务器的安全组规则（防火墙）允许您的电脑访问云服务器的远程桌面或SSH端口（默认为3389或22）</li>
-</ul>
-</li>
-</ul>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h4 id="VNC远程不能输入字符问题"><a href="#VNC远程不能输入字符问题" class="headerlink" title="VNC远程不能输入字符问题"></a>VNC远程不能输入字符问题</h4><ul>
-<li>vnc server会要求vnc viewer的OS的输入法和vnc server那边OS的语言一致。一般Linux系统都是英文的，所以使用vnc viewer连入的时候，关闭本地OS的输入法切换到英语就可以了。</li>
-</ul>
-<h4 id="安全问题"><a href="#安全问题" class="headerlink" title="安全问题"></a>安全问题</h4><ul>
-<li>为了保证数据安全，除管理员外，要设置对应的账号、权限，做到每一个操作都必须被授权，每一个账号的密码不冲突</li>
-</ul>
-<h2 id="硬件VNC"><a href="#硬件VNC" class="headerlink" title="硬件VNC"></a>硬件VNC</h2><ul>
-<li>云手Ez2Pc单口远程IP控制器</li>
-<li><img src="https://z1.ax1x.com/2023/10/09/pPxJuFJ.jpg"></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>远程控制</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cmd</title>
-    <url>/2023/08/19/cmd/</url>
-    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
-<li>ping——测试网络是否通畅<ul>
-<li>使用icmp协议，网络连通性测试</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<ul>
-<li>ping ip<ul>
-<li>测试网络连通情况</li>
-</ul>
-</li>
-<li>ping -t ip<ul>
-<li>不间断的一直ping</li>
-</ul>
-</li>
-<li>ping -a ip<ul>
-<li>局域网内解析出主机名</li>
-</ul>
-</li>
-<li></li>
-</ul>
-</blockquote>
-<ul>
-<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
-</li>
-<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
-<ul>
-<li><p>telnet ip 端口（跳到空窗口）</p>
-</li>
-<li><p>无法telnet</p>
-<blockquote>
-<p>一、打开控制面板</p>
-<p>二、点击打开启用或关闭Windows功能</p>
-<ul>
-<li>三、找到telnet客户端，勾选打开</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>ifconfig——查看本机网络</p>
-</li>
-<li><p>netstat -an   查看正在运行的端口</p>
-</li>
-</ul>
-<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
-<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
-<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
-]]></content>
-      <tags>
-        <tag>cmd</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>centos7</title>
     <url>/2023/08/19/centos7/</url>
     <content><![CDATA[<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ul>
@@ -2944,6 +2843,107 @@ tips：
 ]]></content>
       <tags>
         <tag>centos7</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VNC</title>
+    <url>/2023/10/09/VNC/</url>
+    <content><![CDATA[<h1 id="VNC"><a href="#VNC" class="headerlink" title="VNC"></a>VNC</h1><h2 id="什么是vnc"><a href="#什么是vnc" class="headerlink" title="什么是vnc"></a>什么是vnc</h2><ul>
+<li>Virtual Network Computing，VNC就是一个通过软件方式实现ATM 网络计算机模式的软件系统，它是由AT&amp;T开发的一套远程控制的开源软件。</li>
+<li>当网络中的计算机安装了相应的VNC 软件后，就可以在计算机上随时建立和取消对远端计算机的管理控制，所以给这个软件起名为“虚拟网络计算机”</li>
+<li>VNC采用Server&#x2F;Client模式，由VNC Server和VNC Viewer（Client）两部分组成，所有不同平台版本的VNC，不管是Server还是Client，都支持VNC的通讯协议RFB，这样就能够很容易地实现不同平台的相互操作。</li>
+<li><strong>VNC Server</strong>的操作系统和TCP&#x2F;IP协议栈都能正常工作，具有能访问到的IP地址，并且启动VNC Server后，才能对它进行远程控制。</li>
+<li><strong>VNC Viewer（Client）</strong>，通常工作在5900端口，使用时需提前获得server的ip(有时需要端口)、用户名和密码</li>
+</ul>
+<h2 id="远程管理技术之间的区别"><a href="#远程管理技术之间的区别" class="headerlink" title="远程管理技术之间的区别"></a>远程管理技术之间的区别</h2><ul>
+<li><strong>VNC</strong>是一种软件级别的远程桌面协议，它允许用户在本地计算机上通过网络连接到远程计算机，并实时地查看、控制远程计算机的桌面界面。主要用于远程桌面连接和控制。</li>
+<li><strong>IPMI</strong>是一种硬件级别的管理接口，它允许管理员通过网络连接到远程服务器或设备，进行监控、管理和控制操作。IPMI提供了诸如远程开关机、系统重启、传感器数据监测、事件日志记录等功能。IPMI可以在服务器关机或操作系统崩溃的情况下，仍然对硬件进行管理和维护。IPMI主要用于服务器硬件管理</li>
+</ul>
+<h2 id="远程管理方式之间的区别"><a href="#远程管理方式之间的区别" class="headerlink" title="远程管理方式之间的区别"></a>远程管理方式之间的区别</h2><ul>
+<li>workbench连接<ul>
+<li>线管理云服务器的工具，利用浏览器直接登录云服务器，无需安装任何软件或插件。workbench的优点是方便快捷，不受网络环境和操作系统的限制，但缺点是功能相对较少，不能进行复杂的操作和设置。</li>
+</ul>
+</li>
+<li>VNC连接<ul>
+<li>优点是功能强大，可以进行图形化界面的操作和设置，但缺点是需要安装客户端软件，必须在同一网络，并且受网络环境和防火墙的影响</li>
+</ul>
+</li>
+<li>SSH连接<ul>
+<li>比较灵活，可以根据不同的操作系统和需求选择不同的工具，比如linux利用shell工具（xshell，finalshell）进行连接，windows使用自带的远程桌面连接（mstsc）或第三方软件如PuTTY来连接</li>
+<li>使用时需要确保电脑和云服务器之间的网络通畅，并且服务器的安全组规则（防火墙）允许您的电脑访问云服务器的远程桌面或SSH端口（默认为3389或22）</li>
+</ul>
+</li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h4 id="VNC远程不能输入字符问题"><a href="#VNC远程不能输入字符问题" class="headerlink" title="VNC远程不能输入字符问题"></a>VNC远程不能输入字符问题</h4><ul>
+<li>vnc server会要求vnc viewer的OS的输入法和vnc server那边OS的语言一致。一般Linux系统都是英文的，所以使用vnc viewer连入的时候，关闭本地OS的输入法切换到英语就可以了。</li>
+</ul>
+<h4 id="安全问题"><a href="#安全问题" class="headerlink" title="安全问题"></a>安全问题</h4><ul>
+<li>为了保证数据安全，除管理员外，要设置对应的账号、权限，做到每一个操作都必须被授权，每一个账号的密码不冲突</li>
+</ul>
+<h2 id="硬件VNC"><a href="#硬件VNC" class="headerlink" title="硬件VNC"></a>硬件VNC</h2><ul>
+<li>云手Ez2Pc单口远程IP控制器</li>
+<li><img src="https://z1.ax1x.com/2023/10/09/pPxJuFJ.jpg"></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>远程控制</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cmd</title>
+    <url>/2023/08/19/cmd/</url>
+    <content><![CDATA[<h2 id="网络测试命令"><a href="#网络测试命令" class="headerlink" title="网络测试命令"></a>网络测试命令</h2><ul>
+<li>ping——测试网络是否通畅<ul>
+<li>使用icmp协议，网络连通性测试</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>ping ip<ul>
+<li>测试网络连通情况</li>
+</ul>
+</li>
+<li>ping -t ip<ul>
+<li>不间断的一直ping</li>
+</ul>
+</li>
+<li>ping -a ip<ul>
+<li>局域网内解析出主机名</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</blockquote>
+<ul>
+<li><p>tracert——追踪路由，也可以用来查看网络连通性</p>
+</li>
+<li><p>telnet——查看目的主机ip的端口号是否开放 </p>
+<ul>
+<li><p>telnet ip 端口（跳到空窗口）</p>
+</li>
+<li><p>无法telnet</p>
+<blockquote>
+<p>一、打开控制面板</p>
+<p>二、点击打开启用或关闭Windows功能</p>
+<ul>
+<li>三、找到telnet客户端，勾选打开</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>ifconfig——查看本机网络</p>
+</li>
+<li><p>netstat -an   查看正在运行的端口</p>
+</li>
+</ul>
+<h2 id="路由命令"><a href="#路由命令" class="headerlink" title="路由命令"></a>路由命令</h2><p>route print——显示路由，查看网关</p>
+<h2 id="文件命令"><a href="#文件命令" class="headerlink" title="文件命令"></a>文件命令</h2><p>cd ——显示当前目录<br>cd .. ——进入上级目录<br>md 目录名（文件夹）——创建文件夹<br>rd 目录名（文件夹）——删除文件夹<br>del 文件名——删除文件 </p>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><p>shutdown -s  ——关机<br>control——打开控制面板<br>notepad——打开记事本<br>regedit——打开注册表<br>ctrl+c——终止一直在运行的命令</p>
+]]></content>
+      <tags>
+        <tag>cmd</tag>
       </tags>
   </entry>
   <entry>
@@ -3079,6 +3079,14 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       <tags>
         <tag>linux</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/10/25/readme/</url>
+    <content><![CDATA[<h1 id="最新说明"><a href="#最新说明" class="headerlink" title="最新说明"></a>最新说明</h1><p>博客作为工作笔记，一直用来作为工作的备忘查询，但由于hexo网页访问不方便，导致查询笔记效率很低</p>
+<p>现在改用 语雀  作为托管平台，一方面是因为语雀有app，方便阅读访问，而来语雀可以多端实时同步，不需要再用git托管</p>
+<p>截至2023&#x2F;10&#x2F;25 10:20，现已将全部笔记封存、上传git，不再进行更新维护。同时语雀也会备注即今日起的修改和更新，如果后期有需要，可以从今天之后再同步回来</p>
+]]></content>
   </entry>
   <entry>
     <title>Ubuntu</title>
@@ -3229,64 +3237,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
-    <title>运维常见名词索引</title>
-    <url>/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/</url>
-    <content><![CDATA[<h1 id="名词中英文对照索引"><a href="#名词中英文对照索引" class="headerlink" title="名词中英文对照索引"></a>名词中英文对照索引</h1><h1 id="A"><a href="#A" class="headerlink" title="A"></a>A</h1><ul>
-<li>AOC，Active Optical Cables，有源光缆</li>
-</ul>
-<h1 id="B"><a href="#B" class="headerlink" title="B"></a>B</h1><h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="D"><a href="#D" class="headerlink" title="D"></a>D</h1><ul>
-<li>DNS，</li>
-</ul>
-<h1 id="E"><a href="#E" class="headerlink" title="E"></a>E</h1><ul>
-<li>embedded，嵌入……之中的</li>
-</ul>
-<h1 id="F"><a href="#F" class="headerlink" title="F"></a>F</h1><ul>
-<li>Firewall，防火墙</li>
-</ul>
-<h1 id="G"><a href="#G" class="headerlink" title="G"></a>G</h1><ul>
-<li>GATEWAY，网关</li>
-</ul>
-<h1 id="H"><a href="#H" class="headerlink" title="H"></a>H</h1><ul>
-<li>HUB，集线器</li>
-<li>hd，ide接口的，读出来hda</li>
-<li></li>
-</ul>
-<h1 id="I"><a href="#I" class="headerlink" title="I"></a>I</h1><ul>
-<li>iDRAC，</li>
-<li>IPMI，</li>
-<li>integrated，集成的</li>
-</ul>
-<h1 id="J"><a href="#J" class="headerlink" title="J"></a>J</h1><h1 id="K"><a href="#K" class="headerlink" title="K"></a>K</h1><h1 id="L"><a href="#L" class="headerlink" title="L"></a>L</h1><ul>
-<li>LV&#x3D;，logical volume，逻辑卷</li>
-<li>LVM，Logical Volume Manager，逻辑卷管理</li>
-</ul>
-<h1 id="M"><a href="#M" class="headerlink" title="M"></a>M</h1><ul>
-<li>MAC，网卡的硬件地址</li>
-</ul>
-<h1 id="N"><a href="#N" class="headerlink" title="N"></a>N</h1><ul>
-<li>NIC，网卡</li>
-<li>NETMASK，子网掩码</li>
-</ul>
-<h1 id="O"><a href="#O" class="headerlink" title="O"></a>O</h1><ul>
-<li>OSI，</li>
-</ul>
-<h1 id="P"><a href="#P" class="headerlink" title="P"></a>P</h1><p>pd，物理磁盘</p>
-<p>pg，物理磁盘组</p>
-<p>pv，physical volume，物理卷</p>
-<h1 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h1><h1 id="R"><a href="#R" class="headerlink" title="R"></a>R</h1><ul>
-<li>Router，路由器</li>
-</ul>
-<h1 id="S"><a href="#S" class="headerlink" title="S"></a>S</h1><ul>
-<li>switch，交换机（Ethernet switch）</li>
-<li>vd，虚拟磁盘</li>
-<li>vg，volume group，卷组</li>
-</ul>
-<h1 id="T"><a href="#T" class="headerlink" title="T"></a>T</h1><h1 id="U"><a href="#U" class="headerlink" title="U"></a>U</h1><h1 id="V"><a href="#V" class="headerlink" title="V"></a>V</h1><h1 id="W"><a href="#W" class="headerlink" title="W"></a>W</h1><h1 id="X"><a href="#X" class="headerlink" title="X"></a>X</h1><h1 id="Y"><a href="#Y" class="headerlink" title="Y"></a>Y</h1><h1 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h1>]]></content>
-      <tags>
-        <tag>计算机基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>常用软件</title>
     <url>/2023/09/19/%E4%B8%AD%E9%97%B4%E4%BB%B6/</url>
     <content><![CDATA[<h1 id="常用软件"><a href="#常用软件" class="headerlink" title="常用软件"></a>常用软件</h1><h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p>Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。</p>
@@ -3364,6 +3314,64 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
+    <title>运维常见名词索引</title>
+    <url>/2023/09/05/%E5%90%8D%E8%AF%8D%E7%B4%A2%E5%BC%95/</url>
+    <content><![CDATA[<h1 id="名词中英文对照索引"><a href="#名词中英文对照索引" class="headerlink" title="名词中英文对照索引"></a>名词中英文对照索引</h1><h1 id="A"><a href="#A" class="headerlink" title="A"></a>A</h1><ul>
+<li>AOC，Active Optical Cables，有源光缆</li>
+</ul>
+<h1 id="B"><a href="#B" class="headerlink" title="B"></a>B</h1><h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="D"><a href="#D" class="headerlink" title="D"></a>D</h1><ul>
+<li>DNS，</li>
+</ul>
+<h1 id="E"><a href="#E" class="headerlink" title="E"></a>E</h1><ul>
+<li>embedded，嵌入……之中的</li>
+</ul>
+<h1 id="F"><a href="#F" class="headerlink" title="F"></a>F</h1><ul>
+<li>Firewall，防火墙</li>
+</ul>
+<h1 id="G"><a href="#G" class="headerlink" title="G"></a>G</h1><ul>
+<li>GATEWAY，网关</li>
+</ul>
+<h1 id="H"><a href="#H" class="headerlink" title="H"></a>H</h1><ul>
+<li>HUB，集线器</li>
+<li>hd，ide接口的，读出来hda</li>
+<li></li>
+</ul>
+<h1 id="I"><a href="#I" class="headerlink" title="I"></a>I</h1><ul>
+<li>iDRAC，</li>
+<li>IPMI，</li>
+<li>integrated，集成的</li>
+</ul>
+<h1 id="J"><a href="#J" class="headerlink" title="J"></a>J</h1><h1 id="K"><a href="#K" class="headerlink" title="K"></a>K</h1><h1 id="L"><a href="#L" class="headerlink" title="L"></a>L</h1><ul>
+<li>LV&#x3D;，logical volume，逻辑卷</li>
+<li>LVM，Logical Volume Manager，逻辑卷管理</li>
+</ul>
+<h1 id="M"><a href="#M" class="headerlink" title="M"></a>M</h1><ul>
+<li>MAC，网卡的硬件地址</li>
+</ul>
+<h1 id="N"><a href="#N" class="headerlink" title="N"></a>N</h1><ul>
+<li>NIC，网卡</li>
+<li>NETMASK，子网掩码</li>
+</ul>
+<h1 id="O"><a href="#O" class="headerlink" title="O"></a>O</h1><ul>
+<li>OSI，</li>
+</ul>
+<h1 id="P"><a href="#P" class="headerlink" title="P"></a>P</h1><p>pd，物理磁盘</p>
+<p>pg，物理磁盘组</p>
+<p>pv，physical volume，物理卷</p>
+<h1 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h1><h1 id="R"><a href="#R" class="headerlink" title="R"></a>R</h1><ul>
+<li>Router，路由器</li>
+</ul>
+<h1 id="S"><a href="#S" class="headerlink" title="S"></a>S</h1><ul>
+<li>switch，交换机（Ethernet switch）</li>
+<li>vd，虚拟磁盘</li>
+<li>vg，volume group，卷组</li>
+</ul>
+<h1 id="T"><a href="#T" class="headerlink" title="T"></a>T</h1><h1 id="U"><a href="#U" class="headerlink" title="U"></a>U</h1><h1 id="V"><a href="#V" class="headerlink" title="V"></a>V</h1><h1 id="W"><a href="#W" class="headerlink" title="W"></a>W</h1><h1 id="X"><a href="#X" class="headerlink" title="X"></a>X</h1><h1 id="Y"><a href="#Y" class="headerlink" title="Y"></a>Y</h1><h1 id="Z"><a href="#Z" class="headerlink" title="Z"></a>Z</h1>]]></content>
+      <tags>
+        <tag>计算机基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>周报(1)</title>
     <url>/2023/08/19/%E5%91%A8%E6%8A%A5/</url>
     <content><![CDATA[<p>入职第一周<br>本人前端程序员一名，因故回到县城老家，找不到工作，改行做机房运维，记录0基础运维成长</p>
@@ -3386,24 +3394,6 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>宝塔面板</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图标制作</title>
-    <url>/2023/10/09/%E5%9B%BE%E6%A0%87%E5%88%B6%E4%BD%9C/</url>
-    <content><![CDATA[<h1 id="图标制作"><a href="#图标制作" class="headerlink" title="图标制作"></a>图标制作</h1><p>有的时候安装的软件图标很丑，或者大小不符合我的需求（我的桌面图标比较大），我会选择自制图标</p>
-<ul>
-<li>1、百度搜索ico  </li>
-<li>2、网站生成icon <ul>
-<li>在线生成ICO图标：<a href="http://www.ico51.cn/">http://www.ico51.cn/</a></li>
-</ul>
-</li>
-<li>3、选择生成目标尺寸</li>
-<li>4、点击属性、替换即可</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>计算机基础</tag>
       </tags>
   </entry>
   <entry>
@@ -3486,6 +3476,24 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
       </tags>
   </entry>
   <entry>
+    <title>图标制作</title>
+    <url>/2023/10/09/%E5%9B%BE%E6%A0%87%E5%88%B6%E4%BD%9C/</url>
+    <content><![CDATA[<h1 id="图标制作"><a href="#图标制作" class="headerlink" title="图标制作"></a>图标制作</h1><p>有的时候安装的软件图标很丑，或者大小不符合我的需求（我的桌面图标比较大），我会选择自制图标</p>
+<ul>
+<li>1、百度搜索ico  </li>
+<li>2、网站生成icon <ul>
+<li>在线生成ICO图标：<a href="http://www.ico51.cn/">http://www.ico51.cn/</a></li>
+</ul>
+</li>
+<li>3、选择生成目标尺寸</li>
+<li>4、点击属性、替换即可</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>计算机基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>就是玩</title>
     <url>/2023/09/15/%E5%B0%B1%E6%98%AF%E7%8E%A9/</url>
     <content><![CDATA[<p>.⠄⠄⣿⣿⣿⣿⠘⡿⢛⣿⣿⣿⣿⣿⣧⢻⣿⣿⠃⠸⣿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⣿⣿⣿⣿⢀⠼⣛⣛⣭⢭⣟⣛⣛⣛⠿⠿⢆⡠⢿⣿⣿⠄⠄⠄⠄⠄<br>⠄⠄⠸⣿⣿⢣⢶⣟⣿⣖⣿⣷⣻⣮⡿⣽⣿⣻⣖⣶⣤⣭⡉⠄⠄⠄⠄⠄<br>⠄⠄⠄⢹⠣⣛⣣⣭⣭⣭⣁⡛⠻⢽⣿⣿⣿⣿⢻⣿⣿⣿⣽⡧⡄⠄⠄⠄<br>⠄⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣶⣌⡛⢿⣽⢘⣿⣷⣿⡻⠏⣛⣀⠄⠄<br>⠄⠄⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠙⡅⣿⠚⣡⣴⣿⣿⣿⡆⠄<br>⠄⠄⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠄⣱⣾⣿⣿⣿⣿⣿⣿⠄<br>⠄⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠣⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄<br>⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠑⣿⣮⣝⣛⠿⠿⣿⣿⣿⣿⠄<br>⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⠄⠄⠄⠄⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠄</p>
@@ -3546,6 +3554,41 @@ branch: master<span aria-hidden="true" class="line-numbers-rows"><span></span><s
 ]]></content>
       <tags>
         <tag>机器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>戴尔PowerEdgeR620</title>
+    <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
+    <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
+<li>PERC 是 PowerEdge Raid Controller 的缩写</li>
+<li>前缀S表示为Software软件阵列，H 表示为Hardware 硬件阵列 ,</li>
+<li>从入门到高端型号第一位数字分别用1 3 7 8 表示，</li>
+<li>第二三位数字位为产品代数，</li>
+<li>结尾P表示 Performance 高性能型。</li>
+</ul>
+<h2 id="PERC名词"><a href="#PERC名词" class="headerlink" title="PERC名词"></a>PERC名词</h2><ul>
+<li>Disk Group：磁盘组，这里相当于是阵列，例如配置了一个RAID5，就是一个磁盘组。</li>
+<li>VD：Virtual Disk， 虚拟磁盘，虚拟磁盘可以不使用阵列的全部容量，也就是说一个磁盘组可以分为多个VD。</li>
+<li>PD：Physical Disk，物理磁盘。</li>
+</ul>
+<h2 id="配置Raid方法"><a href="#配置Raid方法" class="headerlink" title="配置Raid方法"></a>配置Raid方法</h2><ul>
+<li>1、F10直接做在生命周期控制器中，F10可选中文，会重启很麻烦</li>
+<li>2、F2在系统设置中做  —-√   简单明了</li>
+<li>3、ctrl+R做，界面繁琐麻烦</li>
+<li>问题：同样的raid级别，在ctrl+R中配置和在F2中配置，容量会不一样，不知道为什么！</li>
+</ul>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
+<li>1、改sata模式为raid</li>
+<li>2、做raid</li>
+<li>3、boot mode模式按需选择</li>
+</ul>
+<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
+<li>在安装系统时，系统文件里，不带有RAID 1的驱动程序，导致安装系统无法识别到RAID 1 的硬盘。需要手动加载 RAID 卡驱动程序</li>
+<li>raid版本和主板版本可能存在版本问题，注意匹配</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>戴尔PowerEdge</tag>
       </tags>
   </entry>
   <entry>
@@ -4952,104 +4995,6 @@ SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
       </tags>
   </entry>
   <entry>
-    <title>戴尔PowerEdgeR620</title>
-    <url>/2023/08/25/%E6%88%B4%E5%B0%94PowerEdgeR620/</url>
-    <content><![CDATA[<h2 id="PERC-阵列卡"><a href="#PERC-阵列卡" class="headerlink" title="PERC 阵列卡"></a>PERC 阵列卡</h2><ul>
-<li>PERC 是 PowerEdge Raid Controller 的缩写</li>
-<li>前缀S表示为Software软件阵列，H 表示为Hardware 硬件阵列 ,</li>
-<li>从入门到高端型号第一位数字分别用1 3 7 8 表示，</li>
-<li>第二三位数字位为产品代数，</li>
-<li>结尾P表示 Performance 高性能型。</li>
-</ul>
-<h2 id="PERC名词"><a href="#PERC名词" class="headerlink" title="PERC名词"></a>PERC名词</h2><ul>
-<li>Disk Group：磁盘组，这里相当于是阵列，例如配置了一个RAID5，就是一个磁盘组。</li>
-<li>VD：Virtual Disk， 虚拟磁盘，虚拟磁盘可以不使用阵列的全部容量，也就是说一个磁盘组可以分为多个VD。</li>
-<li>PD：Physical Disk，物理磁盘。</li>
-</ul>
-<h2 id="配置Raid方法"><a href="#配置Raid方法" class="headerlink" title="配置Raid方法"></a>配置Raid方法</h2><ul>
-<li>1、F10直接做在生命周期控制器中，F10可选中文，会重启很麻烦</li>
-<li>2、F2在系统设置中做  —-√   简单明了</li>
-<li>3、ctrl+R做，界面繁琐麻烦</li>
-<li>问题：同样的raid级别，在ctrl+R中配置和在F2中配置，容量会不一样，不知道为什么！</li>
-</ul>
-<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ul>
-<li>1、改sata模式为raid</li>
-<li>2、做raid</li>
-<li>3、boot mode模式按需选择</li>
-</ul>
-<h2 id="bugs"><a href="#bugs" class="headerlink" title="bugs"></a>bugs</h2><ul>
-<li>在安装系统时，系统文件里，不带有RAID 1的驱动程序，导致安装系统无法识别到RAID 1 的硬盘。需要手动加载 RAID 卡驱动程序</li>
-<li>raid版本和主板版本可能存在版本问题，注意匹配</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>戴尔PowerEdge</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/10/14/%E8%BF%90%E7%BB%B4%E7%9B%91%E6%8E%A7/</url>
-    <content><![CDATA[<h1 id="运维监控"><a href="#运维监控" class="headerlink" title="运维监控"></a>运维监控</h1><ul>
-<li><p>看监控指标的时候，要有统计分析思想</p>
-</li>
-<li><p>方式</p>
-<ul>
-<li>登录服务器，查看日志文件—-效率低</li>
-<li>监控软件集成化的监测性能指标，智能关联分析—效率高</li>
-</ul>
-</li>
-<li><p>常见的单位</p>
-<ul>
-<li>bps &#x3D; bits&#x2F;s</li>
-<li>1B &#x3D; 8bit，1byte &#x3D; 8bit</li>
-</ul>
-</li>
-</ul>
-<h2 id="操作系统监控"><a href="#操作系统监控" class="headerlink" title="操作系统监控"></a>操作系统监控</h2><h3 id="CPU-内存-负载监控指标"><a href="#CPU-内存-负载监控指标" class="headerlink" title="CPU,内存,负载监控指标"></a>CPU,内存,负载监控指标</h3><h4 id="CPU使用率"><a href="#CPU使用率" class="headerlink" title="CPU使用率"></a>CPU使用率</h4><ul>
-<li>单位 %</li>
-</ul>
-<h4 id="内存使用率"><a href="#内存使用率" class="headerlink" title="内存使用率"></a>内存使用率</h4><ul>
-<li>单位 %</li>
-</ul>
-<h4 id="系统平均负载"><a href="#系统平均负载" class="headerlink" title="系统平均负载"></a>系统平均负载</h4><ul>
-<li><p>(count)</p>
-</li>
-<li><p>系统平均负载（System Load Averages）指的是在特定时间段内，服务器主机处于运行状态的所有进程、线程占用 CPU 的部分总和，即平均负载。这个数值是评估系统负载状况的重要指标。</p>
-</li>
-<li><p>在Linux系统中，平均负载的取值范围是从0到n(n为CPU核心数)。当平均负载超过了CPU核心数的70%，那么可能就需要考虑进行优化，以避免系统资源过度使用导致的性能下降或其他相关问题</p>
-</li>
-</ul>
-<h3 id="磁盘监控指标"><a href="#磁盘监控指标" class="headerlink" title="磁盘监控指标"></a>磁盘监控指标</h3><h4 id="磁盘使用率"><a href="#磁盘使用率" class="headerlink" title="磁盘使用率"></a>磁盘使用率</h4><ul>
-<li>单位 %</li>
-</ul>
-<h4 id="读写字节数"><a href="#读写字节数" class="headerlink" title="读写字节数"></a>读写字节数</h4><ul>
-<li>(bytes&#x2F;s)</li>
-</ul>
-<h4 id="读写请求数"><a href="#读写请求数" class="headerlink" title="读写请求数"></a>读写请求数</h4><p>(Count&#x2F;s)</p>
-<h4 id="Inode使用率"><a href="#Inode使用率" class="headerlink" title="Inode使用率"></a>Inode使用率</h4><ul>
-<li>单位 %</li>
-</ul>
-<h3 id="网络监控指标"><a href="#网络监控指标" class="headerlink" title="网络监控指标"></a>网络监控指标</h3><h4 id="网络流入流出速率-bps"><a href="#网络流入流出速率-bps" class="headerlink" title="网络流入流出速率 bps"></a>网络流入流出速率 bps</h4><ul>
-<li>bps，即bit per second，比特每秒，bits&#x2F;s，衡量网络传输速度的单位，通常用于表示数据传输速度或网络带宽</li>
-<li>单位包括Kb&#x2F;s、<strong>Mb&#x2F;s</strong>、KB&#x2F;s<ul>
-<li>Mb&#x2F;s更快，1KB&#x2F;s &#x3D; 1024 * 1b&#x2F;s &#x3D; 1024b&#x2F;s、1Mb&#x2F;s &#x3D; 1024 * 1Kb&#x2F;s &#x3D; 1024Kb&#x2F;s</li>
-</ul>
-</li>
-</ul>
-<h4 id="网络流入流出数据包数-pps"><a href="#网络流入流出数据包数-pps" class="headerlink" title="网络流入流出数据包数 pps"></a>网络流入流出数据包数 pps</h4><p>((Count&#x2F;s)</p>
-<ul>
-<li>pps，即Packet Per Second，包每秒，pps，衡量网络设备（如交换机、路由器等）处理数据包能力的单位，反映了设备的性能。</li>
-</ul>
-<h4 id="TCP连接数"><a href="#TCP连接数" class="headerlink" title="TCP连接数"></a>TCP连接数</h4><h2 id="服务器监控"><a href="#服务器监控" class="headerlink" title="服务器监控"></a>服务器监控</h2><h3 id="CPU使用率-1"><a href="#CPU使用率-1" class="headerlink" title="CPU使用率"></a>CPU使用率</h3><h3 id="公网流入带宽"><a href="#公网流入带宽" class="headerlink" title="公网流入带宽"></a>公网流入带宽</h3><p>bits&#x2F;s</p>
-<h3 id="公网流出带宽"><a href="#公网流出带宽" class="headerlink" title="公网流出带宽"></a>公网流出带宽</h3><p>bits&#x2F;s</p>
-<h3 id="公网流出带宽使用率"><a href="#公网流出带宽使用率" class="headerlink" title="公网流出带宽使用率"></a>公网流出带宽使用率</h3><h3 id="磁盘读取写入BPS"><a href="#磁盘读取写入BPS" class="headerlink" title="磁盘读取写入BPS"></a>磁盘读取写入BPS</h3><p>(bytes&#x2F;s)</p>
-<h3 id="磁盘读取写入IOPS"><a href="#磁盘读取写入IOPS" class="headerlink" title="磁盘读取写入IOPS"></a>磁盘读取写入IOPS</h3><p>(Count&#x2F;Second)</p>
-<h2 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控"></a>网络监控</h2><h3 id="网卡带宽"><a href="#网卡带宽" class="headerlink" title="网卡带宽"></a>网卡带宽</h3><p>(bits&#x2F;s</p>
-<h3 id="网卡流入包数"><a href="#网卡流入包数" class="headerlink" title="网卡流入包数"></a>网卡流入包数</h3><p>(Count&#x2F;s)</p>
-<h3 id="网卡错误包数"><a href="#网卡错误包数" class="headerlink" title="网卡错误包数"></a>网卡错误包数</h3><p>(Count&#x2F;s)</p>
-<h3 id="网络连接数-个"><a href="#网络连接数-个" class="headerlink" title="网络连接数(个)"></a>网络连接数(个)</h3><h3 id="VPC-宽带-bits-s"><a href="#VPC-宽带-bits-s" class="headerlink" title="VPC-宽带(bits&#x2F;s)"></a>VPC-宽带(bits&#x2F;s)</h3><h3 id="VPC-宽带使用率"><a href="#VPC-宽带使用率" class="headerlink" title="VPC-宽带使用率(%)"></a>VPC-宽带使用率(%)</h3>]]></content>
-  </entry>
-  <entry>
     <title>配置Raid和系统安装</title>
     <url>/2023/08/25/%E9%85%8D%E7%BD%AERaid%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h1 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h1><ul>
@@ -5167,5 +5112,68 @@ SNMP 161<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
       <tags>
         <tag>系统安装</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/10/14/%E8%BF%90%E7%BB%B4%E7%9B%91%E6%8E%A7/</url>
+    <content><![CDATA[<h1 id="运维监控"><a href="#运维监控" class="headerlink" title="运维监控"></a>运维监控</h1><ul>
+<li><p>看监控指标的时候，要有统计分析思想</p>
+</li>
+<li><p>方式</p>
+<ul>
+<li>登录服务器，查看日志文件—-效率低</li>
+<li>监控软件集成化的监测性能指标，智能关联分析—效率高</li>
+</ul>
+</li>
+<li><p>常见的单位</p>
+<ul>
+<li>bps &#x3D; bits&#x2F;s</li>
+<li>1B &#x3D; 8bit，1byte &#x3D; 8bit</li>
+</ul>
+</li>
+</ul>
+<h2 id="操作系统监控"><a href="#操作系统监控" class="headerlink" title="操作系统监控"></a>操作系统监控</h2><h3 id="CPU-内存-负载监控指标"><a href="#CPU-内存-负载监控指标" class="headerlink" title="CPU,内存,负载监控指标"></a>CPU,内存,负载监控指标</h3><h4 id="CPU使用率"><a href="#CPU使用率" class="headerlink" title="CPU使用率"></a>CPU使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h4 id="内存使用率"><a href="#内存使用率" class="headerlink" title="内存使用率"></a>内存使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h4 id="系统平均负载"><a href="#系统平均负载" class="headerlink" title="系统平均负载"></a>系统平均负载</h4><ul>
+<li><p>(count)</p>
+</li>
+<li><p>系统平均负载（System Load Averages）指的是在特定时间段内，服务器主机处于运行状态的所有进程、线程占用 CPU 的部分总和，即平均负载。这个数值是评估系统负载状况的重要指标。</p>
+</li>
+<li><p>在Linux系统中，平均负载的取值范围是从0到n(n为CPU核心数)。当平均负载超过了CPU核心数的70%，那么可能就需要考虑进行优化，以避免系统资源过度使用导致的性能下降或其他相关问题</p>
+</li>
+</ul>
+<h3 id="磁盘监控指标"><a href="#磁盘监控指标" class="headerlink" title="磁盘监控指标"></a>磁盘监控指标</h3><h4 id="磁盘使用率"><a href="#磁盘使用率" class="headerlink" title="磁盘使用率"></a>磁盘使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h4 id="读写字节数"><a href="#读写字节数" class="headerlink" title="读写字节数"></a>读写字节数</h4><ul>
+<li>(bytes&#x2F;s)</li>
+</ul>
+<h4 id="读写请求数"><a href="#读写请求数" class="headerlink" title="读写请求数"></a>读写请求数</h4><p>(Count&#x2F;s)</p>
+<h4 id="Inode使用率"><a href="#Inode使用率" class="headerlink" title="Inode使用率"></a>Inode使用率</h4><ul>
+<li>单位 %</li>
+</ul>
+<h3 id="网络监控指标"><a href="#网络监控指标" class="headerlink" title="网络监控指标"></a>网络监控指标</h3><h4 id="网络流入流出速率-bps"><a href="#网络流入流出速率-bps" class="headerlink" title="网络流入流出速率 bps"></a>网络流入流出速率 bps</h4><ul>
+<li>bps，即bit per second，比特每秒，bits&#x2F;s，衡量网络传输速度的单位，通常用于表示数据传输速度或网络带宽</li>
+<li>单位包括Kb&#x2F;s、<strong>Mb&#x2F;s</strong>、KB&#x2F;s<ul>
+<li>Mb&#x2F;s更快，1KB&#x2F;s &#x3D; 1024 * 1b&#x2F;s &#x3D; 1024b&#x2F;s、1Mb&#x2F;s &#x3D; 1024 * 1Kb&#x2F;s &#x3D; 1024Kb&#x2F;s</li>
+</ul>
+</li>
+</ul>
+<h4 id="网络流入流出数据包数-pps"><a href="#网络流入流出数据包数-pps" class="headerlink" title="网络流入流出数据包数 pps"></a>网络流入流出数据包数 pps</h4><p>((Count&#x2F;s)</p>
+<ul>
+<li>pps，即Packet Per Second，包每秒，pps，衡量网络设备（如交换机、路由器等）处理数据包能力的单位，反映了设备的性能。</li>
+</ul>
+<h4 id="TCP连接数"><a href="#TCP连接数" class="headerlink" title="TCP连接数"></a>TCP连接数</h4><h2 id="服务器监控"><a href="#服务器监控" class="headerlink" title="服务器监控"></a>服务器监控</h2><h3 id="CPU使用率-1"><a href="#CPU使用率-1" class="headerlink" title="CPU使用率"></a>CPU使用率</h3><h3 id="公网流入带宽"><a href="#公网流入带宽" class="headerlink" title="公网流入带宽"></a>公网流入带宽</h3><p>bits&#x2F;s</p>
+<h3 id="公网流出带宽"><a href="#公网流出带宽" class="headerlink" title="公网流出带宽"></a>公网流出带宽</h3><p>bits&#x2F;s</p>
+<h3 id="公网流出带宽使用率"><a href="#公网流出带宽使用率" class="headerlink" title="公网流出带宽使用率"></a>公网流出带宽使用率</h3><h3 id="磁盘读取写入BPS"><a href="#磁盘读取写入BPS" class="headerlink" title="磁盘读取写入BPS"></a>磁盘读取写入BPS</h3><p>(bytes&#x2F;s)</p>
+<h3 id="磁盘读取写入IOPS"><a href="#磁盘读取写入IOPS" class="headerlink" title="磁盘读取写入IOPS"></a>磁盘读取写入IOPS</h3><p>(Count&#x2F;Second)</p>
+<h2 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控"></a>网络监控</h2><h3 id="网卡带宽"><a href="#网卡带宽" class="headerlink" title="网卡带宽"></a>网卡带宽</h3><p>(bits&#x2F;s</p>
+<h3 id="网卡流入包数"><a href="#网卡流入包数" class="headerlink" title="网卡流入包数"></a>网卡流入包数</h3><p>(Count&#x2F;s)</p>
+<h3 id="网卡错误包数"><a href="#网卡错误包数" class="headerlink" title="网卡错误包数"></a>网卡错误包数</h3><p>(Count&#x2F;s)</p>
+<h3 id="网络连接数-个"><a href="#网络连接数-个" class="headerlink" title="网络连接数(个)"></a>网络连接数(个)</h3><h3 id="VPC-宽带-bits-s"><a href="#VPC-宽带-bits-s" class="headerlink" title="VPC-宽带(bits&#x2F;s)"></a>VPC-宽带(bits&#x2F;s)</h3><h3 id="VPC-宽带使用率"><a href="#VPC-宽带使用率" class="headerlink" title="VPC-宽带使用率(%)"></a>VPC-宽带使用率(%)</h3>]]></content>
   </entry>
 </search>
