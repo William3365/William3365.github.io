@@ -1,7 +1,7 @@
 # [William3365.github.io](https://william3365.github.io/)
 
 ## 技术栈
-* hexo+githubpages+vercel
+* hexo+githubpages
 ## 注意
 * 
   ```
